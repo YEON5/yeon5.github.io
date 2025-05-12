@@ -1,0 +1,84 @@
+/* 전역변수 */
+
+// 색상
+$color-white: #fff;
+$color-bg-light: #f6f7f8;
+$color-bg-base: #edeff2;
+$color-bg-dark: #e2e4e9;
+$color-line-base: #a8aebd;
+$color-disable: #c4c8d4;
+$color-placeholder: #9095a1;
+$color-base: #7e869a;
+$color-dark: #12192b;
+$color-txt-body: #0b0d0f;
+$color-txt-sub: #656b7b;
+$color-primary: #0046ff;
+$color-primary-active: #00278e;
+$color-primary-disabled: #a8bfff;
+$color-secondary: #eef6ff;
+$color-highlight: #ff002b;
+$color-success: #12a188;
+$color-warning: #f35c06;
+$color-info: #9946ec;
+$color-dimmed: rgba(0, 0, 0, 0.7);
+
+// 폰트두께
+$font-bold: 700;
+$font-semibold: 600;
+$font-medium: 500;
+$font-regular: 400;
+$font-light: 300;
+
+// 폰트크기
+$font-title-30: 3rem;
+$font-title-26: 2.6rem;
+$font-title-24: 2.4rem;
+$font-title-22: 2.2rem;
+$font-title-20: 2rem;
+$font-title-18: 1.8rem;
+
+$font-body-18: 1.8rem;
+$font-body-16: 1.6rem;
+$font-body-14: 1.4rem;
+$font-body-12: 1.2rem;
+$font-body-10: 1rem;
+
+// 모서리지름
+$radius-50: 50%;
+$radius-24: 2.4rem;
+$radius-20: 2rem;
+$radius-16: 1.6rem;
+$radius-14: 1.4rem;
+$radius-10: 1rem;
+$radius-8: 0.8rem;
+$radius-6: 0.6rem;
+$radius-4: 0.4rem;
+
+// 여백
+$spacer-50: 5rem;
+$spacer-40: 4rem;
+$spacer-32: 3.2rem;
+$spacer-24: 2.4rem;
+$spacer-22: 2.2rem;
+$spacer-20: 2rem;
+$spacer-18: 1.8rem;
+$spacer-16: 1.6rem;
+$spacer-14: 1.4rem;
+$spacer-12: 1.2rem;
+$spacer-10: 1rem;
+$spacer-8: 0.8rem;
+$spacer-6: 0.6rem;
+$spacer-4: 0.4rem;
+$spacer-reset: 0;
+
+// 컨텐츠간격
+$sec-gap-80: 8rem;
+$sec-gap-60: 6rem;
+$sec-gap-50: 5rem;
+$sec-gap-40: 4rem;
+$sec-gap-30: 3rem;
+$sec-gap-20: 2rem;
+$sec-gap-reset: 0;
+
+// 이미지 URL 대치
+$url: '../images/' !default;

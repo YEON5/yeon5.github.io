@@ -1,0 +1,58 @@
+/* Fonts */
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 300;
+    font-style: normal;
+    font-display: block;
+    src: url('./font/Pretendard-Light.subset.woff2') format('woff2'), url('./font/Pretendard-Light.subset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+    src: url('./font/Pretendard-Regular.subset.woff2') format('woff2'), url('./font/Pretendard-Regular.subset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 500;
+    font-style: normal;
+    font-display: block;
+    src: url('./font/Pretendard-Medium.subset.woff2') format('woff2'), url('./font/Pretendard-Medium.subset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-style: normal;
+    font-display: block;
+    src: url('./font/Pretendard-SemiBold.subset.woff2') format('woff2'), url('./font/Pretendard-SemiBold.subset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    font-style: normal;
+    font-display: block;
+    src: url('./font/Pretendard-Bold.subset.woff2') format('woff2'), url('./font/Pretendard-Bold.subset.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 300;
+    src: local('Spoqa Han Sans Neo light'), url('../fonts/SpoqaHanSansNeo-light.woff2') format('woff2'), url('../fonts/SpoqaHanSansNeo-light.woff') format('woff'), url('../fonts/SpoqaHanSansNeo-light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 400;
+    src: local('Spoqa Han Sans Neo Regular'), url('../fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2'), url('../fonts/SpoqaHanSansNeo-Regular.woff') format('woff'), url('../fonts/SpoqaHanSansNeo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 700;
+    src: local('Spoqa Han Sans Neo Bold'), url('../fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2'), url('../fonts/SpoqaHanSansNeo-Bold.woff') format('woff'), url('../fonts/SpoqaHanSansNeo-Bold.ttf') format('truetype');
+}

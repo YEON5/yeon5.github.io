@@ -1,0 +1,59 @@
+@charset "UTF-8";
+/* 전역변수 */
+/* popup default */
+.popup-wrap {
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1002;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+.popup-wrap.is-active {
+  visibility: visible;
+}
+.popup-wrap.is-active .popup {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 0.3s ease;
+}
+.popup-wrap .popup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 11;
+  width: 100%;
+  opacity: 0;
+}
+.popup-wrap .popup .popup-head,
+.popup-wrap .popup .popup-foot {
+  flex: none;
+}
+.popup-wrap .popup .popup-body {
+  flex: 1 1 auto;
+}
+.popup-wrap .popup-basic .popup {
+  transform: translate(0, 30px);
+}
+.popup-wrap .popup-alert .popup,
+.popup-wrap .popup-confirm .popup {
+  transform: translate(0, -30px);
+}
+.popup-wrap .popup-full .popup {
+  height: 100%;
+  min-height: 100%;
+  transform: translate(0, 100%);
+}
+.popup-wrap .popup-bottom {
+  justify-content: flex-end;
+}
+.popup-wrap .popup-bottom .popup {
+  transform: translate(0, 100%);
+}

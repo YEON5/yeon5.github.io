@@ -1,0 +1,86 @@
+<!-- header line percent -->
+<div class="header-line"></div>
+<!-- //header line percent -->
+
+<header class="header">
+    <div class="logo">
+        <a href="javascript:;"><span>UI</span></a>
+    </div>
+    <div class="side-menu">
+        <button type="button" class="all-menu" aria-expanded="true" style="display: none">
+            <span class="sr-only">사이드메뉴 열고/닫기</span>
+        </button>
+
+        <!-- motion menu button -->
+        <a href="javascript:;" class="menu-trigger" role="button" aria-expanded="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+    <!-- gnb -->
+    <nav class="gnb" aria-expanded="false">
+        <ul>
+            <li class="node1">
+                <a href="javascript:;">메뉴구조1</a>
+                <div class="depth2">
+                    <ul>
+                        <li class="node2"><a href="#here">메뉴구조1-1</a></li>
+                        <li class="node2"><a href="javascript:;">메뉴구조1-2</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="node1">
+                <a href="javascript:;">메뉴구조2</a>
+                <div class="depth2">
+                    <ul>
+                        <li class="node2"><a href="javascript:;">메뉴구조2-1</a></li>
+                        <li class="node2"><a href="javascript:;">메뉴구조2-2</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="node1">
+                <a href="javascript:;">메뉴구조3</a>
+                <div class="depth2">
+                    <ul>
+                        <li class="node2"><a href="javascript:;">메뉴구조3-1</a></li>
+                        <li class="node2"><a href="javascript:;">메뉴구조3-2</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="node1">
+                <a href="javascript:;">메뉴구조4</a>
+                <div class="depth2">
+                    <ul>
+                        <li class="node2"><a href="javascript:;">메뉴구조4-1</a></li>
+                        <li class="node2"><a href="javascript:;">메뉴구조4-2</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- //gnb -->
+    <!-- gnb Bg -->
+    <div class="gnb-bg"></div>
+
+    <!-- utility -->
+    <div class="util">
+        <div class="lang">
+            <span><a href="javascript:;" class="is-active" title="국문 홈페이지">KOR</a></span>
+            <span class="split">/</span>
+            <span><a href="javascript:;" title="영문 홈페이지 새창열림">ENG</a></span>
+        </div>
+        <div class="popover">
+            <button type="button" class="btn popover-open btn-util" aria-expanded="false" aria-controls="popover" onclick="popover('popover')"><span>팝오버 열기</span></button>
+            <div class="popover-inner right-pos" id="popover" role="dialog" aria-hidden="true">
+                <div class="round-box">
+                    <!-- 내용 -->
+                    <div class="btn-wrap">
+                        <button type="button" class="btn popover-close"><span>팝오버 닫기</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //utility -->
+</header>

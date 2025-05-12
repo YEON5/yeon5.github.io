@@ -1,0 +1,116 @@
+<section>
+	<!-- codeview head -->
+	<div class="codeview-head">
+		<div class="codeview-tit">
+			<p class="tit">Lnb</p>
+			<!-- codeview nav -->
+			<ul class="codeview-nav">
+				<li class="is-active"><a href="#lnbHtml">HTML</a></li>
+				<li><a href="#lnbCss">CSS</a></li>
+				<!-- <li><a href="#js">SCRIPT</a></li> -->
+			</ul>
+			<!-- //codeview nav -->
+		</div>
+		<!-- content view -->
+		<div class="content-view">
+			<div class="lnb">
+				<ul>
+					<li class="home">
+						<a href="javascript:;">HOME</a>
+					</li>
+					<li class="node1">
+						<a href="javascript:;" class="btn-lnb" role="button" aria-expanded="false">LNB DEPTH-1</a>
+						<div class="lnb-depth2">
+							<ul>
+								<li class="node2"><a href="javascript:;">LNB DEPTH-1-1</a></li>
+								<li class="node2"><a href="javascript:;">LNB DEPTH-1-1</a></li>
+								<li class="node2"><a href="javascript:;">LNB DEPTH-1-1</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="node1">
+						<a href="javascript:;" class="btn-lnb" role="button" aria-expanded="false">LNB DEPTH-2</a>
+						<div class="lnb-depth2">
+							<ul>
+								<li class="node2"><a href="javascript:;">LNB DEPTH-2-2</a></li>
+								<li class="node2"><a href="javascript:;">LNB DEPTH-2-2</a></li>
+								<li class="node2"><a href="javascript:;">LNB DEPTH-2-2</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- //content view -->
+	</div>
+	<!-- //codeview head -->
+
+	<!-- codeview body -->
+	<div class="codeview-body">
+		<div id="lnbHtml" class="codebrush">
+			<!-- html -->
+			<pre class="brush:html">
+				<div class="lnb">
+					<ul>
+						<li class="home">
+							<a href="javascript:;">HOME</a>
+						</li>
+						<li class="node1">
+							<a href="javascript:;" class="btn-lnb" role="button" aria-expanded="false">LNB DEPTH-1</a>
+							<div class="lnb-depth2">
+								<ul>
+									<li class="node2"><a href="javascript:;">LNB DEPTH-1-1</a></li>
+									<li class="node2"><a href="javascript:;">LNB DEPTH-1-1</a></li>
+									<li class="node2"><a href="javascript:;">LNB DEPTH-1-1</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="node1">
+							<a href="javascript:;" class="btn-lnb" role="button" aria-expanded="false">LNB DEPTH-2</a>
+							<div class="lnb-depth2">
+								<ul>
+									<li class="node2"><a href="javascript:;">LNB DEPTH-2-2</a></li>
+									<li class="node2"><a href="javascript:;">LNB DEPTH-2-2</a></li>
+									<li class="node2"><a href="javascript:;">LNB DEPTH-2-2</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</pre>
+			<!-- //html -->
+		</div>
+		<div id="lnbCss" class="codebrush">
+			<!-- css --> <!-- brush:js -->
+			<pre class="brush:css">
+				.lnb {position:relative; z-index:90;}
+				.lnb.fixed {position:fixed; top:100px; left:220px; width:100%; transition:all 0.2s ease-in-out;}
+				.lnb > ul {display:flex; align-items:center; height:50px; background-color:#663399; line-height:50px;}
+				.lnb > ul > li {height:50px; background-color:#663399; line-height:50px;}
+				.lnb > ul > li a {display:block; position:relative; border-right:1px solid #ddd; font-size:14px; color:#fff;}
+				.lnb .home {width:80px; text-align:center;}
+				.lnb .node1 {min-width:200px;}
+				.lnb .node1 > a.btn-lnb {display:block; position:relative; padding:0 20px;}
+				.lnb .node1 > a.btn-lnb:before,
+				.lnb .node1 > a.btn-lnb:after {content:''; position:absolute; top:50%; right:20px; background-color:#fff; transform:translate(0, -50%); transition:all 0.3s ease;}
+				.lnb .node1 > a.btn-lnb:before {height:2px; width:10px;}
+				.lnb .node1 > a.btn-lnb:after {right:24px; width:2px; height:10px;}
+				.lnb .node1.is-active > a.btn-lnb:before {transform:translate(0, -50%) rotate(180deg)}
+				.lnb .node1.is-active > a.btn-lnb:after {transform:translate(0, -50%) rotate(90deg)}
+
+				.lnb .node1 > .lnb-depth2 {display:none; position:relative;}
+				.lnb .node1 > .lnb-depth2 ul .node2 {position:relative;}
+				.lnb .node1 > .lnb-depth2 ul .node2 > a {display:block; height:100%; padding-left:20px; border-width:0; background-color:#663399; transition:all 0.4s ease;}
+				.lnb .node1 > .lnb-depth2 ul .node2 > a:after {content:'→'; display:block; position:absolute; top:50%; right:30px; transform:translateY(-50%); transition:all 0.4s ease; opacity:0;}
+				.lnb .node1 > .lnb-depth2 ul .node2 > a:hover:after {right:15px; transform:translate(0, -50%); opacity:1;}
+			</pre>
+			<!-- //css -->
+		</div>
+		<div id="js" class="codebrush">
+			<!-- js -->
+			<pre class="brush:js"></pre>
+			<!-- //js -->
+		</div>
+	</div>
+	<!-- //codeview body -->
+</section>
