@@ -4,10 +4,10 @@
     {
       "format": "expanded",
       "extensionName": ".css",
-      "savePath": "~/css/"
+      "savePath": "~/../css/"
     }
   ],
-  "liveSassCompile.settings.generateMap": true,
+  "liveSassCompile.settings.generateMap": false,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
