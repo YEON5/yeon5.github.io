@@ -104,10 +104,12 @@ $flex-map: (
             @content;
         }
     }
-    @if ($screen == 'ml') {
+    @if ($screen == 'ls') {
         // 모바일 가로모드: 960px 이하
         @media (max-width: 960px) and (orientation: landscape) {
             @content;
+            // padding-left: calc(12px + env(safe-area-inset-left));
+            // padding-right: calc(12px + env(safe-area-inset-right));
         }
     }
 }
