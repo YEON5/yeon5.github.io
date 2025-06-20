@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - Slide</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/libs/swiper.min.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<script>
+		$(function(){
+			// 결제 수단 슬라이드
+			const paymentSlide = new Swiper('.payment-slide > .swiper-container', {
+				slidesPerView: 'auto',
+				setWrapperSize: true,
+				speed: 400,
+				spaceBetween: 8,
+				centeredSlides: true,
+				resistanceRatio : 0,
+				observer: true,
+				observeParents: true,
+				navigation: {
+					nextEl: '.swiper-slide-nav > .swiper-button-next',
+					prevEl: '.swiper-slide-nav > .swiper-button-prev',
+				},
+				// 접근성
+				a11y: {
+					prevSlideMessage: '이전 슬라이드',
+					nextSlideMessage: '다음 슬라이드',
+					slideLabelMessage: '총 {{slidesLength}}장의 슬라이드 중 {{index}}번 슬라이드 입니다.',
+				},
+			});
+		});
+	</script>
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">Slide</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<!-- swiper slide -->
+							<div class="payment-slide slider">
+								<div class="swiper-container">
+									<ul class="swiper-wrapper">
+										<li class="swiper-slide">
+											<div class="payment-item bankbook logo-financial" data-code="004">
+												<a href="javascript:;" class="item-wrap" role="banner">
+													<P class="tit">KB국민은행</p>
+													<div class="info-wrap">
+														<p class="desc">계좌번호</p>
+														<p class="num">
+															<span>123</span>-<span>123456</span>-<span>12</span>-<span>123</span>
+														</p>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li class="swiper-slide">
+											<div class="payment-item card logo-financial" data-code="12">
+												<a href="javascript:;" class="item-wrap" role="banner">
+													<P class="tit">삼성카드</p>
+													<div class="info-wrap">
+														<p class="num">
+															<span>0000</span>-<span>0000</span>-<span>0000</span>-<span>0000</span>
+														</p>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li class="swiper-slide">
+											<div class="payment-item bankbook logo-financial" data-code="088">
+												<a href="javascript:;" class="item-wrap" role="banner">
+													<P class="tit">신한은행</p>
+													<div class="info-wrap">
+														<p class="desc">계좌번호</p>
+														<p class="num">
+															<span>123</span>-<span>123456</span>-<span>12</span>-<span>123</span>
+														</p>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li class="swiper-slide">
+											<div class="payment-item card logo-financial" data-code="06">
+												<a href="javascript:;" class="item-wrap" role="banner">
+													<P class="tit">KB국민카드</p>
+													<div class="info-wrap">
+														<p class="num">
+															<span>0000</span>-<span>0000</span>-<span>0000</span>-<span>0000</span>
+														</p>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li class="swiper-slide">
+											<div class="payment-item bankbook logo-financial" data-code="090">
+												<a href="javascript:;" class="item-wrap" role="banner">
+													<P class="tit">카카오뱅크</p>
+													<div class="info-wrap">
+														<p class="desc">계좌번호</p>
+														<p class="num">
+															<span>123</span>-<span>123456</span>-<span>12</span>-<span>123</span>
+														</p>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li class="swiper-slide">
+											<!-- 결제 수단 등록전 -->
+											<div class="payment-regist">
+												<a href="javascript:;" class="btn-regist">
+													<em class="tit">OOPAY 등록하기</em>
+													<span class="desc">본인 명의 계좌, 카드만 등록 가능</span>
+												</a>
+											</div>
+											<!-- //결제 수단 등록전 -->
+										</li>
+									</ul>
+								</div>
+								<!-- navigation -->
+								<div class="swiper-slide-nav">
+									<div class="swiper-button-prev"></div>
+									<div class="swiper-button-next"></div>
+								</div>
+							</div>
+							<!-- swiper slide -->
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<!-- swiper slide -->
+									<div class="payment-slide slider">
+										<div class="swiper-container">
+											<ul class="swiper-wrapper">
+												<li class="swiper-slide">
+													<div class="payment-item bankbook logo-financial" data-code="004">
+														<a href="javascript:;" class="item-wrap" role="banner">
+															<P class="tit">KB국민은행</p>
+															<div class="info-wrap">
+																<p class="desc">계좌번호</p>
+																<p class="num">
+																	<span>123</span>-<span>123456</span>-<span>12</span>-<span>123</span>
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li class="swiper-slide">
+													<div class="payment-item card logo-financial" data-code="12">
+														<a href="javascript:;" class="item-wrap" role="banner">
+															<P class="tit">삼성카드</p>
+															<div class="info-wrap">
+																<p class="num">
+																	<span>0000</span>-<span>0000</span>-<span>0000</span>-<span>0000</span>
+																</p>
+															</div>
+														</a>
+													</div>
+												</li>
+												<li class="swiper-slide">
+													<!-- 결제 수단 등록전 -->
+													<div class="payment-regist">
+														<a href="javascript:;" class="btn-regist">
+															<em class="tit">OOPAY 등록하기</em>
+															<span class="desc">본인 명의 계좌, 카드만 등록 가능</span>
+														</a>
+													</div>
+													<!-- //결제 수단 등록전 -->
+												</li>
+											</ul>
+										</div>
+										<!-- navigation -->
+										<div class="swiper-slide-nav">
+											<div class="swiper-button-prev"></div>
+											<div class="swiper-button-next"></div>
+										</div>
+									</div>
+									<!-- swiper slide -->
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">JS</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:js">
+									<!-- js -->
+									$(function(){
+										// 결제 수단 슬라이드
+										const paymentSlide = new Swiper('.payment-slide > .swiper-container', {
+											slidesPerView: 'auto',
+											setWrapperSize: true,
+											speed: 400,
+											spaceBetween: 8,
+											centeredSlides: true,
+											resistanceRatio : 0,
+											observer: true,
+											observeParents: true,
+											navigation: {
+												nextEl: '.swiper-slide-nav > .swiper-button-next',
+												prevEl: '.swiper-slide-nav > .swiper-button-prev',
+											},
+											// 접근성
+											a11y: {
+												prevSlideMessage: '이전 슬라이드',
+												nextSlideMessage: '다음 슬라이드',
+												slideLabelMessage: '총 {{slidesLength}}장의 슬라이드 중 {{index}}번 슬라이드 입니다.',
+											},
+										});
+									});
+									<!-- //js -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>	
+</body>
+</html>

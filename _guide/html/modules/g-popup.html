@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - Popup</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<script src="../../static/js/ui.js"></script>
+	<style>
+		.popup-wrap {
+			max-width: 100% !important;
+		}
+	</style>
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">Popup</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<button type="button" class="btn popup-open" onclick="popupOpen('popupAlert', this);" aria-controls="popupAlert" aria-haspopup="dialog"><span>ALERT POPUP OPEN</span></button>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- button -->
+									<button type="button" class="btn popup-open" onclick="popupOpen('popupAlert', this);" aria-controls="popupAlert" aria-haspopup="dialog"><span>ALERT POPUP OPEN</span></button>
+									<!-- //button -->
+
+									<!-- html -->
+									<!-- popup alert -->
+									<div id="popupAlert" class="popup-wrap popup-alert" role="dialog" aria-modal="modal" aria-hidden="true">
+										<div class="popup">
+											<div class="popup-head" style="display:none;">
+												<h4>ALERT POPUP</h4>
+											</div>
+											<div class="popup-body">
+												<div class="popup-content">
+													<p>삭제하시겠습니까?</p>
+												</div>
+											</div>
+											<div class="popup-foot">
+												<div class="btn-wrap">
+													<button type="button" class="btn btn-popup large primary" onclick="popupClose('popupAlert', this)"><span>확인</span></button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- //popup alert -->
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Variations</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<button type="button" class="btn popup-open" onclick="popupOpen('popupConfirm', this);" aria-controls="popupConfirm" aria-haspopup="dialog"><span>COMFIRM POPUP OPEN</span></button>
+							<br><br><br>
+							<button type="button" class="btn popup-open" onclick="popupOpen('popupBottom', this);" aria-controls="popupBottom" aria-haspopup="dialog"><span>BOTTOM POPUP OPEN</span></button>
+							<br><br><br>
+							<button type="button" class="btn popup-open" onclick="popupOpen('popupFull', this);" aria-controls="popupFull" aria-haspopup="dialog"><span>FULL POPUP OPEN</span></button>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- button -->
+									<button type="button" class="btn popup-open" onclick="popupOpen('popupConfirm', this);" aria-controls="popupConfirm" aria-haspopup="dialog"><span>COMFIRM POPUP OPEN</span></button>
+									<button type="button" class="btn popup-open" onclick="popupOpen('popupBottom', this);" aria-controls="popupBottom" aria-haspopup="dialog"><span>BOTTOM POPUP OPEN</span></button>
+									<button type="button" class="btn popup-open" onclick="popupOpen('popupFull', this);" aria-controls="popupFull" aria-haspopup="dialog"><span>FULL POPUP OPEN</span></button>
+									<!-- //button -->
+									
+									<!-- html -->
+									<!-- popup confirm -->
+									<div id="popupConfirm" class="popup-wrap popup-confirm" role="dialog" aria-modal="modal" aria-hidden="true">
+										<div class="popup">
+											<div class="popup-head" style="display:none;">
+												<h4>COMFIRM POPUP</h4>
+											</div>
+											<div class="popup-body">
+												<div class="popup-content">
+													<p>삭제하시겠습니까?</p>
+												</div>
+											</div>
+											<div class="popup-foot">
+												<div class="btn-wrap">
+													<button type="button" class="btn btn-popup large secondary" onclick="popupClose('popupConfirm', this)"><span>취소</span></button>
+													<button type="button" class="btn btn-popup large primary"><span>확인</span></button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- //popup confirm -->
+
+									<!-- popup bottom -->
+									<div id="popupBottom" class="popup-wrap popup-bottom" role="dialog" aria-modal="modal" aria-hidden="true">
+										<div class="popup">
+											<div class="popup-head">
+												<h4>BOTTOM POPUP</h4>
+											</div>
+											<div class="popup-body">
+												<div class="popup-content">
+													<ul role="listbox">
+														<li><a href="javascript:;" role="button" onclick="popupOpen('popupFull', this);">약관</a></li>
+														<li><a href="javascript:;" role="button" onclick="popupOpen('popupAlert', this);">약관</a></li>
+														<li><a href="javascript:;" role="button">약관</a></li>
+													</ul>
+												</div>
+											</div>
+											<div class="popup-foot">
+												<div class="btn-wrap">
+													<button type="button" class="btn btn-popup hero primary" onclick="popupClose('popupBottom', this)"><span>확인</span></button>
+												</div>
+											</div>
+											<div class="popup-close">
+												<button type="button" class="btn btn-close" onclick="popupClose('popupBottom', this)"><span>팝업닫기</span></button>
+											</div>
+										</div>
+									</div>
+									<!-- //popup bottom -->
+
+									<!-- popup full -->
+									<div id="popupFull" class="popup-wrap popup-full" role="dialog" aria-modal="modal" aria-hidden="true">
+										<div class="popup">
+											<div class="popup-head">
+												<h2>FULL POPUP</h2>
+											</div>
+											<div class="popup-body">
+												<div class="popup-content">
+													<p>팝업 내용</p>
+												</div>
+											</div>
+											<div class="popup-foot">
+												<div class="btn-wrap">
+													<button type="button" class="btn btn-popup hero primary" onclick="popupOpen('popupAlert', this);"><span>확인</span></button>
+												</div>
+											</div>
+											<div class="popup-close">
+												<button type="button" class="btn btn-close" onclick="popupClose('popupFull', this)"><span>팝업닫기</span></button>
+											</div>
+										</div>
+									</div>
+									<!-- //popup full -->
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->					
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>
+
+<!-- modal wrapper -->
+<div class="modal-wrapper">
+	<!-- popup alert -->
+	<div id="popupAlert" class="popup-wrap popup-alert" role="dialog" aria-modal="modal" aria-hidden="true">
+		<div class="popup">
+			<div class="popup-head" style="display:none;">
+				<h4>ALERT POPUP</h4>
+			</div>
+			<div class="popup-body">
+				<div class="popup-content">
+					<p>삭제하시겠습니까?</p>
+				</div>
+			</div>
+			<div class="popup-foot">
+				<div class="btn-wrap">
+					<button type="button" class="btn btn-popup large primary" onclick="popupClose('popupAlert', this)"><span>확인</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //popup alert -->
+
+	<!-- popup confirm -->
+	<div id="popupConfirm" class="popup-wrap popup-confirm" role="dialog" aria-modal="modal" aria-hidden="true">
+		<div class="popup">
+			<div class="popup-head" style="display:none;">
+				<h4>COMFIRM POPUP</h4>
+			</div>
+			<div class="popup-body">
+				<div class="popup-content">
+					<p>삭제하시겠습니까?</p>
+				</div>
+			</div>
+			<div class="popup-foot">
+				<div class="btn-wrap">
+					<button type="button" class="btn btn-popup large secondary" onclick="popupClose('popupConfirm', this)"><span>취소</span></button>
+					<button type="button" class="btn btn-popup large primary"><span>확인</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //popup confirm -->
+
+	<!-- popup bottom -->
+	<div id="popupBottom" class="popup-wrap popup-bottom" role="dialog" aria-modal="modal" aria-hidden="true">
+		<div class="popup">
+			<div class="popup-head">
+				<h4>BOTTOM POPUP</h4>
+			</div>
+			<div class="popup-body">
+				<div class="popup-content">
+					<ul role="listbox">
+						<li><a href="javascript:;" role="button" onclick="popupOpen('popupFull', this);">약관</a></li>
+						<li><a href="javascript:;" role="button" onclick="popupOpen('popupAlert', this);">약관</a></li>
+						<li><a href="javascript:;" role="button">약관</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="popup-foot">
+				<div class="btn-wrap">
+					<button type="button" class="btn btn-popup hero primary" onclick="popupClose('popupBottom', this)"><span>확인</span></button>
+				</div>
+			</div>
+			<div class="popup-close">
+				<button type="button" class="btn btn-close" onclick="popupClose('popupBottom', this)"><span>팝업닫기</span></button>
+			</div>
+		</div>
+	</div>
+	<!-- //popup bottom -->
+
+	<!-- popup full -->
+	<div id="popupFull" class="popup-wrap popup-full" role="dialog" aria-modal="modal" aria-hidden="true">
+		<div class="popup">
+			<div class="popup-head">
+				<h2>FULL POPUP</h2>
+			</div>
+			<div class="popup-body">
+				<div class="popup-content">
+					<p>팝업 내용</p>
+				</div>
+			</div>
+			<div class="popup-foot">
+				<div class="btn-wrap">
+					<button type="button" class="btn btn-popup hero primary" onclick="popupOpen('popupAlert', this);"><span>확인</span></button>
+				</div>
+			</div>
+			<div class="popup-close">
+				<button type="button" class="btn btn-close" onclick="popupClose('popupFull', this)"><span>팝업닫기</span></button>
+			</div>
+		</div>
+	</div>
+	<!-- //popup full -->	
+</div>
+<!-- //modal wrapper -->
+</body>
+</html>
