@@ -1,3 +1,6 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
 // ios에서 input disabled 폰트 컬러 스타일 다르게 나올 경우 적용 방법
 // : opacity:1; -webkit-text-fill-color:inherit;
 

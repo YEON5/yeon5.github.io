@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@import 'common/variables';
-@import 'mixins/mixins';
+@use 'common/variables' as *;
+@use 'mixins/mixins' as *;
 
-@import 'content/main';
+@use 'content/main';

@@ -1,3 +1,6 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
 /* Button */
 // 색상값
 $btn-color: (
