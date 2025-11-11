@@ -3,17 +3,15 @@
 @use 'common/variables' as *;
 @use 'mixins/mixins' as *;
 
-// elements
-@forward 'elements/button';
-@forward 'elements/form-fields';
-@forward 'elements/form-options';
-@forward 'elements/badge';
-@forward 'elements/table';
-@forward 'elements/list';
-
-// modules
-@forward 'modules/accodion';
-@forward 'modules/dropdown';
-@forward 'modules/tab';
-@forward 'modules/tooltip';
-@forward 'modules/popover';
+// components
+@forward 'components/button';
+@forward 'components/form-fields';
+@forward 'components/form-options';
+@forward 'components/badge';
+@forward 'components/table';
+@forward 'components/list';
+@forward 'components/accodion';
+@forward 'components/dropdown';
+@forward 'components/tab';
+@forward 'components/tooltip';
+@forward 'components/popover';
