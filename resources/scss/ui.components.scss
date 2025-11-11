@@ -4,16 +4,16 @@
 @use 'mixins/mixins' as *;
 
 // elements
-@use 'elements/button';
-@use 'elements/form-fields';
-@use 'elements/form-options';
-@use 'elements/badge';
-@use 'elements/table';
-@use 'elements/list';
+@forward 'elements/button';
+@forward 'elements/form-fields';
+@forward 'elements/form-options';
+@forward 'elements/badge';
+@forward 'elements/table';
+@forward 'elements/list';
 
 // modules
-@use 'modules/accodion';
-@use 'modules/dropdown';
-@use 'modules/tab';
-@use 'modules/tooltip';
-@use 'modules/popover';
+@forward 'modules/accodion';
+@forward 'modules/dropdown';
+@forward 'modules/tab';
+@forward 'modules/tooltip';
+@forward 'modules/popover';

@@ -3,7 +3,7 @@
 @use 'common/variables' as *;
 @use 'mixins/mixins' as *;
 
-@use 'layout/header';
-@use 'layout/nav';
-@use 'layout/layout';
-@use 'layout/footer';
+@forward 'layout/header';
+@forward 'layout/nav';
+@forward 'layout/layout';
+@forward 'layout/footer';
