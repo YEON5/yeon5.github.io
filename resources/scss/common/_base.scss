@@ -8,6 +8,8 @@ body {
     -ms-text-size-adjust: none;
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
 }
 
 *,
@@ -85,17 +87,11 @@ b {
 }
 
 html {
-    -webkit-text-size-adjust: none;
-    -webkit-tap-highlight-color: transparent;
-    scroll-behavior: smooth;
     font-size: 10px;
+    -webkit-text-size-adjust: none;
 }
 
 body {
-    scroll-behavior: smooth;
-    overscroll-behavior: contain;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
     font-family: 'Pretendard', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     color: #0b0d0f;
     font-size: 1.4rem;
@@ -103,6 +99,9 @@ body {
     letter-spacing: -0.02rem;
     word-break: break-all;
     word-wrap: break-word;
+    overscroll-behavior: contain;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -263,29 +262,7 @@ input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
 }
 
-.blind {
-    overflow: hidden;
-    position: absolute;
-    clip: rect(0, 0, 0, 0);
-    clip-path: polygon(0 0, 0 0, 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    border: 0;
-}
-
 .sr-only {
-    position: absolute;
-    top: -999em;
-    left: -999em;
-    z-index: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-} /* 초점없이 읽기만 설정할 경우 */
-
-.sr-only2 {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -295,4 +272,5 @@ input:-webkit-autofill:active {
     clip-path: inset(50%);
     border: 0;
     clip: rect(0 0 0 0);
+    white-space: nowrap;
 }

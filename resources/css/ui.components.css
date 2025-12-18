@@ -244,13 +244,13 @@ input[type=text][readonly] {
   color: #0b0d0f;
   background-color: #f3f4f5;
 }
-input[type=text]:not(:-moz-placeholder-shown) + .on-right > .btn-clear {
+input[type=text]:not(:-moz-placeholder) + .on-right > .btn-clear {
   display: inline-flex;
 }
 input[type=text]:not(:placeholder-shown) + .on-right > .btn-clear {
   display: inline-flex;
 }
-input[type=text]:not(:-moz-placeholder-shown):disabled + .on-right > .btn-clear, input[type=text]:not(:-moz-placeholder-shown):read-only + .on-right > .btn-clear {
+input[type=text]:not(:-moz-placeholder):disabled + .on-right > .btn-clear, input[type=text]:not(:-moz-placeholder):read-only + .on-right > .btn-clear {
   display: none;
 }
 input[type=text]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-clear {
