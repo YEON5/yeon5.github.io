@@ -193,12 +193,15 @@
 }
 .btn-ico > span {
   position: absolute;
-  top: -999em;
-  left: -999em;
-  z-index: 0;
   width: 1px;
   height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 .btn-ico:active {
   transform: scale3d(0.97, 0.97, 1);
@@ -244,19 +247,19 @@ input[type=text][readonly] {
   color: #0b0d0f;
   background-color: #f3f4f5;
 }
-input[type=text]:not(:-moz-placeholder) + .on-right > .btn-clear {
+input[type=text]:not(:-moz-placeholder) + .on-right > .btn-input-clear {
   display: inline-flex;
 }
-input[type=text]:not(:placeholder-shown) + .on-right > .btn-clear {
+input[type=text]:not(:placeholder-shown) + .on-right > .btn-input-clear {
   display: inline-flex;
 }
-input[type=text]:not(:-moz-placeholder):disabled + .on-right > .btn-clear, input[type=text]:not(:-moz-placeholder):read-only + .on-right > .btn-clear {
+input[type=text]:not(:-moz-placeholder):disabled + .on-right > .btn-input-clear, input[type=text]:not(:-moz-placeholder):read-only + .on-right > .btn-input-clear {
   display: none;
 }
-input[type=text]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-clear {
+input[type=text]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-input-clear {
   display: none;
 }
-input[type=text]:not(:placeholder-shown):disabled + .on-right > .btn-clear, input[type=text]:not(:placeholder-shown):read-only + .on-right > .btn-clear, input[type=text]:not(:focus) + .on-right > .btn-clear {
+input[type=text]:not(:placeholder-shown):disabled + .on-right > .btn-input-clear, input[type=text]:not(:placeholder-shown):read-only + .on-right > .btn-input-clear, input[type=text]:not(:focus) + .on-right > .btn-input-clear {
   display: none;
 }
 
@@ -271,7 +274,8 @@ input[type=text]:not(:placeholder-shown):disabled + .on-right > .btn-clear, inpu
   font-size: 1.6rem;
   color: #0b0d0f;
 }
-.form-field .form-label label > span {
+.form-field .form-label label .required-dot {
+  padding-left: 0.4rem;
   color: #f35c06;
 }
 .form-field .form-group {
@@ -302,16 +306,16 @@ input[type=text]:not(:placeholder-shown):disabled + .on-right > .btn-clear, inpu
   right: 1.6rem;
   transform: translateY(-50%);
 }
-.form-field .form-input:has(.on-right > .btn-clear + .txt) .inp {
+.form-field .form-input:has(.on-right > .btn-input-clear + .txt) .inp {
   padding-right: 6rem;
 }
 .form-field .form-input:has(.on-right > .btn-basic) .inp {
   padding-right: 8rem;
 }
-.form-field .form-input .btn-clear {
+.form-field .form-input .btn-input-clear {
   display: none;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.6rem;
+  height: 1.6rem;
   margin-right: 0.8rem;
   border-radius: 50%;
   background-color: blue;

@@ -14,12 +14,12 @@ input[type='text'] {
     @include input-type(box);
 
     // input button clear 테스트용
-    &:not(:placeholder-shown) + .on-right > .btn-clear {
+    &:not(:placeholder-shown) + .on-right > .btn-input-clear {
         display: inline-flex;
     }
-    &:not(:placeholder-shown):disabled + .on-right > .btn-clear,
-    &:not(:placeholder-shown):read-only + .on-right > .btn-clear,
-    &:not(:focus) + .on-right > .btn-clear {
+    &:not(:placeholder-shown):disabled + .on-right > .btn-input-clear,
+    &:not(:placeholder-shown):read-only + .on-right > .btn-input-clear,
+    &:not(:focus) + .on-right > .btn-input-clear {
         display: none;
     }
 }
@@ -36,7 +36,8 @@ input[type='text'] {
         font-size: $font-body-16;
         color: $color-txt-body;
         label {
-            > span {
+            .required-dot {
+                padding-left: 0.4rem;
                 color: $color-warning;
             }
         }
@@ -63,12 +64,12 @@ input[type='text'] {
         //     @include input-type(box);
 
         //     // input button clear 테스트용
-        //     &:not(:placeholder-shown) + .on-right > .btn-clear {
+        //     &:not(:placeholder-shown) + .on-right > .btn-input-clear {
         //         display: inline-flex;
         //     }
-        //     &:not(:placeholder-shown):disabled + .on-right > .btn-clear,
-        //     &:not(:placeholder-shown):read-only + .on-right > .btn-clear,
-        //     &:not(:focus) + .on-right > .btn-clear {
+        //     &:not(:placeholder-shown):disabled + .on-right > .btn-input-clear,
+        //     &:not(:placeholder-shown):read-only + .on-right > .btn-input-clear,
+        //     &:not(:focus) + .on-right > .btn-input-clear {
         //         display: none;
         //     }
         // }
@@ -89,7 +90,7 @@ input[type='text'] {
             right: $spacer-16;
             transform: translateY(-50%);
         }
-        &:has(.on-right > .btn-clear + .txt) {
+        &:has(.on-right > .btn-input-clear + .txt) {
             .inp {
                 padding-right: 6rem;
             }
@@ -101,9 +102,9 @@ input[type='text'] {
         }
 
         // button clear
-        .btn-clear {
+        .btn-input-clear {
             display: none;
-            @include size-set(1.4rem);
+            @include size-set(1.6rem);
             margin-right: $spacer-8;
             border-radius: $radius-50;
             background-color: blue;
