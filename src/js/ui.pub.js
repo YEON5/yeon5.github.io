@@ -303,11 +303,11 @@ function selectorTab() {
 	## Tab
 -------------------------------------------------------------------*/
 function tabInit() {
-    $(document).on('click', '.tab-nav li > a', function (e) {
+    $(document).on('click', '.tab-nav li > button', function (e) {
         e.preventDefault();
-        var id = $(this).attr('href');
+        var id = $(this).attr('aria-controls');
         var $tabId = $('#' + id);
-        $(this).parent().addClass('is-active').siblings('li').removeClass('is-active').find('a').attr('aria-selected', 'false');
+        $(this).parent().addClass('is-active').siblings('li').removeClass('is-active').find('button').attr('aria-selected', 'false');
         $tabId.addClass('is-active').attr('aria-hidden', 'false').siblings('.tab-cont').removeClass('is-active').attr('aria-hidden', 'true');
 
         //aria
@@ -319,9 +319,9 @@ function tabInit() {
 
 //tab a:href = id
 function tabEvent() {
-    $(document).on('click', '.tab-round .tab-nav li > a', function (e) {
+    $(document).on('click', '.tab-round .tab-nav li > button', function (e) {
         e.preventDefault();
-        var id = $(this).attr('href');
+        var id = $(this).attr('aria-controls');
         tabAction(id);
     });
 }
@@ -638,7 +638,7 @@ function scrollAction() {
             {
                 scrollTop: 0,
             },
-            300
+            300,
         );
     });
 
@@ -651,7 +651,7 @@ function scrollAction() {
             {
                 scrollTop: scrollPosTop,
             },
-            400
+            400,
         );
     });
 
@@ -665,7 +665,7 @@ function scrollAction() {
             {
                 scrollTop: selecterPos,
             },
-            400
+            400,
         );
         console.log(scrHeight);
     });
@@ -693,7 +693,7 @@ function scrollSpy() {
             {
                 scrollTop: target.offset().top - topH - 20,
             },
-            100
+            100,
         );
         // $(this).addClass('is-active');
         e.preventDefault();
@@ -1215,7 +1215,7 @@ function toastAction($target, speed, duration) {
             function () {
                 $target.fadeOut(speed ? speed : 500);
             },
-            duration ? duration : 1000
+            duration ? duration : 1000,
         );
     });
 }
@@ -1399,7 +1399,7 @@ function range() {
                     // this.countNum이 $this의 text값이 된다
                     //alert('finished');
                 },
-            }
+            },
         );
     });
 }

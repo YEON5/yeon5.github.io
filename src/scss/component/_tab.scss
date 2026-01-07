@@ -22,7 +22,7 @@
                         border-bottom: 0.3rem solid #222;
                     }
                 }
-                > a {
+                > button {
                     @include flex-set(center, center);
                     @include size-set(100%);
                     padding: 0 $spacer-10;
@@ -50,6 +50,7 @@
             display: flex;
             align-items: center;
             > li {
+                @include flex-set(center, center);
                 position: relative;
                 flex: 1 1 0;
                 z-index: 0;
@@ -71,7 +72,7 @@
                     margin: 0;
                     border-radius: 0 $radius-8 $radius-8 0;
                 }
-                a {
+                > button {
                     @include flex-set(center, center);
                     @include size-set(100%);
                     padding: 0 $spacer-10;

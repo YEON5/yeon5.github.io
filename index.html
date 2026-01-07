@@ -64,7 +64,7 @@
                             <div class="form-wrap">
                                 <div class="form-field">
                                     <div class="form-label">
-                                        <label for="formItem">레이블 <span aria-hidden="true">*</span></label>
+                                        <label for="formItem">레이블<span class="required-dot" aria-hidden="true">*</span></label>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-input">
@@ -157,10 +157,6 @@
                                                 <div class="form-input">
                                                     <input type="text" name="" id="formItem2" class="inp" maxlength="" value="" placeholder="placeholder" />
                                                     <div class="on-right">
-                                                        <!-- btn clear -->
-                                                        <button type="button" class="btn btn-clear">
-                                                            <span class="sr-only">입력 내용 삭제</span>
-                                                        </button>
                                                         <span class="txt">원</span>
                                                     </div>
                                                 </div>
@@ -633,10 +629,10 @@
                                         </tr>
                                     </tbody>
                                     <!-- <tfoot>
-                                        <tr>
-                                            <td></td>
-                                        </tr>
-                                    </tfoot> -->
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                </tfoot> -->
                                 </table>
                             </div>
                             <!-- //table col -->
@@ -749,10 +745,10 @@
                                         </tr>
                                     </tbody>
                                     <!-- <tfoot>
-                                        <tr>
-                                            <td></td>
-                                        </tr>
-                                    </tfoot> -->
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                </tfoot> -->
                                 </table>
                             </div>
                             <!-- //table col -->
@@ -1080,31 +1076,31 @@
                                 <div class="tab-nav">
                                     <ul role="tablist">
                                         <li role="none" class="is-active">
-                                            <a href="tabpanel1" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</a>
+                                            <button type="button" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabpanel2" id="tabItem2" role="tab" aria-controls="tabpanel2" aria-selected="false">Tab-2</a>
+                                            <button type="button" id="tabItem2" role="tab" aria-controls="tabpanel2" aria-selected="false">Tab-2</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabpanel3" id="tabItem3" role="tab" aria-controls="tabpanel3" aria-selected="false">Tab-3</a>
+                                            <button type="button" id="tabItem3" role="tab" aria-controls="tabpanel3" aria-selected="false">Tab-3</button>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="tab-body">
                                     <div id="tabpanel1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
-                                        <h3 class="blind">Tab1 title</h3>
+                                        <h3 class="sr-only">Tab1 title</h3>
                                         <div>
                                             <p>Tab1 content</p>
                                         </div>
                                     </div>
                                     <div id="tabpanel2" role="tabpanel" aria-labelledby="tabItem2" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab2 title</h3>
                                         <div>
                                             <p>Tab2 content</p>
                                         </div>
                                     </div>
                                     <div id="tabpanel3" role="tabpanel" aria-labelledby="tabItem3" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab3 title</h3>
                                         <div>
                                             <p>Tab3 content</p>
                                         </div>
@@ -1121,33 +1117,70 @@
                                 <div class="tab-nav">
                                     <ul role="tablist">
                                         <li role="none" class="is-active">
-                                            <a href="tabround1" id="tabItem1" role="tab" aria-controls="tabround1" aria-selected="true">Tab-1</a>
+                                            <button type="button" id="tabItem1" role="tab" aria-controls="tabround1" aria-selected="true">Tab-1</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabround2" id="tabItem2" role="tab" aria-controls="tabround2" aria-selected="false">Tab-2</a>
+                                            <button type="button" id="tabItem2" role="tab" aria-controls="tabround2" aria-selected="false">Tab-2</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabround3" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-3</a>
+                                            <button type="button" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-3</button>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="tab-body">
                                     <div id="tabround1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
-                                        <h3 class="blind">Tab1 title</h3>
+                                        <h3 class="sr-only">Tab1 title</h3>
                                         <div>
                                             <p>Tab1 content</p>
                                         </div>
                                     </div>
                                     <div id="tabround2" role="tabpanel" aria-labelledby="tabItem2" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab2 title</h3>
                                         <div>
                                             <p>Tab2 content</p>
                                         </div>
                                     </div>
                                     <div id="tabround3" role="tabpanel" aria-labelledby="tabItem3" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab3 title</h3>
                                         <div>
                                             <p>Tab3 content</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <p>#라디오버튼 탭</p>
+                            <div class="tab-radio">
+                                <div class="form-field">
+                                    <div class="form-label">
+                                        <label for="radioTab">레이블</label>
+                                    </div>
+                                    <div class="radio-group type-box">
+                                        <label for="radioTab1" class="form-radio">
+                                            <input type="radio" name="radioTab" id="radioTab1" class="rdi" />
+                                            <span class="rdi-txt">옵션B1</span>
+                                        </label>
+                                        <label for="radioTab2" class="form-radio">
+                                            <input type="radio" name="radioTab" id="radioTab2" class="rdi" />
+                                            <span class="rdi-txt">옵션B2</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="tab-body">
+                                    <div id="rditab1" role="tabpanel" aria-labelledby="radioTab1" aria-hidden="false" class="tab-cont is-active">
+                                        <h3 class="sr-only">Tab1 title</h3>
+                                        <div>
+                                            <p>Tab1 content</p>
+                                        </div>
+                                    </div>
+                                    <div id="rditab2" role="tabpanel" aria-labelledby="radioTab2" aria-hidden="true" class="tab-cont">
+                                        <h3 class="sr-only">Tab2 title</h3>
+                                        <div>
+                                            <p>Tab2 content</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1241,17 +1274,17 @@
                                         <p>Accordion content</p>
                                         <!-- inner accodion : 아코디언 안에 아코디언 -->
                                         <!-- <div class="inner-accordion">
-                                            <div class="accordion" id="accodi11">
-                                                <div class="item-head">
-                                                    <button type="button" class="btn-expand" aria-controls="accoCont11" id="accoTitle11" aria-expanded="false">
-                                                        <span class="title">Inner Accordion1-1</span>
-                                                    </button>
-                                                </div>
-                                                <div id="accoCont11" class="item-body" aria-labelledby="accoTitle11">
-                                                    <p>Inner Accordion content1-1</p>
-                                                </div>
+                                        <div class="accordion" id="accodi11">
+                                            <div class="item-head">
+                                                <button type="button" class="btn-expand" aria-controls="accoCont11" id="accoTitle11" aria-expanded="false">
+                                                    <span class="title">Inner Accordion1-1</span>
+                                                </button>
                                             </div>
-                                        </div> -->
+                                            <div id="accoCont11" class="item-body" aria-labelledby="accoTitle11">
+                                                <p>Inner Accordion content1-1</p>
+                                            </div>
+                                        </div>
+                                    </div> -->
                                     </div>
                                 </div>
                             </div>

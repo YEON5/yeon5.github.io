@@ -30,10 +30,12 @@
         .btn-toggle {
             transform: rotate(-180deg);
         }
-        .drop-list {
-            .current {
-                > a {
-                    color: $color-primary;
+        .item-body {
+            .drop-list {
+                .current {
+                    > a {
+                        color: $color-primary;
+                    }
                 }
             }
         }
