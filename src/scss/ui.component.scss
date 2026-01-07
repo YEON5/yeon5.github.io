@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+@use 'common/variables' as *;
+@use 'mixins/mixins' as *;
+
+// components
+@forward 'component/badge';
+@forward 'component/button';
+@forward 'component/list';
+@forward 'component/table';
+@forward 'component/form-fields';
+@forward 'component/form-options';
+@forward 'component/accodion';
+@forward 'component/dropdown';
+@forward 'component/tab';
+@forward 'component/toast';
+@forward 'component/tooltip';
+@forward 'component/popover';
+@forward 'component/popup';
