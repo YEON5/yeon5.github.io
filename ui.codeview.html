@@ -8,10 +8,10 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link rel="shortcut icon" type="image/x-icon" href="" />
-        <link rel="stylesheet" href="./resources/css/ui.style.css" />
-        <script src="./resources/js/libs/jquery-3.3.1.min.js"></script>
-        <!-- <script src="./resources/js/libs/jquery-ui.min.js"></script> -->
-        <script src="./resources/js/ui.pub.js"></script>
+        <link rel="stylesheet" href="./src/css/ui.style.css" />
+        <script src="./src/js/libs/jquery-3.3.1.min.js"></script>
+        <!-- <script src="./src/js/libs/jquery-ui.min.js"></script> -->
+        <script src="./src/js/ui.pub.js"></script>
         <title>UI CODEVIEW</title>
         <style>
             p + article {
@@ -1076,31 +1076,31 @@
                                 <div class="tab-nav">
                                     <ul role="tablist">
                                         <li role="none" class="is-active">
-                                            <a href="tabpanel1" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</a>
+                                            <button id="tabpanel1" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabpanel2" id="tabItem2" role="tab" aria-controls="tabpanel2" aria-selected="false">Tab-2</a>
+                                            <button id="tabpanel2" id="tabItem2" role="tab" aria-controls="tabpanel2" aria-selected="false">Tab-2</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabpanel3" id="tabItem3" role="tab" aria-controls="tabpanel3" aria-selected="false">Tab-3</a>
+                                            <button id="tabpanel3" id="tabItem3" role="tab" aria-controls="tabpanel3" aria-selected="false">Tab-3</button>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="tab-body">
                                     <div id="tabpanel1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
-                                        <h3 class="blind">Tab1 title</h3>
+                                        <h3 class="sr-only">Tab1 title</h3>
                                         <div>
                                             <p>Tab1 content</p>
                                         </div>
                                     </div>
                                     <div id="tabpanel2" role="tabpanel" aria-labelledby="tabItem2" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab2 title</h3>
                                         <div>
                                             <p>Tab2 content</p>
                                         </div>
                                     </div>
                                     <div id="tabpanel3" role="tabpanel" aria-labelledby="tabItem3" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab3 title</h3>
                                         <div>
                                             <p>Tab3 content</p>
                                         </div>
@@ -1117,31 +1117,31 @@
                                 <div class="tab-nav">
                                     <ul role="tablist">
                                         <li role="none" class="is-active">
-                                            <a href="tabround1" id="tabItem1" role="tab" aria-controls="tabround1" aria-selected="true">Tab-1</a>
+                                            <button id="tabround1" id="tabItem1" role="tab" aria-controls="tabround1" aria-selected="true">Tab-1</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabround2" id="tabItem2" role="tab" aria-controls="tabround2" aria-selected="false">Tab-2</a>
+                                            <button id="tabround2" id="tabItem2" role="tab" aria-controls="tabround2" aria-selected="false">Tab-2</button>
                                         </li>
                                         <li role="none">
-                                            <a href="tabround3" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-3</a>
+                                            <button id="tabround3" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-3</button>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="tab-body">
                                     <div id="tabround1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
-                                        <h3 class="blind">Tab1 title</h3>
+                                        <h3 class="sr-only">Tab1 title</h3>
                                         <div>
                                             <p>Tab1 content</p>
                                         </div>
                                     </div>
                                     <div id="tabround2" role="tabpanel" aria-labelledby="tabItem2" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab2 title</h3>
                                         <div>
                                             <p>Tab2 content</p>
                                         </div>
                                     </div>
                                     <div id="tabround3" role="tabpanel" aria-labelledby="tabItem3" aria-hidden="true" class="tab-cont">
-                                        <h3 class="blind">Tab2 title</h3>
+                                        <h3 class="sr-only">Tab2 title</h3>
                                         <div>
                                             <p>Tab3 content</p>
                                         </div>
@@ -1154,19 +1154,35 @@
                         <!-- article -->
                         <article>
                             <p>#라디오버튼 탭</p>
-                            <div class="form-field">
-                                <div class="form-label">
-                                    <label for="radioTab">레이블</label>
+                            <div class="tab-radio">
+                                <div class="form-field">
+                                    <div class="form-label">
+                                        <label for="radioTab">레이블</label>
+                                    </div>
+                                    <div class="radio-group type-box">
+                                        <label for="radioTab1" class="form-radio">
+                                            <input type="radio" name="radioTab" id="radioTab1" class="rdi" />
+                                            <span class="rdi-txt">옵션B1</span>
+                                        </label>
+                                        <label for="radioTab2" class="form-radio">
+                                            <input type="radio" name="radioTab" id="radioTab2" class="rdi" />
+                                            <span class="rdi-txt">옵션B2</span>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="radio-group type-box">
-                                    <label for="radioTab1" class="form-radio">
-                                        <input type="radio" name="radioTab" id="radioTab1" class="rdi" />
-                                        <span class="rdi-txt">옵션B1</span>
-                                    </label>
-                                    <label for="radioTab2" class="form-radio">
-                                        <input type="radio" name="radioTab" id="radioTab2" class="rdi" />
-                                        <span class="rdi-txt">옵션B2</span>
-                                    </label>
+                                <div class="tab-body">
+                                    <div id="rditab1" role="tabpanel" aria-labelledby="radioTab1" aria-hidden="false" class="tab-cont is-active">
+                                        <h3 class="sr-only">Tab1 title</h3>
+                                        <div>
+                                            <p>Tab1 content</p>
+                                        </div>
+                                    </div>
+                                    <div id="rditab2" role="tabpanel" aria-labelledby="radioTab2" aria-hidden="true" class="tab-cont">
+                                        <h3 class="sr-only">Tab2 title</h3>
+                                        <div>
+                                            <p>Tab2 content</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </article>
