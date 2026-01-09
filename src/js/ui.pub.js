@@ -134,8 +134,8 @@ function lnbInit() {
 	## Form
 -------------------------------------------------------------------*/
 function formInit() {
-    inputFocus();
-    inputDelete();
+    // inputFocus();
+    // inputDelete();
     radioTab();
     selectorText();
     allChk();

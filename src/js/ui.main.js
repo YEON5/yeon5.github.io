@@ -77,51 +77,7 @@ const uiFormfield = {
     },
 };
 
-// tab
-
-// radio tab
-const uiRadiotab = {
-    init() {
-        const tabradio = document.querySelectorAll('tab-radio');
-
-        tabradio.forEach(group => {});
-    },
-};
-
-// function initRadioTabs(groupName) {
-//     const radios = document.querySelectorAll(`input[name="${groupName}"]`);
-
-//     // 이벤트 바인딩
-//     radios.forEach(radio => {
-//         radio.addEventListener('change', (e) => {
-//             updateTabContent(radios, e.target);
-//         });
-//     });
-
-//     // 초기 상태 설정
-//     const checkedRadio = document.querySelector(`input[name="${groupName}"]:checked`);
-//     if (checkedRadio) updateTabContent(radios, checkedRadio);
-// }
-
-// function updateTabContent(radios, selectedRadio) {
-//     // 1. 모든 콘텐츠 숨김
-//     radios.forEach(radio => {
-//         const target = document.querySelector(radio.dataset.tabTarget);
-//         if(target) target.classList.remove('active');
-//     });
-
-//     // 2. 선택된 콘텐츠 표시
-//     const activeTarget = document.querySelector(selectedRadio.dataset.tabTarget);
-//     if(activeTarget) activeTarget.classList.add('active');
-// }
-
 // init
 document.addEventListener('DOMContentLoaded', () => {
     uiFormfield.init();
-    uiRadiotab.init();
 });
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     // 탭 그룹 이름(input name)만 넘겨주면 초기화됨
-//     initRadioTabs('myTab');
-// });
