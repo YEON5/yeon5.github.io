@@ -1,0 +1,311 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+// ios에서 input disabled 폰트 컬러 스타일 다르게 나올 경우 적용 방법
+// : opacity:1; -webkit-text-fill-color:inherit;
+
+/* Textfield common */
+::placeholder,
+::-webkit-input-placeholder {
+    color: $color-placeholder;
+}
+// input text
+input[type='text'] {
+    @include input-type(box);
+
+    // input button clear 테스트용
+    &:not(:placeholder-shown) + .on-right > .btn-input-clear {
+        display: inline-flex;
+    }
+    &:not(:placeholder-shown):disabled + .on-right > .btn-input-clear,
+    &:not(:placeholder-shown):read-only + .on-right > .btn-input-clear,
+    &:not(:focus) + .on-right > .btn-input-clear {
+        display: none;
+    }
+}
+
+/* Form */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: $spacer-12;
+
+    // form label
+    .form-label {
+        font-size: $font-body-16;
+        color: $color-txt-body;
+        label {
+            .required-dot {
+                padding-left: 0.4rem;
+                color: $color-warning;
+            }
+        }
+    }
+    // form group
+    .form-group {
+        @include flex-set(center, between);
+        gap: $spacer-10;
+        &.column {
+            @include flex-column(stretch, between);
+        }
+        .split {
+            flex-shrink: 0;
+        }
+    }
+    // Textfield
+    .form-input {
+        position: relative;
+        flex-grow: 1;
+        flex-basis: 0;
+
+        // // input text
+        // input[type='text'] {
+        //     @include input-type(box);
+
+        //     // input button clear 테스트용
+        //     &:not(:placeholder-shown) + .on-right > .btn-input-clear {
+        //         display: inline-flex;
+        //     }
+        //     &:not(:placeholder-shown):disabled + .on-right > .btn-input-clear,
+        //     &:not(:placeholder-shown):read-only + .on-right > .btn-input-clear,
+        //     &:not(:focus) + .on-right > .btn-input-clear {
+        //         display: none;
+        //     }
+        // }
+
+        // .input-del {
+        //     position: absolute;
+        //     top: 50%;
+        //     right: 1.6rem;
+        //     transform: translateY(-50%);
+        // }
+
+        // right util
+        .on-right {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            right: $spacer-16;
+            transform: translateY(-50%);
+        }
+        &:has(.on-right > .btn-input-clear + .txt) {
+            .inp {
+                padding-right: 6rem;
+            }
+        }
+        &:has(.on-right > .btn-basic) {
+            .inp {
+                padding-right: 8rem;
+            }
+        }
+
+        // button clear
+        .btn-input-clear {
+            display: none;
+            @include size-set(1.6rem);
+            margin-right: $spacer-8;
+            border-radius: $radius-50;
+            background-color: blue;
+        }
+    }
+
+    // form message
+    .form-msg {
+        > span {
+            @include flex-set(center, start);
+            font-size: $font-body-14;
+            color: $color-txt-body;
+        }
+        .error {
+            color: $color-warning;
+        }
+        .info {
+            color: $color-primary;
+        }
+        .hint {
+            &::before {
+                content: '';
+                display: inline-flex;
+                @include size-set(1.4rem);
+                margin-right: $spacer-4;
+                border-radius: $radius-50;
+                background-color: #ddd;
+            }
+        }
+    }
+
+    // Textarea
+    .textarea {
+        width: 100%;
+        height: auto;
+        min-height: 12rem;
+        padding: $spacer-10;
+        border: 1px solid #ddd;
+        border-radius: $radius-8;
+        background-color: #fff;
+        font-family: inherit;
+        font-size: $font-body-16;
+        color: $color-txt-body;
+        vertical-align: middle;
+    }
+
+    // Select
+    .form-select {
+        position: relative;
+        flex-grow: 1;
+        flex-basis: 0;
+        &:after {
+            @include position(absolute, $t: 50%, $r: 1.5rem);
+            width: 2rem;
+            height: 2rem;
+            background: url('../images/icons/ico_select.png') no-repeat right center;
+            transform: translateY(-50%);
+        }
+        .select {
+            width: 100%;
+            height: 5.6rem;
+            padding: 0 $spacer-16;
+            border: 1px solid #ddd;
+            border-radius: $radius-8;
+            background-color: #fff;
+        }
+    }
+}
+
+/* input file */
+// file : input 버튼 추가
+.file-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-file {
+        display: flex;
+        align-items: center;
+        position: relative;
+        gap: 1rem;
+
+        // file
+        input[type='file'] {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(100% - 8rem - 4rem - 1rem);
+            height: 5.6rem;
+            opacity: 0;
+        }
+        .upload-btn {
+            @include flex-set(center, center);
+            width: 8rem;
+            height: 5.6rem;
+            border-radius: $radius-8;
+            background-color: #ddd;
+            cursor: pointer;
+            &:focus {
+                border: 2px solid #000;
+            }
+        }
+        .btn-file {
+            flex: none;
+            position: relative;
+            @include size-set(4rem);
+            border-radius: $radius-8;
+            background-color: #ddd;
+            &.file-plus,
+            &.file-minus {
+                &::before,
+                &::after {
+                    @include position(absolute, $t: 50%, $l: 50%);
+                    background-color: #222;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            &.file-plus {
+                &::before {
+                    width: 1.8rem;
+                    height: 0.2rem;
+                }
+                &::after {
+                    width: 0.2rem;
+                    height: 1.8rem;
+                }
+            }
+            &.file-minus {
+                &::before {
+                    width: 1.8rem;
+                    height: 0.2rem;
+                }
+            }
+        }
+    }
+}
+
+// input 파일명 리스트로 추가
+.file-box {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+
+    input[type='file'] {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100% - 8rem);
+        height: 5.6rem;
+        opacity: 0;
+        clip: rect(0, 0, 0, 0);
+    }
+    .upload-btn {
+        @include flex-set(center, center);
+        width: 8rem;
+        height: 5.6rem;
+        border-radius: $radius-8;
+        background-color: #ddd;
+        cursor: pointer;
+        &:focus {
+            border: 2px solid #000;
+        }
+    }
+    .input-del {
+        display: none !important;
+    }
+}
+.file-list {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+    li {
+        display: flex;
+        gap: 0.5rem;
+        .file-del {
+            display: inline-flex;
+            position: relative;
+            @include size-set(1.8rem);
+            border: 1px solid #222;
+            border-radius: 50%;
+            &::before,
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 45.5%;
+                top: 0.4rem;
+                width: 1px;
+                height: 0.8rem;
+                background-color: #222;
+            }
+            &::before {
+                transform: rotate(45deg);
+            }
+            &::after {
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - Text field</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<script src="../../static/js/ui.js"></script>
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">Input : Text</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="form-wrap">
+								<div class="input-group">
+									<label for="sText1" class="label-txt">label</label>
+									<input type="text" name="sText1" id="sText1" class="form-input" value="" placeholder="">
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group">
+									<label for="sText2" class="label-txt">label in button</label>
+									<input type="text" name="sText2" id="sText2" class="form-input" value="" placeholder="">
+									<div class="btn-wrap">
+										<button type="button" class="btn small"><span>button</span></button>
+									</div>
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group basic">
+									<label for="sText3" class="label-txt blind">label</label>
+									<input type="text" name="sText3" id="sText3" class="form-input" value="" placeholder="placeholder">
+								</div>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="form-wrap">
+										<div class="input-group">
+											<label for="sText1" class="label-txt">label</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="" placeholder="">
+										</div>
+									</div>
+									<div class="form-wrap">
+										<div class="input-group">
+											<label for="sText1" class="label-txt">label in button</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="" placeholder="">
+											<div class="btn-wrap">
+												<button type="button" class="btn small"><span>button</span></button>
+											</div>
+										</div>
+									</div>
+									<div class="form-wrap">
+										<div class="input-group basic">
+											<label for="sText3" class="label-txt blind">label</label>
+											<input type="text" name="sText3" id="sText3" class="form-input" value="" placeholder="placeholder">
+										</div>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">States</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="form-wrap">
+								<div class="input-group is-focus">
+									<label for="sText1" class="label-txt">label</label>
+									<input type="text" name="sText1" id="sText1" class="form-input" value="focus" placeholder="placeholder">
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group is-data">
+									<label for="sText1" class="label-txt">label</label>
+									<input type="text" name="sText1" id="sText1" class="form-input" value="value" placeholder="placeholder">
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group is-data disabled">
+									<label for="sText1" class="label-txt">label</label>
+									<input type="text" name="sText1" id="sText1" class="form-input" value="disabled" placeholder="placeholder" disabled>
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group is-data readonly">
+									<label for="sText1" class="label-txt">label</label>
+									<input type="text" name="sText1" id="sText1" class="form-input" value="readonly" placeholder="placeholder" readonly>
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group is-data is-error">
+									<label for="sText1" class="label-txt">label</label>
+									<input type="text" name="sText1" id="sText1" class="form-input" value="Error" placeholder="placeholder">
+								</div>
+								<!-- alert meg -->
+								<div class="alert-msg"> <!-- 에러메세지 : error / 인증완료 : confirm -->
+									<span role="alert">에러 메시지 영역</span>
+								</div>
+								<!-- //alert meg -->
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="form-wrap">
+										<div class="input-group is-focus">
+											<label for="sText1" class="label-txt">label</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="focus" placeholder="placeholder">
+										</div>
+									</div>
+									<div class="form-wrap">
+										<div class="input-group is-data">
+											<label for="sText1" class="label-txt">label</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="value" placeholder="placeholder">
+										</div>
+									</div>
+									<div class="form-wrap">
+										<div class="input-group is-data disabled">
+											<label for="sText1" class="label-txt">label</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="disabled" placeholder="placeholder" disabled>
+										</div>
+									</div>
+									<div class="form-wrap">
+										<div class="input-group is-data readonly">
+											<label for="sText1" class="label-txt">label</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="readonly" placeholder="placeholder" readonly>
+										</div>
+									</div>
+									<div class="form-wrap">
+										<div class="input-group is-data is-error">
+											<label for="sText1" class="label-txt">label</label>
+											<input type="text" name="sText1" id="sText1" class="form-input" value="Error" placeholder="placeholder">
+										</div>
+										<!-- alert meg -->
+										<div class="alert-msg"> <!-- 에러메세지 : error / 인증완료 : confirm -->
+											<span role="alert">에러 메시지 영역</span>
+										</div>
+										<!-- //alert meg -->
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Variations</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="form-wrap">
+								<div class="input-group">
+									<label for="email" class="label-txt">이메일</label>
+									<input type="email" name="email" id="email" class="form-input" inputmode="email" autocomplete="off" placeholder="kbstar@gmail.com">
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group idcard">
+									<label for="sIdcard" class="label-txt">생년월일</label>
+									<input type="text" name="sIdcard" id="sIdcard" class="form-input" inputmode="numeric" maxlength="6" placeholder="6자리 입력">
+									<span class="split">-</span>
+									<input type="text" name="sIdcard" id="sIdcard" class="form-input form-gender" inputmode="numeric" maxlength="1" value="" placeholder="⦁">
+									<div class="idcard-circle">
+										<span></span><span></span><span></span><span></span><span></span><span></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-wrap">
+								<div class="input-group card-num">
+									<label for="scardNum" class="label-txt">카드번호</label>
+									<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="" placeholder="">
+									<span class="split">-</span>
+									<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="⦁⦁⦁⦁" placeholder="⦁⦁⦁⦁">
+									<span class="split">-</span>
+									<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="⦁⦁⦁⦁" placeholder="⦁⦁⦁⦁">
+									<span class="split">-</span>
+									<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="" placeholder="">
+								</div>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<!-- 이메일 -->
+									<div class="form-wrap">
+										<div class="input-group">
+											<label for="email" class="label-txt">이메일</label>
+											<input type="email" name="email" id="email" class="form-input" inputmode="email" autocomplete="off" placeholder="kbstar@gmail.com">
+										</div>
+									</div>
+									<!-- //이메일 -->
+									<!-- 생년월일 -->
+									<div class="form-wrap">
+										<div class="input-group idcard">
+											<label for="sIdcard" class="label-txt">생년월일</label>
+											<input type="text" name="sIdcard" id="sIdcard" class="form-input" inputmode="numeric" maxlength="6" placeholder="6자리 입력">
+											<span class="split">-</span>
+											<input type="text" name="sIdcard" id="sIdcard" class="form-input form-gender" inputmode="numeric" maxlength="1" value="" placeholder="⦁">
+											<div class="idcard-circle">
+												<span></span><span></span><span></span><span></span><span></span><span></span>
+											</div>
+										</div>
+									</div>
+									<!-- //생년월일 -->
+									<!-- 카드번호 -->
+									<div class="form-wrap">
+										<div class="input-group card-num">
+											<label for="scardNum" class="label-txt">카드번호</label>
+											<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="" placeholder="">
+											<span class="split">-</span>
+											<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="⦁⦁⦁⦁" placeholder="⦁⦁⦁⦁">
+											<span class="split">-</span>
+											<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="⦁⦁⦁⦁" placeholder="⦁⦁⦁⦁">
+											<span class="split">-</span>
+											<input type="text" name="scardNum" id="scardNum" class="form-input" inputmode="numeric" maxlength="4" value="" placeholder="">
+										</div>
+									</div>
+									<!-- //카드번호 -->
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->			
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>	
+</body>
+</html>

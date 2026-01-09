@@ -1,0 +1,119 @@
+<!-- popup basic -->
+<!--id로 불러오기 onclick="popup('popupBasic', this);" -->
+<div id="popupBasic" class="popup-wrap popup-basic" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup">
+        <div class="popup-head">
+            <h2>POPUP</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-content">
+                <p>팝업 상세 문구<br> 팝업 상세 문구</p>
+            </div>
+        </div>
+        <div class="popup-foot">
+            <div class="btn-wrap">
+                <button type="button" class="btn btn-popup" onclick="popupClose('popupBasic', this)"><span>취소</span></button>
+                <button type="button" class="btn btn-popup" onclick="popupOpen('popupAlert', this);"><span>확인</span></button>
+            </div>
+        </div>
+        <div class="popup-close">
+            <button type="button" class="btn btn-close" onclick="popupClose('popupBasic', this)"><span>팝업닫기</span></button>
+        </div>
+    </div>
+</div>
+<!-- //popup basic -->
+
+<!-- popup alert -->
+<!--id로 불러오기 onclick="popup('popupAlert', this);" -->
+<div id="popupAlert" class="popup-wrap popup-alert" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup">
+        <div class="popup-head" style="display:none;">
+            <h2>ALERT POPUP</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-content">
+                <p>입력정보를 확인해주세요.</p>
+            </div>
+        </div>
+        <div class="popup-foot">
+            <div class="btn-wrap">
+                <button type="button" class="btn btn-popup" onclick="popupClose('popupAlert', this)"><span>확인</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //popup alert -->
+
+<!-- popup confirm -->
+<!--id로 불러오기 onclick="popup('popupConfirm', this);" -->
+<div id="popupConfirm" class="popup-wrap popup-confirm" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup">
+        <div class="popup-head">
+            <h2>COMFIRM POPUP</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-content">
+                <p>삭제하시겠습니까?</p>
+            </div>
+        </div>
+        <div class="popup-foot">
+            <div class="btn-wrap">
+                <button type="button" class="btn btn-popup" onclick="popupClose('popupConfirm', this)"><span>취소</span></button>
+                <button type="button" class="btn btn-popup"><span>확인</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //popup confirm -->
+
+<!-- popup full -->
+<!--id로 불러오기 onclick="popup('popupFull', this);" -->
+<div id="popupFull" class="popup-wrap popup-full" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup">
+        <div class="popup-head">
+            <h2>POPUP</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-content">
+                <p>팝업 상세 문구<br> 팝업 상세 문구</p>
+            </div>
+        </div>
+        <div class="popup-foot">
+            <div class="btn-wrap">
+                <button type="button" class="btn btn-popup" onclick="popupOpen('popupConfirm', this)"><span>확인</span></button>
+            </div>
+        </div>
+        <div class="popup-close">
+            <button type="button" class="btn btn-close" onclick="popupClose('popupFull', this)"><span>팝업닫기</span></button>
+        </div>
+    </div>
+</div>
+<!-- //popup full -->
+
+<!-- popup bottom -->
+<!--id로 불러오기 onclick="popup('popupBottom', this);" -->
+<div id="popupBottom" class="popup-wrap popup-bottom" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup">
+        <div class="popup-head">
+            <h2>BOTTOM POPUP</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-content">
+                <ul>
+                    <li><a href="javascript:;" onclick="popupOpen('popupFull', this);">popup bottom1</a></li>
+                    <li><a href="javascript:;" onclick="popupClose('popupConfirm', this)">popup bottom2</a></li>
+                    <li><a href="javascript:;">popup bottom3</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="popup-foot">
+            <div class="btn-wrap">
+                <button type="button" class="btn btn-popup" onclick="popupClose('popupBottom', this)"><span>확인</span></button>
+            </div>
+        </div>
+        <div class="popup-close">
+            <button type="button" class="btn btn-close" onclick="popupClose('popupBottom', this)"><span>팝업닫기</span></button>
+        </div>
+    </div>
+</div>
+<!-- //popup bottom -->

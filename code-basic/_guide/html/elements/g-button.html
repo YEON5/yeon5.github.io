@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - Button</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<!-- <script src="../../static/js/ui.js"></script> -->
+	<style>
+		.g-content-body {padding-bottom: 110px;}
+	</style>
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">Button</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="btn-wrap">
+								<button type="button" class="btn hero primary"><span>hero</span></button>
+							</div>
+							<br>
+							<div class="btn-wrap">
+								<button type="button" class="btn large primary"><span>large</span></button>
+							</div>
+							<br>
+							<div class="btn-wrap">
+								<button type="button" class="btn secondary"><span>regular</span></button>
+							</div>
+							<br>
+							<div class="btn-wrap">
+								<button type="button" class="btn small"><span>small</span></button>
+							</div>
+							<br>
+							<div class="btn-wrap">
+								<button type="button" class="btn xsmall"><span>extra small</span></button>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<!-- hero -->
+									<div class="btn-wrap">
+										<button type="button" class="btn hero primary"><span>hero</span></button>
+									</div>
+									<!-- //hero -->
+									<!-- large -->
+									<div class="btn-wrap">
+										<button type="button" class="btn large primary"><span>large</span></button>
+									</div>
+									<!-- regular -->
+									<div class="btn-wrap">
+										<button type="button" class="btn secondary"><span>regular</span></button>
+									</div>
+									<!-- small -->
+									<div class="btn-wrap">
+										<button type="button" class="btn small"><span>small</span></button>
+									</div>
+									<!-- extra small -->
+									<div class="btn-wrap">
+										<button type="button" class="btn xsmall"><span>extra small</span></button>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">States</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="btn-wrap">
+								<button type="button" class="btn large primary" disabled><span>primary btn disabled</span></button>
+							</div>
+							<br>
+							<div class="btn-wrap">
+								<button type="button" class="btn secondary" disabled><span>secondary btn disabled</span></button>
+							</div>
+							<br>
+							<div class="btn-wrap">
+								<button type="button" class="btn small" disabled><span>basic btn disabled</span></button>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="btn-wrap">
+										<button type="button" class="btn large primary" disabled><span>large</span></button>
+									</div>
+									<br>
+									<div class="btn-wrap">
+										<button type="button" class="btn secondary" disabled><span>regular</span></button>
+									</div>
+									<br>
+									<div class="btn-wrap">
+										<button type="button" class="btn small" disabled><span>small</span></button>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Variations</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<!-- button text -->
+							<div class="btn-wrap">
+								<button type="button" class="btn-text"><span>label</span></button>	
+							</div>
+							<!-- //button text -->
+
+							<!-- button in icon -->
+							<div class="btn-wrap">
+								<button type="button" class="btn ico-camera"><span>label</span></button>
+							</div>
+							<div class="btn-wrap">
+								<button type="button" class="btn-text ico-plus"><span>label</span></button>
+							</div>
+							<div class="btn-wrap">
+								<button type="button" class="btn-text ico-r-plus"><span>label</span></button>
+							</div>
+							<div class="btn-wrap">
+								<button type="button" class="btn-text btn-more ico-r-plus"><span>더보기</span></button>
+							</div>
+							<!-- //button in icon -->
+
+							<!-- button icon -->
+							<div class="btn-wrap ">
+								<button type="button" class="btn-ico ico-arrow"><span class="blind">icon</span></button>
+							</div>
+							<!-- button icon -->
+
+							<!-- button sticky -->
+							<div class="btn-wrap sticky">
+								<div class="floating">
+									<button type="button" class="btn secondary"><span>취소</span></button>
+									<button type="button" class="btn primary"><span>확인</span></button>
+								</div>
+							</div>
+							<!-- //button sticky -->
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<!-- button text -->
+									<div class="btn-wrap">
+										<button type="button" class="btn-text"><span>label</span></button>	
+									</div>
+									<!-- //button text -->
+
+									<!-- button in icon -->
+									<div class="btn-wrap">
+										<button type="button" class="btn ico-camera"><span>label</span></button>
+									</div>
+									<div class="btn-wrap">
+										<button type="button" class="btn-text ico-plus"><span>label</span></button>
+									</div>
+									<div class="btn-wrap">
+										<button type="button" class="btn-text ico-r-plus"><span>label</span></button>
+									</div>
+									<div class="btn-wrap">
+										<button type="button" class="btn-text btn-more ico-r-plus"><span>더보기</span></button>
+									</div>
+									<!-- //button in icon -->
+
+									<!-- button icon -->
+									<div class="btn-wrap ">
+										<button type="button" class="btn-ico ico-arrow"><span class="blind">icon</span></button>
+									</div>
+									<!-- button icon -->
+
+									<!-- button sticky -->
+									<div class="btn-wrap sticky">
+										<div class="floating">
+											<button type="button" class="btn secondary"><span>취소</span></button>
+											<button type="button" class="btn primary"><span>확인</span></button>
+										</div>
+									</div>
+									<!-- //button sticky -->
+
+									<!-- button sticky mix : 1/3 --> 
+									<div class="btn-wrap sticky mix">
+										<div class="floating">
+											<button type="button" class="btn secondary"><span>취소</span></button>
+											<button type="button" class="btn primary"><span>확인</span></button>
+										</div>
+									</div>
+									<!-- //button sticky -->
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->					
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>	
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - List</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<!-- <script src="../../static/js/ui.js"></script> -->
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">List</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="list-wrap">
+								<ul class="list link-type">
+									<li class="item">
+										<a href="javascript:;" class="ico-link">
+											<p class="tit">Title Text</p>
+										</a>
+									</li>
+									<li class="item">
+										<a href="javascript:;">
+											<p class="tit">Title Text</p>
+											<p class="desc">0000.00.00</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="list-wrap">
+										<ul class="list link-type">
+											<li class="item">
+												<a href="javascript:;" class="ico-link">
+													<p class="tit">Title Text</p>
+												</a>
+											</li>
+											<li class="item">
+												<a href="javascript:;">
+													<p class="tit">Title Text</p>
+													<p class="desc">0000.00.00</p>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Variations</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="list-wrap">
+								<ul class="list box-type">
+									<li class="item">
+										<a href="javascript:;">
+											<div class="info-area">
+												<div class="info-wrap">
+													<p class="num">NO. 0034433434</p>
+													<span class="corp">법인</span><span>KB국민은행 ***564</span><span>3개월</span>
+												</div>
+												<div class="tag-wrap">
+													<span class="label-tag error">취소</span>
+												</div>
+											</div>
+											<div class="desc-area">
+												<p class="desc">치킨 성신여대점 - 황금올리브 콤보 반반외 2건</p>
+											</div>
+											<div class="sum-area">
+												<span class="date">12월 12일 13:15:00</span>
+												<em class="sum"><span>1,500,000</span>원</em>
+											</div>
+										</a>
+									</li>
+									<li class="item">
+										<a href="javascript:;">
+											<div class="info-area">
+												<div class="info-wrap">
+													<p class="num">NO. 0034433434</p>
+													<span>KB국민은행 ***564</span><span>3개월</span>
+												</div>
+												<div class="tag-wrap">
+													<span class="label-tag error">부분취소</span>
+												</div>
+											</div>
+											<div class="desc-area">
+												<p class="desc">치킨 성신여대점 - 황금올리브 콤보 반반외 2건</p>
+											</div>
+											<div class="sum-area">
+												<span class="date">12월 12일 13:15:00</span>
+												<em class="sum"><span class="minus">- 1,500,000</span>원</em>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<br><br><br>
+
+							<div class="list-wrap">
+								<ul class="list view-type">
+									<li class="item">
+										<dl>
+											<dt>서비스구분</dt>
+											<dd>먹깨비PAY</dd>
+										</dl>
+										<dl>
+											<dt>결제상태</dt>
+											<dd class="success">결제완료</dd>
+										</dl>
+										<dl>
+											<dt>결제수단</dt>
+											<dd>KB국민카드<span>(123456-**-***123)</span></dd>
+										</dl>
+										<dl>
+											<dt>거래일시</dt>
+											<dd>2022.12.13 00:00:00</dd>
+										</dl>
+										<dl>
+											<dt>할부</dt>
+											<dd>3개월</dd>
+										</dl>
+										<dl>
+											<dt>취소일시</dt>
+											<dd>2022.12.13 00:00:00</dd>
+										</dl>
+										<dl>
+											<dt>승인번호</dt>
+											<dd>0000</dd>
+										</dl>
+									</li>
+									<li class="item">
+										<dl>
+											<dt>공급가액</dt>
+											<dd>29,181원</dd>
+										</dl>
+										<dl>
+											<dt>부가세</dt>
+											<dd>2,909원</dd>
+										</dl>
+									</li>
+									<li class="item">
+										<dl>
+											<dt>결제금액</dt>
+											<dd class="sum"><em>135,503</em>원</dd>
+										</dl>
+										<dl>
+											<dt>취소금액</dt>
+											<dd class="sum"><em>135,503</em>원</dd>
+										</dl>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<!-- box type -->
+									<div class="list-wrap">
+										<ul class="list box-type">
+											<li class="item">
+												<a href="javascript:;">
+													<div class="info-area">
+														<div class="info-wrap">
+															<p class="num">NO. 0034433434</p>
+															<span class="corp">법인</span><span>KB국민은행 ***564</span><span>3개월</span>
+														</div>
+														<div class="tag-wrap">
+															<span class="label-tag error">취소</span>
+														</div>
+													</div>
+													<div class="desc-area">
+														<p class="desc">치킨 성신여대점 - 황금올리브 콤보 반반외 2건</p>
+													</div>
+													<div class="sum-area">
+														<span class="date">12월 12일 13:15:00</span>
+														<em class="sum"><span>1,500,000</span>원</em>
+													</div>
+												</a>
+											</li>
+											<li class="item">
+												<a href="javascript:;">
+													<div class="info-area">
+														<div class="info-wrap">
+															<p class="num">NO. 0034433434</p>
+															<span>KB국민은행 ***564</span><span>3개월</span>
+														</div>
+														<div class="tag-wrap">
+															<span class="label-tag error">부분취소</span>
+														</div>
+													</div>
+													<div class="desc-area">
+														<p class="desc">치킨 성신여대점 - 황금올리브 콤보 반반외 2건</p>
+													</div>
+													<div class="sum-area">
+														<span class="date">12월 12일 13:15:00</span>
+														<em class="sum"><span class="minus">- 1,500,000</span>원</em>
+													</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+
+									<!-- view type -->
+									<div class="list-wrap">
+										<ul class="list view-type">
+											<li class="item">
+												<dl>
+													<dt>서비스구분</dt>
+													<dd>먹깨비PAY</dd>
+												</dl>
+												<dl>
+													<dt>결제상태</dt>
+													<dd class="success">결제완료</dd>
+												</dl>
+												<dl>
+													<dt>결제수단</dt>
+													<dd>KB국민카드<span>(123456-**-***123)</span></dd>
+												</dl>
+												<dl>
+													<dt>거래일시</dt>
+													<dd>2022.12.13 00:00:00</dd>
+												</dl>
+												<dl>
+													<dt>할부</dt>
+													<dd>3개월</dd>
+												</dl>
+												<dl>
+													<dt>취소일시</dt>
+													<dd>2022.12.13 00:00:00</dd>
+												</dl>
+												<dl>
+													<dt>승인번호</dt>
+													<dd>0000</dd>
+												</dl>
+											</li>
+											<li class="item">
+												<dl>
+													<dt>공급가액</dt>
+													<dd>29,181원</dd>
+												</dl>
+												<dl>
+													<dt>부가세</dt>
+													<dd>2,909원</dd>
+												</dl>
+											</li>
+											<li class="item">
+												<dl>
+													<dt>결제금액</dt>
+													<dd class="sum"><em>135,503</em>원</dd>
+												</dl>
+												<dl>
+													<dt>취소금액</dt>
+													<dd class="sum"><em>135,503</em>원</dd>
+												</dl>
+											</li>
+										</ul>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->					
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>	
+</body>
+</html>

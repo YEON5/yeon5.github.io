@@ -1,0 +1,9 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+// footer
+footer {
+    display: none;
+    height: 4rem;
+    padding-bottom: env(safe-area-inset-bottom);
+}

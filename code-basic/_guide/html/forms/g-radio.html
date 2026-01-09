@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - Radio</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<!-- <script src="../../static/js/ui.js"></script> -->
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">Radio</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="form-radio">
+								<div class="radio-group">
+									<span class="radio">
+										<input type="radio" name="radiostyle1" id="sRadio1" title="라디오 선택" value="">
+										<label for="sRadio1"><span>default</span></label>
+									</span>
+									<span class="radio">
+										<input type="radio" name="radiostyle1" id="sRadio2" title="라디오 선택" value="" checked>
+										<label for="sRadio2"><span>active</span></label>
+									</span>
+									<span class="radio">
+										<input type="radio" name="radiostyle1" id="sRadio3" title="라디오 선택" value="" disabled>
+										<label for="sRadio3"><span>disabled</span></label>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="form-radio">
+										<div class="radio-group">
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="">
+												<label for=""><span>default</span></label>
+											</span>
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="" checked>
+												<label for=""><span>active</span></label>
+											</span>
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="" disabled>
+												<label for=""><span>disabled</span></label>
+											</span>
+										</div>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Variations</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<!-- radio box type -->
+							<div class="form-radio box-type">
+								<div class="radio-group">
+									<span class="radio">
+										<input type="radio" name="RadioBoxB" id="sRadioBox1" title="라디오 선택" value="">
+										<label for="sRadioBox1" class="radio-info">
+											<strong class="bank-name logo-financial" data-code="004">KB국민은행</strong>
+											<span class="bank-account">123456-**-***456 </span>
+											<span class="label-tag gray">정기</span>
+										</label>
+									</span>
+									<div class="btn-wrap">
+										<button type="button" class="btn-text"><span>삭제</span></button>
+									</div>
+								</div>
+								<div class="radio-group">
+									<span class="radio">
+										<input type="radio" name="RadioBoxB" id="sRadioBox2" title="라디오 선택" value="">
+										<label for="sRadioBox2" class="radio-info">
+											<strong class="bank-name logo-financial" data-code="004">KB국민은행</strong>
+											<span class="bank-account">123456-**-***456 </span>
+											<span class="label-tag gray">정기</span>
+										</label>
+									</span>
+									<div class="btn-wrap">
+										<button type="button" class="btn-text"><span>삭제</span></button>
+									</div>
+								</div>
+							</div>
+							<!-- //radio box type -->
+							<br>
+							<!-- radio box type : line -->
+							<div class="form-radio box-type line">
+								<div class="radio-group">
+									<span class="radio">
+										<input type="radio" name="RadioBoxL" id="sRadioBox3" title="라디오 선택" value="">
+										<label for="sRadioBox3" class="radio-info">
+											<strong class="bank-name">직장인우대종합통장</strong>
+											<span class="bank-account">123456-**-***456 </span>
+											<span class="bank-amount">출금가능금액 <em>12,000원</em></span>
+										</label>
+									</span>
+								</div>
+								<div class="radio-group">
+									<span class="radio">
+										<input type="radio" name="RadioBoxL" id="sRadioBox4" title="라디오 선택" value="">
+										<label for="sRadioBox4" class="radio-info">
+											<strong class="bank-name">직장인우대종합통장</strong>
+											<span class="bank-account">123456-**-***456 </span>
+											<span class="bank-amount">출금가능금액 <em>12,000원</em></span>
+										</label>
+									</span>
+								</div>
+							</div>
+							<!-- //radio box type : line -->
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<!-- radio box type -->
+									<div class="form-radio box-type">
+										<div class="radio-group">
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="">
+												<label for="" class="radio-info">
+													<strong class="bank-name logo-financial" data-code="004">KB국민은행</strong>
+													<span class="bank-account">123456-**-***456 </span>
+													<span class="label-tag gray">정기</span>
+												</label>
+											</span>
+											<div class="btn-wrap">
+												<button type="button" class="btn-text"><span>삭제</span></button>
+											</div>
+										</div>
+										<div class="radio-group">
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="">
+												<label for="" class="radio-info">
+													<strong class="bank-name logo-financial" data-code="004">KB국민은행</strong>
+													<span class="bank-account">123456-**-***456 </span>
+													<span class="label-tag gray">정기</span>
+												</label>
+											</span>
+											<div class="btn-wrap">
+												<button type="button" class="btn-text"><span>삭제</span></button>
+											</div>
+										</div>
+									</div>
+									<!-- //radio box type -->
+									
+									<!-- radio box type : line -->
+									<div class="form-radio box-type line">
+										<div class="radio-group">
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="">
+												<label for="" class="radio-info">
+													<strong class="bank-name">직장인우대종합통장</strong>
+													<span class="bank-account">123456-**-***456 </span>
+													<span class="bank-amount">출금가능금액 <em>12,000원</em></span>
+												</label>
+											</span>
+										</div>
+										<div class="radio-group">
+											<span class="radio">
+												<input type="radio" name="" id="" title="라디오 선택" value="">
+												<label for="" class="radio-info">
+													<strong class="bank-name">직장인우대종합통장</strong>
+													<span class="bank-account">123456-**-***456 </span>
+													<span class="bank-amount">출금가능금액 <em>12,000원</em></span>
+												</label>
+											</span>
+										</div>
+									</div>
+									<!-- //radio box type : line -->
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->		
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>	
+</body>
+</html>

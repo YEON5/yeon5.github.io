@@ -1,0 +1,120 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+/* Badge, Label, Chips */
+.badge-group,
+.chips-group {
+    @include flex-set(center, start);
+    gap: $spacer-10;
+}
+
+%ico-badge-layout {
+    content: '';
+    display: inline-flex;
+    @include size-set(1.2rem);
+    border-radius: $radius-50;
+    background: $color-dark;
+}
+
+.badge {
+    display: inline-block;
+    max-width: 10rem;
+    padding: $spacer-4 $spacer-8;
+    border-radius: $radius-4;
+    background-color: $color-bg-base;
+    font-size: $font-body-14;
+    line-height: 1;
+    @include ellipsis();
+
+    // 색상
+    $badge-color: (
+        'primary': $color-primary,
+        'highlight': $color-highlight,
+        'warning': $color-warning,
+        'success': $color-success,
+        'info': $color-info,
+    );
+    @each $name, $code in $badge-color {
+        &.#{$name} {
+            background-color: #{$code};
+            color: $color-white;
+        }
+    }
+
+    // 형태
+    &.rounded {
+        border-radius: $radius-24;
+    }
+
+    // 아이콘 조합
+    &.ico {
+        // 아이콘 왼쪽 정렬
+        &::before {
+            @extend %ico-badge-layout;
+        }
+        &.print {
+            &::before {
+                background-color: $color-info;
+            }
+        }
+    }
+    &.ico-r {
+        // 아이콘 오른쪽 정렬
+        &::after {
+            @extend %ico-badge-layout;
+        }
+        &.filedown {
+            &::after {
+                background-color: $color-info;
+            }
+        }
+    }
+
+    // 유형
+    @at-root .type-text {
+        .badge {
+            max-width: auto;
+            padding: 0.2rem;
+            border-radius: none;
+            background-color: transparent;
+            // 색상
+            @each $name, $code in $badge-color {
+                &.#{$name} {
+                    color: #{$code};
+                }
+            }
+        }
+    }
+    @at-root .type-outline {
+        .badge {
+            border: 1px solid transparent;
+            background-color: $color-white;
+
+            // 색상
+            @each $name, $code in $badge-color {
+                &.#{$name} {
+                    border-color: #{$code};
+                    color: #{$code};
+                }
+            }
+        }
+    }
+    @at-root .type-extend {
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            column-gap: $spacer-6;
+            .btn {
+                @include size-set(1.2rem);
+                padding: 0;
+                font-size: 1rem;
+                &:hover,
+                &:focus {
+                    @include size-set(1.2rem);
+                    border-radius: $radius-50;
+                    background-color: $color-primary-disabled;
+                }
+            }
+        }
+    }
+}

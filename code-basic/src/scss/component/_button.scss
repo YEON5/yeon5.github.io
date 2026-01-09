@@ -1,0 +1,243 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+/* Button */
+// 색상값
+$btn-color: (
+    'primary': $color-primary,
+    'secondary': $color-secondary,
+    'grey': $color-base,
+);
+// 아이콘
+%ico-btn-layout {
+    content: '';
+    display: inline-flex;
+    @include size-set(2rem);
+    background-color: $color-txt-body;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+.btn-wrap {
+    @include flex-set(center, start);
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    // 하단 스티키
+    &.type-sticky {
+        @include position(fixed, $l: 0, $b: 0, $r: 0);
+        justify-content: space-between;
+        z-index: 2;
+        padding-top: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+        background-color: #fff;
+        .btn {
+            flex-grow: 1;
+            flex-basis: 0;
+            min-height: 5.6rem;
+            border-radius: $radius-8;
+            font-size: $font-body-18;
+        }
+        // sticky 버튼 위에 설명 문구 있는 경우
+        &.agree {
+            flex-direction: column;
+            row-gap: 1.6rem;
+            .agree-desc {
+                font-size: $font-body-14;
+                color: $color-txt-sub;
+                text-align: center;
+            }
+            .btn-group {
+                @include flex-set(center, between);
+                width: 100%;
+                column-gap: 1rem;
+            }
+        }
+    }
+
+    // 유형
+    &.type-fill {
+        .btn {
+            background-color: $color-bg-base;
+            @each $name, $code in $btn-color {
+                &.#{$name} {
+                    background-color: #{$code};
+                }
+            }
+            &.primary {
+                color: $color-white;
+            }
+            &.secondary {
+                color: $color-primary;
+            }
+            // 상태
+            &:disabled {
+                &.primary {
+                    background-color: $color-primary-disabled;
+                    color: $color-white;
+                }
+                &.secondary {
+                    color: $color-disable;
+                }
+            }
+        }
+    }
+    &.type-outline {
+        .btn {
+            border: 1px solid #ddd;
+            background-color: $color-white;
+
+            @each $name, $code in $btn-color {
+                &.#{$name} {
+                    border-color: #{$code};
+                    background-color: $color-white;
+                    color: #{$code};
+                }
+            }
+            // 상태
+            &:disabled {
+                &.primary {
+                    border-color: $color-primary-disabled;
+                    background-color: $color-white;
+                    color: $color-primary-disabled;
+                }
+            }
+        }
+    }
+    &.type-text {
+        .btn {
+            flex-grow: 0;
+            flex-basis: auto;
+            min-height: auto;
+            padding: $spacer-4;
+            border-radius: 0;
+            @each $name, $code in $btn-color {
+                &.#{$name} {
+                    color: #{$code};
+                }
+            }
+            // 상태
+            &:disabled {
+                &.primary {
+                    color: $color-primary-disabled;
+                }
+            }
+        }
+    }
+    &.extended {
+        .btn {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+    }
+
+    // button
+    .btn {
+        @include flex-set(center, center);
+        position: relative;
+        min-height: 4rem;
+        padding: $spacer-6 $spacer-12;
+        border-radius: $radius-8;
+        font-size: $font-body-14;
+        font-weight: 400;
+        color: #0b0d0f;
+        line-height: 1;
+        transform: scale3d(1, 1, 1);
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.7, 1);
+        // 상태
+        &:active {
+            transform: scale3d(0.97, 0.97, 1);
+        }
+        &:disabled {
+            color: $color-disable;
+
+            // disabled icon
+            &.ico,
+            &.ico-r {
+                &::before,
+                &::after {
+                    opacity: 0.4;
+                }
+            }
+            &:active {
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        // 크기/형태
+        $btn-height: (
+            'h56': 5.6rem,
+            'h48': 4.8rem,
+            'h40': 4rem,
+            'h32': 3.2rem,
+            'h30': 3rem,
+        );
+        @each $name, $code in $btn-height {
+            &.#{$name} {
+                min-height: #{$code};
+            }
+        }
+        &.rounded {
+            border-radius: $radius-24;
+        }
+
+        // 아이콘 조합
+        &.ico,
+        &.ico-r {
+            column-gap: 0.6rem;
+        }
+
+        &.ico {
+            // 아이콘 왼쪽 정렬
+            &::before {
+                @extend %ico-btn-layout;
+            }
+            &.print {
+                &::before {
+                    background-color: $color-info;
+                }
+            }
+        }
+        &.ico-r {
+            // 아이콘 오른쪽 정렬
+            &::after {
+                @extend %ico-btn-layout;
+            }
+            &.filedown {
+                &::after {
+                    background-color: $color-info;
+                }
+            }
+        }
+    }
+}
+
+// 아이콘 단독
+.btn-ico {
+    @include flex-set(center, center);
+    position: relative;
+    @include size-set(2.4rem);
+    > span {
+        @include sr-only;
+    }
+    &:active {
+        transform: scale3d(0.97, 0.97, 1);
+    }
+    &::before {
+        @extend %ico-btn-layout;
+        transform: scale3d(1, 1, 1);
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.7, 1);
+    }
+    &.print {
+        &::before {
+            background-color: $color-info;
+        }
+    }
+    &.filedown {
+        &::before {
+            background-color: $color-txt-body;
+        }
+    }
+}

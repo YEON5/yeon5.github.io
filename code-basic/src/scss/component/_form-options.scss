@@ -1,0 +1,343 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+/* Checkbox, Radio */
+.check-group,
+.radio-group {
+    @include flex-set(center, start);
+    flex-wrap: wrap;
+    gap: $spacer-12;
+    &.column {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
+
+.form-check,
+.form-radio {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: $font-body-16;
+    .chk-txt,
+    .rdi-txt {
+        padding-left: $spacer-8;
+    }
+    // 조합형에서 사용
+    &.align-start {
+        align-items: flex-start;
+        .chk-txt,
+        .rdi-txt {
+            padding-top: 0.5rem;
+        }
+    }
+}
+
+/* Checkbox */
+.form-check {
+    // 기본형
+    input[type='checkbox'] {
+        position: relative;
+        @include size-set(2.4rem);
+        border: 1px solid #ddd;
+        border-radius: 0.4rem;
+        background-color: $color-white;
+        &::after {
+            @include position(absolute, $t: 50%, $l: 50%);
+            width: 0.8rem;
+            height: 1.2rem;
+            border-right: 2px solid $color-line-base;
+            border-bottom: 2px solid $color-line-base;
+            transform: translate(-50%, -50%) rotate(45deg) scale3d(1, 1, 1);
+            transform-origin: 80% 45%;
+            z-index: 2;
+            opacity: 1;
+        } // 체크박스 모양
+        &:checked {
+            border: 1.2rem solid $color-primary;
+            transition: all cubic-bezier(0.4, 0, 0.23, 1) 0.3s;
+            &::after {
+                animation: animation-opacity 0.4s forwards;
+            }
+        }
+        &:disabled {
+            background-color: $color-bg-base;
+            &::after {
+                animation: none;
+                border-color: $color-line-base;
+            }
+            + .chk-txt {
+                color: $color-disable;
+            }
+            &:checked {
+                border-color: $color-primary-disabled;
+                &::after {
+                    animation: none;
+                    border-color: $color-white;
+                }
+            }
+        }
+    }
+
+    // 싱글형
+    @at-root .type-single {
+        .form-check {
+            input[type='checkbox'] {
+                border: none;
+                border-radius: 0;
+                background-color: transparent;
+                &:checked {
+                    &::after {
+                        border-color: $color-primary !important;
+                    }
+                }
+                &:disabled {
+                    &:checked {
+                        &::after {
+                            border-color: $color-primary-disabled !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 박스형
+    @at-root .type-box {
+        .form-check {
+            flex-grow: 1;
+            flex-basis: 0;
+            height: 5rem;
+            input[type='checkbox'] {
+                width: 100%;
+                height: 100%;
+                border-radius: $radius-8;
+                &::after {
+                    display: none;
+                } // 체크박스 모양
+                &:checked {
+                    border-width: 1px;
+                    border-color: $color-primary;
+                    + .chk-txt {
+                        color: $color-primary;
+                    }
+                }
+            }
+            .chk-txt {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                padding-left: 0;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    // 조합형
+    @at-root .type-extend {
+        .form-check {
+            width: 100%;
+            padding: $spacer-20;
+            border: 1px solid #ddd;
+            border-radius: $radius-8;
+            &:has(input:checked) {
+                border-color: $color-primary;
+                transition: all cubic-bezier(0.4, 0, 0.23, 1) 0.3s;
+            }
+            .chk-txt {
+                display: flex;
+                flex-direction: column;
+                gap: $spacer-10;
+            }
+        }
+    }
+}
+@keyframes animation-opacity {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg) scale3d(1, 1, 1);
+        opacity: 1;
+    }
+    30% {
+        transform: translate(-50%, -50%) rotate(45deg) scale3d(0.6, 0.6, 1);
+        opacity: 0;
+    }
+    100% {
+        border-color: #fff;
+        transform: translate(-50%, -50%) rotate(45deg) scale3d(1, 1, 1);
+        opacity: 1;
+    }
+}
+
+/* Radio */
+.form-radio {
+    // 기본형
+    input[type='radio'] {
+        position: relative;
+        @include size-set(2.4rem);
+        border: 1px solid #ddd;
+        border-radius: $radius-50;
+        background-color: $color-white;
+        &::after {
+            @include position(absolute, $t: 0.6rem, $l: 0.6rem);
+            @include size-set(1rem);
+            border-radius: $radius-50;
+            background-color: $color-white;
+            transform: scale(0, 0);
+            transition: all 0.3s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+            opacity: 0;
+            z-index: 2;
+        } // 라디오 모양
+        &:checked {
+            border-color: $color-primary;
+            background-color: $color-primary;
+            &::after {
+                transform: scale(1, 1);
+                opacity: 1;
+            }
+        }
+        &:disabled {
+            background-color: $color-disable;
+            &::after {
+                transform: scale(1, 1);
+                opacity: 1;
+            }
+            + .rdi-txt {
+                color: $color-disable;
+            }
+            &:checked {
+                border-color: $color-primary-disabled;
+                background-color: $color-primary-disabled;
+                &::after {
+                    transform: scale(1, 1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    // 박스형
+    @at-root .type-box {
+        .form-radio {
+            flex-grow: 1;
+            flex-basis: 0;
+            height: 5rem;
+            input[type='radio'] {
+                width: 100%;
+                height: 100%;
+                border-radius: $radius-8;
+                &::after {
+                    display: none;
+                } // 라디오 모양
+                &:checked {
+                    border-width: 1px;
+                    background-color: $color-white;
+                    + .rdi-txt {
+                        color: $color-primary;
+                    }
+                }
+            }
+            .rdi-txt {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                padding-left: 0;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    // 조합형
+    @at-root .type-extend {
+        .form-radio {
+            width: 100%;
+            padding: $spacer-20;
+            border: 1px solid #ddd;
+            border-radius: $radius-8;
+            &:has(input:checked) {
+                border-color: $color-primary;
+                transition: all cubic-bezier(0.4, 0, 0.23, 1) 0.3s;
+            }
+            .rdi-txt {
+                display: flex;
+                flex-direction: column;
+                gap: $spacer-10;
+            }
+        }
+    }
+}
+@keyframes animation-radio {
+    0% {
+        transform: scale3d(1, 1, 1);
+        border-color: #ddd;
+        background-color: #fff;
+    }
+    30% {
+        transform: scale3d(0.6, 0.6, 1);
+    }
+    100% {
+        transform: scale3d(1, 1, 1);
+        border-color: $color-primary;
+        background-color: $color-primary;
+    }
+}
+
+/* Switch */
+.switch-group {
+    @include flex-set(center, start);
+    .switch-txt {
+        display: inline-block;
+        margin-right: $spacer-12;
+        font-size: $font-body-16;
+        color: $color-txt-body;
+        vertical-align: middle;
+    }
+    .form-switch {
+        display: inline-block;
+        position: relative;
+        .switch-slide {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            width: 8rem;
+            height: 3.6rem;
+            border-radius: 3rem;
+            background-color: #ddd;
+            &::before {
+                @include position(absolute, $l: 0.4rem, $b: 0.4rem);
+                @include size-set(2.8rem);
+                border-radius: $radius-50;
+                background-color: $color-white;
+                transition: all 0.3s ease;
+            }
+        }
+        .state {
+            &::before {
+                content: 'OFF';
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 1.4rem;
+                font-size: $font-body-14;
+                color: $color-txt-body;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    input[type='checkbox'] {
+        &:checked {
+            background-color: #2196f3;
+            &::before {
+                transform: translateX(44px);
+            }
+            + .state {
+                &::before {
+                    content: 'ON';
+                    left: 1.4rem;
+                    color: $color-white;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>UI - Checkbox</title>
+	<link rel="stylesheet" href="../../static/css/style.css">
+	<link rel="stylesheet" href="../../static/css/guide.css">
+	<link rel="stylesheet" href="../../static/css/libs/shCore.css">
+	<script src="../../static/js/libs/jquery-3.3.1.min.js"></script>
+	<script src="../../static/js/libs/jquery-ui.min.js"></script>
+	<script src="../../static/js/libs/shCore.js"></script>
+	<script src="../../static/js/guide.js"></script>
+	<!-- <script src="../../static/js/ui.js"></script> -->
+</head>
+<body>
+<div id="g-wrapper">
+	<!-- g-header -->
+	<include src="../../html/inc/g-header.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-header -->
+
+	<!-- g-container -->
+	<div class="g-container">
+		<!-- g-aside -->
+		<include src="../../html/inc/g-aside.html" data-include-opt='{"visible":"true"}'></include>
+		<!-- //g-aside -->
+
+		<article class="g-content">
+			<div class="g-content-head">
+				<h1 class="g-h1">Checkbox</h1>
+			</div>
+			<div class="g-content-body">
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Types</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="form-check">
+								<div class="check-group">
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sCheck2" title="체크 선택" value="">
+										<label for="sCheck2"><span>Check1</span></label>
+									</span>
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sCheck3" title="체크 선택" value="" checked>
+										<label for="sCheck3"><span>Check2</span></label>
+									</span>
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sCheck4" title="체크 선택" value="" disabled>
+										<label for="sCheck4"><span>disabled</span></label>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="form-check">
+										<div class="check-group">
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sCheck2" title="체크 선택" value="">
+												<label for="sCheck2"><span>Check1</span></label>
+											</span>
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sCheck3" title="체크 선택" value="" checked>
+												<label for="sCheck3"><span>Check2</span></label>
+											</span>
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sCheck4" title="체크 선택" value="" disabled>
+												<label for="sCheck4"><span>disabled</span></label>
+											</span>
+										</div>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->
+					</div>
+				</section>
+
+				<!-- g-section -->
+				<section class="g-section">
+					<div class="g-section-head">
+						<h2 class="g-h2">Variations</h2>
+					</div>
+					<div class="g-section-body">
+						<!-- guide view -->
+						<div class="g-view">
+							<!-- 여기에 보여줄 가이드 -->
+							<div class="form-check all-chk">
+								<div class="check-group">
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sAllChk2" title="체크 선택" value="">
+										<label for="sAllChk2"><span>Check1</span></label>
+									</span>
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sAllChk3" title="체크 선택" value="" checked>
+										<label for="sAllChk3"><span>Check2</span></label>
+									</span>
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sAllChk4" title="체크 선택" value="" disabled>
+										<label for="sAllChk4"><span>disabled</span></label>
+									</span>
+								</div>
+							</div>
+							<br>
+							<div class="form-check line-chk">
+								<div class="check-group">
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sLineChk2" title="체크 선택" value="">
+										<label for="sLineChk2"><span>Check1</span></label>
+									</span>
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sLineChk3" title="체크 선택" value="" checked>
+										<label for="sLineChk3"><span>Check2</span></label>
+									</span>
+									<span class="check">
+										<input type="checkbox" name="checkstyle1" id="sLineChk4" title="체크 선택" value="" disabled>
+										<label for="sCheckSol4"><span>disabled</span></label>
+									</span>
+								</div>
+							</div>
+							<br>
+							<div class="form-check box-chk">
+								<div class="check-group">
+									<span class="check">
+										<input type="checkbox" name="BoxChk1" id="sBoxChk1" title="체크 선택" value="">
+										<label for="sBoxChk1">
+											<strong class="bank-name">직장인우대종합통장</strong>
+											<span class="bank-account">KB국민 1234123412341234</span>
+											<em class="bank-sum"><span>12,000</span>원</em>
+										</label>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- //guide view -->
+
+						<!-- codebrush -->
+						<div class="codebrush-wrap">
+							<div class="codebrush-head">
+								<button type="button" class="btn-drop">HTML</button>
+							</div>
+							<div class="codebrush">
+								<pre class="brush:html">
+									<!-- html -->
+									<div class="form-check all-chk">
+										<div class="check-group">
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sAllChk2" title="체크 선택" value="">
+												<label for="sAllChk2"><span>Check1</span></label>
+											</span>
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sAllChk3" title="체크 선택" value="" checked>
+												<label for="sAllChk3"><span>Check2</span></label>
+											</span>
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sAllChk4" title="체크 선택" value="" disabled>
+												<label for="sAllChk4"><span>disabled</span></label>
+											</span>
+										</div>
+									</div>
+		
+									<div class="form-check line-chk">
+										<div class="check-group">
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sLineChk2" title="체크 선택" value="">
+												<label for="sLineChk2"><span>Check1</span></label>
+											</span>
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sLineChk3" title="체크 선택" value="" checked>
+												<label for="sLineChk3"><span>Check2</span></label>
+											</span>
+											<span class="check">
+												<input type="checkbox" name="checkstyle1" id="sLineChk4" title="체크 선택" value="" disabled>
+												<label for="sCheckSol4"><span>disabled</span></label>
+											</span>
+										</div>
+									</div>
+		
+									<div class="form-check box-chk">
+										<div class="check-group">
+											<span class="check">
+												<input type="checkbox" name="BoxChk1" id="sBoxChk1" title="체크 선택" value="">
+												<label for="sBoxChk1">
+													<strong class="bank-name">직장인우대종합통장</strong>
+													<span class="bank-account">KB국민 1234123412341234</span>
+													<em class="bank-sum"><span>12,000</span>원</em>
+												</label>
+											</span>
+										</div>
+									</div>
+									<!-- //html -->
+								</pre>
+							</div>
+						</div>
+						<!-- //codebrush -->					
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+	<!-- //g-container -->
+
+	<!-- g-footer -->
+	<include src="../../html/inc/g-footer.html" data-include-opt='{"visible":"true"}'></include>
+	<!-- //g-footer -->	
+</div>	
+</body>
+</html>

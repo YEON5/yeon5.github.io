@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TextBoxComponent</title>
+        <style>
+            .input-wrapper * {
+                box-sizing: border-box;
+            }
+
+            .input-wrapper {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .input-box {
+                position: relative;
+                display: flex;
+                align-items: center;
+                height: 72px;
+                padding: 14px 16px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                background-color: white;
+            }
+
+            .input-box.active {
+                border-color: #000;
+                box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+            }
+
+            .input-wrapper.error .input-box {
+                border-color: #ff2860;
+                box-shadow: 0 0 0 2px rgba(255, 40, 96, 0.1);
+            }
+
+            .input-wrapper.error .extra-info {
+                color: #ff2860;
+            }
+
+            .label-wrapper {
+                position: absolute;
+                left: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #999;
+                transition: all 0.2s ease;
+                font-size: 16px;
+                pointer-events: none;
+            }
+
+            .input-box.active .label-wrapper {
+                top: 8px;
+                font-size: 13px;
+                color: #666;
+                transform: translateY(0%);
+            }
+
+            .input-field {
+                flex: 1;
+                align-self: flex-end;
+                border: none;
+                outline: none;
+                background: transparent;
+                font-size: 16px;
+            }
+
+            .input-clear-btn {
+                display: none;
+                background: none;
+                border: none;
+                color: #aaa;
+                cursor: pointer;
+                font-size: 16px;
+                margin-left: 0.5rem;
+            }
+
+            .input-clear-btn:hover {
+                color: #333;
+            }
+
+            .required-dot {
+                position: absolute;
+                top: 0;
+                right: -0.5rem;
+                width: 4px;
+                height: 4px;
+                background: #ff2860;
+                border-radius: 50%;
+            }
+
+            .extra-info {
+                font-size: 13px;
+                color: #666;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 한 세트 -->
+        <label class="input-wrapper">
+            <div class="input-box">
+                <input type="text" id="input1" class="input-field" placeholder="플레이스 홀더" />
+                <span class="label-wrapper">
+                    <span for="input1" class="input-label">이름</span>
+                    <!-- 필수 이라면  -->
+                    <span class="required-dot" aria-hidden="true"></span>
+                </span>
+                <button class="input-clear-btn">×</button>
+            </div>
+            <div class="extra-info">추가 정보 영역입니다.</div>
+        </label>
+        <!--// 한 세트 -->
+
+        <label class="input-wrapper error">
+            <div class="input-box">
+                <input type="text" id="input2" class="input-field" placeholder="플레이스 홀더" />
+                <span class="label-wrapper">
+                    <span for="input2" class="input-label">이름</span>
+                    <span class="required-dot" aria-hidden="true"></span>
+                </span>
+                <button class="input-clear-btn">×</button>
+            </div>
+            <div class="extra-info">추가 정보 영역입니다.</div>
+        </label>
+
+        <script>
+            document.querySelectorAll('.input-box').forEach(box => {
+                const input = box.querySelector('.input-field');
+                // const label = box.querySelector('.label-wrapper');
+                const clearBtn = box.querySelector('.input-clear-btn');
+                const originalPlaceholder = input.placeholder;
+
+                function updateState() {
+                    const hasValue = input.value.trim() !== '';
+                    const isFocused = document.activeElement === input;
+
+                    if (hasValue || isFocused) {
+                        box.classList.add('active');
+                    } else {
+                        box.classList.remove('active');
+                    }
+
+                    input.placeholder = isFocused ? originalPlaceholder : '';
+
+                    clearBtn.style.display = hasValue ? 'inline' : 'none';
+                }
+
+                input.addEventListener('input', updateState);
+                input.addEventListener('focus', updateState);
+                input.addEventListener('blur', updateState);
+
+                clearBtn.addEventListener('click', () => {
+                    input.value = '';
+                    updateState();
+                    input.focus();
+                });
+
+                updateState();
+            });
+        </script>
+    </body>
+</html>
