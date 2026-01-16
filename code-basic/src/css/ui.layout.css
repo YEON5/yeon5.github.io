@@ -41,6 +41,21 @@
   text-overflow: ellipsis;
 }
 
+.header-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-color: #404040;
+  z-index: 10000;
+  transition: width 0.1s ease;
+}
+
+@media all and (max-width: 1024px) {
+  .header-line {
+    display: none;
+  }
+}
 .skip-nav a {
   display: block;
   position: absolute;
@@ -244,6 +259,21 @@
 }
 
 .h5-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.page-title {
+  font-size: 2.6rem;
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.sub-title {
   font-size: 1.8rem;
   font-weight: 400;
 }

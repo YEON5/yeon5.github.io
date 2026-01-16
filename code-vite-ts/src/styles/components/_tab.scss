@@ -1,0 +1,92 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+/* tab default */
+.tab {
+    .tab-nav {
+        ul {
+            display: flex;
+            align-items: center;
+            // overflow: hidden;
+            > li {
+                @include flex-set(center, center);
+                position: relative;
+                flex: 1 1 0;
+                height: 6rem;
+                border-bottom: 0.1rem solid #999;
+                text-align: center;
+                &.is-active {
+                    &::after {
+                        @include position(absolute, $l: 0, $b: -1px);
+                        width: 100%;
+                        border-bottom: 0.3rem solid #222;
+                    }
+                }
+                > button {
+                    @include flex-set(center, center);
+                    @include size-set(100%);
+                    padding: 0 $spacer-10;
+                    color: #222;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+    .tab-body {
+        margin-top: $sec-gap-30;
+        .tab-cont {
+            display: none;
+            &.is-active {
+                display: block;
+            }
+        }
+    }
+}
+
+/* tab round bg+line (라인겹침) */
+.tab-round {
+    .tab-nav {
+        ul {
+            display: flex;
+            align-items: center;
+            > li {
+                @include flex-set(center, center);
+                position: relative;
+                flex: 1 1 0;
+                z-index: 0;
+                height: 5rem;
+                margin-right: -1px;
+                border: 0.1rem solid #eee;
+                &.is-active {
+                    z-index: 1;
+                    border: 0.1rem solid $color-bg-base;
+                    background-color: $color-bg-base;
+                    &::after {
+                        display: none;
+                    }
+                }
+                &:first-child {
+                    border-radius: $radius-8 0 0 $radius-8;
+                }
+                &:last-child {
+                    margin: 0;
+                    border-radius: 0 $radius-8 $radius-8 0;
+                }
+                > button {
+                    @include flex-set(center, center);
+                    @include size-set(100%);
+                    padding: 0 $spacer-10;
+                }
+            }
+        }
+    }
+    .tab-body {
+        margin-top: $sec-gap-30;
+        .tab-cont {
+            display: none;
+            &.is-active {
+                display: block;
+            }
+        }
+    }
+}

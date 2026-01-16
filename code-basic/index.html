@@ -700,16 +700,22 @@
                             </div>
                             <!-- //table row -->
                             <!-- pagination -->
-                            <div class="pagination">
-                                <a href="javascript:;" class="page-nav first">처음 페이지</a>
-                                <a href="javascript:;" class="page-nav prev">이전 페이지</a>
+                            <div class="pagination" role="navigation" aria-label="페이지네이션">
+                                <button type="button" class="page-nav first" aria-label="처음 페이지">처음</button>
+                                <button type="button" class="page-nav prev" aria-label="이전 페이지">이전</button>
                                 <ol class="page-link">
-                                    <li class="is-active"><a href="javascript:;">1</a></li>
-                                    <li><a href="javascript:;">2</a></li>
-                                    <li><a href="javascript:;">3</a></li>
+                                    <li class="is-active">
+                                        <button type="button" aria-current="page">1</button>
+                                    </li>
+                                    <li>
+                                        <button type="button">2</button>
+                                    </li>
+                                    <li>
+                                        <button type="button">3</button>
+                                    </li>
                                 </ol>
-                                <a href="javascript:;" class="page-nav next">다음 페이지</a>
-                                <a href="javascript:;" class="page-nav last">마지막 페이지</a>
+                                <button type="button" class="page-nav next" aria-label="다음 페이지">다음</button>
+                                <button type="button" class="page-nav last" aria-label="마지막 페이지">마지막</button>
                             </div>
                             <!-- pagination -->
                         </article>
@@ -1032,44 +1038,6 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
-                        <p class="h1-title">@Images ratio</p>
-                        <article>
-                            <p>#object-fit</p>
-                            <div class="img-object">
-                                <div class="figure-wrap">
-                                    <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
-                                </div>
-                            </div>
-                        </article>
-                        <!-- //article -->
-
-                        <!-- article -->
-                        <article>
-                            <p>#calc</p>
-                            <div class="img-box">
-                                <div class="figure-wrap">
-                                    <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
-                                </div>
-                            </div>
-                        </article>
-                        <!-- //article -->
-
-                        <!-- article -->
-                        <article>
-                            <p>#padding-bottom</p>
-                            <div class="img-container">
-                                <div class="figure-wrap">
-                                    <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
-                                </div>
-                            </div>
-                        </article>
-                        <!-- //article -->
-                    </section>
-                    <!-- //section -->
-
-                    <!-- section -->
-                    <section>
-                        <!-- article -->
                         <p class="h1-title">@Tab</p>
                         <article>
                             <p>#하단라인형</p>
@@ -1255,7 +1223,7 @@
                         <p class="h1-title">@Accordion</p>
                         <article>
                             <div class="accordion-wrap">
-                                <div class="accordion" id="accodi1">
+                                <div class="accordion">
                                     <div class="item-head">
                                         <button type="button" id="accoTitle1" class="btn-expand" aria-controls="accoCont1" aria-expanded="false">
                                             <span class="title">Accordion Title</span>
@@ -1265,7 +1233,7 @@
                                         <p>Accordion content</p>
                                     </div>
                                 </div>
-                                <div class="accordion" id="accodi2">
+                                <div class="accordion">
                                     <div class="item-head">
                                         <button type="button" id="accoTitle2" class="btn-expand" aria-controls="accoCont2" aria-expanded="false">
                                             <span class="title">Accordion Title</span>
@@ -1273,19 +1241,46 @@
                                     </div>
                                     <div id="accoCont2" class="item-body" aria-labelledby="accoTitle2">
                                         <p>Accordion content</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <div class="accordion-wrap">
+                                <div class="accordion">
+                                    <div class="item-head">
+                                        <button type="button" id="accoTitle3" class="btn-expand" aria-controls="accoCont3" aria-expanded="false">
+                                            <span class="title">Accordion Title</span>
+                                        </button>
+                                    </div>
+                                    <div id="accoCont3" class="item-body" aria-labelledby="accoTitle3">
+                                        <p>Accordion content</p>
+                                    </div>
+                                </div>
+                                <div class="accordion">
+                                    <div class="item-head">
+                                        <button type="button" id="accoTitle4" class="btn-expand" aria-controls="accoCont4" aria-expanded="false">
+                                            <span class="title">Accordion Title</span>
+                                        </button>
+                                    </div>
+                                    <div id="accoCont4" class="item-body" aria-labelledby="accoTitle4">
+                                        <p>Accordion content</p>
                                         <!-- inner accodion : 아코디언 안에 아코디언 -->
-                                        <!-- <div class="inner-accordion">
-                                        <div class="accordion" id="accodi11">
-                                            <div class="item-head">
-                                                <button type="button" class="btn-expand" aria-controls="accoCont11" id="accoTitle11" aria-expanded="false">
-                                                    <span class="title">Inner Accordion1-1</span>
-                                                </button>
-                                            </div>
-                                            <div id="accoCont11" class="item-body" aria-labelledby="accoTitle11">
-                                                <p>Inner Accordion content1-1</p>
+                                        <div class="inner-accordion">
+                                            <div class="accordion">
+                                                <div class="item-head">
+                                                    <button type="button" id="accoTitle41" class="btn-expand" aria-controls="accoCont41" aria-expanded="false">
+                                                        <span class="title">Inner Accordion1-1</span>
+                                                    </button>
+                                                </div>
+                                                <div id="accoCont41" class="item-body" aria-labelledby="accoTitle41">
+                                                    <p>Inner Accordion content1-1</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -1344,6 +1339,44 @@
                         <p class="h1-title">@Sub slide menu / Step menu</p>
                         <article>
                             <p>#name</p>
+                        </article>
+                        <!-- //article -->
+                    </section>
+                    <!-- //section -->
+
+                    <!-- section -->
+                    <section>
+                        <!-- article -->
+                        <p class="h1-title">@Images ratio</p>
+                        <article>
+                            <p>#object-fit</p>
+                            <div class="img-object">
+                                <div class="figure-wrap">
+                                    <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
+                                </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <p>#calc</p>
+                            <div class="img-box">
+                                <div class="figure-wrap">
+                                    <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
+                                </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <p>#padding-bottom</p>
+                            <div class="img-container">
+                                <div class="figure-wrap">
+                                    <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
+                                </div>
+                            </div>
                         </article>
                         <!-- //article -->
                     </section>
@@ -1484,45 +1517,5 @@
             <!-- //popup bottom -->
         </div>
         <!--// modal wrapper -->
-
-        <script>
-            /* javascript */
-
-            // tab
-            // document.addEventListener('click', function (e) {
-            //     // 탭 클릭 확인
-            //     if (e.target.matches('.tab-nav li > a')) {
-            //         e.preventDefault();
-            //         const id = e.target.getAttribute('href');
-            //         const tabId = document.getElementById(id);
-
-            //         // 활성화된 탭 설정
-            //         const activeTab = e.target.parentElement;
-            //         activeTab.classList.add('is-active');
-            //         Array.from(activeTab.parentElement.children).forEach(function (sibling) {
-            //             if (sibling !== activeTab) {
-            //                 sibling.classList.remove('is-active');
-            //                 const siblingLink = sibling.querySelector('a');
-            //                 siblingLink.setAttribute('aria-selected', 'false');
-            //             }
-            //         });
-
-            //         // 활성화된 탭 콘텐츠 설정
-            //         tabId.classList.add('is-active');
-            //         tabId.setAttribute('aria-hidden', 'false');
-            //         Array.from(tabId.parentElement.children).forEach(function (content) {
-            //             if (content !== tabId) {
-            //                 content.classList.remove('is-active');
-            //                 content.setAttribute('aria-hidden', 'true');
-            //             }
-            //         });
-
-            //         // aria-selected 속성 설정
-            //         if (activeTab.classList.contains('is-active')) {
-            //             e.target.setAttribute('aria-selected', 'true');
-            //         }
-            //     }
-            // });
-        </script>
     </body>
 </html>

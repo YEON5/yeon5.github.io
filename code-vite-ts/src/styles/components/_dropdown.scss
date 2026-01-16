@@ -1,0 +1,104 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+// slidetoggle button
+.dropdown {
+    position: relative;
+    .item-head {
+        @include flex-set(center, between);
+        position: relative;
+        height: 4rem;
+        transition: all 0.2s ease;
+        overflow: hidden;
+
+        .btn-toggle {
+            @include size-set(2.4rem);
+            padding: $spacer-10;
+            background: url('/assets/images/icons/ico_select.png') no-repeat center;
+            transition: all 0.2s ease;
+        }
+    }
+
+    .item-body {
+        display: none;
+        .drop-list {
+            z-index: 10;
+            height: auto;
+        }
+    }
+    &.is-active {
+        .btn-toggle {
+            transform: rotate(-180deg);
+        }
+        .item-body {
+            .drop-list {
+                .current {
+                    > a {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// type transition
+.dropdowns {
+    position: relative;
+    .drop-head {
+        @include flex-set(center, start);
+        .btn-select {
+            position: relative;
+            @include size-set(100%);
+            padding: $spacer-14 0;
+            text-align: left;
+            &::after {
+                @include position(absolute, $t: 50%, $r: 0);
+                @include size-set(2.4rem);
+                padding: $spacer-10;
+                background: url('/assets/images/icons/ico_select.png') no-repeat center;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    .drop-body {
+        display: block;
+        position: absolute;
+        top: 2rem;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: auto;
+        padding: $spacer-10 0;
+        border-radius: $radius-8;
+        background-color: $color-white;
+        box-shadow: rgba(0, 0, 0, 0.08) 0 0.4rem 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        .location-list {
+            a {
+                display: block;
+                width: 100%;
+                padding: $spacer-12 $spacer-24;
+            }
+            .current {
+                > a {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+    &.is-active {
+        .btn-select {
+            &::after {
+                transform: translateY(-50%) rotate(-180deg);
+            }
+        }
+        .drop-body {
+            top: 4.6rem;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}

@@ -38,3 +38,21 @@
         }
     }
 }
+
+.header-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background-color: #404040;
+    z-index: 10000;
+    -moz-transition: width 0.1s ease;
+    -webkit-transition: width 0.1s ease;
+    -ms-transition: width 0.1s ease;
+    transition: width 0.1s ease;
+}
+@media all and (max-width: 1024px) {
+    .header-line {
+        display: none;
+    }
+}

@@ -1,5 +1,3 @@
 ## html
 
-## vue
 
-## react

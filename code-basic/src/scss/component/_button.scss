@@ -23,6 +23,11 @@ $btn-color: (
     flex-wrap: wrap;
     gap: 1rem;
 
+    &.column {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     // 하단 스티키
     &.type-sticky {
         @include position(fixed, $l: 0, $b: 0, $r: 0);

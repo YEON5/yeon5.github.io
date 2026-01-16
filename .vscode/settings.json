@@ -1,0 +1,26 @@
+{
+  /* scss 설정 */
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "~/../css/"
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false,
+
+  /* 핵심: 특정 폴더 제외 설정 */
+  "liveSassCompile.settings.excludeList": [
+    "**/node_modules/**",
+    ".vscode/**",
+    "code-vite-ts/**" // code-vite-ts 폴더 안의 모든 scss 파일은 컴파일에서 제외
+  ],
+
+  /* 추가 권장 설정: 가급적 code-basic 폴더 내의 scss만 포함하도록 지정 */
+  "liveSassCompile.settings.includeItems": [
+    "code-basic/**/*.scss",
+    "code-basic/**/*.sass"
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

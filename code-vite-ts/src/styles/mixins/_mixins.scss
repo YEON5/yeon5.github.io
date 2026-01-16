@@ -1,0 +1,301 @@
+@use 'sass:map';
+@use '../common/variables' as *;
+
+// flex
+$flex-map: (
+    start: flex-start,
+    end: flex-end,
+    stretch: stretch,
+    center: center,
+    between: space-between,
+    around: space-around,
+);
+@function _flex-value($key) {
+    @return map.get($flex-map, $key);
+}
+
+@mixin flex-set($ai: center, $jc: center) {
+    display: flex;
+    align-items: _flex-value($ai);
+    justify-content: _flex-value($jc);
+}
+
+@mixin flex-column($ai: center, $jc: center) {
+    display: flex;
+    align-items: _flex-value($ai);
+    justify-content: _flex-value($jc);
+    flex-direction: column;
+}
+
+// position absolute, fixed, sticky
+@mixin position($position, $t: null, $b: null, $l: null, $r: null) {
+    @if ($position == absolute) {
+        content: '';
+        display: block;
+        position: $position;
+        top: $t;
+        bottom: $b;
+        left: $l;
+        right: $r;
+    } @else {
+        position: $position;
+        top: $t;
+        bottom: $b;
+        left: $l;
+        right: $r;
+    }
+}
+
+// width height size
+@mixin size-set($size) {
+    width: $size;
+    height: $size;
+}
+
+// background image
+@mixin bg-img($path, $format: 'svg') {
+    background-image: url('#{$url}#{$path}.#{$format}');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+// ellipsis
+@mixin ellipsis($line: 1) {
+    @if ($line == 1) {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    } @else {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: $line;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+    }
+}
+
+// responsive
+@mixin responsive($screen) {
+    @if ($screen == 'pc') {
+        // 데스크탑: 1280px 이상
+        @media (min-width: 1280px) {
+            @content;
+        }
+    }
+    @if ($screen == 't1') {
+        // 태블릿1: 1024px 이상
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            @content;
+        }
+    }
+    @if ($screen == 't2') {
+        // 태블릿2: 768px 이상
+        @media (min-width: 768px) and (max-width: 1023px) {
+            @content;
+        }
+    }
+    @if ($screen == 'm1') {
+        // 모바일1: 480px 이상
+        @media (min-width: 480px) and (max-width: 767px) {
+            @content;
+        }
+    }
+    @if ($screen == 'm2') {
+        // 모바일2: 320px 이상
+        @media (min-width: 320px) and (max-width: 479px) {
+            @content;
+        }
+    }
+    @if ($screen == 'ls') {
+        // 모바일 가로모드: 960px 이하
+        @media (max-width: 960px) and (orientation: landscape) {
+            @content;
+            // padding-left: calc(12px + env(safe-area-inset-left));
+            // padding-right: calc(12px + env(safe-area-inset-right));
+        }
+    }
+}
+
+@mixin sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    border: 0;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+// layout
+// section: sec-head
+@mixin sec-layout($type: type1) {
+    %sec-head {
+        margin-bottom: $spacer-10;
+        .title-area {
+            .desc {
+                margin: $spacer-10 0;
+                font-size: $font-body-16;
+            }
+        }
+        .util-area {
+            padding-left: $spacer-16;
+            .info {
+                font-size: $font-body-16;
+            }
+        }
+        &:has(.util-area) {
+            margin-bottom: $spacer-20;
+            &:has(.desc) {
+                margin-bottom: $spacer-10;
+            }
+        }
+    }
+
+    @if ($type == 'type1') {
+        .sec-head {
+            @include flex-set(center, between);
+            @extend %sec-head;
+            &.start {
+                align-items: start;
+            }
+        }
+    }
+    @if ($type == 'type2') {
+        .sec-head {
+            // margin-bottom: $spacer-10;
+        }
+    }
+}
+
+// @mixin sub-title($type: row) {
+// }
+
+// flex layout
+@mixin flexbox($type: row) {
+    @if ($type == 'row') {
+        @include flex-set(center, between);
+        column-gap: 1.6rem;
+        .unit {
+            flex-shrink: 1;
+            &.fixed {
+                flex-shrink: 0;
+            }
+        }
+        &.top {
+            align-items: start;
+        }
+        &.bottom {
+            align-items: end;
+        }
+        &.start {
+            justify-content: start;
+        }
+        &.end {
+            justify-content: end;
+        }
+    }
+    @if ($type == 'col') {
+        @include flex-column(start, start);
+        row-gap: 1.6rem;
+        .unit {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+        &.center {
+            align-items: center;
+        }
+        &.end {
+            align-items: end;
+        }
+    }
+}
+
+// elements
+// textfield
+@mixin input-type($type: line) {
+    // textfield line type
+    @if ($type == 'line') {
+        position: relative;
+        width: 100%;
+        height: 5.6rem;
+        padding-right: $spacer-40;
+        border-bottom: 1px solid #ddd;
+        background-color: #fff;
+        font-family: inherit;
+        font-size: $font-body-16;
+        color: $color-txt-body;
+        transition: 0.4s ease-in-out;
+        &:disabled {
+            color: $color-disable;
+            opacity: 1;
+            -webkit-text-fill-color: inherit;
+        }
+        &[readonly] {
+            color: $color-txt-body;
+        }
+    }
+    // textfield box type
+    @if ($type == 'box') {
+        position: relative;
+        width: 100%;
+        height: 5.6rem;
+        padding-left: $spacer-16;
+        padding-right: $spacer-40;
+        border: 1px solid #ddd;
+        border-radius: $radius-8;
+        background-color: #fff;
+        font-family: inherit;
+        font-size: $font-body-16;
+        color: $color-txt-body;
+        transition: 0.4s ease-in-out;
+        &:disabled {
+            color: $color-disable;
+            background-color: #f3f4f5;
+            opacity: 1;
+            -webkit-text-fill-color: inherit;
+        }
+        &[readonly] {
+            color: $color-txt-body;
+            background-color: #f3f4f5;
+        }
+    }
+}
+
+// at-root 최상위에 클래스 추가적용???
+@mixin parent-selector($new-class) {
+    $current-selector: &;
+    $new-selector: '';
+
+    @each $item in $current-selector {
+        $first-item: nth($item, 1);
+
+        $appended-item: $first-item + $new-class;
+
+        $new-item: set-nth($item, 1, $appended-item);
+        $new-selector: append($new-item, $new-selector);
+    }
+
+    @at-root #{$new-selector} {
+        @content;
+    }
+}
+// 예시
+// .parent {
+//     .child {
+//         span {
+//             @include parent-selector('.bold') {
+//                 font-weight: bold;
+//             }
+//         }
+//     }
+// }
+
+@mixin unify-parent($child) {
+    @at-root #{selector.unify(&, $child)} {
+        @content;
+    }
+}

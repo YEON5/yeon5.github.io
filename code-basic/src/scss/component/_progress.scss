@@ -1,0 +1,79 @@
+/* type1 */
+.progress-wrap {
+    position: relative;
+
+    // bar
+    .progress-bar {
+        position: relative;
+        width: 30rem;
+        height: 3rem;
+        margin: 2rem 0;
+        border-radius: 2rem;
+        background-color: #e5e5e5;
+        overflow: hidden;
+        > span {
+            display: inline-block;
+            position: absolute;
+            width: 0;
+            padding-right: 1rem;
+            color: #fff;
+            line-height: 3rem;
+            text-align: right;
+        }
+        &.blue {
+            > span {
+                background: linear-gradient(45deg, #ffc400, #f0d);
+            }
+        }
+    }
+
+    // range
+    .range {
+        position: relative;
+        /*height: 8rem;*/
+        padding-bottom: 5rem;
+        > span {
+            display: inline-block;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 5rem;
+            margin-left: -25px;
+            padding: 0.5rem 0;
+            border-radius: 0.5rem;
+            background-color: blueviolet;
+            font-size: 1.4rem;
+            color: #fff;
+            text-align: center;
+            > em {
+                display: inline-block;
+                margin-right: 0.2em;
+            }
+            &::after {
+                content: '▲';
+                display: block;
+                position: absolute;
+                top: -12px;
+                left: 50%;
+                color: blueviolet;
+                transform: translateX(-50%);
+            }
+        }
+        .bars {
+            height: 3rem;
+            border-radius: 2rem;
+            background-color: #e5e5e5;
+            > span {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 3rem;
+                border-radius: 2rem;
+                background: linear-gradient(45deg, #ffc400, #f0d);
+                background: -webkit-linear-gradient(45deg, #ffc400, #f0d);
+            }
+        }
+    }
+}

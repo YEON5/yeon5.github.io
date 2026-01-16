@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowJs": true,
+
+    /* 퍼블리싱 용도를 위해 엄격함 풀기 (JS처럼 편하게 사용) */
+    "strict": false,               /* 엄격한 타입 검사 끄기 */
+    "noImplicitAny": false,        /* 타입을 안 적으면 자동으로 any로 처리 */
+    "strictNullChecks": false,     /* DOM 선택 시 null 체크 강제하지 않음 */
+    
+    /* 편의 기능 */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]             /* @를 src 폴더로 인식 (Vite alias와 매칭) */
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}
