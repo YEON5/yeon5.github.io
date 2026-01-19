@@ -844,6 +844,7 @@ function popupOpen(id, $opener) {
     // 스크롤 잠금
     if (activeCount === 1) scrollOn();
 
+    // 포커스 이동 (브라우저 렌더링 시간 고려하여 약간 지연)
     setTimeout(function () {
         $popWrap.find('.popup').attr('tabindex', '0').focus();
     }, 50);
@@ -862,7 +863,7 @@ function popupClose(id) {
     // 비활성화
     $popWrap.removeClass('is-active').attr('aria-hidden', 'true').removeAttr('style');
 
-    // 스크롤 잠금 해제
+    // 스크롤 잠금 해제 (남은 팝업이 없을 때만)
     if ($('.popup-wrap.is-active').length === 0) scrollOff();
 
     // 포커스 복귀
@@ -894,25 +895,32 @@ function handleFocusTrap(e, $popWrap) {
     }
 }
 
-// scroll on/off
+// scroll on
 function scrollOn() {
     const $body = $('body');
     const $wrapper = $('.wrapper');
 
     savedScrollTop = $(window).scrollTop();
 
+    // body 고정 및 위치 보정
     $body.css('top', -savedScrollTop + 'px').addClass('scrollOff');
     if ($wrapper.length) $wrapper.attr('aria-hidden', 'true');
 }
 
+// scroll off 
 function scrollOff() {
     const $body = $('body');
     const $wrapper = $('.wrapper');
 
-    $body.removeClass('scrollOff').css('top', '');
-    $(window).scrollTop(savedScrollTop);
+    $('html, body').css('scroll-behavior', 'auto');
+    $body.removeClass('scrollOff');
+    window.scrollTo(0, savedScrollTop);
+    $body.css('top', '');
 
     if ($wrapper.length) $wrapper.removeAttr('aria-hidden');
+    setTimeout(function () {
+        $('html, body').css('scroll-behavior', '');
+    }, 10);
 }
 // scroll on,off
 // function scrollOn() {
