@@ -615,8 +615,6 @@
                                     <caption>
                                         <!-- 표제목 -->
                                         <strong></strong>
-                                        <!-- 표내용 -->
-                                        <span>순서로 구성</span>
                                     </caption>
                                     <colgroup>
                                         <col style="width: 25%" />
@@ -648,8 +646,6 @@
                                     <caption>
                                         <!-- 표제목 -->
                                         <strong></strong>
-                                        <!-- 표내용 -->
-                                        <span>순서로 구성</span>
                                     </caption>
                                     <colgroup>
                                         <col style="width: 25%" />
@@ -675,8 +671,6 @@
                                     <caption>
                                         <!-- 표제목 -->
                                         <strong></strong>
-                                        <!-- 표내용 -->
-                                        <span>순서로 구성</span>
                                     </caption>
                                     <colgroup>
                                         <col style="width: 25%" span="3" />
@@ -733,8 +727,6 @@
                                     <caption>
                                         <!-- 표제목 -->
                                         <strong></strong>
-                                        <!-- 표내용 -->
-                                        <span>순서로 구성</span>
                                     </caption>
                                     <colgroup>
                                         <col class="col1" />
@@ -777,8 +769,6 @@
                                             <caption>
                                                 <!-- 표제목 -->
                                                 <strong></strong>
-                                                <!-- 표내용 -->
-                                                <span>~순서로 구성</span>
                                             </caption>
                                             <colgroup>
                                                 <col style="width: 25%" span="4" />
@@ -1355,7 +1345,7 @@
                                     <span>팝오버</span>
                                 </button>
                                 <!-- 위치 클래스 : pos-top / bottom (옵션 left,right), pos-left / right (옵션 top, bottom) -->
-                                <div id="popover1" class="popover-inner pos-top right" role="dialog" aria-labelledby="pop-tit1" aria-hidden="true">
+                                <div id="popover1" class="popover-inner pos-top" role="dialog" aria-labelledby="pop-tit1" aria-hidden="true">
                                     <!-- popover content -->
                                     <div class="title-area">
                                         <em id="pop-tit1" class="h5-title">Title</em>
@@ -1387,21 +1377,7 @@
                         <!-- article -->
                         <p class="h1-title">@Popup</p>
                         <article>
-                            <p>#name</p>
                             <div class="btn-wrap type-fill column">
-                                <!-- <button type="button" class="btn btn-popup-open">
-                                    <span>Modal popup - alert</span>
-                                </button>
-                                <button type="button" class="btn btn-popup-open">
-                                    <span>Modal popup - confirm</span>
-                                </button>
-                                <button type="button" class="btn btn-popup-open" onclick="popupOpen('popupFull', this);" aria-controls="popupFull" aria-haspopup="dialog">
-                                    <span>Modal popup - full</span>
-                                </button>
-                                <button type="button" class="btn btn-popup-open">
-                                    <span>Modal popup - bottom</span>
-                                </button> -->
-
                                 <button type="button" class="btn btn-popup-open" data-popup-trigger="popupAlert">Alert Popup</button>
                                 <button type="button" class="btn btn-popup-open" data-popup-trigger="popupConfirm">Confirm Popup</button>
                                 <button type="button" class="btn btn-popup-open" data-popup-trigger="popupFull">Full Popup</button>
@@ -1517,46 +1493,48 @@
 
         <!-- modal wrapper -->
         <div class="modal-wrapper">
-            <div id="popupAlert" class="popup-wrap type-alert" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="tit-alert">
+            <div id="popupAlert" class="popup-wrap type-alert" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="alertTit1">
                 <div class="popup">
                     <div class="popup-body">
-                        <div class="popup-content">
-                            <p id="tit-alert" class="txt">입력정보를 확인해주세요.</p>
+                        <div class="cont-area">
+                            <p id="alertTit1" class="txt">입력정보를 확인해주세요.</p>
                         </div>
                     </div>
                     <div class="popup-foot">
-                        <button type="button" class="btn btn-primary" data-popup-close>확인</button>
+                        <div class="btn-wrap type-fill">
+                            <button type="button" class="btn h32 primary" data-popup-close>확인</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="popupConfirm" class="popup-wrap type-confirm" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="tit-confirm">
+            <div id="popupConfirm" class="popup-wrap type-confirm" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="confirmTit1">
                 <div class="popup">
                     <div class="popup-head">
-                        <h2 id="tit-confirm" class="pop-title">삭제 확인</h2>
+                        <h2 id="confirmTit1" class="pop-title">삭제 확인</h2>
                     </div>
                     <div class="popup-body">
-                        <div class="popup-content">
+                        <div class="cont-area">
                             <p class="txt">정말 삭제하시겠습니까?<br />삭제된 데이터는 복구할 수 없습니다.</p>
                         </div>
                     </div>
                     <div class="popup-foot">
-                        <div class="btn-wrap">
-                            <button type="button" class="btn btn-secondary" data-popup-close>취소</button>
-                            <button type="button" class="btn btn-primary">삭제</button>
+                        <div class="btn-wrap type-fill">
+                            <button type="button" class="btn h32 secondary" data-popup-close>취소</button>
+                            <button type="button" class="btn h32 primary">확인</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="popupFull" class="popup-wrap type-full" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="tit-full">
+            <div id="popupFull" class="popup-wrap type-full" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="fullTit1">
                 <div class="popup">
                     <div class="popup-head">
-                        <h2 id="tit-full" class="pop-title">약관 상세</h2>
+                        <h2 id="fullTit1" class="pop-title">약관 상세</h2>
                         <button type="button" class="btn-close-popup" data-popup-close><span class="sr-only">닫기</span></button>
                     </div>
                     <div class="popup-body">
-                        <div class="popup-content">
+                        <div class="cont-area">
                             <p>
                                 <strong>[스크롤 테스트]</strong><br /><br />
                                 내용이 길어지면 Body 영역 내에서만 스크롤이 발생합니다.<br />
@@ -1568,24 +1546,32 @@
                         </div>
                     </div>
                     <div class="popup-foot">
-                        <button type="button" class="btn btn-primary" data-popup-close>확인</button>
+                        <div class="btn-wrap type-sticky type-fill">
+                            <button type="button" class="btn secondary" data-popup-close>취소</button>
+                            <button type="button" class="btn primary">확인</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="popupBottom" class="popup-wrap type-bottom" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="tit-bottom">
+            <div id="popupBottom" class="popup-wrap type-bottom" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bottomTit1">
                 <div class="popup">
                     <div class="popup-head">
-                        <h2 id="tit-bottom" class="pop-title">옵션 선택</h2>
+                        <h2 id="bottomTit1" class="pop-title">옵션 선택</h2>
                         <button type="button" class="btn-close-popup" data-popup-close><span class="sr-only">닫기</span></button>
                     </div>
                     <div class="popup-body">
-                        <div class="popup-content">
+                        <div class="cont-area">
                             <ul class="option-list">
                                 <li><a href="#">옵션 선택 1</a></li>
                                 <li><a href="#">옵션 선택 2</a></li>
                                 <li><a href="#">옵션 선택 3</a></li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="popup-foot">
+                        <div class="btn-wrap type-sticky type-fill">
+                            <button type="button" class="btn h48 primary" data-popup-close>확인</button>
                         </div>
                     </div>
                 </div>

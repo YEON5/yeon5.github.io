@@ -4,17 +4,17 @@
 @use 'mixins/mixins' as *;
 
 // components
-@forward 'component/badge';
-@forward 'component/button';
-@forward 'component/list';
-@forward 'component/table';
-@forward 'component/form-fields';
-@forward 'component/form-options';
-@forward 'component/accodion';
-@forward 'component/dropdown';
-@forward 'component/tab';
-@forward 'component/toast';
-@forward 'component/tooltip';
-@forward 'component/popover';
-@forward 'component/popup';
-@forward 'component/progress';
+@forward 'components/badge';
+@forward 'components/button';
+@forward 'components/list';
+@forward 'components/table';
+@forward 'components/form-fields';
+@forward 'components/form-options';
+@forward 'components/accodion';
+@forward 'components/dropdown';
+@forward 'components/tab';
+@forward 'components/toast';
+@forward 'components/tooltip';
+@forward 'components/popover';
+@forward 'components/popup';
+@forward 'components/progress';

@@ -2058,7 +2058,6 @@ input[type=text]:focus {
   transform: translateY(calc(80% + 4.3rem));
 }
 
-/* popup default */
 .popup-wrap {
   display: flex;
   align-items: center;
@@ -2072,7 +2071,6 @@ input[type=text]:focus {
   height: 100%;
   visibility: hidden;
   transition: all 0.3s ease;
-  /* 모바일 화면 대응 */
 }
 .popup-wrap::before {
   content: "";
@@ -2091,22 +2089,19 @@ input[type=text]:focus {
 .popup-wrap.is-active::before {
   opacity: 1;
 }
-.popup-wrap.is-active .popup {
+.popup-wrap.is-active > .popup {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(0) !important;
 }
 .popup-wrap .popup {
-  position: relative;
-  z-index: 10;
   display: flex;
   flex-direction: column;
-  width: 90%;
-  max-width: 500px;
-  max-height: 90%;
-  border-radius: 12px;
+  position: relative;
+  z-index: 10;
+  width: 100%;
   background-color: #fff;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translate(0, 20px);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
@@ -2118,20 +2113,21 @@ input[type=text]:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
   padding: 1.2rem 1.5rem;
   border-bottom: 1px solid #eee;
 }
 .popup-wrap .popup .popup-head .pop-title {
-  margin: 0;
+  padding: 0 2rem;
   font-size: 1.4rem;
-  font-weight: 700;
   color: #222;
 }
 .popup-wrap .popup .popup-body {
   flex: 1 1 auto;
-  padding: 1.5rem;
+  padding: 2.4rem;
+  overflow: auto;
 }
-.popup-wrap .popup .popup-body .popup-content {
+.popup-wrap .popup .popup-body .cont-area {
   color: #444;
 }
 .popup-wrap .popup .popup-foot {
@@ -2147,14 +2143,16 @@ input[type=text]:focus {
   position: absolute;
   top: 1.2rem;
   right: 1.5rem;
-  width: 24px;
-  height: 24px;
-  border: 0;
+  width: 2.4rem;
+  height: 2.4rem;
   background: url("../images/icons/btn_close.svg") no-repeat center/cover;
-  cursor: pointer;
 }
 .popup-wrap.type-alert .popup, .popup-wrap.type-confirm .popup {
+  width: 90%;
   max-width: 320px;
+  min-height: auto;
+  max-height: 40%;
+  border-radius: 12px;
 }
 .popup-wrap.type-alert .popup .popup-body, .popup-wrap.type-confirm .popup .popup-body {
   text-align: center;
@@ -2163,34 +2161,55 @@ input[type=text]:focus {
 .popup-wrap.type-alert .popup .popup-foot .btn-wrap, .popup-wrap.type-confirm .popup .popup-foot .btn-wrap {
   justify-content: center;
 }
-.popup-wrap.popup-alert .popup-head {
+.popup-wrap.type-alert .popup-head {
   display: none;
 }
-@media screen and (max-width: 768px) {
-  .popup-wrap.type-full {
-    display: block;
+.popup-wrap.type-full .popup {
+  height: 100%;
+  min-height: 100%;
+  border-radius: 0;
+  transform: translate(0, 100%);
+}
+.popup-wrap.type-full .popup .popup-body {
+  padding-bottom: 11rem;
+}
+.popup-wrap.type-full .popup .popup-foot {
+  padding: 0;
+}
+.popup-wrap.type-bottom {
+  justify-content: flex-end;
+}
+.popup-wrap.type-bottom .popup {
+  max-height: 80%;
+  border-radius: 20px 20px 0 0;
+  transform: translate(0, 100%);
+}
+.popup-wrap.type-bottom .popup .popup-body {
+  padding-bottom: 10rem;
+}
+.popup-wrap.type-bottom .popup .popup-foot {
+  padding: 0;
+}
+@media screen and (min-width: 769px) {
+  .popup-wrap.type-full, .popup-wrap.type-bottom {
+    align-items: center;
+    justify-content: center;
   }
-  .popup-wrap.type-full .popup {
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    border-radius: 0;
-    transform: translateY(100%);
+  .popup-wrap.type-full .popup, .popup-wrap.type-bottom .popup {
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    max-height: 60%;
+    min-height: auto;
+    border-radius: 12px;
   }
 }
-@media screen and (max-width: 768px) {
-  .popup-wrap.type-bottom {
-    align-items: flex-end;
-  }
-  .popup-wrap.type-bottom .popup {
-    width: 100%;
-    max-width: none;
-    max-height: 80%;
-    margin: 0;
-    border-radius: 20px 20px 0 0;
-    transform: translateY(100%);
-  }
+
+.scrollOff {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* type1 */

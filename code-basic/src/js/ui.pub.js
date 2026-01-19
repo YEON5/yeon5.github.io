@@ -6,7 +6,6 @@ $(function () {
 
 //호출 방식
 function uiInit() {
-    eleFocus();
     // gnbInit();
     // snbInit();
     // lnbInit();
@@ -22,6 +21,7 @@ function uiInit() {
     fileInit();
     fileAttach();
     popoverInit();
+    popupInit();
     // toastPopInit();
     progressInit();
     includeLayout();
@@ -131,8 +131,6 @@ function lnbInit() {
 function formInit() {
     textField();
     formOpionChange();
-    // inputFocus();
-    // inputDelete();
 }
 
 // input text value clear
@@ -252,6 +250,7 @@ function formOpionChange() {
         }
     });
 }
+
 // 체크박스 로직
 function toggleCheckboxContent($checkbox) {
     const targetIds = $checkbox.attr('aria-controls');
@@ -269,6 +268,7 @@ function toggleCheckboxContent($checkbox) {
         }
     });
 }
+
 // 라디오 로직
 function toggleRadioContent($radio) {
     const name = $radio.attr('name');
@@ -288,60 +288,6 @@ function toggleRadioContent($radio) {
         }
     });
 }
-
-// function inputFocus() {
-//     $('.form-wrap input').on('focusin', function () {
-//         $(this).closest('.input-group').addClass('is-focus');
-//         $(this).parent().addClass('has-delBtn');
-//     });
-//     $('.form-wrap input').on('focusout', function () {
-//         $(this).closest('.input-group').removeClass('is-focus');
-//         $(this).parent().removeClass('has-delBtn');
-//         if ($(this).val() != '') {
-//             //값이 존재하면
-//             $(this).closest('.input-group').addClass('is-focus');
-//             $(this).parent().addClass('has-delBtn');
-//         }
-//     });
-
-//     // focus
-//     // $(document).on('click', '.input-group .label-txt', function(){
-//     // 	$(this).next('input').focus();
-//     // });
-// }
-
-// function inputDelete() {
-//     $(document).on('focusin input paste', function (e) {
-//         if ($(e.target).parents().is('.has-delBtn') && !$(e.target).is('[readonly]')) {
-//             $('.has-delBtn button.input-del').hide();
-//             $this = $(e.target).parents('.has-delBtn').find('input');
-//             if ($this.val() != '') {
-//                 //값이 존재하면
-//                 if ($this.siblings('button.input-del').length == 0) {
-//                     //삭제버튼이 없으면
-//                     $this.after('<button type="button" class="input-del"><span class="sr-only">내용지우기</span></button>');
-//                     $this.next('button.input-del').show();
-//                 } else {
-//                     $this.next('button.input-del').show();
-//                 }
-//             }
-//         } else {
-//             $('.has-delBtn button.input-del').hide();
-//         }
-//     });
-//     $(document).on('click', '.input-group .label-txt', function () {
-//         $(this).next('input').focus();
-//     });
-//     $(document).on('touchstart click', function (e) {
-//         if (!$(e.target).parents().is('.has-delBtn')) {
-//             $('.has-delBtn button.input-del').hide();
-//         }
-//     });
-//     $(document).on('click', '.has-delBtn button.input-del', function () {
-//         $(this).prev('input').val('').focus();
-//         $(this).remove();
-//     });
-// }
 
 /*-------------------------------------------------------------------
 	## Tab
@@ -527,78 +473,46 @@ function stickyInit() {
 }
 
 /*-------------------------------------------------------------------
+	## Scroll Action
+-------------------------------------------------------------------*/
+function scrollAction() {
+    //Click scroll top button
+    $(window).on('scroll', function (e) {
+        const $btnScroll = $('.btn-scrollTop');
+        if ($(this).scrollTop() > 0) {
+            $btnScroll.addClass('is-active');
+        } else {
+            $btnScroll.removeClass('is-active');
+        }
+    });
+
+    $(document).on('click', '.btn-scrollTop', function (e) {
+        e.preventDefault();
+        $('html').animate(
+            {
+                scrollTop: 0,
+            },
+            300,
+        );
+    });
+
+    //Header border on scroll
+    $(document).on('scroll', function () {
+        const scrollY = $(document).scrollTop();
+        //step scroll border top
+        if ($('#stepWrap').length > 0) {
+            if (scrollY < 100 && !$('.header').hasClass('bor-none')) {
+                $('.header').addClass('bor-none');
+            } else if (scrollY >= 100 && $('.header').hasClass('bor-none')) {
+                $('.header').removeClass('bor-none');
+            }
+        }
+    });
+}
+
+/*-------------------------------------------------------------------
 	## Scroll Event : Scroll Up/Down Custom Event (스크롤 상태 및 위치 확인)
 -------------------------------------------------------------------*/
-// function scrollEvent() {
-//     var scrTop = null, //스크롤 현재위치
-//         scrTopStart = null, //스크롤 시작위치
-//         scrTopEnd = null, //스크롤 종료위치
-//         isScrFirst = null, //스크롤 처음인 경우
-//         isScrLast = null, //스크롤 끝인 경우
-//         //Init
-//         scrTop = (scrTopStart = $(window).scrollTop());
-//     var scrPosition = function (val) {
-//         //스크롤 처음확인
-//         if (val == 0) {
-//             isScrFirst = true;
-//             $('body').addClass('is-scrollFirst');
-//         } else {
-//             isScrFirst = false;
-//             $('body').removeClass('is-scrollFirst');
-//         }
-//         //스크롤 마지막확인
-//         if (val + $(window).outerHeight() == $(document).height()) {
-//             isScrLast = true;
-//             $('body').addClass('is-scrollLast');
-//         } else {
-//             isScrLast = false;
-//             $('body').removeClass('is-scrollLast');
-//         }
-//     };
-//     scrPosition(scrTop);
-
-//     //Scrolled
-//     var scrollEndTime;
-//     var isScrolled = false;
-//     var oldScrTop = scrTop;
-//     $(window)
-//         .off('scroll.customEvent')
-//         .on('scroll.customEvent', function () {
-//             var curScrTop = $(window).scrollTop();
-
-//             //스크롤 방향
-//             if (oldScrTop > curScrTop) {
-//                 $(window).trigger('scrollUp');
-//                 $('body').addClass('is-scrollUp').removeClass('is-scrollDown');
-//             } else if (oldScrTop < curScrTop) {
-//                 $(window).trigger('scrollDown');
-//                 $('body').addClass('is-scrollDown').removeClass('is-scrollUp');
-//             }
-//             oldScrTop = curScrTop;
-
-//             //스크롤 종료
-//             clearTimeout(scrollEndTime);
-//             scrollEndTime = setTimeout(function () {
-//                 isScrolled = false;
-//                 scrTop = scrTopEnd = curScrTop;
-//                 $(window).trigger('scrollEnd');
-//             }, 100);
-
-//             scrPosition(curScrTop);
-//         });
-
-//     //Resized
-//     var resizeEndTime;
-//     $(window)
-//         .off('resize.customEvent')
-//         .on('resize.customEvent', function () {
-//             clearTimeout(resizeEndTime);
-//             resizeEndTime = setTimeout(function () {
-//                 $(window).trigger('resizeEnd');
-//             }, 100);
-//         });
-// }
-
 function scrollEvent() {
     const $window = $(window);
     const $body = $('body');
@@ -677,138 +591,8 @@ $(window).on('scrollDown', function () {
 });
 
 /*-------------------------------------------------------------------
-	## Scroll Action
--------------------------------------------------------------------*/
-function scrollAction() {
-    //Click scroll top button
-    $(window).on('scroll', function (e) {
-        const $btnScroll = $('.btn-scrollTop');
-        if ($(this).scrollTop() > 0) {
-            $btnScroll.addClass('is-active');
-        } else {
-            $btnScroll.removeClass('is-active');
-        }
-    });
-
-    $(document).on('click', '.btn-scrollTop', function (e) {
-        e.preventDefault();
-        $('html').animate(
-            {
-                scrollTop: 0,
-            },
-            300,
-        );
-    });
-
-    // 앵커 태그 클릭 시 해당 위치로 이동
-    $(document).on('click', '.header .gnb .node1 > a', function (e) {
-        e.preventDefault();
-        const scrollPos = $($(this).attr('href'));
-        const scrollPosTop = scrollPos.offset().top - 150;
-        $('html, body').animate(
-            {
-                scrollTop: scrollPosTop,
-            },
-            400,
-        );
-    });
-
-    // 클릭 시 해당 위치로 이동
-    const trigger = $('.lnb .scroll-pos');
-    trigger.on('click', function () {
-        const scrTop = $(this).scrollTop();
-        const selecterPos = $('.tab').offset().top - 250;
-        const scrHeight = $(document).scrollTop(); // 스크롤 위치 높이 좌표값
-        $('html, body').animate(
-            {
-                scrollTop: selecterPos,
-            },
-            400,
-        );
-        console.log(scrHeight);
-    });
-
-    //Header border on scroll
-    $(document).on('scroll', function () {
-        const scrollY = $(document).scrollTop();
-        //step scroll border top
-        if ($('#stepWrap').length > 0) {
-            if (scrollY < 100 && !$('.header').hasClass('bor-none')) {
-                $('.header').addClass('bor-none');
-            } else if (scrollY >= 100 && $('.header').hasClass('bor-none')) {
-                $('.header').removeClass('bor-none');
-            }
-        }
-    });
-}
-
-function scrollSpy() {
-    const gnbLink = $('.gnb .node1 > a');
-    gnbLink.on('click', function (e) {
-        const target = $($(this).attr('href'));
-        const topH = $('.header').height();
-        $('html, body').animate(
-            {
-                scrollTop: target.offset().top - topH - 20,
-            },
-            100,
-        );
-        // $(this).addClass('is-active');
-        e.preventDefault();
-    });
-}
-function scrollCurrent() {
-    $(window).on('scroll', function (e) {
-        // findPosition();
-    });
-}
-function findPosition() {
-    const gnbLink = $('.gnb .node1 > a');
-    $('.section').each(function () {
-        if ($(this).offset().top - $(window).scrollTop() < 20) {
-            gnbLink.removeClass('is-active');
-            $('.gnb')
-                .find('[data-scroll="' + $(this).attr('id') + '"]')
-                .addClass('is-active');
-        }
-    });
-}
-
-/*-------------------------------------------------------------------
 	## Scroll animate
 -------------------------------------------------------------------*/
-// function scrollAnimate() {
-//     const objGroup = $('.ui-animate');
-//     const objList = $('.to-animate');
-//     const dataAnimate = objGroup.attr('data-animate');
-
-//     const action = function () {
-//         objGroup.each(function () {
-//             $(this)
-//                 .find(objList)
-//                 .not('animated')
-//                 .each(function () {
-//                     const winTop = $(window).scrollTop();
-//                     const $this = $(this);
-
-//                     if ($(this).offset().top - winTop < 500) {
-//                         setTimeout(function () {
-//                             $this.addClass('animated').addClass(dataAnimate);
-//                         });
-//                     }
-//                 });
-//         });
-//     };
-
-//     const setTime = null;
-//     $(window).scroll(function () {
-//         clearTimeout(setTime);
-//         setTime = setTimeout(function () {
-//             action();
-//         }, 50);
-//     });
-// }
-
 function scrollAnimated() {
     //Scroll animate
     var $eleAnimateSec = $('.ui-animate');
@@ -931,27 +715,6 @@ function fileAttach() {
 }
 
 /*-------------------------------------------------------------------
-	## Utility Functions
--------------------------------------------------------------------*/
-// scroll on,off
-function scrollOn() {
-    const $body = $('body');
-    const $wrapper = $('.wrapper');
-    setTimeout(function () {
-        $body.addClass('scrollOff');
-        $wrapper.attr('aria-hidden', 'true');
-    }, 50);
-}
-function scrollOff() {
-    const $body = $('body');
-    const $wrapper = $('.wrapper');
-    setTimeout(function () {
-        $body.removeClass('scrollOff');
-        $wrapper.removeAttr('aria-hidden');
-    }, 50);
-}
-
-/*-------------------------------------------------------------------
 	## Popover
 -------------------------------------------------------------------*/
 function popoverInit() {
@@ -998,14 +761,12 @@ function popoverInit() {
             }
         });
 }
-
 // 팝오버 열기
 function openPopover($btn, $popover) {
     $btn.attr('aria-expanded', 'true');
     $btn.closest('.popover').addClass('is-active');
     $popover.stop().fadeIn(300).attr('aria-hidden', 'false');
 }
-
 // 팝오버 닫기
 function closePopover($popover) {
     const id = $popover.attr('id');
@@ -1018,7 +779,6 @@ function closePopover($popover) {
     // 닫힌 후 버튼으로 포커스 이동
     $btn.focus();
 }
-
 // 팝오버 전체 닫기
 function closeAllPopovers() {
     $('.popover-inner:visible').each(function () {
@@ -1027,202 +787,150 @@ function closeAllPopovers() {
 }
 
 /*-------------------------------------------------------------------
-	## Popup - onClick ID 처리 : 열기 onclick="popupOpen('popupBasic', this);"  /  닫기 onclick="popupClose('popupBasic', this)"
+	## Popup 
 -------------------------------------------------------------------*/
-//focus
-function eleFocus() {
-    $(document)
-        .off('focusin.eleEvent click.eleEvent')
-        .on('focusin.eleEvent click.eleEvent', function (e) {
-            $activeFocus = $(e.target);
-        });
-}
+// 스크롤 위치 저장용 변수
+let savedScrollTop = 0;
 
-var popupOptions = {
-    $popArr: [],
-    zIndexUnit: 1001,
-};
+function popupInit() {
+    // popup open
+    $(document).on('click', '[data-popup-trigger]', function () {
+        const targetId = $(this).data('popup-trigger');
+        const $opener = $(this);
+        popupOpen(targetId, $opener);
+    });
 
-function popupOpen(id, focus) {
-    var $popWrap = $('#' + id);
-    var $focus = $popWrap.find('.popup');
-    var $lastFocus = $focus.find('button').last();
-    // var target = $focus
-    $popWrap.data('opener', $activeFocus).addClass('is-active').attr('aria-hidden', 'false');
-    // $popWrap.addClass('is-active').attr('aria-hidden', 'false');
-    $popWrap.one('transitionend', function () {
-        if ($(this).hasClass('is-active')) {
-            $focus.attr('tabindex', '0').focus();
-            $lastFocus.after('<div class="popup-focus" tabindex="0"></div>');
-            // popupFocus(target);
+    // popup close (버튼)
+    $(document).on('click', '[data-popup-close]', function () {
+        const $popWrap = $(this).closest('.popup-wrap');
+        popupClose($popWrap.attr('id'));
+    });
+
+    // popup open (dim)
+    $(document).on('click', '.popup-wrap', function (e) {
+        if ($(e.target).is('.popup-wrap')) {
+            popupClose($(this).attr('id'));
         }
     });
-    scrollOn();
-    changeZindex(id);
 
-    // focus
-    $lastFocus.off().on('focusout', function () {
-        $focus.focus();
-    });
-}
-function popupClose(id) {
-    var $wrapper = $('html');
-    var $popWrap = $('#' + id);
-    var $focus = $popWrap.data('opener') || $wrapper.find('a:first');
-    var $lastFocus = $popWrap.find('button').last();
-    $lastFocus.next().remove('.popup-focus');
-    $popWrap.removeClass('is-active').attr('aria-hidden', 'true').removeAttr('style');
-    $popWrap.one('transitionend', function () {
-        if (!$(this).hasClass('is-active')) {
-            $focus.focus();
-        }
-    });
-    scrollOff();
-}
-function changeZindex(id) {
-    var zIndex = 1002;
-    var $popWrap = $('#' + id);
-    var $popCurrent = $('.popup-wrap.is-active').length;
-    var zIndexUnit = zIndex + $popCurrent;
-    $popWrap.each(function () {
-        $(this).css({ 'z-index': zIndexUnit });
-    });
-}
-
-//////////////// 팝업 포커스 이전 소스 /////////////////////////////
-function popupFocus(target, id) {
-    if (target == '' || target == undefined) var $popup = $('#' + id);
-    else var $popup = $(target);
-    $popup.focus();
-
-    $(document).on('focusin click', function (e) {
-        if (!$(e.target).parents().is($popup)) {
-            // 부모에 팝업이 없으면 팝업으로 되돌리기
-            if ($popup.attr('tabindex', '0')) {
-                $popup.focus();
-            }
-            if ($popup.find('.btn-popup').length > 0 && $popup.find('.btn-close').length > 0) {
-                $popup.find('button').first().focus();
-            } else {
-                $popup.find('a').first().focus();
+    // popup open (esc key)
+    $(document).on('keydown', function (e) {
+        if (e.which === 27) {
+            const $topPopup = $('.popup-wrap.is-active').last();
+            if ($topPopup.length > 0) {
+                popupClose($topPopup.attr('id'));
             }
         }
     });
 }
-////////////////////////////////////////////////////////////////
 
-function selectPopup(id, target, focus) {
-    var html = '<div id="selectPopup" class="popup-wrap popup-bottom" role="dialog" aria-modal="modal" aria-hidden="true">';
-    html += '	<div class="popup">';
-    html += '		<div class="popup-head">';
-    html += '			<h2></h2>';
-    html += '		</div>';
-    html += '		<div class="popup-body">';
-    html += '			<div id="' + seletOptionID + '" class="popup-content">';
-    html += '			</div>';
-    html += '		</div>';
-    html += '		<div class="popup-close">';
-    html += '			<button type="button" class="btn btn-close" onclick="popupClose(\'selectPopup\')"><span>팝업닫기</span></button>';
-    html += '		</div>';
-    html += '	</div>';
-    html += '</div>';
-    $('.select-bottom').append(html);
+// popup open
+function popupOpen(id, $opener) {
+    const $popWrap = $('#' + id);
+    if ($popWrap.length === 0) return;
 
-    var $popWrap = $('#' + id);
-    var $focus = $popWrap.find('.popup');
-    var target = $focus;
-    var seletOptionID = $popWrap.siblings('.select-cont').attr('id');
+    // 포커스 복귀 지점
+    const $trigger = $opener || $(document.activeElement);
+    $popWrap.data('opener', $trigger);
 
-    $popWrap.data('opener', $activeFocus).addClass('is-active');
+    // 활성화
     $popWrap.addClass('is-active').attr('aria-hidden', 'false');
-    if ($popWrap.hasClass('is-active')) {
-        focus != true && $focus.attr('tabindex', '0').focus();
-        popupFocus(target);
-        scrollOn();
+
+    // Z-Index
+    const baseZIndex = 1002;
+    const activeCount = $('.popup-wrap.is-active').length;
+    $popWrap.css('z-index', baseZIndex + activeCount);
+
+    // 스크롤 잠금
+    if (activeCount === 1) scrollOn();
+
+    setTimeout(function () {
+        $popWrap.find('.popup').attr('tabindex', '0').focus();
+    }, 50);
+
+    // 접근성
+    $popWrap.off('keydown.popupFocus').on('keydown.popupFocus', function (e) {
+        handleFocusTrap(e, $popWrap);
+    });
+}
+
+// popup close
+function popupClose(id) {
+    const $popWrap = $('#' + id);
+    if ($popWrap.length === 0) return;
+
+    // 비활성화
+    $popWrap.removeClass('is-active').attr('aria-hidden', 'true').removeAttr('style');
+
+    // 스크롤 잠금 해제
+    if ($('.popup-wrap.is-active').length === 0) scrollOff();
+
+    // 포커스 복귀
+    const $opener = $popWrap.data('opener');
+    if ($opener && $opener.length > 0) $opener.focus();
+
+    $popWrap.off('keydown.popupFocus');
+}
+
+// focus 이탈 막기 (접근성)
+function handleFocusTrap(e, $popWrap) {
+    const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+    if (!isTabPressed) return;
+
+    const $focusableEls = $popWrap.find('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]');
+    const $firstEl = $focusableEls.first();
+    const $lastEl = $focusableEls.last();
+
+    if (e.shiftKey) {
+        if ($(document.activeElement).is($firstEl) || $(document.activeElement).is($popWrap.find('.popup'))) {
+            e.preventDefault();
+            $lastEl.focus();
+        }
+    } else {
+        if ($(document.activeElement).is($lastEl)) {
+            e.preventDefault();
+            $firstEl.focus();
+        }
     }
-
-    // select content
-    $(document)
-        .off('click.selectPop', '.btn-select')
-        .on('click.selectPop', '.btn-select', function () {
-            var $this = $(this);
-            var selTitle = $this.parent().prev('.label-txt').html(); //팝업 타이틀
-            var seletOption = $this.parent().siblings('.select-cont').html(); //팝업 내용
-
-            $('#selectPopup .popup-head h2').html(selTitle);
-            $('#selectPopup .popup-content').html(seletOption);
-            $('#selectPopup li').each(function () {
-                var selOption = $(this).html();
-                $(this).html('<button type="button"><span>' + selOption + '</span></button>');
-            });
-        });
-
-    // select val
-    $(document)
-        .off('click.selectPop', '#selectPopup li button')
-        .on('click.selectPop', '#selectPopup li button', function () {
-            var userTxt = $(this).parents('li').data('text');
-
-            if ($(this).parents('li').is('[data-text]')) {
-                $(this).parents('.select-cont').prev('input').val(userTxt);
-                $(this).parents().find('button.btn-select > span').text(userTxt).attr('data-value', userTxt);
-            }
-            console.log(userTxt);
-        });
-
-    // select close
-    $(document)
-        .off('click.selectPop', '#selectPopup button')
-        .on('click.selectPop', '#selectPopup button', function () {
-            $('#selectPopup').remove();
-            scrollOff();
-            popupFocus();
-        });
 }
 
-/*-------------------------------------------------------------------
-    ## Toast Alert Popup
--------------------------------------------------------------------*/
-function toastPopInit() {
-    $('.toast-popup').each(function () {
-        toastEvent();
-    });
-}
-function toastEvent() {
-    $('.btn-toast')
-        .off('click')
-        .on('click', function () {
-            const id = $(this).data('id');
-            const $target = $('#' + id);
+// scroll on/off
+function scrollOn() {
+    const $body = $('body');
+    const $wrapper = $('.wrapper');
 
-            if (!$(this).hasClass('is-active')) {
-                $(this).removeClass('is-active').addClass('is-active').attr('title', '저장함');
-                $target.find('p').text('저장되었습니다.');
-            } else {
-                $(this).removeClass('is-active').attr('title', '');
-                $target.find('p').text('취소되었습니다.');
-            }
-            toastAction($target);
-        });
-}
-function toastAction($target, speed, duration) {
-    console.log(speed);
+    savedScrollTop = $(window).scrollTop();
 
-    //css animate 경우
-    //$target.animate({'opacity': 1}, 2000, function(){
-    //	$target.animate({'opacity': 0});
-    //});
-
-    //스크립트로 처리 경우
-    $target.fadeIn(speed ? speed : 500, function () {
-        setTimeout(
-            function () {
-                $target.fadeOut(speed ? speed : 500);
-            },
-            duration ? duration : 1000,
-        );
-    });
+    $body.css('top', -savedScrollTop + 'px').addClass('scrollOff');
+    if ($wrapper.length) $wrapper.attr('aria-hidden', 'true');
 }
+
+function scrollOff() {
+    const $body = $('body');
+    const $wrapper = $('.wrapper');
+
+    $body.removeClass('scrollOff').css('top', '');
+    $(window).scrollTop(savedScrollTop);
+
+    if ($wrapper.length) $wrapper.removeAttr('aria-hidden');
+}
+// scroll on,off
+// function scrollOn() {
+//     const $body = $('body');
+//     const $wrapper = $('.wrapper');
+//     setTimeout(function () {
+//         $body.addClass('scrollOff');
+//         $wrapper.attr('aria-hidden', 'true');
+//     }, 50);
+// }
+// function scrollOff() {
+//     const $body = $('body');
+//     const $wrapper = $('.wrapper');
+//     setTimeout(function () {
+//         $body.removeClass('scrollOff');
+//         $wrapper.removeAttr('aria-hidden');
+//     }, 50);
+// }
 
 /*-------------------------------------------------------------------
 	## Loading - 호출예시: 로딩실행 loading('open'); / 로딩닫기 loading('close');

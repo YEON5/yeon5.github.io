@@ -595,8 +595,6 @@
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
-                    <!-- 표내용 -->
-                    <span>순서로 구성</span>
                   </caption>
                   <colgroup>
                     <col style="width: 25%" />
@@ -628,8 +626,6 @@
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
-                    <!-- 표내용 -->
-                    <span>순서로 구성</span>
                   </caption>
                   <colgroup>
                     <col style="width: 25%" />
@@ -655,8 +651,6 @@
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
-                    <!-- 표내용 -->
-                    <span>순서로 구성</span>
                   </caption>
                   <colgroup>
                     <col style="width: 25%" span="3" />
@@ -713,8 +707,6 @@
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
-                    <!-- 표내용 -->
-                    <span>순서로 구성</span>
                   </caption>
                   <colgroup>
                     <col class="col1" />
@@ -757,8 +749,6 @@
                       <caption>
                         <!-- 표제목 -->
                         <strong></strong>
-                        <!-- 표내용 -->
-                        <span>~순서로 구성</span>
                       </caption>
                       <colgroup>
                         <col style="width: 25%" span="4" />
@@ -1345,7 +1335,7 @@
                   <span>팝오버</span>
                 </button>
                 <!-- 위치 클래스 : pos-top / bottom (옵션 left,right), pos-left / right (옵션 top, bottom) -->
-                <div id="popover1" class="popover-inner pos-top right" role="dialog" aria-labelledby="pop-tit1" aria-hidden="true">
+                <div id="popover1" class="popover-inner pos-top" role="dialog" aria-labelledby="pop-tit1" aria-hidden="true">
                   <!-- popover content -->
                   <div class="title-area">
                     <em id="pop-tit1" class="h5-title">Title</em>
@@ -1377,18 +1367,12 @@
             <!-- article -->
             <p class="h1-title">@Popup</p>
             <article>
-              <p>#name</p>
-            </article>
-            <!-- //article -->
-          </section>
-          <!-- //section -->
-
-          <!-- section -->
-          <section>
-            <!-- article -->
-            <p class="h1-title">@Progress bar</p>
-            <article>
-              <p>#name</p>
+              <div class="btn-wrap type-fill column">
+                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupAlert">Alert Popup</button>
+                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupConfirm">Confirm Popup</button>
+                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupFull">Full Popup</button>
+                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupBottom">Bottom Popup</button>
+              </div>
             </article>
             <!-- //article -->
           </section>
@@ -1400,6 +1384,63 @@
             <p class="h1-title">@Sub slide menu / Step menu</p>
             <article>
               <p>#name</p>
+            </article>
+            <!-- //article -->
+          </section>
+          <!-- //section -->
+
+          <!-- section -->
+          <section>
+            <!-- article -->
+            <p class="h1-title">@Progress bar</p>
+            <article>
+              <p>#Bar 타입</p>
+              <div class="progress-wrap">
+                <div class="progress-bar blue">
+                  <span data-count="45"></span>
+                </div>
+                <div class="progress-bar blue">
+                  <span data-count="25"></span>
+                </div>
+                <div class="progress-bar blue">
+                  <span data-count="80"></span>
+                </div>
+              </div>
+            </article>
+            <!-- //article -->
+
+            <!-- article -->
+            <article>
+              <p>#Range 타입</p>
+              <div class="progress-wrap">
+                <div class="range">
+                  <div class="bars">
+                    <span data-count="50"></span>
+                  </div>
+                  <span>
+                    <em></em>
+                    %
+                  </span>
+                </div>
+                <div class="range">
+                  <div class="bars">
+                    <span data-count="75"></span>
+                  </div>
+                  <span>
+                    <em></em>
+                    %
+                  </span>
+                </div>
+                <div class="range">
+                  <div class="bars">
+                    <span data-count="30"></span>
+                  </div>
+                  <span>
+                    <em></em>
+                    %
+                  </span>
+                </div>
+              </div>
             </article>
             <!-- //article -->
           </section>
@@ -1451,133 +1492,120 @@
 
     <!-- modal wrapper -->
     <div class="modal-wrapper">
-      <!-- popup basic -->
-      <!--id로 불러오기 onclick="popup('popupBasic', this);" -->
-      <div id="popupBasic" class="popup-wrap popup-basic" role="dialog" aria-modal="true" aria-hidden="true">
+      <div id="popupAlert" class="popup-wrap type-alert" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="alertTit1">
+        <div class="popup">
+          <div class="popup-body">
+            <div class="cont-area">
+              <p id="alertTit1" class="txt">입력정보를 확인해주세요.</p>
+            </div>
+          </div>
+          <div class="popup-foot">
+            <div class="btn-wrap type-fill">
+              <button type="button" class="btn h32 primary" data-popup-close>확인</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="popupConfirm" class="popup-wrap type-confirm" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="confirmTit1">
         <div class="popup">
           <div class="popup-head">
-            <h2>POPUP</h2>
+            <h2 id="confirmTit1" class="pop-title">삭제 확인</h2>
           </div>
           <div class="popup-body">
-            <div class="popup-content">
-              <p>
-                팝업 상세 문구
+            <div class="cont-area">
+              <p class="txt">
+                정말 삭제하시겠습니까?
                 <br />
-                팝업 상세 문구
+                삭제된 데이터는 복구할 수 없습니다.
               </p>
             </div>
           </div>
           <div class="popup-foot">
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-popup" onclick="popupClose('popupBasic', this)"><span>취소</span></button>
-              <button type="button" class="btn btn-popup" onclick="popupOpen('popupAlert', this);"><span>확인</span></button>
-            </div>
-          </div>
-          <div class="popup-close">
-            <button type="button" class="btn btn-close" onclick="popupClose('popupBasic', this)"><span>팝업닫기</span></button>
-          </div>
-        </div>
-      </div>
-      <!-- //popup basic -->
-
-      <!-- popup alert -->
-      <!--id로 불러오기 onclick="popup('popupAlert', this);" -->
-      <div id="popupAlert" class="popup-wrap popup-alert" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="popup">
-          <div class="popup-head" style="display: none">
-            <h2>ALERT POPUP</h2>
-          </div>
-          <div class="popup-body">
-            <div class="popup-content">
-              <p>입력정보를 확인해주세요.</p>
-            </div>
-          </div>
-          <div class="popup-foot">
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-popup" onclick="popupClose('popupAlert', this)"><span>확인</span></button>
+            <div class="btn-wrap type-fill">
+              <button type="button" class="btn h32 secondary" data-popup-close>취소</button>
+              <button type="button" class="btn h32 primary">확인</button>
             </div>
           </div>
         </div>
       </div>
-      <!-- //popup alert -->
 
-      <!-- popup confirm -->
-      <!--id로 불러오기 onclick="popup('popupConfirm', this);" -->
-      <div id="popupConfirm" class="popup-wrap popup-confirm" role="dialog" aria-modal="true" aria-hidden="true">
+      <div id="popupFull" class="popup-wrap type-full" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="fullTit1">
         <div class="popup">
           <div class="popup-head">
-            <h2>COMFIRM POPUP</h2>
+            <h2 id="fullTit1" class="pop-title">약관 상세</h2>
+            <button type="button" class="btn-close-popup" data-popup-close><span class="sr-only">닫기</span></button>
           </div>
           <div class="popup-body">
-            <div class="popup-content">
-              <p>삭제하시겠습니까?</p>
-            </div>
-          </div>
-          <div class="popup-foot">
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-popup" onclick="popupClose('popupConfirm', this)"><span>취소</span></button>
-              <button type="button" class="btn btn-popup"><span>확인</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- //popup confirm -->
-
-      <!-- popup full -->
-      <!--id로 불러오기 onclick="popup('popupFull', this);" -->
-      <div id="popupFull" class="popup-wrap popup-full" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="popup">
-          <div class="popup-head">
-            <h2>POPUP</h2>
-          </div>
-          <div class="popup-body">
-            <div class="popup-content">
+            <div class="cont-area">
               <p>
-                팝업 상세 문구
+                <strong>[스크롤 테스트]</strong>
                 <br />
-                팝업 상세 문구
+                <br />
+                내용이 길어지면 Body 영역 내에서만 스크롤이 발생합니다.
+                <br />
+                PC 화면에서는 중앙에 위치한 모달 형태를 유지하며,
+                <br />
+                모바일 화면(768px 이하)에서는 화면 전체를 덮는 형태로 변경됩니다.
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
               </p>
             </div>
           </div>
           <div class="popup-foot">
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-popup" onclick="popupOpen('popupConfirm', this)"><span>확인</span></button>
+            <div class="btn-wrap type-sticky type-fill">
+              <button type="button" class="btn secondary" data-popup-close>취소</button>
+              <button type="button" class="btn primary">확인</button>
             </div>
-          </div>
-          <div class="popup-close">
-            <button type="button" class="btn btn-close" onclick="popupClose('popupFull', this)"><span>팝업닫기</span></button>
           </div>
         </div>
       </div>
-      <!-- //popup full -->
 
-      <!-- popup bottom -->
-      <!--id로 불러오기 onclick="popup('popupBottom', this);" -->
-      <div id="popupBottom" class="popup-wrap popup-bottom" role="dialog" aria-modal="true" aria-hidden="true">
+      <div id="popupBottom" class="popup-wrap type-bottom" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bottomTit1">
         <div class="popup">
           <div class="popup-head">
-            <h2>BOTTOM POPUP</h2>
+            <h2 id="bottomTit1" class="pop-title">옵션 선택</h2>
+            <button type="button" class="btn-close-popup" data-popup-close><span class="sr-only">닫기</span></button>
           </div>
           <div class="popup-body">
-            <div class="popup-content">
-              <ul>
-                <li><a href="javascript:;" onclick="popupOpen('popupFull', this);">popup bottom1</a></li>
-                <li><a href="javascript:;" onclick="popupClose('popupConfirm', this)">popup bottom2</a></li>
-                <li><a href="javascript:;">popup bottom3</a></li>
+            <div class="cont-area">
+              <ul class="option-list">
+                <li><a href="#">옵션 선택 1</a></li>
+                <li><a href="#">옵션 선택 2</a></li>
+                <li><a href="#">옵션 선택 3</a></li>
               </ul>
             </div>
           </div>
           <div class="popup-foot">
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-popup" onclick="popupClose('popupBottom', this)"><span>확인</span></button>
+            <div class="btn-wrap type-sticky type-fill">
+              <button type="button" class="btn h48 primary" data-popup-close>확인</button>
             </div>
-          </div>
-          <div class="popup-close">
-            <button type="button" class="btn btn-close" onclick="popupClose('popupBottom', this)"><span>팝업닫기</span></button>
           </div>
         </div>
       </div>
-      <!-- //popup bottom -->
     </div>
     <!--// modal wrapper -->
 
