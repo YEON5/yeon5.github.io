@@ -998,7 +998,6 @@ input[type=text]:focus {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-size: auto;
 }
 .form-field .form-input .btn-input-clear > span {
   position: absolute;
