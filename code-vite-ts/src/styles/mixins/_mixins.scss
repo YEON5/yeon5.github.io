@@ -76,47 +76,39 @@ $flex-map: (
 }
 
 // responsive
-@mixin responsive($screen) {
-    @if ($screen == 'pc') {
-        // 데스크탑: 1280px 이상
-        @media (min-width: 1280px) {
+$breakpoints: (
+    mobile-sm: 360px,
+    mobile: 480px,
+    tablet-sm: 768px,
+    tablet: 1024px,
+    pc: 1280px,
+);
+
+@mixin responsive($device) {
+    @if map-has-key($breakpoints, $device) {
+        @media (min-width: map-get($breakpoints, $device)) {
+            @content;
+        }
+    } @else if ($device == 'landscape') {
+        // 모바일 가로모드 (높이 기준)
+        @media (orientation: landscape) and (max-height: 480px) {
             @content;
         }
     }
-    @if ($screen == 't1') {
-        // 태블릿1: 1024px 이상
-        @media (min-width: 1024px) and (max-width: 1279px) {
-            @content;
-        }
-    }
-    @if ($screen == 't2') {
-        // 태블릿2: 768px 이상
-        @media (min-width: 768px) and (max-width: 1023px) {
-            @content;
-        }
-    }
-    @if ($screen == 'm1') {
-        // 모바일1: 480px 이상
-        @media (min-width: 480px) and (max-width: 767px) {
-            @content;
-        }
-    }
-    @if ($screen == 'm2') {
-        // 모바일2: 320px 이상
-        @media (min-width: 320px) and (max-width: 479px) {
-            @content;
-        }
-    }
-    @if ($screen == 'ls') {
-        // 모바일 가로모드: 960px 이하
-        @media (max-width: 960px) and (orientation: landscape) {
-            @content;
-            // padding-left: calc(12px + env(safe-area-inset-left));
-            // padding-right: calc(12px + env(safe-area-inset-right));
-        }
+    // 사용 예
+    // @include responsive(tablet-sm) {
+    //     padding: 24px;
+    // }
+}
+
+@mixin mobile-only {
+    @media (max-width: 767px) {
+        // tablet-sm 직전
+        @content;
     }
 }
 
+// sr-only
 @mixin sr-only {
     position: absolute;
     width: 1px;
