@@ -897,29 +897,31 @@ function handleFocusTrap(e, $popWrap) {
 
 // scroll on
 function scrollOn() {
-    const $body = $('body');
+    savedScrollTop = window.scrollY || $(window).scrollTop();
+
+    $('body').css('top', -savedScrollTop + 'px').addClass('scrollOff');
+
+    // 접근성
     const $wrapper = $('.wrapper');
-
-    savedScrollTop = $(window).scrollTop();
-
-    // body 고정 및 위치 보정
-    $body.css('top', -savedScrollTop + 'px').addClass('scrollOff');
     if ($wrapper.length) $wrapper.attr('aria-hidden', 'true');
 }
 
 // scroll off 
 function scrollOff() {
     const $body = $('body');
-    const $wrapper = $('.wrapper');
+    const $html = $('html, body');
 
-    $('html, body').css('scroll-behavior', 'auto');
-    $body.removeClass('scrollOff');
+    $html.css('scroll-behavior', 'auto');
+    $body.removeClass('scrollOff').css('top', '');
     window.scrollTo(0, savedScrollTop);
-    $body.css('top', '');
 
+    // 접근성
+    const $wrapper = $('.wrapper');
     if ($wrapper.length) $wrapper.removeAttr('aria-hidden');
+
+    // scroll-behavior 속성 복구
     setTimeout(function () {
-        $('html, body').css('scroll-behavior', '');
+        $html.css('scroll-behavior', '');
     }, 10);
 }
 // scroll on,off

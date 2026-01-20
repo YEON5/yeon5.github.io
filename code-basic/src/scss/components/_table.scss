@@ -7,6 +7,88 @@
     + .tbl-wrap {
         margin-top: $spacer-50;
     }
+    // 테이블 강제 정렬 클래스
+    .align-left {
+        text-align: left !important;
+    }
+    .align-right {
+        text-align: right !important;
+    }
+    .align-center {
+        text-align: center !important;
+    }
+
+    // 테이블 헤더 고정
+    &.tbl-fixed-head,
+    &.tbl-fixed-body {
+        .tbl {
+            border-collapse: separate;
+        }
+    }
+    // thead fixed
+    &.tbl-fixed-head {
+        max-height: 300px;
+        overflow-y: auto;
+
+        // 스크롤바 커스텀
+        // &::-webkit-scrollbar {
+        //     width: 6px;
+        // }
+        // &::-webkit-scrollbar-thumb {
+        //     background-color: #ccc;
+        //     border-radius: 4px;
+        // }
+        // &::-webkit-scrollbar-track {
+        //     background-color: #f5f5f5;
+        // }
+
+        .tbl {
+            &.tbl-basic {
+                thead {
+                    th {
+                        position: sticky;
+                        top: -1px;
+                        z-index: 5;
+                        // inset 0 1px 0 #ddd  -> 상단 라인 (안쪽)
+                        // inset 0 -1px 0 #ddd -> 하단 라인 (안쪽)
+                        box-shadow: inset 0 1px 0 #ddd;
+                    }
+                }
+                // tfoot 고정
+                tfoot th,
+                tfoot td {
+                    position: sticky;
+                    bottom: 0;
+                    z-index: 5;
+                    background-color: #f1f1f1;
+                    // box-shadow: inset 0 1px 0 #ddd;
+                }
+            }
+        }
+    }
+    // tbody fixed
+    &.tbl-fixed-body {
+        overflow-x: auto;
+        width: 100%;
+        .tbl {
+            &.tbl-basic {
+                th,
+                td {
+                    min-width: 160px;
+                    white-space: nowrap;
+                }
+                tbody {
+                    th[scope='row'] {
+                        position: sticky;
+                        left: 0;
+                        z-index: 10;
+                        background-color: #f9f9f9;
+                        box-shadow: inset -1px 0 0 #ddd;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Table basic
@@ -19,7 +101,9 @@
         border-top: 2px solid $color-dark;
         thead th,
         tbody th,
-        tbody td {
+        tbody td,
+        tfoot th,
+        tfoot td {
             height: 4.4rem;
             padding: 0 2rem;
             font-size: 1.6rem;
@@ -59,6 +143,20 @@
                 }
             }
         }
+        // tfoot
+        tfoot {
+            th,
+            td {
+                background-color: #f1f1f1;
+                border-bottom: 1px solid #ccc;
+                font-weight: 700;
+            }
+            td {
+                border-left: none;
+                color: #666;
+                text-align: right;
+            }
+        }
         // 데이터 없는 경우
         &.nodata {
             tbody {
@@ -66,6 +164,17 @@
                     padding: 5rem 0;
                     text-align: center;
                 }
+            }
+        }
+        // 정렬기준
+        &.type-col {
+            th {
+                text-align: center;
+            }
+        }
+        &.type-row {
+            th {
+                text-align: center;
             }
         }
     }
