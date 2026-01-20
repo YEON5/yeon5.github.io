@@ -418,10 +418,8 @@
                 <div class="file-group">
                   <div class="form-file">
                     <input type="text" class="inp upload-name" title="선택된 파일명" value="선택된 파일 없음" readonly />
-
                     <input type="file" name="exFileName_1" id="exFileName_1" class="upload-hidden" />
                     <label for="exFileName_1" class="upload-btn">파일찾기</label>
-
                     <button type="button" class="btn btn-file file-plus" aria-label="파일 첨부 행 추가">
                       <span class="sr-only">추가</span>
                     </button>
@@ -588,10 +586,10 @@
             <!-- article -->
             <p class="h1-title">@Table</p>
             <article>
-              <p>#기본형</p>
+              <p>#thead col</p>
               <!-- table col -->
               <div class="tbl-wrap">
-                <table class="tbl tbl-basic nodata">
+                <table class="tbl tbl-basic type-col nodata">
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
@@ -612,17 +610,22 @@
                     </tr>
                   </tbody>
                   <!-- <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot> -->
+							<tr>
+								<td></td>
+							</tr>
+						</tfoot> -->
                 </table>
               </div>
               <!-- //table col -->
+            </article>
+            <!-- //article -->
 
+            <!-- article -->
+            <article>
+              <p>#tbody row</p>
               <!-- table row -->
               <div class="tbl-wrap">
-                <table class="tbl tbl-basic">
+                <table class="tbl tbl-basic type-row">
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
@@ -647,7 +650,7 @@
 
               <!-- table rowgroup -->
               <div class="tbl-wrap">
-                <table class="tbl tbl-basic">
+                <table class="tbl tbl-basic type-row">
                   <caption>
                     <!-- 표제목 -->
                     <strong></strong>
@@ -700,7 +703,7 @@
             <!-- //article -->
 
             <article>
-              <p>#col 반응형</p>
+              <p>#thead col css 적용</p>
               <!-- table col -->
               <div class="tbl-wrap">
                 <table class="tbl tbl-basic col-g-1 nodata">
@@ -728,10 +731,10 @@
                     </tr>
                   </tbody>
                   <!-- <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot> -->
+							<tr>
+								<td></td>
+							</tr>
+						</tfoot> -->
                 </table>
               </div>
               <!-- //table col -->
@@ -740,72 +743,126 @@
 
             <!-- article -->
             <article>
-              <p>#헤더 고정형</p>
-              <!-- table scroll fixed -->
-              <div class="tbl-scroll">
-                <div class="tbl-fixed">
-                  <div class="tbl-head">
-                    <table class="tbl tbl-basic">
-                      <caption>
-                        <!-- 표제목 -->
-                        <strong></strong>
-                      </caption>
-                      <colgroup>
-                        <col style="width: 25%" span="4" />
-                      </colgroup>
-                      <thead>
-                        <tr>
-                          <th scope="col">fixed 제목1</th>
-                          <th scope="col">fixed 제목2</th>
-                          <th scope="col">fixed 제목3</th>
-                          <th scope="col">fixed 제목4</th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                  <div class="tbl-body customScroll">
-                    <table class="tbl tbl-basic">
-                      <caption>table scroll fixed list</caption>
-                      <colgroup>
-                        <col style="width: 25%" span="4" />
-                      </colgroup>
-                      <tbody>
-                        <tr>
-                          <td>fixed 내용1</td>
-                          <td>fixed 내용2</td>
-                          <td>fixed 내용3</td>
-                          <td>fixed 내용4</td>
-                        </tr>
-                        <tr>
-                          <td>fixed 내용1</td>
-                          <td>fixed 내용2</td>
-                          <td>fixed 내용3</td>
-                          <td>fixed 내용4</td>
-                        </tr>
-                        <tr>
-                          <td>fixed 내용1</td>
-                          <td>fixed 내용2</td>
-                          <td>fixed 내용3</td>
-                          <td>fixed 내용4</td>
-                        </tr>
-                        <tr>
-                          <td>fixed 내용1</td>
-                          <td>fixed 내용2</td>
-                          <td>fixed 내용3</td>
-                          <td>fixed 내용4</td>
-                        </tr>
-                        <tr>
-                          <td>fixed 내용1</td>
-                          <td>fixed 내용2</td>
-                          <td>fixed 내용3</td>
-                          <td>fixed 내용4</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+              <p>#col 고정형</p>
+              <!-- table col scroll -->
+              <div class="tbl-wrap tbl-fixed-head">
+                <table class="tbl tbl-basic">
+                  <caption>
+                    <!-- 표제목 -->
+                    <strong></strong>
+                  </caption>
+                  <colgroup>
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                    <col style="width: auto" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">제목01</th>
+                      <th scope="col">제목02</th>
+                      <th scope="col">제목03</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                    <tr>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                      <td>조회 내용</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th scope="row">합계</th>
+                      <td colspan="2">111</td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
-              <!-- //table scroll fixed -->
+              <!-- //table col scroll -->
+            </article>
+            <!-- //article -->
+
+            <!-- article -->
+            <article>
+              <p>#row 고정형</p>
+              <!-- table row scroll -->
+              <div class="tbl-wrap tbl-fixed-body">
+                <table class="tbl tbl-basic">
+                  <caption>
+                    <!-- 표제목 -->
+                    <strong></strong>
+                  </caption>
+                  <colgroup>
+                    <col style="width: 200px" />
+                    <col style="width: 180px" span="6" />
+                  </colgroup>
+                  <tbody>
+                    <tr>
+                      <th scope="row">제목11</th>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">제목12</th>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">제목13</th>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                      <td>셀내용</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- //table row scroll -->
             </article>
             <!-- //article -->
           </section>
@@ -1538,10 +1595,41 @@
           </div>
           <div class="popup-body">
             <div class="cont-area">
-              <strong>[스크롤 테스트]</strong>
-              <p>내용이 길어지면 Body 영역 내에서만 스크롤이 발생합니다.</p>
-              <p>PC 화면에서는 중앙에 위치한 모달 형태를 유지하며,</p>
-              <p>모바일 화면(768px 이하)에서는 화면 전체를 덮는 형태로 변경됩니다.</p>
+              <p>
+                <strong>[스크롤 테스트]</strong>
+                <br />
+                <br />
+                내용이 길어지면 Body 영역 내에서만 스크롤이 발생합니다.
+                <br />
+                PC 화면에서는 중앙에 위치한 모달 형태를 유지하며,
+                <br />
+                모바일 화면(768px 이하)에서는 화면 전체를 덮는 형태로 변경됩니다.
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+                (내용)
+                <br />
+              </p>
             </div>
           </div>
           <div class="popup-foot">

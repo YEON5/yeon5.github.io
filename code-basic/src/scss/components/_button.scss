@@ -6,6 +6,7 @@
 $btn-color: (
     'primary': $color-primary,
     'secondary': $color-secondary,
+    'tertiary': $color-tertiary,
     'grey': $color-base,
 );
 // 아이콘
@@ -76,6 +77,9 @@ $btn-color: (
             }
             &.secondary {
                 color: $color-primary;
+            }
+            &.tertiary {
+                color: $color-txt-body;
             }
             // 상태
             &:disabled {
@@ -169,6 +173,20 @@ $btn-color: (
             &:active {
                 transform: scale3d(1, 1, 1);
             }
+        }
+
+        // 색상
+        &.primary {
+            background-color: $color-primary;
+            color: $color-white;
+        }
+        &.secondary {
+            background-color: $color-secondary;
+            color: $color-primary;
+        }
+        &.tertiary {
+            background-color: $color-tertiary;
+            color: $color-txt-body;
         }
 
         // 크기/형태

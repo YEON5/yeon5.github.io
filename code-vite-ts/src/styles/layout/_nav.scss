@@ -1,2 +1,30 @@
 @use '../common/variables' as *;
 @use '../mixins/mixins' as *;
+
+// breadcrumb
+.breadcrumb-wrap {
+    @include flex-set(start, start);
+    .breadcrumb {
+        @include flex-set(start, center);
+        column-gap: 1rem;
+        > li {
+            position: relative;
+            &:not(:last-child) {
+                &::after {
+                    content: '>';
+                    display: inline-flex;
+                    align-items: center;
+                    padding-left: 1rem;
+                }
+            }
+            > a.depth-text {
+                text-decoration: underline;
+                text-underline-offset: 0.3rem;
+                color: $color-txt-sub;
+            }
+            > span.depth-text {
+                font-weight: 500;
+            }
+        }
+    }
+}

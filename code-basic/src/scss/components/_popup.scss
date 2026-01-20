@@ -76,7 +76,6 @@ $breakpoint-pc: 769px;
         }
         .popup-foot {
             padding: 1rem 1.5rem;
-            border-top: 1px solid #eee;
 
             .btn-wrap {
                 display: flex;
@@ -103,7 +102,7 @@ $breakpoint-pc: 769px;
             max-width: 320px;
             min-height: auto;
             max-height: 40%;
-            border-radius: 12px;
+            border-radius: 1.2rem;
             .popup-body {
                 text-align: center;
                 padding: 2rem 1.5rem;
@@ -124,11 +123,13 @@ $breakpoint-pc: 769px;
             min-height: 100%;
             border-radius: 0;
             transform: translate(0, 100%);
-            .popup-body {
-                padding-bottom: 11rem;
-            }
             .popup-foot {
-                padding: 0;
+                &:has(.type-sticky) {
+                    min-height: 9rem;
+                    padding: 0;
+                    // background-color: #fff;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                }
             }
         }
     }
@@ -140,11 +141,12 @@ $breakpoint-pc: 769px;
             max-height: 80%;
             border-radius: 20px 20px 0 0;
             transform: translate(0, 100%);
-            .popup-body {
-                padding-bottom: 10rem;
-            }
             .popup-foot {
-                padding: 0;
+                &:has(.type-sticky) {
+                    min-height: 8rem;
+                    padding: 0;
+                    // background-color: #fff;
+                }
             }
         }
     }
@@ -163,6 +165,40 @@ $breakpoint-pc: 769px;
                 max-height: 60%;
                 min-height: auto;
                 border-radius: 12px;
+            }
+        }
+
+        // 하단 버튼 영역
+        &.type-full {
+            .popup {
+                .popup-foot {
+                    &:has(.type-sticky) {
+                        min-height: 9rem;
+                        padding: 0;
+                        border-radius: 0 0 1.2rem 1.2rem;
+                        background-color: #fff;
+                        box-shadow: none;
+                    }
+                    .type-sticky {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+        &.type-bottom {
+            .popup {
+                .popup-foot {
+                    &:has(.type-sticky) {
+                        min-height: 8rem;
+                        padding: 0;
+                        border-radius: 0 0 1.2rem 1.2rem;
+                        background-color: #fff;
+                    }
+                    .type-sticky {
+                        background-color: transparent;
+                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                    }
+                }
             }
         }
     }

@@ -91,7 +91,7 @@ input[type='text'] {
         // button clear
         .btn-input-clear {
             display: none;
-            @include size-set(1.6rem);
+            @include size-set(2rem);
             margin-right: $spacer-8;
             border-radius: $radius-50;
             @include bg-img('icons/btn_file_delete', $format: 'png');
