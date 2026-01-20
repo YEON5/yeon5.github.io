@@ -2,12 +2,12 @@
   "singleQuote": true,
   "semi": true,
   "useTabs": false,
-  "tabWidth": 2,
+  "tabWidth": 4,
   "trailingComma": "all",
   "printWidth": 9999999999999,
-  "htmlWhitespaceSensitivity": "ignore",
   "arrowParens": "avoid",
   "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "ignore",
   "overrides": [
     {
       "files": "**/*.scss",
