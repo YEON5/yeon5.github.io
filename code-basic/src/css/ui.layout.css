@@ -8,7 +8,7 @@
   width: 100%;
   height: 5.4rem;
   background-color: #f6f7f8;
-  z-index: 10;
+  z-index: 100;
 }
 .header .header-insec {
   display: flex;
@@ -127,10 +127,17 @@
   position: relative;
   min-height: 100%;
 }
+.wrapper:has(.type-full-height) .main {
+  height: 100%;
+}
+.wrapper:has(.type-full-height) .content {
+  height: 100%;
+}
 
 .main,
 .content {
-  height: 100%;
+  flex-grow: 1;
+  height: auto;
 }
 
 .outer-sec {

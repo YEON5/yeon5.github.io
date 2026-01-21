@@ -14,9 +14,9 @@ function uiInit() {
     toggleInit();
     dropInit();
     accodiInit();
-    // stickyInit();
+    stickyInit();
+    scrollSpy();
     scrollEvent();
-    scrollAction();
     // scrollAnimated();
     fileInit();
     fileAttach();
@@ -427,55 +427,8 @@ function accodiAction($accodi) {
 	## Sticky
 -------------------------------------------------------------------*/
 function stickyInit() {
-    $(window).on('scroll', function (e) {
-        //funcHeadFixed();
-        lnbSticky();
-        e.preventDefault();
-    });
+    // initStickyAnchor();
 
-    //Header fixed sticky : 서브페이지에만 적용시
-    //if(!$('.wrapper').hasClass('page-main')) {
-    //	//console.log('page load-scrollY : '+scrollY);
-    //	funcHeadFixed();
-
-    //	$(document).on('scroll', function(e){
-    //		funcHeadFixed();
-    //		e.preventDefault;
-    //	});
-    //}
-
-    //Header fixed sticky
-    function funcHeadFixed() {
-        const scrTop = $(window).scrollTop();
-        if (scrTop > 0 && !$('.header').hasClass('fixed')) {
-            //console.log('scrTop > 0 : '+scrTop);
-            $('.header').addClass('fixed');
-        } else if (scrTop == 0 && $('.header').hasClass('fixed')) {
-            //console.log('scrTop == 0 : '+scrTop);
-            $('.header').removeClass('fixed');
-        }
-        //console.log(scrTop);
-    }
-
-    //Lnb fixed sticky
-    if ($('.lnb').length) {
-        const lnbPos = $('.lnb').offset().top;
-    }
-    function lnbSticky() {
-        const scrTop = $(this).scrollTop();
-        const $lnb = $('.lnb');
-        if (lnbPos <= scrTop) {
-            $lnb.addClass('fixed');
-        } else {
-            $lnb.removeClass('fixed');
-        }
-    }
-}
-
-/*-------------------------------------------------------------------
-	## Scroll Action
--------------------------------------------------------------------*/
-function scrollAction() {
     //Click scroll top button
     $(window).on('scroll', function (e) {
         const $btnScroll = $('.btn-scrollTop');
@@ -485,7 +438,6 @@ function scrollAction() {
             $btnScroll.removeClass('is-active');
         }
     });
-
     $(document).on('click', '.btn-scrollTop', function (e) {
         e.preventDefault();
         $('html').animate(
@@ -495,19 +447,154 @@ function scrollAction() {
             300,
         );
     });
+}
+// anchor tab (anchor-wrap을 단독으로 사용할 경우 호출)
+function initStickyAnchor() {
+    const $window = $(window);
+    const $anchorWrap = $('.anchor-wrap');
+    
+    // 앵커가 없으면 실행 중지
+    if (!$anchorWrap.length) return;
 
-    //Header border on scroll
-    $(document).on('scroll', function () {
-        const scrollY = $(document).scrollTop();
-        //step scroll border top
-        if ($('#stepWrap').length > 0) {
-            if (scrollY < 100 && !$('.header').hasClass('bor-none')) {
-                $('.header').addClass('bor-none');
-            } else if (scrollY >= 100 && $('.header').hasClass('bor-none')) {
-                $('.header').removeClass('bor-none');
+    // 앵커 초기 위치
+    const anchorInitialTop = $anchorWrap.offset().top;
+    
+    // 상단 헤더 높이
+    const headerHeight = $('.header').outerHeight() || 0;
+
+    const $placeholder = $('<div>').height($anchorWrap.outerHeight()).hide();
+    $anchorWrap.after($placeholder);
+
+    $window.on('scroll', function() {
+        const scrollTop = $window.scrollTop();
+        
+        if (scrollTop >= anchorInitialTop - headerHeight) {
+            if (!$anchorWrap.hasClass('is-fixed')) {
+                $anchorWrap.addClass('is-fixed');
+                $placeholder.show();
+            }
+        } else {
+            if ($anchorWrap.hasClass('is-fixed')) {
+                $anchorWrap.removeClass('is-fixed');
+                $placeholder.hide();
             }
         }
     });
+}
+
+/*-------------------------------------------------------------------
+	## Scrollspy
+-------------------------------------------------------------------*/
+function scrollSpy() {
+    const $anchorWrap = $('.anchor-wrap');
+    const $nav = $anchorWrap.find('.anchor-nav');
+    const $links = $nav.find('a');
+    const $sections = $('.section'); // 실제 컨텐츠 섹션들 (ID가 있는)
+
+    $links.on('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = $(this).attr('href');
+        const $target = $(targetId);
+        
+        // 헤더 높이 + 앵커 높이만큼 빼고 이동 (Sticky 가림 방지)
+        // CSS html { scroll-padding-top: ... }을 썼다면 offset 계산 없이 바로 이동해도 됨
+        const headerHeight = $('.header').outerHeight() || 0;
+        const anchorHeight = $anchorWrap.outerHeight() || 0;
+        const offset = headerHeight + anchorHeight; 
+
+        if ($target.length) {
+            $('html, body').animate({
+                scrollTop: $target.offset().top - offset + 2
+            }, 500);
+            
+            updateActiveState($(this));
+        }
+    });
+
+    // 스크롤 감지
+    $(window).on('scroll', function() {
+        const scrollTop = $(window).scrollTop();
+        
+        // Sticky 헤더 높이만큼 보정해서 감지
+        const headerHeight = $('.header').outerHeight() || 0;
+        const anchorHeight = $anchorWrap.outerHeight() || 0;
+        const checkPoint = scrollTop + headerHeight + anchorHeight + 10; 
+
+        $sections.each(function() {
+            const $this = $(this);
+            const top = $this.offset().top;
+            const bottom = top + $this.outerHeight();
+
+            // 현재 스크롤이 섹션 영역 안에 들어왔는지 체크
+            if (checkPoint >= top && checkPoint < bottom) {
+                const targetId = '#' + $this.attr('id');
+                const $activeLink = $links.filter('[href="' + targetId + '"]');
+                
+                // 이미 활성화 상태면 무시 (성능 낭비 방지)
+                if (!$activeLink.hasClass('is-active')) {
+                    updateActiveState($activeLink);
+                }
+            }
+        });
+    });
+
+    // 활성화 상태 업데이트 & 가로 스크롤 자동 이동 함수
+    function updateActiveState($targetLink) {
+        $links.removeClass('is-active').removeAttr('aria-current');
+        $targetLink.addClass('is-active').attr('aria-current', 'location');
+
+        alignActiveTabLeft($targetLink);
+    }
+
+    // 가로 스크롤 중앙 정렬
+    function centerActiveTab($target) {
+        if (!$target.length) return;
+
+        const $ul = $nav.find('ul');
+        const $li = $target.parent('li');
+        
+        // ul의 너비와 현재 스크롤 위치
+        const containerWidth = $ul.width();
+        const scrollLeft = $ul.scrollLeft();
+        
+        // 타겟(li)의 위치와 너비
+        const targetLeft = $li.position().left + scrollLeft; // ul 내부에서의 절대 위치
+        const targetWidth = $li.outerWidth();
+
+        // 중앙으로 오게 하려면?
+        // (타겟 위치 - 컨테이너 절반) + (타겟 절반)
+        const centerPosition = targetLeft - (containerWidth / 2) + (targetWidth / 2);
+
+        $ul.stop().animate({ scrollLeft: centerPosition }, 300);
+    }
+
+    // 가로 스크롤 맨 왼쪽 정렬
+    function alignActiveTabLeft($target) {
+        const $anchorNav = $('.anchor-nav'); // 혹은 .anchor-wrap .anchor-nav
+        const $ul = $anchorNav.find('ul');
+        const $li = $target.parent('li');
+
+        if (!$li.length) return;
+
+        // 1. 현재 스크롤된 상태에서의 절대 위치 계산
+        const scrollLeft = $ul.scrollLeft();
+        const liOffsetLeft = $li.position().left; // ul 내부에서의 상대 위치
+        
+        // 2. 목표 스크롤 위치 계산
+        // (현재 스크롤 + 요소의 상대 위치) = 요소의 전체 스크롤 내 절대 위치
+        // 여기서 -20 정도(혹은 padding-left 값)를 빼주면 왼쪽 여백이 살짝 보여서 더 자연스럽습니다.
+        let targetScrollLeft = scrollLeft + liOffsetLeft - 20; 
+
+        // (선택) 첫 번째 아이템일 경우 완전히 0으로 붙이기
+        if ($li.is(':first-child')) {
+            targetScrollLeft = 0;
+        }
+
+        // 3. 애니메이션 이동
+        $ul.stop().animate({ scrollLeft: targetScrollLeft }, 300);
+    }
+    
 }
 
 /*-------------------------------------------------------------------

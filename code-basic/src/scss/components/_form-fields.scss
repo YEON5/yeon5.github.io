@@ -17,6 +17,7 @@ select {
 }
 // input text
 input[type='text'] {
+    // @include input-type(line);
     @include input-type(box);
 
     // input button clear 테스트용

@@ -1,7 +1,7 @@
 @use 'sass:map';
 @use '../common/variables' as *;
 
-// flex
+// flex common
 $flex-map: (
     start: flex-start,
     end: flex-end,
@@ -25,6 +25,46 @@ $flex-map: (
     align-items: _flex-value($ai);
     justify-content: _flex-value($jc);
     flex-direction: column;
+}
+
+// flex type
+@mixin flexbox($type: row) {
+    @if ($type == 'row') {
+        @include flex-set(center, between);
+        column-gap: 1.6rem;
+        .unit {
+            flex-shrink: 1;
+            &.fixed {
+                flex-shrink: 0;
+            }
+        }
+        &.top {
+            align-items: start;
+        }
+        &.bottom {
+            align-items: end;
+        }
+        &.start {
+            justify-content: start;
+        }
+        &.end {
+            justify-content: end;
+        }
+    }
+    @if ($type == 'col') {
+        @include flex-column(start, start);
+        row-gap: 1.6rem;
+        .unit {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+        &.center {
+            align-items: center;
+        }
+        &.end {
+            align-items: end;
+        }
+    }
 }
 
 // position absolute, fixed, sticky
@@ -83,7 +123,6 @@ $breakpoints: (
     tablet: 1024px,
     pc: 1280px,
 );
-
 @mixin responsive($device) {
     @if map-has-key($breakpoints, $device) {
         @media (min-width: map-get($breakpoints, $device)) {
@@ -163,49 +202,6 @@ $breakpoints: (
     }
 }
 
-// @mixin sub-title($type: row) {
-// }
-
-// flex layout
-@mixin flexbox($type: row) {
-    @if ($type == 'row') {
-        @include flex-set(center, between);
-        column-gap: 1.6rem;
-        .unit {
-            flex-shrink: 1;
-            &.fixed {
-                flex-shrink: 0;
-            }
-        }
-        &.top {
-            align-items: start;
-        }
-        &.bottom {
-            align-items: end;
-        }
-        &.start {
-            justify-content: start;
-        }
-        &.end {
-            justify-content: end;
-        }
-    }
-    @if ($type == 'col') {
-        @include flex-column(start, start);
-        row-gap: 1.6rem;
-        .unit {
-            flex-grow: 1;
-            flex-basis: 0;
-        }
-        &.center {
-            align-items: center;
-        }
-        &.end {
-            align-items: end;
-        }
-    }
-}
-
 // elements
 // textfield
 @mixin input-type($type: line) {
@@ -257,37 +253,25 @@ $breakpoints: (
     }
 }
 
-// at-root 최상위에 클래스 추가적용???
-@mixin parent-selector($new-class) {
-    $current-selector: &;
-    $new-selector: '';
-
-    @each $item in $current-selector {
-        $first-item: nth($item, 1);
-
-        $appended-item: $first-item + $new-class;
-
-        $new-item: set-nth($item, 1, $appended-item);
-        $new-selector: append($new-item, $new-selector);
-    }
-
-    @at-root #{$new-selector} {
-        @content;
-    }
-}
-// 예시
-// .parent {
-//     .child {
-//         span {
-//             @include parent-selector('.bold') {
-//                 font-weight: bold;
-//             }
-//         }
-//     }
-// }
-
-@mixin unify-parent($child) {
-    @at-root #{selector.unify(&, $child)} {
-        @content;
+// chips style
+@mixin chip-style {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    li {
+        flex-shrink: 0;
+        a,
+        button {
+            @include flex-set(center, center);
+            padding: 1.4rem 1.6rem;
+            border-radius: 2rem;
+            background-color: #ddd;
+            color: #222;
+            white-space: nowrap;
+            &.is-active {
+                background-color: #222;
+                color: #fff;
+            }
+        }
     }
 }
