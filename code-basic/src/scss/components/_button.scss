@@ -175,20 +175,6 @@ $btn-color: (
             }
         }
 
-        // 색상
-        &.primary {
-            background-color: $color-primary;
-            color: $color-white;
-        }
-        &.secondary {
-            background-color: $color-secondary;
-            color: $color-primary;
-        }
-        &.tertiary {
-            background-color: $color-tertiary;
-            color: $color-txt-body;
-        }
-
         // 크기/형태
         $btn-height: (
             'h56': 5.6rem,
@@ -232,6 +218,24 @@ $btn-color: (
                 &::after {
                     background-color: $color-info;
                 }
+            }
+        }
+    }
+
+    // 팝업 안에 버튼
+    @at-root .popup-foot {
+        .btn {
+            &.primary {
+                background-color: $color-primary;
+                color: $color-white;
+            }
+            &.secondary {
+                background-color: $color-secondary;
+                color: $color-primary;
+            }
+            &.tertiary {
+                background-color: $color-tertiary;
+                color: $color-txt-body;
             }
         }
     }

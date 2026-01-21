@@ -541,6 +541,7 @@ function scrollSpy() {
 
     // 활성화 상태 업데이트 & 가로 스크롤 자동 이동 함수
     function updateActiveState($targetLink) {
+        // 접근성 대응
         $links.removeClass('is-active').removeAttr('aria-current');
         $targetLink.addClass('is-active').attr('aria-current', 'location');
 
@@ -559,11 +560,9 @@ function scrollSpy() {
         const scrollLeft = $ul.scrollLeft();
         
         // 타겟(li)의 위치와 너비
-        const targetLeft = $li.position().left + scrollLeft; // ul 내부에서의 절대 위치
+        const targetLeft = $li.position().left + scrollLeft; 
         const targetWidth = $li.outerWidth();
 
-        // 중앙으로 오게 하려면?
-        // (타겟 위치 - 컨테이너 절반) + (타겟 절반)
         const centerPosition = targetLeft - (containerWidth / 2) + (targetWidth / 2);
 
         $ul.stop().animate({ scrollLeft: centerPosition }, 300);
@@ -571,27 +570,24 @@ function scrollSpy() {
 
     // 가로 스크롤 맨 왼쪽 정렬
     function alignActiveTabLeft($target) {
-        const $anchorNav = $('.anchor-nav'); // 혹은 .anchor-wrap .anchor-nav
+        const $anchorNav = $('.anchor-nav');
         const $ul = $anchorNav.find('ul');
         const $li = $target.parent('li');
 
         if (!$li.length) return;
 
-        // 1. 현재 스크롤된 상태에서의 절대 위치 계산
+        // 현재 스크롤된 상태에서의 절대 위치 계산
         const scrollLeft = $ul.scrollLeft();
-        const liOffsetLeft = $li.position().left; // ul 내부에서의 상대 위치
+        const liOffsetLeft = $li.position().left; 
         
-        // 2. 목표 스크롤 위치 계산
-        // (현재 스크롤 + 요소의 상대 위치) = 요소의 전체 스크롤 내 절대 위치
-        // 여기서 -20 정도(혹은 padding-left 값)를 빼주면 왼쪽 여백이 살짝 보여서 더 자연스럽습니다.
-        let targetScrollLeft = scrollLeft + liOffsetLeft - 20; 
+        // 스크롤 위치 계산
+        let targetScrollLeft = scrollLeft + liOffsetLeft; 
 
-        // (선택) 첫 번째 아이템일 경우 완전히 0으로 붙이기
         if ($li.is(':first-child')) {
             targetScrollLeft = 0;
         }
 
-        // 3. 애니메이션 이동
+        // 애니메이션 이동
         $ul.stop().animate({ scrollLeft: targetScrollLeft }, 300);
     }
     

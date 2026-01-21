@@ -297,18 +297,6 @@
 .btn-wrap .btn:disabled:active {
   transform: scale3d(1, 1, 1);
 }
-.btn-wrap .btn.primary {
-  background-color: #0046ff;
-  color: #fff;
-}
-.btn-wrap .btn.secondary {
-  background-color: #eef6ff;
-  color: #0046ff;
-}
-.btn-wrap .btn.tertiary {
-  background-color: #e2e4e9;
-  color: #0b0d0f;
-}
 .btn-wrap .btn.h56 {
   min-height: 5.6rem;
 }
@@ -336,6 +324,18 @@
 }
 .btn-wrap .btn.ico-r.filedown::after {
   background-color: #9946ec;
+}
+.popup-foot .btn.primary {
+  background-color: #0046ff;
+  color: #fff;
+}
+.popup-foot .btn.secondary {
+  background-color: #eef6ff;
+  color: #0046ff;
+}
+.popup-foot .btn.tertiary {
+  background-color: #e2e4e9;
+  color: #0b0d0f;
 }
 
 .btn-ico {
@@ -1890,14 +1890,20 @@ input[type=text]:focus {
   position: fixed;
   right: 0;
   padding-left: 2rem;
-  padding-right: 2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.anchor-wrap.is-fixed .anchor-nav {
+  margin-right: 0;
+}
+.anchor-wrap .anchor-nav {
+  margin-left: -2rem;
+  margin-right: -2rem;
 }
 .anchor-wrap .anchor-nav > ul {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem 2rem;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
