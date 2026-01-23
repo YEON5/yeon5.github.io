@@ -8,26 +8,11 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link rel="shortcut icon" type="image/x-icon" href="" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="./src/css/ui.style.css" />
         <script src="./src/js/libs/jquery-3.7.1.min.js"></script>
         <script src="./src/js/ui.pub.js"></script>
         <title>UI CODEVIEW</title>
-        <style>
-            p + article {
-                padding-top: 2rem;
-            }
-            article + article {
-                padding-top: 4rem;
-            }
-            article > p {
-                margin-bottom: 2rem;
-                font-size: 1.6rem;
-                text-decoration: underline;
-            }
-            section + section {
-                margin-top: 6rem;
-            }
-        </style>
     </head>
     <body>
         <!-- wrapper -->
@@ -215,7 +200,7 @@
                         <!-- article -->
                         <p class="h1-title">@Select</p>
                         <article>
-                            <p>#셀렉트</p>
+                            <p>#기본 ui</p>
                             <div class="form-field">
                                 <div class="form-label">
                                     <label for="sSelect1">레이블</label>
@@ -229,6 +214,47 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <!-- <span class="material-symbols-outlined">arrow_drop_down_circle</span> -->
+                            <p>#반응형 ui(bottom/drop)</p>
+                            <div class="select-box" data-select>
+                                <div class="label-wrap">
+                                    <span id="selectLabel1" class="label">레이블</span>
+                                    <button type="button" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="selectList1" aria-labelledby="selectLabel1" data-select-trigger>
+                                        <span class="select-value">직접선택</span>
+                                    </button>
+                                    <input type="hidden" name="selectValue" class="select-hidden-input" />
+                                </div>
+                                <!-- select layer -->
+                                <div class="select-layer">
+                                    <div class="select-group">
+                                        <div class="select-head">
+                                            <strong class="select-title">선택해주세요</strong>
+                                            <button type="button" class="btn-close" data-select-close>
+                                                <span class="sr-only">닫기</span>
+                                            </button>
+                                        </div>
+                                        <!-- select list -->
+                                        <ul id="selectList1" class="select-list" role="listbox" aria-labelledby="selectLabel1">
+                                            <li role="none">
+                                                <button type="button" class="option current" role="option" aria-selected="true">옵션 1</button>
+                                            </li>
+                                            <li role="none">
+                                                <button type="button" class="option" role="option" aria-selected="false">옵션 2</button>
+                                            </li>
+                                            <li role="none">
+                                                <button type="button" class="option" role="option" aria-selected="false">옵션 3</button>
+                                            </li>
+                                        </ul>
+                                        <!-- //select list -->
+                                    </div>
+                                </div>
+                                <!-- //select layer -->
                             </div>
                         </article>
                         <!-- //article -->
@@ -538,71 +564,71 @@
                         <p class="h1-title">@Button</p>
                         <article>
                             <p>#색상유형</p>
-                            <div class="btn-wrap type-fill">
-                                <button type="button" class="btn tertiary"><span>버튼</span></button>
-                                <button type="button" class="btn primary"><span>버튼(.primary)</span></button>
-                                <button type="button" class="btn secondary"><span>버튼(.secondary)</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn fill tertiary"><span>버튼(.tertiary)</span></button>
+                                <button type="button" class="btn fill primary"><span>버튼(.primary)</span></button>
+                                <button type="button" class="btn fill secondary"><span>버튼(.secondary)</span></button>
                             </div>
                         </article>
                         <!-- //article -->
                         <!-- article -->
                         <article>
                             <p>#크기유형</p>
-                            <div class="btn-wrap type-fill">
-                                <button type="button" class="btn h56"><span>버튼(.h56)</span></button>
-                                <button type="button" class="btn h48"><span>버튼(.h48)</span></button>
-                                <button type="button" class="btn h40"><span>버튼(.h40)</span></button>
-                                <button type="button" class="btn h32"><span>버튼(.h32)</span></button>
-                                <button type="button" class="btn h30"><span>버튼(.h30)</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn fill primary h56"><span>버튼(.h56)</span></button>
+                                <button type="button" class="btn fill secondary h48"><span>버튼(.h48)</span></button>
+                                <button type="button" class="btn fill tertiary h40"><span>버튼(.h40)</span></button>
+                                <button type="button" class="btn fill h32"><span>버튼(.h32)</span></button>
+                                <button type="button" class="btn fill h30"><span>버튼(.h30)</span></button>
                             </div>
                         </article>
                         <!-- //article -->
                         <!-- article -->
                         <article>
                             <p>#버튼유형</p>
-                            <div class="btn-wrap type-text">
-                                <button type="button" class="btn primary"><span>type-text 버튼</span></button>
-                                <button type="button" class="btn"><span>type-text 버튼</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn text primary"><span>type-text 버튼</span></button>
+                                <button type="button" class="btn text"><span>type-text 버튼</span></button>
                             </div>
                             <br /><br />
-                            <div class="btn-wrap type-outline">
-                                <button type="button" class="btn primary"><span>type-outline 버튼</span></button>
-                                <button type="button" class="btn"><span>type-outline 버튼</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn outline primary"><span>type-outline 버튼</span></button>
+                                <button type="button" class="btn outline"><span>type-outline 버튼</span></button>
                             </div>
                             <br /><br />
-                            <div class="btn-wrap type-outline">
-                                <button type="button" class="btn rounded primary"><span>type-outline rounded 버튼</span></button>
-                                <button type="button" class="btn rounded"><span>type-outline rounded 버튼</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn outline rounded primary"><span>type-outline rounded 버튼</span></button>
+                                <button type="button" class="btn outline rounded"><span>type-outline rounded 버튼</span></button>
                             </div>
                             <br /><br />
-                            <div class="btn-wrap type-fill">
-                                <button type="button" class="btn rounded primary"><span>type-fill rounded 버튼</span></button>
-                                <button type="button" class="btn rounded"><span>type-fill rounded 버튼</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn fill rounded primary"><span>type-fill rounded 버튼</span></button>
+                                <button type="button" class="btn fill rounded"><span>type-fill rounded 버튼</span></button>
                             </div>
                             <br /><br />
-                            <!-- full size : extended -->
-                            <div class="btn-wrap type-fill extended">
-                                <button type="button" class="btn primary"><span>type-fill extended 버튼</span></button>
-                                <button type="button" class="btn secondary"><span>type-fill extended 버튼</span></button>
+                            <!-- full size : type-full -->
+                            <div class="btn-wrap type-full">
+                                <button type="button" class="btn fill primary"><span>type-fill extended 버튼</span></button>
+                                <button type="button" class="btn fill secondary"><span>type-fill extended 버튼</span></button>
                             </div>
                         </article>
                         <!-- //article -->
                         <!-- article -->
                         <article>
                             <p>#아이콘조합</p>
-                            <div class="btn-wrap type-fill">
-                                <button type="button" class="btn primary ico"><span>아이콘 왼쪽(.ico)</span></button>
-                                <button type="button" class="btn ico print"><span>아이콘 왼쪽(.ico)</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn fill primary ico"><span>아이콘 왼쪽(.ico)</span></button>
+                                <button type="button" class="btn fill ico print"><span>아이콘 왼쪽(.ico)</span></button>
                             </div>
                             <br /><br />
-                            <div class="btn-wrap type-outline">
-                                <button type="button" class="btn rounded primary ico-r filedown"><span>아이콘 오른쪽(.ico-r)</span></button>
-                                <button type="button" class="btn rounded ico-r print"><span>아이콘 오른쪽(.ico-r)</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn outline rounded primary ico-r filedown"><span>아이콘 오른쪽(.ico-r)</span></button>
+                                <button type="button" class="btn outline rounded ico-r print"><span>아이콘 오른쪽(.ico-r)</span></button>
                             </div>
                             <br /><br />
-                            <div class="btn-wrap type-text">
-                                <button type="button" class="btn primary ico-r filedown"><span>텍스트+아이콘 버튼</span></button>
-                                <button type="button" class="btn ico-r print"><span>텍스트+아이콘 버튼</span></button>
+                            <div class="btn-wrap">
+                                <button type="button" class="btn text primary ico-r filedown"><span>텍스트+아이콘 버튼</span></button>
+                                <button type="button" class="btn text ico-r print"><span>텍스트+아이콘 버튼</span></button>
                             </div>
                             <br /><br />
                             <div class="btn-wrap">
@@ -643,10 +669,10 @@
                                         </tr>
                                     </tbody>
                                     <!-- <tfoot>
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </tfoot> -->
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot> -->
                                 </table>
                             </div>
                             <!-- //table col -->
@@ -764,10 +790,10 @@
                                         </tr>
                                     </tbody>
                                     <!-- <tfoot>
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </tfoot> -->
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot> -->
                                 </table>
                             </div>
                             <!-- //table col -->
@@ -1141,10 +1167,19 @@
                                             <button type="button" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</button>
                                         </li>
                                         <li role="none">
-                                            <button type="button" id="tabItem2" role="tab" aria-controls="tabpanel2" aria-selected="false">Tab-2</button>
+                                            <button type="button" id="tabItem2" role="tab" aria-controls="tabpanel2" aria-selected="false">TabTabTab-2</button>
                                         </li>
                                         <li role="none">
                                             <button type="button" id="tabItem3" role="tab" aria-controls="tabpanel3" aria-selected="false">Tab-3</button>
+                                        </li>
+                                        <li role="none">
+                                            <button type="button" id="tabItem4" role="tab" aria-controls="tabpanel4" aria-selected="false">Tab-4</button>
+                                        </li>
+                                        <li role="none">
+                                            <button type="button" id="tabItem5" role="tab" aria-controls="tabpanel5" aria-selected="false">Tab-5</button>
+                                        </li>
+                                        <li role="none">
+                                            <button type="button" id="tabItem6" role="tab" aria-controls="tabpanel6" aria-selected="false">Tab-6</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -1167,6 +1202,24 @@
                                             <p>Tab3 content</p>
                                         </div>
                                     </div>
+                                    <div id="tabpanel4" role="tabpanel" aria-labelledby="tabItem4" aria-hidden="true" class="tab-cont">
+                                        <h3 class="sr-only">Tab4 title</h3>
+                                        <div>
+                                            <p>Tab4 content</p>
+                                        </div>
+                                    </div>
+                                    <div id="tabpanel5" role="tabpanel" aria-labelledby="tabItem5" aria-hidden="true" class="tab-cont">
+                                        <h3 class="sr-only">Tab5 title</h3>
+                                        <div>
+                                            <p>Tab5 content</p>
+                                        </div>
+                                    </div>
+                                    <div id="tabpanel6" role="tabpanel" aria-labelledby="tabItem6" aria-hidden="true" class="tab-cont">
+                                        <h3 class="sr-only">Tab6 title</h3>
+                                        <div>
+                                            <p>Tab6 content</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -1187,25 +1240,34 @@
                                         <li role="none">
                                             <button type="button" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-3</button>
                                         </li>
+                                        <li role="none">
+                                            <button type="button" id="tabItem4" role="tab" aria-controls="tabround4" aria-selected="false">Tab-4</button>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="tab-body">
                                     <div id="tabround1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
                                         <h3 class="sr-only">Tab1 title</h3>
                                         <div>
-                                            <p>Tab1 content</p>
+                                            <p>Tab-round1 content</p>
                                         </div>
                                     </div>
                                     <div id="tabround2" role="tabpanel" aria-labelledby="tabItem2" aria-hidden="true" class="tab-cont">
                                         <h3 class="sr-only">Tab2 title</h3>
                                         <div>
-                                            <p>Tab2 content</p>
+                                            <p>Tab-round2 content</p>
                                         </div>
                                     </div>
                                     <div id="tabround3" role="tabpanel" aria-labelledby="tabItem3" aria-hidden="true" class="tab-cont">
                                         <h3 class="sr-only">Tab3 title</h3>
                                         <div>
-                                            <p>Tab3 content</p>
+                                            <p>Tab-round3 content</p>
+                                        </div>
+                                    </div>
+                                    <div id="tabround4" role="tabpanel" aria-labelledby="tabItem4" aria-hidden="false" class="tab-cont">
+                                        <h3 class="sr-only">Tab4 title</h3>
+                                        <div>
+                                            <p>Tab-round4 content</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1233,10 +1295,14 @@
                             </div>
 
                             <div id="chkview1" class="form-chk-view">
-                                <p>체크 옵션A content</p>
+                                <div class="cont-area">
+                                    <p>체크 옵션A content</p>
+                                </div>
                             </div>
                             <div id="chkview2" class="form-chk-view">
-                                <p>체크 옵션B content</p>
+                                <div class="cont-area">
+                                    <p>체크 옵션B content</p>
+                                </div>
                             </div>
                         </article>
                         <!-- //article -->
@@ -1261,10 +1327,14 @@
                             </div>
 
                             <div id="rdiview1" class="form-rdi-view">
-                                <p>라디오 옵션A content</p>
+                                <div class="cont-area">
+                                    <p>라디오 옵션A content</p>
+                                </div>
                             </div>
                             <div id="rdiview2" class="form-rdi-view">
-                                <p>라디오 옵션B content</p>
+                                <div class="cont-area">
+                                    <p>라디오 옵션B content</p>
+                                </div>
                             </div>
                         </article>
                         <!-- //article -->
@@ -1306,21 +1376,15 @@
                             <p>#메뉴형(css transition)</p>
                             <div class="dropdowns">
                                 <div class="drop-head">
-                                    <button type="button" class="btn-select" aria-haspopup="menu" aria-controls="location-menu" aria-expanded="false">
+                                    <button type="button" class="btn-dropdown" aria-haspopup="menu" aria-controls="location-menu" aria-expanded="false">
                                         <span>메뉴형 Dropdown</span>
                                     </button>
                                 </div>
                                 <div id="location-menu" class="drop-body">
                                     <ul class="location-list" role="menu" aria-hidden="true">
-                                        <li class="current">
-                                            <a href="javascript:;" aria-selected="true">text</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" aria-selected="true">text</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" aria-selected="true">text</a>
-                                        </li>
+                                        <li class="current"><a href="javascript:;" aria-selected="true">text</a></li>
+                                        <li><a href="javascript:;" aria-selected="true">text</a></li>
+                                        <li><a href="javascript:;" aria-selected="true">text</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1476,11 +1540,11 @@
                         <!-- article -->
                         <p class="h1-title">@Popup</p>
                         <article>
-                            <div class="btn-wrap type-fill column">
-                                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupAlert">Alert Popup</button>
-                                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupConfirm">Confirm Popup</button>
-                                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupFull">Full Popup</button>
-                                <button type="button" class="btn btn-popup-open" data-popup-trigger="popupBottom">Bottom Popup</button>
+                            <div class="btn-wrap type-column">
+                                <button type="button" class="btn fill btn-popup-open" data-popup-trigger="popupAlert">Alert Popup</button>
+                                <button type="button" class="btn fill btn-popup-open" data-popup-trigger="popupConfirm">Confirm Popup</button>
+                                <button type="button" class="btn fill btn-popup-open" data-popup-trigger="popupFull">Full Popup</button>
+                                <button type="button" class="btn fill btn-popup-open" data-popup-trigger="popupBottom">Bottom Popup</button>
                             </div>
                         </article>
                         <!-- //article -->
@@ -1601,7 +1665,7 @@
                     </div>
                     <div class="popup-foot">
                         <div class="btn-wrap">
-                            <button type="button" class="btn h32 primary" data-popup-close>확인</button>
+                            <button type="button" class="btn primary h32" data-popup-close>확인</button>
                         </div>
                     </div>
                 </div>
@@ -1619,8 +1683,8 @@
                     </div>
                     <div class="popup-foot">
                         <div class="btn-wrap">
-                            <button type="button" class="btn h32 secondary" data-popup-close>취소</button>
-                            <button type="button" class="btn h32 primary">확인</button>
+                            <button type="button" class="btn secondary h32" data-popup-close>취소</button>
+                            <button type="button" class="btn primary h32">확인</button>
                         </div>
                     </div>
                 </div>
@@ -1677,7 +1741,7 @@
                     </div>
                     <div class="popup-foot">
                         <div class="btn-wrap type-sticky">
-                            <button type="button" class="btn h48 primary" data-popup-close>확인</button>
+                            <button type="button" class="btn primary h48" data-popup-close>확인</button>
                         </div>
                     </div>
                 </div>
@@ -1685,4 +1749,21 @@
         </div>
         <!--// modal wrapper -->
     </body>
+
+    <style>
+        p + article {
+            padding-top: 2rem;
+        }
+        article + article {
+            padding-top: 4rem;
+        }
+        article > p {
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            text-decoration: underline;
+        }
+        section + section {
+            margin-top: 6rem;
+        }
+    </style>
 </html>

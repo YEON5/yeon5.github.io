@@ -10,16 +10,16 @@ function uiInit() {
     // snbInit();
     // lnbInit();
     formInit();
+    fileInit();
     tabInit();
     toggleInit();
     dropInit();
     accodiInit();
+    SelectUiInit();
     stickyInit();
     scrollSpy();
     scrollEvent();
     // scrollAnimated();
-    fileInit();
-    fileAttach();
     popoverInit();
     popupInit();
     // toastPopInit();
@@ -186,7 +186,7 @@ function textField() {
                 const isReadOnly = $input.prop('readonly');
                 const isDisabled = $input.prop('disabled');
 
-                // 1. 그룹 active 클래스 제어
+                // 그룹 active 클래스 제어
                 if (hasValue || isInputFocused || isBtnFocused) {
                     $group.addClass('active');
                 } else {
@@ -202,7 +202,7 @@ function textField() {
                     if (!anyActive) $group.removeClass('active');
                 }
 
-                // 2. 버튼 노출 제어 (조건부 생성 포함)
+                // 버튼 노출 제어 (조건부 생성 포함)
                 const btnShow = hasValue && (isInputFocused || isBtnFocused) && !isReadOnly && !isDisabled;
 
                 if (btnShow) {
@@ -290,21 +290,116 @@ function toggleRadioContent($radio) {
 }
 
 /*-------------------------------------------------------------------
+	## File Functions
+-------------------------------------------------------------------*/
+function fileInit() {
+    fileField();
+    fileAttach();
+}
+
+// Input - file : upload input 제어 (행 추가)
+function fileField() {
+    // 파일 선택 시 파일명 삽입 (동적 생성된 요소에도 대응)
+    $(document).on('change', '.upload-hidden', function () {
+        const filename = '';
+        if (window.FileReader) {
+            filename = $(this)[0].files.length > 0 ? $(this)[0].files[0].name : '선택된 파일 없음';
+        } else {
+            filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+        $(this).siblings('.upload-name').val(filename);
+    });
+
+    // 파일 필드 추가
+    $('.file-plus').on('click', function (e) {
+        const $group = $('.file-group');
+        const fileIndex = new Date().getTime(); // 중복 방지를 위한 고유 ID 생성 (타임스탬프)
+        const fileHtml = '<div class="form-file">' + '<input type="text" class="inp upload-name" title="선택된 파일명" value="선택된 파일 없음" readonly>' + '<input type="file" name="exFileName_' + fileIndex + '" id="exFileName_' + fileIndex + '" class="upload-hidden">' + '<label for="exFileName_' + fileIndex + '" class="upload-btn">파일찾기</label>' + '<button type="button" class="btn btn-file file-minus" aria-label="파일 첨부 행 삭제">' + '<span class="sr-only">삭제</span>' + '</button>' + '</div>';
+        $group.append(fileHtml);
+    });
+
+    // 삭제 버튼 이벤트 (동적 생성 대응)
+    $(document).on('click', '.file-minus', function () {
+        $(this).closest('.form-file').remove();
+    });
+}
+
+// Input - file : 파일명 하단 리스트 추가
+function fileAttach() {
+    $(document).on('change', '.upload-file', function () {
+        const filename = '';
+        if (window.FileReader) {
+            filename = $(this)[0].files.length > 0 ? $(this)[0].files[0].name : '';
+        } else {
+            filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+
+        if (filename !== '') {
+            // 상단 input에 파일명 표시
+            $(this).siblings('.upload-name').val(filename);
+
+            // 하단 리스트에 추가 (삭제 버튼에 파일명 label 추가하여 접근성 향상)
+            const listHtml = '<li>' + '<span>' + filename + '</span>' + '<button type="button" class="file-del" aria-label="' + filename + ' 파일 삭제">' + '<span class="sr-only">삭제</span>' + '</button>' + '</li>';
+
+            $('.file-list').append(listHtml);
+        }
+    });
+
+    // 리스트 삭제 버튼 이벤트
+    $(document).on('click', '.file-del', function () {
+        $(this).closest('li').remove();
+    });
+}
+
+/*-------------------------------------------------------------------
 	## Tab
 -------------------------------------------------------------------*/
 function tabInit() {
     $(document).on('click', '[class^="tab"] .tab-nav button', function (e) {
         e.preventDefault();
-
-        const $btn = $(this);
-        const $li = $btn.parent();
-        const targetId = $btn.attr('aria-controls');
+        const $selectedBtn = $(this);
+        const $selectedLi = $selectedBtn.parent('li');
+        
+        if ($selectedLi.hasClass('is-active')) return;
+        const targetId = $selectedBtn.attr('aria-controls');
         const $targetPanel = $('#' + targetId);
 
-        $li.addClass('is-active').siblings('li').removeClass('is-active').find('button').attr('aria-selected', 'false');
-        $btn.attr('aria-selected', 'true');
-        $targetPanel.addClass('is-active').attr('aria-hidden', 'false').show().siblings('.tab-cont').removeClass('is-active').attr('aria-hidden', 'true').hide();
+        // tab nav
+        $selectedLi.addClass('is-active').siblings().removeClass('is-active');
+        // 접근성
+        $selectedBtn.attr('aria-selected', 'true');
+        $selectedLi.siblings().find('button').attr('aria-selected', 'false');
+
+        // tab content
+        $targetPanel.addClass('is-active')
+            .siblings('.tab-cont').removeClass('is-active');
+        // 접근성
+        $targetPanel.attr('aria-hidden', 'false')
+            .siblings('.tab-cont').attr('aria-hidden', 'true');
+
+        // 정렬 함수 호출 
+        moveScrollToLeft($selectedLi);
     });
+}
+// tab 좌측 정렬 이동
+function moveScrollToLeft($targetLi) {
+    const $ul = $targetLi.parent();
+    
+    // 여백 설정 (inner 패딩값 확인)
+    const offset = 20; 
+    const newScrollPos = $ul.scrollLeft() + $targetLi.position().left - offset;
+    $ul.stop().animate({ scrollLeft: newScrollPos }, 200);
+}
+// tab 가운데 정렬 이동
+function moveScrollToCenter($targetLi) {
+    const $ul = $targetLi.parent();
+    const ulWidth = $ul.outerWidth();
+    const liWidth = $targetLi.outerWidth();
+    const currentScroll = $ul.scrollLeft();
+    const liOffsetLeft = $targetLi.position().left;
+    const newScrollPos = currentScroll + liOffsetLeft - (ulWidth / 2) + (liWidth / 2);
+
+    $ul.stop().animate({ scrollLeft: newScrollPos }, 200);
 }
 
 /*-------------------------------------------------------------------
@@ -370,16 +465,16 @@ function toggleClose() {
 }
 
 function dropInit() {
-    $(document).on('click', '.btn-select', function () {
+    $(document).on('click', '.btn-dropdown', function () {
         const $ele = $(this).closest('.dropdowns');
 
         if (!$ele.hasClass('is-active')) {
             $ele.addClass('is-active');
-            $ele.find('.btn-select').attr('aria-expanded', 'true');
+            $ele.find('.btn-dropdown').attr('aria-expanded', 'true');
             $ele.find('.drop-body').attr('aria-hidden', 'false');
         } else {
             $ele.removeClass('is-active');
-            $ele.find('.btn-select').attr('aria-expanded', 'false');
+            $ele.find('.btn-dropdown').attr('aria-expanded', 'false');
             $ele.find('.drop-body').attr('aria-hidden', 'true');
         }
     });
@@ -424,6 +519,155 @@ function accodiAction($accodi) {
 }
 
 /*-------------------------------------------------------------------
+	## Select box (dropdown/bottom)
+-------------------------------------------------------------------*/
+function SelectUiInit() {
+    const $body = $('body');
+    const MOBILE_BREAKPOINT = 768;
+
+    // 초기화 tabindex
+    $('.select-layer').attr('tabindex', '-1');
+
+    // select trigger
+    $(document).on('click', '[data-select-trigger]', function () {
+        const $thisBox = $(this).closest('[data-select]');
+        const isActive = $thisBox.hasClass('is-active');
+
+        $('[data-select]').not($thisBox).removeClass('is-active')
+            .find('[data-select-trigger]').attr('aria-expanded', 'false');
+
+        if (isActive) {
+            closeSelect($thisBox);
+        } else {
+            openSelect($thisBox);
+        }
+    });
+
+    // 선택 목록
+    $(document).on('click', '.select-layer .option', function () {
+        const $btn = $(this);
+        const $box = $btn.closest('[data-select]');
+        const $textTarget = $box.find('.select-value');
+        const $hiddenInput = $box.find('.select-hidden-input'); // 히든 인풋 찾기
+
+        const showText = $btn.text();       // 화면에 보여줄 텍스트
+        const realValue = $btn.data('value'); // 서버로 보낼 실제 값
+
+        // 1. 화면 텍스트 업데이트
+        $textTarget.text(showText);
+        $textTarget.addClass('is-selected'); // (옵션) 색상 변경 등을 위한 클래스
+
+        // 2. 히든 인풋 값 업데이트 (폼 전송용)
+        // 값이 변경되었음을 알리기 위해 change 트리거도 발생시킴 (유효성 검사 등 연동)
+        $hiddenInput.val(realValue).trigger('change');
+
+        // 3. 활성화 스타일 업데이트
+        $btn.closest('.select-list').find('.option').removeClass('current').attr('aria-selected', 'false');
+        $btn.addClass('current').attr('aria-selected', 'true');
+
+        closeSelect($box);
+        $box.find('[data-select-trigger]').focus();
+    });
+
+    // [Close]
+    $(document).on('click', '[data-select-close]', function () {
+        const $box = $(this).closest('[data-select]');
+        closeSelect($box);
+        $box.find('[data-select-trigger]').focus();
+    });
+
+    // [Outside & Dim Click]
+    $(document).on('click', function (e) {
+        const $target = $(e.target);
+
+        if (!$target.closest('[data-select]').length) {
+            $('[data-select].is-active').each(function () {
+                closeSelect($(this));
+            });
+        }
+        if ($target.hasClass('select-layer')) {
+            closeSelect($target.closest('[data-select]'));
+        }
+    });
+
+    // ====================================================
+    // 2. 접근성 (키보드)
+    // ====================================================
+    $(document).on('keydown', function (e) {
+        const $openBox = $('[data-select].is-active');
+        if (!$openBox.length) return;
+
+        if (e.keyCode === 27) { // ESC
+            closeSelect($openBox);
+            $openBox.find('[data-select-trigger]').focus();
+            return;
+        }
+
+        if (e.keyCode === 9) { // TAB
+            if (window.innerWidth > MOBILE_BREAKPOINT) return;
+
+            const $layer = $openBox.find('.select-layer');
+            const $focusables = $layer.find('button, a, input, [tabindex]:not([tabindex="-1"])');
+
+            if (!$focusables.length) return;
+
+            const $first = $focusables.first();
+            const $last = $focusables.last();
+            const $target = $(e.target);
+
+            // 레이어 자체 -> 첫 요소
+            if ($target.is($layer)) {
+                e.preventDefault();
+                if (e.shiftKey) $last.focus();
+                else $first.focus();
+                return;
+            }
+            // 이탈 -> 복귀
+            if ($target.closest('.select-layer').length === 0) {
+                e.preventDefault();
+                $layer.focus();
+                return;
+            }
+            // 순환
+            if (e.shiftKey) {
+                if ($target.is($first)) {
+                    e.preventDefault();
+                    $last.focus();
+                }
+            } else {
+                if ($target.is($last)) {
+                    e.preventDefault();
+                    $first.focus();
+                }
+            }
+        }
+    });
+
+    // ====================================================
+    // 3. 제어 함수
+    // ====================================================
+    function openSelect($box) {
+        $box.addClass('is-active');
+        $box.find('[data-select-trigger]').attr('aria-expanded', 'true');
+
+        if (window.innerWidth <= MOBILE_BREAKPOINT) {
+            $body.css('overflow', 'hidden');
+            setTimeout(function() {
+                // 스크립트로 tabindex를 넣었으므로 focus가 잘 먹힘
+                $box.find('.select-layer').focus(); 
+            }, 350);
+        }
+    }
+
+    function closeSelect($box) {
+        $box.removeClass('is-active');
+        $box.find('[data-select-trigger]').attr('aria-expanded', 'false');
+        $body.css('overflow', '');
+    }
+}
+
+
+/*-------------------------------------------------------------------
 	## Sticky
 -------------------------------------------------------------------*/
 function stickyInit() {
@@ -448,7 +692,8 @@ function stickyInit() {
         );
     });
 }
-// anchor tab (anchor-wrap을 단독으로 사용할 경우 호출)
+
+// anchor tab (anchor-wrap을 단독으로 사용할 경우 호출 + scrollspy 조합)
 function initStickyAnchor() {
     const $window = $(window);
     const $anchorWrap = $('.anchor-wrap');
@@ -741,63 +986,6 @@ function scrollAnimated() {
 }
 
 /*-------------------------------------------------------------------
-	## File Functions
--------------------------------------------------------------------*/
-// Input - file : upload input 제어 (행 추가)
-function fileInit() {
-    // 파일 선택 시 파일명 삽입 (동적 생성된 요소에도 대응)
-    $(document).on('change', '.upload-hidden', function () {
-        const filename = '';
-        if (window.FileReader) {
-            filename = $(this)[0].files.length > 0 ? $(this)[0].files[0].name : '선택된 파일 없음';
-        } else {
-            filename = $(this).val().split('/').pop().split('\\').pop();
-        }
-        $(this).siblings('.upload-name').val(filename);
-    });
-
-    // 파일 필드 추가
-    $('.file-plus').on('click', function (e) {
-        const $group = $('.file-group');
-        const fileIndex = new Date().getTime(); // 중복 방지를 위한 고유 ID 생성 (타임스탬프)
-        const fileHtml = '<div class="form-file">' + '<input type="text" class="inp upload-name" title="선택된 파일명" value="선택된 파일 없음" readonly>' + '<input type="file" name="exFileName_' + fileIndex + '" id="exFileName_' + fileIndex + '" class="upload-hidden">' + '<label for="exFileName_' + fileIndex + '" class="upload-btn">파일찾기</label>' + '<button type="button" class="btn btn-file file-minus" aria-label="파일 첨부 행 삭제">' + '<span class="sr-only">삭제</span>' + '</button>' + '</div>';
-        $group.append(fileHtml);
-    });
-
-    // 삭제 버튼 이벤트 (동적 생성 대응)
-    $(document).on('click', '.file-minus', function () {
-        $(this).closest('.form-file').remove();
-    });
-}
-
-// Input - file : 파일명 하단 리스트 추가
-function fileAttach() {
-    $(document).on('change', '.upload-file', function () {
-        const filename = '';
-        if (window.FileReader) {
-            filename = $(this)[0].files.length > 0 ? $(this)[0].files[0].name : '';
-        } else {
-            filename = $(this).val().split('/').pop().split('\\').pop();
-        }
-
-        if (filename !== '') {
-            // 상단 input에 파일명 표시
-            $(this).siblings('.upload-name').val(filename);
-
-            // 하단 리스트에 추가 (삭제 버튼에 파일명 label 추가하여 접근성 향상)
-            const listHtml = '<li>' + '<span>' + filename + '</span>' + '<button type="button" class="file-del" aria-label="' + filename + ' 파일 삭제">' + '<span class="sr-only">삭제</span>' + '</button>' + '</li>';
-
-            $('.file-list').append(listHtml);
-        }
-    });
-
-    // 리스트 삭제 버튼 이벤트
-    $(document).on('click', '.file-del', function () {
-        $(this).closest('li').remove();
-    });
-}
-
-/*-------------------------------------------------------------------
 	## Popover
 -------------------------------------------------------------------*/
 function popoverInit() {
@@ -929,7 +1117,7 @@ function popupOpen(id, $opener) {
 
     // 포커스 이동 (브라우저 렌더링 시간 고려하여 약간 지연)
     setTimeout(function () {
-        $popWrap.find('.popup').attr('tabindex', '0').focus();
+        $popWrap.find('.popup').attr('tabindex', '-1').focus();
     }, 50);
 
     // 접근성
@@ -961,7 +1149,7 @@ function handleFocusTrap(e, $popWrap) {
     const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
     if (!isTabPressed) return;
 
-    const $focusableEls = $popWrap.find('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]');
+    const $focusableEls = $popWrap.find('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="-1"], [contenteditable]');
     const $firstEl = $focusableEls.first();
     const $lastEl = $focusableEls.last();
 
@@ -1229,64 +1417,3 @@ function headerPercent() {
     });
 }
 
-/* 버튼효과 */
-// function waveEffectEvent() {
-//     var events = null;
-//     $(document)
-//         .off('mousedown.waveEffectEvent touchstart.waveEffectEvent')
-//         .on('mousedown.waveEffectEvent touchstart.waveEffectEvent', '.btn, .tab-nav a', function (e) {
-//             events = 'mousedown';
-//             var self = $(this),
-//                 wave = '.effect-wave',
-//                 btnWidth = self.outerWidth();
-//             if (e.type == 'mousedown') {
-//                 var x = e.offsetX,
-//                     y = e.offsetY;
-//             }
-//             if (e.type == 'touchstart') {
-//                 var x = e.touches[0].pageX - self.offset().left,
-//                     y = e.touches[0].pageY - self.offset().top;
-//             }
-//             if (self.find(wave).length == 0) {
-//                 self.prepend('<span class="effect-wave"></span>');
-//                 $(wave)
-//                     .css({ top: y, left: x })
-//                     .stop()
-//                     .animate({ width: btnWidth * 3, height: btnWidth * 3 }, 400, function () {
-//                         $(this).addClass('is-complete');
-//                         if (events == 'mouseup') {
-//                             $(this)
-//                                 .stop()
-//                                 .animate({ opacity: '0' }, 200, function () {
-//                                     $(this).remove();
-//                                 });
-//                         }
-//                     });
-//             }
-//         });
-//     $(document)
-//         .off('mouseup.waveEffectEvent touchend.waveEffectEvent')
-//         .on('mouseup.waveEffectEvent touchend.waveEffectEvent', '.btn, .tab-nav a', function (e) {
-//             events = 'mouseup';
-//             var self = $(this),
-//                 wave = '.effect-wave';
-//             if (self.find(wave).hasClass('is-complete')) {
-//                 $(wave)
-//                     .stop()
-//                     .animate({ opacity: '0' }, 200, function () {
-//                         $(this).remove();
-//                     });
-//             }
-//         });
-//     $(document)
-//         .off('click.waveEffectEvent focusin.waveEffectEvent')
-//         .on('click.waveEffectEvent focusin.waveEffectEvent', function (e) {
-//             if ($(e.target).is('.btn, .tab-nav a') == false && $('.effect-wave').length) {
-//                 $('.effect-wave')
-//                     .stop()
-//                     .animate({ opacity: '0' }, 200, function () {
-//                         $(this).remove();
-//                     });
-//             }
-//         });
-// }

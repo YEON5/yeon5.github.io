@@ -7,12 +7,11 @@
         ul {
             display: flex;
             align-items: center;
-            // overflow: hidden;
             > li {
                 @include flex-set(center, center);
                 position: relative;
                 flex: 1 1 0;
-                height: 6rem;
+                height: 5rem;
                 border-bottom: 0.1rem solid #999;
                 text-align: center;
                 &.is-active {
@@ -25,9 +24,30 @@
                 > button {
                     @include flex-set(center, center);
                     @include size-set(100%);
-                    padding: 0 $spacer-10;
+                    padding: 0 2rem;
                     color: #222;
-                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+        }
+        @include mobile-only {
+            ul {
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                li {
+                    // 모바일에서 최소 넓이 25% 지정
+                    flex: 0 0 25%;
+                    // min-width: 0; // 텍스트길이에 상관없이 균등한 넓이 유지하려면
+                    > button {
+                        display: block;
+                        padding: 0 1rem;
+
+                        // 텍스트길이에 상관없이 균등한 넓이 유지하려면
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                 }
             }
         }
@@ -76,6 +96,7 @@
                     @include flex-set(center, center);
                     @include size-set(100%);
                     padding: 0 $spacer-10;
+                    white-space: nowrap;
                 }
             }
         }

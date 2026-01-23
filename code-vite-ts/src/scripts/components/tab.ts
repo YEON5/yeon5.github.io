@@ -15,16 +15,6 @@ export const initTab = () => {
       }
     }
   });
-
-  // Tab Round (Separate implementation in original, but logic is similar)
-  // Original `tabEvent` handled `.tab-round .tab-nav li > button` separately?
-  // It seems `tabInit` handled general tabs and `tabEvent` handled `.tab-round` specifically with `tabAction`.
-  // The logic is almost identical: show ID, hide siblings.
-  // We can merge or keep separate if markup differs significantly.
-  // In `tabInit`: adds `is-active`, updates `aria-hidden` etc.
-  // In `tabEvent` (`tabAction`): just `show()`/`hide()`.
-  
-  // Let's combine them for robustness.
 };
 
 const activateTab = (activeLi: HTMLElement, contentId: string) => {

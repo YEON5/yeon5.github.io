@@ -171,7 +171,7 @@
             <!-- article -->
             <p class="h1-title">@Select</p>
             <article>
-              <p>#셀렉트</p>
+              <p>#기본 ui</p>
               <div class="form-field">
                 <div class="form-label">
                   <label for="sSelect1">레이블</label>
@@ -185,6 +185,46 @@
                     </select>
                   </div>
                 </div>
+              </div>
+            </article>
+            <!-- //article -->
+
+            <!-- article -->
+            <article>
+              <p>#반응형 ui(bottom/drop)</p>
+              <div class="select-box" data-select>
+                <div class="label-wrap">
+                  <span id="selectLabel1" class="label">레이블</span>
+                  <button type="button" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="selectList1" aria-labelledby="selectLabel1" data-select-trigger>
+                    <span class="select-value">직접선택</span>
+                  </button>
+                  <input type="hidden" name="selectValue" class="select-hidden-input" />
+                </div>
+                <!-- select layer -->
+                <div class="select-layer">
+                  <div class="select-group">
+                    <div class="select-head">
+                      <strong class="select-title">선택해주세요</strong>
+                      <button type="button" class="btn-close" data-select-close>
+                        <span class="sr-only">닫기</span>
+                      </button>
+                    </div>
+                    <!-- select list -->
+                    <ul id="selectList1" class="select-list" role="listbox" aria-labelledby="selectLabel1">
+                      <li role="none">
+                        <button type="button" class="option current" role="option" aria-selected="true">옵션 1</button>
+                      </li>
+                      <li role="none">
+                        <button type="button" class="option" role="option" aria-selected="false">옵션 2</button>
+                      </li>
+                      <li role="none">
+                        <button type="button" class="option" role="option" aria-selected="false">옵션 3</button>
+                      </li>
+                    </ul>
+                    <!-- //select list -->
+                  </div>
+                </div>
+                <!-- //select layer -->
               </div>
             </article>
             <!-- //article -->
@@ -498,77 +538,77 @@
             <p class="h1-title">@Button</p>
             <article>
               <p>#색상유형</p>
-              <div class="btn-wrap type-fill">
-                <button type="button" class="btn"><span>버튼</span></button>
-                <button type="button" class="btn primary"><span>버튼(.primary)</span></button>
-                <button type="button" class="btn secondary"><span>버튼(.secondary)</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn fill tertiary"><span>버튼(.tertiary)</span></button>
+                <button type="button" class="btn fill primary"><span>버튼(.primary)</span></button>
+                <button type="button" class="btn fill secondary"><span>버튼(.secondary)</span></button>
               </div>
             </article>
             <!-- //article -->
             <!-- article -->
             <article>
               <p>#크기유형</p>
-              <div class="btn-wrap type-fill">
-                <button type="button" class="btn h56"><span>버튼(.h56)</span></button>
-                <button type="button" class="btn h48"><span>버튼(.h48)</span></button>
-                <button type="button" class="btn h40"><span>버튼(.h40)</span></button>
-                <button type="button" class="btn h32"><span>버튼(.h32)</span></button>
-                <button type="button" class="btn h30"><span>버튼(.h30)</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn fill primary h56"><span>버튼(.h56)</span></button>
+                <button type="button" class="btn fill secondary h48"><span>버튼(.h48)</span></button>
+                <button type="button" class="btn fill tertiary h40"><span>버튼(.h40)</span></button>
+                <button type="button" class="btn fill h32"><span>버튼(.h32)</span></button>
+                <button type="button" class="btn fill h30"><span>버튼(.h30)</span></button>
               </div>
             </article>
             <!-- //article -->
             <!-- article -->
             <article>
               <p>#버튼유형</p>
-              <div class="btn-wrap type-text">
-                <button type="button" class="btn primary"><span>type-text 버튼</span></button>
-                <button type="button" class="btn"><span>type-text 버튼</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn text primary"><span>type-text 버튼</span></button>
+                <button type="button" class="btn text"><span>type-text 버튼</span></button>
               </div>
               <br />
               <br />
-              <div class="btn-wrap type-outline">
-                <button type="button" class="btn primary"><span>type-outline 버튼</span></button>
-                <button type="button" class="btn"><span>type-outline 버튼</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn outline primary"><span>type-outline 버튼</span></button>
+                <button type="button" class="btn outline"><span>type-outline 버튼</span></button>
               </div>
               <br />
               <br />
-              <div class="btn-wrap type-outline">
-                <button type="button" class="btn rounded primary"><span>type-outline rounded 버튼</span></button>
-                <button type="button" class="btn rounded"><span>type-outline rounded 버튼</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn outline rounded primary"><span>type-outline rounded 버튼</span></button>
+                <button type="button" class="btn outline rounded"><span>type-outline rounded 버튼</span></button>
               </div>
               <br />
               <br />
-              <div class="btn-wrap type-fill">
-                <button type="button" class="btn rounded primary"><span>type-fill rounded 버튼</span></button>
-                <button type="button" class="btn rounded"><span>type-fill rounded 버튼</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn fill rounded primary"><span>type-fill rounded 버튼</span></button>
+                <button type="button" class="btn fill rounded"><span>type-fill rounded 버튼</span></button>
               </div>
               <br />
               <br />
-              <!-- full size : extended -->
-              <div class="btn-wrap type-fill extended">
-                <button type="button" class="btn primary"><span>type-fill extended 버튼</span></button>
-                <button type="button" class="btn secondary"><span>type-fill extended 버튼</span></button>
+              <!-- full size : type-full -->
+              <div class="btn-wrap type-full">
+                <button type="button" class="btn fill primary"><span>type-fill extended 버튼</span></button>
+                <button type="button" class="btn fill secondary"><span>type-fill extended 버튼</span></button>
               </div>
             </article>
             <!-- //article -->
             <!-- article -->
             <article>
               <p>#아이콘조합</p>
-              <div class="btn-wrap type-fill">
-                <button type="button" class="btn primary ico"><span>아이콘 왼쪽(.ico)</span></button>
-                <button type="button" class="btn ico print"><span>아이콘 왼쪽(.ico)</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn fill primary ico"><span>아이콘 왼쪽(.ico)</span></button>
+                <button type="button" class="btn fill ico print"><span>아이콘 왼쪽(.ico)</span></button>
               </div>
               <br />
               <br />
-              <div class="btn-wrap type-outline">
-                <button type="button" class="btn rounded primary ico-r filedown"><span>아이콘 오른쪽(.ico-r)</span></button>
-                <button type="button" class="btn rounded ico-r print"><span>아이콘 오른쪽(.ico-r)</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn outline rounded primary ico-r filedown"><span>아이콘 오른쪽(.ico-r)</span></button>
+                <button type="button" class="btn outline rounded ico-r print"><span>아이콘 오른쪽(.ico-r)</span></button>
               </div>
               <br />
               <br />
-              <div class="btn-wrap type-text">
-                <button type="button" class="btn primary ico-r filedown"><span>텍스트+아이콘 버튼</span></button>
-                <button type="button" class="btn ico-r print"><span>텍스트+아이콘 버튼</span></button>
+              <div class="btn-wrap">
+                <button type="button" class="btn text primary ico-r filedown"><span>텍스트+아이콘 버튼</span></button>
+                <button type="button" class="btn text ico-r print"><span>텍스트+아이콘 버튼</span></button>
               </div>
               <br />
               <br />
@@ -1102,9 +1142,9 @@
           <!-- section -->
           <section>
             <!-- article -->
-            <p class="h1-title">@Tab / Form option view</p>
+            <p class="h1-title">@Tab</p>
             <article>
-              <p>#Tab : 하단라인형</p>
+              <p>#하단라인형</p>
               <div class="tab">
                 <div class="tab-nav">
                   <ul role="tablist">
@@ -1116,6 +1156,15 @@
                     </li>
                     <li role="none">
                       <button type="button" id="tabItem3" role="tab" aria-controls="tabpanel3" aria-selected="false">Tab-3</button>
+                    </li>
+                    <li role="none">
+                      <button type="button" id="tabItem4" role="tab" aria-controls="tabpanel4" aria-selected="false">Tab-4</button>
+                    </li>
+                    <li role="none">
+                      <button type="button" id="tabItem5" role="tab" aria-controls="tabpanel5" aria-selected="false">Tab-5</button>
+                    </li>
+                    <li role="none">
+                      <button type="button" id="tabItem6" role="tab" aria-controls="tabpanel6" aria-selected="false">Tab-6</button>
                     </li>
                   </ul>
                 </div>
@@ -1138,6 +1187,24 @@
                       <p>Tab3 content</p>
                     </div>
                   </div>
+                  <div id="tabpanel4" role="tabpanel" aria-labelledby="tabItem4" aria-hidden="true" class="tab-cont">
+                    <h3 class="sr-only">Tab4 title</h3>
+                    <div>
+                      <p>Tab4 content</p>
+                    </div>
+                  </div>
+                  <div id="tabpanel5" role="tabpanel" aria-labelledby="tabItem5" aria-hidden="true" class="tab-cont">
+                    <h3 class="sr-only">Tab5 title</h3>
+                    <div>
+                      <p>Tab5 content</p>
+                    </div>
+                  </div>
+                  <div id="tabpanel6" role="tabpanel" aria-labelledby="tabItem6" aria-hidden="true" class="tab-cont">
+                    <h3 class="sr-only">Tab6 title</h3>
+                    <div>
+                      <p>Tab6 content</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
@@ -1145,18 +1212,21 @@
 
             <!-- article -->
             <article>
-              <p>#Tab : 박스라운형(active no line)</p>
+              <p>#박스라운형(active no line)</p>
               <div class="tab-round">
                 <div class="tab-nav">
                   <ul role="tablist">
                     <li role="none" class="is-active">
-                      <button type="button" id="tabItem1" role="tab" aria-controls="tabround1" aria-selected="true">Tab-1</button>
+                      <button type="button" id="tabItem1" role="tab" aria-controls="tabround1" aria-selected="true">Tab-round1</button>
                     </li>
                     <li role="none">
-                      <button type="button" id="tabItem2" role="tab" aria-controls="tabround2" aria-selected="false">Tab-2</button>
+                      <button type="button" id="tabItem2" role="tab" aria-controls="tabround2" aria-selected="false">Tab-round2</button>
                     </li>
                     <li role="none">
-                      <button type="button" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-3</button>
+                      <button type="button" id="tabItem3" role="tab" aria-controls="tabround3" aria-selected="false">Tab-round3</button>
+                    </li>
+                    <li role="none">
+                      <button type="button" id="tabItem4" role="tab" aria-controls="tabround4" aria-selected="false">Tab-round4</button>
                     </li>
                   </ul>
                 </div>
@@ -1164,19 +1234,25 @@
                   <div id="tabround1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
                     <h3 class="sr-only">Tab1 title</h3>
                     <div>
-                      <p>Tab1 content</p>
+                      <p>Tab-round1 content</p>
                     </div>
                   </div>
                   <div id="tabround2" role="tabpanel" aria-labelledby="tabItem2" aria-hidden="true" class="tab-cont">
                     <h3 class="sr-only">Tab2 title</h3>
                     <div>
-                      <p>Tab2 content</p>
+                      <p>Tab-round2 content</p>
                     </div>
                   </div>
                   <div id="tabround3" role="tabpanel" aria-labelledby="tabItem3" aria-hidden="true" class="tab-cont">
                     <h3 class="sr-only">Tab3 title</h3>
                     <div>
-                      <p>Tab3 content</p>
+                      <p>Tab-round3 content</p>
+                    </div>
+                  </div>
+                  <div id="tabround4" role="tabpanel" aria-labelledby="tabItem4" aria-hidden="false" class="tab-cont">
+                    <h3 class="sr-only">Tab4 title</h3>
+                    <div>
+                      <p>Tab-round4 content</p>
                     </div>
                   </div>
                 </div>
@@ -1277,7 +1353,7 @@
               <p>#메뉴형(css transition)</p>
               <div class="dropdowns">
                 <div class="drop-head">
-                  <button type="button" class="btn-select" aria-haspopup="menu" aria-controls="location-menu" aria-expanded="false">
+                  <button type="button" class="btn-dropdown" aria-haspopup="menu" aria-controls="location-menu" aria-expanded="false">
                     <span>메뉴형 Dropdown</span>
                   </button>
                 </div>

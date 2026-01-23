@@ -47,7 +47,7 @@
     position: relative;
     .drop-head {
         @include flex-set(center, start);
-        .btn-select {
+        .btn-dropdown {
             position: relative;
             @include size-set(100%);
             padding: $spacer-14 0;
@@ -90,7 +90,7 @@
         }
     }
     &.is-active {
-        .btn-select {
+        .btn-dropdown {
             &::after {
                 transform: translateY(-50%) rotate(-180deg);
             }

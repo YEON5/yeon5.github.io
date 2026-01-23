@@ -312,3 +312,7 @@ input:-webkit-autofill:active {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}

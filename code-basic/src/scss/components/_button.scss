@@ -24,9 +24,32 @@ $btn-color: (
     flex-wrap: wrap;
     gap: 1rem;
 
-    &.column {
+    &.type-column {
         flex-direction: column;
         align-items: flex-start;
+    }
+    &.type-full {
+        .btn {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+    }
+
+    // 좌우 정렬
+    &.align-left {
+        justify-content: flex-start;
+    }
+    &.align-center {
+        justify-content: center;
+    }
+    &.align-right {
+        justify-content: flex-end;
+    }
+    &.align-between {
+        justify-content: space-between;
+    }
+    &.align-around {
+        justify-content: space-around;
     }
 
     // 하단 스티키
@@ -63,86 +86,7 @@ $btn-color: (
         }
     }
 
-    // 유형
-    &.type-fill {
-        .btn {
-            background-color: $color-bg-base;
-            @each $name, $code in $btn-color {
-                &.#{$name} {
-                    background-color: #{$code};
-                }
-            }
-            &.primary {
-                color: $color-white;
-            }
-            &.secondary {
-                color: $color-primary;
-            }
-            &.tertiary {
-                color: $color-txt-body;
-            }
-            // 상태
-            &:disabled {
-                &.primary {
-                    background-color: $color-primary-disabled;
-                    color: $color-white;
-                }
-                &.secondary {
-                    color: $color-disable;
-                }
-            }
-        }
-    }
-    &.type-outline {
-        .btn {
-            border: 1px solid #ddd;
-            background-color: $color-white;
-
-            @each $name, $code in $btn-color {
-                &.#{$name} {
-                    border-color: #{$code};
-                    background-color: $color-white;
-                    color: #{$code};
-                }
-            }
-            // 상태
-            &:disabled {
-                &.primary {
-                    border-color: $color-primary-disabled;
-                    background-color: $color-white;
-                    color: $color-primary-disabled;
-                }
-            }
-        }
-    }
-    &.type-text {
-        .btn {
-            flex-grow: 0;
-            flex-basis: auto;
-            min-height: auto;
-            padding: $spacer-4;
-            border-radius: 0;
-            @each $name, $code in $btn-color {
-                &.#{$name} {
-                    color: #{$code};
-                }
-            }
-            // 상태
-            &:disabled {
-                &.primary {
-                    color: $color-primary-disabled;
-                }
-            }
-        }
-    }
-    &.extended {
-        .btn {
-            flex-grow: 1;
-            flex-basis: 0;
-        }
-    }
-
-    // button
+    // button 공통
     .btn {
         @include flex-set(center, center);
         position: relative;
@@ -172,6 +116,73 @@ $btn-color: (
             }
             &:active {
                 transform: scale3d(1, 1, 1);
+            }
+        }
+
+        // 유형
+        &.fill {
+            background-color: $color-bg-base;
+            @each $name, $code in $btn-color {
+                &.#{$name} {
+                    background-color: #{$code};
+                }
+            }
+            &.primary {
+                color: $color-white;
+            }
+            &.secondary {
+                color: $color-primary;
+            }
+            &.tertiary {
+                color: $color-txt-body;
+            }
+            // 상태
+            &:disabled {
+                &.primary {
+                    background-color: $color-primary-disabled;
+                    color: $color-white;
+                }
+                &.secondary {
+                    color: $color-disable;
+                }
+            }
+        }
+        &.outline {
+            border: 1px solid #ddd;
+            background-color: $color-white;
+
+            @each $name, $code in $btn-color {
+                &.#{$name} {
+                    border-color: #{$code};
+                    background-color: $color-white;
+                    color: #{$code};
+                }
+            }
+            // 상태
+            &:disabled {
+                &.primary {
+                    border-color: $color-primary-disabled;
+                    background-color: $color-white;
+                    color: $color-primary-disabled;
+                }
+            }
+        }
+        &.text {
+            flex-grow: 0;
+            flex-basis: auto;
+            min-height: auto;
+            padding: $spacer-4;
+            border-radius: 0;
+            @each $name, $code in $btn-color {
+                &.#{$name} {
+                    color: #{$code};
+                }
+            }
+            // 상태
+            &:disabled {
+                &.primary {
+                    color: $color-primary-disabled;
+                }
             }
         }
 

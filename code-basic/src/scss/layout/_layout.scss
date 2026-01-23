@@ -165,6 +165,24 @@
 //     transform: translateY(0);
 // }
 
+// pc only, mob only
+@include mobile-only {
+    .mob-only {
+        display: block;
+    }
+    .pc-only {
+        display: none;
+    }
+}
+@include responsive(tablet-sm) {
+    .mob-only {
+        display: none;
+    }
+    .pc-only {
+        display: block;
+    }
+}
+
 // 영역분할 flex layout
 .item-row {
     @include flexbox(row);
