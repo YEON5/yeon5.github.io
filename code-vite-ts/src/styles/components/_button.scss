@@ -145,6 +145,9 @@ $btn-color: (
                 &.secondary {
                     color: $color-disable;
                 }
+                &.tertiary {
+                    color: $color-disable;
+                }
             }
         }
         &.outline {

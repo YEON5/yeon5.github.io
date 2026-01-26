@@ -14,17 +14,25 @@
         }
         // depth2
         .dash-list,
-        .dot-list {
+        .dot-list,
+        .num-list {
             margin-top: 1rem;
             > li {
                 font-size: $font-body-14;
-                // color: $color-base;
-                color: var($color-dark);
+                color: $color-dark;
                 &:before {
                     background-color: $color-base;
                 }
                 + li {
                     margin-top: 0.6rem;
+                }
+            }
+        }
+        .num-list {
+            > li {
+                &::before {
+                    width: 1.2rem;
+                    background-color: transparent;
                 }
             }
         }
@@ -69,12 +77,17 @@
             // counter-increment: ordered;
             // content: counter(ordered) ' ';
             display: inline-flex;
-            width: 2rem;
+            width: 1.4rem;
         }
         @for $i from 1 through 20 {
             &:nth-child(#{$i})::before {
                 content: '#{$i}';
             }
+        }
+        // depth2
+        .dash-list,
+        .dot-list {
+            padding-left: 1.8rem;
         }
     }
 }
@@ -115,13 +128,13 @@
             position: relative;
             padding: 1.4rem 4rem 1.4rem 0;
             // 좌우정렬
-            &.row {
+            &.align-row {
                 align-items: center;
                 justify-content: flex-start;
                 flex-direction: row;
+                padding-left: 2rem;
                 .link-info {
                     min-width: 4rem;
-                    margin-left: $spacer-10;
                     text-align: center;
                 }
             }
@@ -182,15 +195,6 @@
             padding-left: $spacer-20;
             border-radius: $radius-8;
             border: 1px solid $color-line-base;
-            // 좌우정렬
-            &.row {
-                align-items: center;
-                justify-content: flex-start;
-                flex-direction: row;
-                .link-info {
-                    margin-left: 0;
-                }
-            }
             // 아이콘
             &.ico {
                 &::after {
@@ -223,22 +227,35 @@
 .data-list {
     .item {
         @include flex-set(center, between);
-        column-gap: 1rem;
+        column-gap: 2rem;
         .name {
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 0;
+            color: #999;
+        }
+        .desc {
+            flex-grow: 0;
             flex-shrink: 1;
             flex-basis: auto;
-            min-width: 8rem;
-            color: #999;
         }
         + .item {
             margin-top: 2rem;
         }
     }
     // 좌측정렬
-    &.start {
+    &.align-start {
         .item {
             justify-content: flex-start;
             .name {
+                flex-grow: 0;
+                flex-shrink: 1;
+                flex-basis: auto;
+                width: 6rem;
+            }
+            .desc {
+                flex-grow: 1;
+                flex-shrink: 0;
                 flex-basis: 0;
             }
         }
@@ -246,24 +263,121 @@
 }
 
 // step list
+// .step-list {
+//     .item {
+//         position: relative;
+//         &::before {
+//             @include position(absolute, $l: 0, $t: 0);
+//             // @include bg-img('icons/ico_first', $format: 'jpg');
+//         }
+//     }
+//     // $step-num: ('01', '02');
+//     // @each $step-list in $step-num {
+//     //     &.ico-step#{$step-list}::before {
+//     //         background-image: url('#{$url}icons/ico-step#{$step-list}.png');
+//     //     }
+//     // }
+
+//     @for $i from 1 through 5 {
+//         &.ico-step#{$i}::before {
+//             background-image: url('#{$url}icons/ico-step#{$i}.png');
+//         }
+//     }
+// }
+
 .step-list {
+    @include flex-set(start, between);
+    gap: 0;
+
     .item {
         position: relative;
-        &::before {
-            @include position(absolute, $l: 0, $t: 0);
-            // @include bg-img('icons/ico_first', $format: 'jpg');
+        flex: 1 1 0;
+        text-align: center;
+
+        &:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 1.2rem;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 0;
+        }
+        .step-num {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            @include size-set(2.4rem);
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            background-color: #fff;
+            font-size: 1.4rem;
+            color: #999;
+        }
+        .step-label {
+            display: block;
+            margin-top: 0.8rem;
+            font-size: 1.6rem;
+            color: #666;
+        }
+
+        &.is-complete {
+            &::after {
+                background-color: #222;
+            }
+            .step-num {
+                background-color: #222;
+                border-color: #222;
+                color: #fff;
+            }
+            .step-label {
+                color: #222;
+            }
+        }
+
+        &.is-current {
+            .step-num {
+                border-color: #222;
+                font-weight: 600;
+                color: #222;
+            }
+            .step-label {
+                font-weight: 600;
+                color: #222;
+            }
         }
     }
-    // $step-num: ('01', '02');
-    // @each $step-list in $step-num {
-    //     &.ico-step#{$step-list}::before {
-    //         background-image: url('#{$url}icons/ico-step#{$step-list}.png');
-    //     }
-    // }
 
-    @for $i from 1 through 5 {
-        &.ico-step#{$i}::before {
-            background-image: url('#{$url}icons/ico-step#{$i}.png');
+    // 세로 스탭
+    &.type-column {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3rem;
+
+        .item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            padding-bottom: 3rem;
+            text-align: left;
+
+            &:not(:last-child)::after {
+                top: 2.4rem;
+                left: 1.1rem;
+                right: auto;
+                width: 2px;
+                height: calc(100% + 1.1rem);
+            }
+        }
+        .step-num {
+            flex-shrink: 0;
+        }
+        .step-label {
+            margin-top: 0;
+            line-height: 1.5;
         }
     }
 }
