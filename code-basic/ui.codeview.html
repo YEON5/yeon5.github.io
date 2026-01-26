@@ -1159,9 +1159,13 @@
                         <!-- article -->
                         <p class="h1-title">@Tab</p>
                         <article>
-                            <p>#하단라인형</p>
+                            <p>
+                                #하단라인형<br />
+                                #좌우스크롤 필요시 tab-nav: type-scroll 추가<br />
+                                #탭고정 필요시 tab-nav: type-sticky 추가
+                            </p>
                             <div class="tab">
-                                <div class="tab-nav">
+                                <div class="tab-nav type-scroll">
                                     <ul role="tablist">
                                         <li role="none" class="is-active">
                                             <button type="button" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</button>
@@ -1183,7 +1187,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="tab-body">
+                                <div class="tab-body" style="height: 500px; background-color: #ddd">
                                     <div id="tabpanel1" role="tabpanel" aria-labelledby="tabItem1" aria-hidden="false" class="tab-cont is-active">
                                         <h3 class="sr-only">Tab1 title</h3>
                                         <div>
@@ -1398,7 +1402,7 @@
                         <!-- article -->
                         <p class="h1-title">@Accordion</p>
                         <article>
-                            <div class="accordion-wrap">
+                            <div class="accordion-wrap" data-accordion="single">
                                 <div class="accordion">
                                     <div class="item-head">
                                         <button type="button" id="accoTitle1" class="btn-expand" aria-controls="accoCont1" aria-expanded="false">
@@ -1416,6 +1420,16 @@
                                         </button>
                                     </div>
                                     <div id="accoCont2" class="item-body" aria-labelledby="accoTitle2">
+                                        <p>Accordion content</p>
+                                    </div>
+                                </div>
+                                <div class="accordion">
+                                    <div class="item-head">
+                                        <button type="button" id="accoTitle3" class="btn-expand" aria-controls="accoCont3" aria-expanded="false">
+                                            <span class="title">Accordion Title</span>
+                                        </button>
+                                    </div>
+                                    <div id="accoCont3" class="item-body" aria-labelledby="accoTitle3">
                                         <p>Accordion content</p>
                                     </div>
                                 </div>
@@ -1548,6 +1562,15 @@
                             </div>
                         </article>
                         <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <div class="btn-wrap type-column">
+                                <button type="button" class="btn fill btn-popup-open" data-popup-load="./html/popup/popup_full.html">load Full Popup</button>
+                                <button type="button" class="btn fill btn-popup-open" data-popup-load="/code-basic/html/popup/popup_bottom.html">load Bottom Popup</button>
+                            </div>
+                        </article>
+                        <!-- //article -->
                     </section>
                     <!-- //section -->
 
@@ -1626,8 +1649,21 @@
 
                         <!-- article -->
                         <article>
-                            <p>#calc</p>
+                            <p>#picture</p>
                             <div class="img-box">
+                                <picture>
+                                    <source media="(min-width: 586px)" srcset="main_slide1.jpg" />
+                                    <source media="(min-width: 768px)" srcset="main_slide1.jpg" />
+                                    <img src="./src/images/temp/main_slide1.jpg" alt="배너" />
+                                </picture>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <p>#padding-bottom</p>
+                            <div class="img-container">
                                 <div class="figure-wrap">
                                     <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
                                 </div>
@@ -1637,8 +1673,8 @@
 
                         <!-- article -->
                         <article>
-                            <p>#padding-bottom</p>
-                            <div class="img-container">
+                            <p>#calc</p>
+                            <div class="img-box">
                                 <div class="figure-wrap">
                                     <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
                                 </div>
@@ -1760,6 +1796,7 @@
         article > p {
             margin-bottom: 2rem;
             font-size: 1.6rem;
+            line-height: 1.4;
             text-decoration: underline;
         }
         section + section {

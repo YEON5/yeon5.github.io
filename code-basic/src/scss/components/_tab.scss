@@ -26,27 +26,34 @@
                     @include size-set(100%);
                     padding: 0 2rem;
                     color: #222;
-                    white-space: nowrap;
                 }
             }
         }
-        @include mobile-only {
-            ul {
-                overflow-x: auto;
-                overflow-y: hidden;
-                white-space: nowrap;
-                li {
-                    // 모바일에서 최소 넓이 25% 지정
-                    flex: 0 0 25%;
-                    // min-width: 0; // 텍스트길이에 상관없이 균등한 넓이 유지하려면
-                    > button {
-                        display: block;
-                        padding: 0 1rem;
+        &.type-sticky {
+            position: sticky;
+            top: 5.4rem;
+            z-index: 100;
+            background-color: #fff;
+        }
+        &.type-scroll {
+            @include mobile-only {
+                ul {
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    li {
+                        // 모바일에서 최소 넓이 25% 지정
+                        flex: 0 0 25%;
+                        // min-width: 0; // 텍스트길이에 상관없이 균등한 넓이 유지하려면
+                        > button {
+                            display: block;
+                            padding: 0 1rem;
 
-                        // 텍스트길이에 상관없이 균등한 넓이 유지하려면
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                            // 텍스트길이에 상관없이 균등한 넓이 유지하려면
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
                     }
                 }
             }

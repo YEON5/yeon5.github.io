@@ -115,6 +115,20 @@ $flex-map: (
     }
 }
 
+// 이미지 비율 적용
+@mixin img-ratio($w, $h) {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    // 단위(px)가 있어도 되고 없어도 동작하지만 깔끔하게 단위 제거해서 넣는 것 추천
+    aspect-ratio: #{$w} / #{$h};
+    > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
 // responsive
 $breakpoints: (
     mobile-sm: 360px,

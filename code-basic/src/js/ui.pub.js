@@ -378,7 +378,12 @@ function tabInit() {
             .siblings('.tab-cont').attr('aria-hidden', 'true');
 
         // 정렬 함수 호출 
-        moveScrollToLeft($selectedLi);
+        if (typeof moveScrollToLeft === 'function') {
+            moveScrollToLeft($selectedLi);
+        }
+
+        // Sticky 탭 전환 시 스크롤 위치 보정
+        scrollCorrection($selectedBtn);
     });
 }
 // tab 좌측 정렬 이동
@@ -400,6 +405,44 @@ function moveScrollToCenter($targetLi) {
     const newScrollPos = currentScroll + liOffsetLeft - (ulWidth / 2) + (liWidth / 2);
 
     $ul.stop().animate({ scrollLeft: newScrollPos }, 200);
+}
+
+// tab-nav 고정일때 탭전환 시 스크롤 top
+function scrollCorrection($btn) {
+    const $tabWrap = $btn.closest('.tab'); 
+    const $stickyNav = $btn.closest('.tab-nav');
+    
+    // 2. 탭 컨텐츠 시작 위치 (문서 전체 기준)
+    const contentStartTop = $tabWrap.offset().top; 
+    
+    // 3. 고정 헤더 높이 계산 (SCSS의 top: 5.4rem 값을 가져옴)
+    // stickyNav에 설정된 css top 값을 숫자로 변환 (예: "54px" -> 54)
+    // 만약 top 값이 'auto'라면 0으로 처리
+    const cssTop = parseFloat($stickyNav.css('top')) || 0; 
+    
+    // 4. 네비게이션 자체 높이 (sticky가 걸리면 이만큼 공간 차지함)
+    const navHeight = $stickyNav.outerHeight();
+
+    // 5. 최종 목표 스크롤 위치
+    // 공식: (탭 시작 위치) - (상단 고정 헤더 높이(5.4rem)) - (탭 네비 높이)
+    // 주의: position: sticky는 공간을 차지하므로 navHeight는 빼줘야 네비가 컨텐츠를 안 가림
+    // 상황에 따라 cssTop만 빼야 할 수도 있고, 둘 다 빼야 할 수도 있음.
+    // 현재 구조(type-sticky)에서는 '탭 컨테이너 시작점' - 'top 여백'이 가장 정확함.
+    const targetScroll = contentStartTop - cssTop - navHeight;
+
+    // 6. 현재 스크롤 위치
+    const currentScroll = $(window).scrollTop();
+    
+    // ★ 디버깅용: 콘솔에 찍어보세요 (F12)
+    // console.log('탭 위치:', contentStartTop, 'CSS Top:', cssTop, 'Nav높이:', navHeight, '목표:', targetScroll);
+
+    // 7. 스크롤이 목표 지점보다 더 내려가 있을 때만 끌어올림 (약간의 오차범위 5px 허용)
+    if (currentScroll > targetScroll + 5) {
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'auto' 
+        });
+    }
 }
 
 /*-------------------------------------------------------------------
@@ -487,35 +530,47 @@ function accodiInit() {
     $(document)
         .off('click', '.btn-expand')
         .on('click', '.btn-expand', function (e) {
+            e.preventDefault();
             e.stopPropagation();
-            const $currentItem = $(this).closest('.accordion');
-            accodiAction($currentItem);
+
+            const $btn = $(this);
+            const $currentItem = $btn.closest('.accordion');
+            const $wrapper = $currentItem.closest('.accordion-wrap, .inner-accordion'); 
+
+            // data-accordion="single" 속성이 있으면 하나만 열기 모드
+            const isSingleOpen = $wrapper.data('accordion') === 'single';
+
+            if ($currentItem.hasClass('is-active')) {
+                closeItem($currentItem);
+            } else {
+                if (isSingleOpen) {
+                    // 열린 것만 찾아서 닫기
+                    $currentItem.siblings('.accordion.is-active').each(function() {
+                        closeItem($(this));
+                    });
+                }
+                openItem($currentItem);
+            }
         });
 }
 
-function accodiAction($accodi) {
-    const $head = $accodi.children('.item-head');
-    const $body = $accodi.children('.item-body');
-    const $btn = $head.find('.btn-expand');
+// 아코디언 열기
+function openItem($item) {
+    const $btn = $item.children('.item-head').find('.btn-expand');
+    const $body = $item.children('.item-body');
 
-    if ($accodi.hasClass('is-active')) {
-        // 닫기
-        $accodi.removeClass('is-active');
-        $btn.attr('aria-expanded', 'false');
-        $body.stop().slideUp(350);
-    } else {
-        // 열기
-        // 개별 동작해야 하는 경우 주석 처리
-        // const $siblings = $accodi.siblings('.accordion');
-        // $siblings.removeClass('is-active');
-        // $siblings.children('.item-body').stop().slideUp(350);
-        // $siblings.children('.item-head').find('.btn-expand').attr('aria-expanded', 'false');
-        // 개별 동작해야 하는 경우 주석 처리
+    $item.addClass('is-active');
+    $btn.attr('aria-expanded', 'true');
+    $body.stop().slideDown(350);
+}
+// 아코디언 닫기
+function closeItem($item) {
+    const $btn = $item.children('.item-head').find('.btn-expand');
+    const $body = $item.children('.item-body');
 
-        $accodi.addClass('is-active');
-        $btn.attr('aria-expanded', 'true');
-        $body.stop().slideDown(350);
-    }
+    $item.removeClass('is-active');
+    $btn.attr('aria-expanded', 'false');
+    $body.stop().slideUp(350);
 }
 
 /*-------------------------------------------------------------------
@@ -1071,6 +1126,42 @@ function popupInit() {
         popupOpen(targetId, $opener);
     });
 
+
+    // ============================================================
+    // 외부 팝업 동적 로드 (AJAX)
+    $(document).on('click', '[data-popup-load]', function (e) {
+        e.preventDefault();
+
+        const $btn = $(this);
+        const url = $btn.data('popup-load'); // 파일 경로
+
+        // AJAX 통신
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function (htmlData) {
+                const $popupElement = $(htmlData);
+                
+                // 외부 팝업임을 표시하기 위해 속성 추가 (닫을 때 삭제하기 위함)
+                $popupElement.attr('data-dynamic', 'true');
+
+                // body에 추가
+                $('body').append($popupElement);
+
+                // 팝업 id 가져옴
+                const targetId = $popupElement.attr('id');
+
+                setTimeout(function() {
+                    popupOpen(targetId, $btn);
+                }, 50);
+            },
+            error: function () {
+                alert('팝업 파일을 불러오는데 실패했습니다.');
+            }
+        });
+    });
+    // ============================================================
+
     // popup close (버튼)
     $(document).on('click', '[data-popup-close]', function () {
         const $popWrap = $(this).closest('.popup-wrap');
@@ -1142,6 +1233,17 @@ function popupClose(id) {
     if ($opener && $opener.length > 0) $opener.focus();
 
     $popWrap.off('keydown.popupFocus');
+
+
+    // ============================================================
+    // 동적으로 불러온 팝업이면 DOM에서 완전히 삭제
+    if ($popWrap.attr('data-dynamic') === 'true') {
+        // CSS transition 시간(예: 0.3s) 후 삭제
+        setTimeout(function() {
+            $popWrap.remove();
+        }, 300); 
+    }
+    // ============================================================
 }
 
 // focus 이탈 막기 (접근성)
