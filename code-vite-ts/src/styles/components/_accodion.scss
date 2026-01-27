@@ -21,7 +21,7 @@
                 @include position(absolute, $t: 50%, $r: 1rem);
                 width: 1rem;
                 height: 0.6rem;
-                background: url('/assets/images/icons/ico_select.png') no-repeat center;
+                background: url('../images/icons/ico_select.png') no-repeat center;
                 transition: all 0.3s ease;
             }
         }

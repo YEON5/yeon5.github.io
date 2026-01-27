@@ -5,7 +5,7 @@
 //     font-weight: 400 500 600 700;
 //     font-style: normal;
 //     font-display: swap;
-//     src: url('/assets//font/PretendardVariable.woff2') format('woff2-variations');
+//     src: url('../font/PretendardVariable.woff2') format('woff2-variations');
 // }
 
 /* Pretendard */
@@ -14,35 +14,35 @@
     font-weight: 300;
     font-style: normal;
     font-display: block;
-    src: url('/assets/font/Pretendard-Light.subset.woff2') format('woff2'), url('/assets/font/Pretendard-Light.subset.woff') format('woff');
+    src: url('../font/Pretendard-Light.subset.woff2') format('woff2'), url('../font/Pretendard-Light.subset.woff') format('woff');
 }
 @font-face {
     font-family: 'Pretendard';
     font-weight: 400;
     font-style: normal;
     font-display: block;
-    src: url('/assets/font/Pretendard-Regular.subset.woff2') format('woff2'), url('/assets/font/Pretendard-Regular.subset.woff') format('woff');
+    src: url('../font/Pretendard-Regular.subset.woff2') format('woff2'), url('../font/Pretendard-Regular.subset.woff') format('woff');
 }
 @font-face {
     font-family: 'Pretendard';
     font-weight: 500;
     font-style: normal;
     font-display: block;
-    src: url('/assets/font/Pretendard-Medium.subset.woff2') format('woff2'), url('/assets/font/Pretendard-Medium.subset.woff') format('woff');
+    src: url('../font/Pretendard-Medium.subset.woff2') format('woff2'), url('../font/Pretendard-Medium.subset.woff') format('woff');
 }
 @font-face {
     font-family: 'Pretendard';
     font-weight: 600;
     font-style: normal;
     font-display: block;
-    src: url('/assets/font/Pretendard-SemiBold.subset.woff2') format('woff2'), url('/assets/font/Pretendard-SemiBold.subset.woff') format('woff');
+    src: url('../font/Pretendard-SemiBold.subset.woff2') format('woff2'), url('../font/Pretendard-SemiBold.subset.woff') format('woff');
 }
 @font-face {
     font-family: 'Pretendard';
     font-weight: 700;
     font-style: normal;
     font-display: block;
-    src: url('/assets/font/Pretendard-Bold.subset.woff2') format('woff2'), url('/assets/font/Pretendard-Bold.subset.woff') format('woff');
+    src: url('../font/Pretendard-Bold.subset.woff2') format('woff2'), url('../font/Pretendard-Bold.subset.woff') format('woff');
 }
 
 // @font-face {

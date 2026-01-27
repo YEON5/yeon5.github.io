@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use 'common/variables' as *;
+@use 'mixins/mixins' as *;
+
 /* 초기화 */
 html,
 body {

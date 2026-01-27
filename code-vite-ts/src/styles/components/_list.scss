@@ -429,6 +429,18 @@
 
         // 이미지영역
         .card-visual {
+            // .img-object {
+            //     position: relative;
+            //     .figure {
+            //         display: flex;
+            //         @include img-ratio(320, 160);
+            //         // @include breakpoint(tablet-sm) {
+            //         //     aspect-ratio: 1920 / 600;
+            //         // }
+            //         // 반응형일때 mo/pc 비율 적용
+            //         @include img-ratio-responsive(320, 160, 1920, 600);
+            //     }
+            // }
         }
         // 설명영역
         .card-info {
