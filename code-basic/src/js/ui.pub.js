@@ -412,31 +412,25 @@ function scrollCorrection($btn) {
     const $tabWrap = $btn.closest('.tab'); 
     const $stickyNav = $btn.closest('.tab-nav');
     
-    // 2. 탭 컨텐츠 시작 위치 (문서 전체 기준)
+    // 탭 컨텐츠 시작 위치 (문서 전체 기준)
     const contentStartTop = $tabWrap.offset().top; 
     
-    // 3. 고정 헤더 높이 계산 (SCSS의 top: 5.4rem 값을 가져옴)
-    // stickyNav에 설정된 css top 값을 숫자로 변환 (예: "54px" -> 54)
-    // 만약 top 값이 'auto'라면 0으로 처리
+    // 고정 헤더 높이 계산 (SCSS의 top: 값을 가져옴)
     const cssTop = parseFloat($stickyNav.css('top')) || 0; 
     
-    // 4. 네비게이션 자체 높이 (sticky가 걸리면 이만큼 공간 차지함)
+    // 네비게이션 자체 높이
     const navHeight = $stickyNav.outerHeight();
 
-    // 5. 최종 목표 스크롤 위치
-    // 공식: (탭 시작 위치) - (상단 고정 헤더 높이(5.4rem)) - (탭 네비 높이)
-    // 주의: position: sticky는 공간을 차지하므로 navHeight는 빼줘야 네비가 컨텐츠를 안 가림
-    // 상황에 따라 cssTop만 빼야 할 수도 있고, 둘 다 빼야 할 수도 있음.
-    // 현재 구조(type-sticky)에서는 '탭 컨테이너 시작점' - 'top 여백'이 가장 정확함.
+    // 스크롤 위치 (navHeight 유무 확인)
     const targetScroll = contentStartTop - cssTop - navHeight;
 
-    // 6. 현재 스크롤 위치
+    // 현재 스크롤 위치
     const currentScroll = $(window).scrollTop();
     
     // ★ 디버깅용: 콘솔에 찍어보세요 (F12)
     // console.log('탭 위치:', contentStartTop, 'CSS Top:', cssTop, 'Nav높이:', navHeight, '목표:', targetScroll);
 
-    // 7. 스크롤이 목표 지점보다 더 내려가 있을 때만 끌어올림 (약간의 오차범위 5px 허용)
+    // 스크롤이 목표 지점보다 더 내려가 있을 때만 끌어올림 (약간의 오차범위 5px 허용)
     if (currentScroll > targetScroll + 5) {
         window.scrollTo({
             top: targetScroll,

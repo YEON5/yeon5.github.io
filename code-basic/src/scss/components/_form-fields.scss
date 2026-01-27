@@ -34,6 +34,13 @@ input[type='text'] {
     }
 }
 
+// form list
+.form-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacer-20;
+}
+
 /* Form */
 .form-field {
     display: flex;

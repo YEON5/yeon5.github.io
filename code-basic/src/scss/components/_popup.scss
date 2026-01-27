@@ -38,6 +38,14 @@ $breakpoint-pc: 769px;
             opacity: 1;
             transform: translate(0) !important;
         }
+        // 2차 팝업 dim 조절 (pc 기준)
+        @media screen and (min-width: $breakpoint-pc) {
+            ~ .popup-wrap {
+                &::before {
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
     }
 
     // 팝업 공통

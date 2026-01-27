@@ -191,7 +191,7 @@
                 }
             }
 
-            @include responsive(pc) {
+            @include breakpoint(pc) {
                 @each $index, $width in (1: 20%, 2: 30%, 3: 10%, 4: 40%) {
                     &.col#{$index} {
                         width: $width;

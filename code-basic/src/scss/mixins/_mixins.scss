@@ -30,38 +30,35 @@ $flex-map: (
 // flex type
 @mixin flexbox($type: row) {
     @if ($type == 'row') {
-        @include flex-set(center, between);
-        column-gap: 1.6rem;
+        @include flex-set(stretch, start);
+        column-gap: 1.4rem;
         .unit {
             flex-shrink: 1;
             &.fixed {
                 flex-shrink: 0;
             }
         }
-        &.top {
-            align-items: start;
+        &.align-center {
+            align-items: center;
         }
-        &.bottom {
-            align-items: end;
-        }
-        &.start {
+        &.align-between {
             justify-content: start;
         }
-        &.end {
+        &.align-end {
             justify-content: end;
         }
     }
     @if ($type == 'col') {
         @include flex-column(start, start);
-        row-gap: 1.6rem;
+        row-gap: 1rem;
         .unit {
             flex-grow: 1;
             flex-basis: 0;
         }
-        &.center {
+        &.align-center {
             align-items: center;
         }
-        &.end {
+        &.align-end {
             align-items: end;
         }
     }
@@ -115,7 +112,7 @@ $flex-map: (
     }
 }
 
-// 이미지 비율 적용
+// 이미지 비율 적용 (모바일)
 @mixin img-ratio($w, $h) {
     position: relative;
     width: 100%;
@@ -127,16 +124,16 @@ $flex-map: (
         height: 100%;
         object-fit: cover;
     }
+    // 작성 예시 (넓이, 높이)
+    // @include img-ratio(320, 160);
 }
-
-@mixin img-ratio-responsive($mo-w, $mo-h, $pc-w, $pc-h, $breakpoint: 768px) {
+// 이미지 비율 적용 (반응형 한번에 적용)
+@mixin img-ratio-responsive($mo-w, $mo-h, $pc-w, $pc-h, $breakpoint-pc: 768px) {
     position: relative;
     width: 100%;
     overflow: hidden;
-
     // 모바일 비율
     aspect-ratio: #{$mo-w} / #{$mo-h};
-
     > img {
         width: 100%;
         height: 100%;
@@ -144,11 +141,10 @@ $flex-map: (
     }
 
     // PC 비율
-    @media (min-width: $breakpoint) {
+    @media (min-width: $breakpoint-pc) {
         aspect-ratio: #{$pc-w} / #{$pc-h};
     }
-
-    // 작성 예시
+    // 작성 예시 (넓이, 높이)
     // @include img-ratio-responsive(360, 360, 1920, 800);
 }
 
@@ -160,7 +156,7 @@ $breakpoints: (
     tablet: 1024px,
     pc: 1280px,
 );
-@mixin responsive($device) {
+@mixin breakpoint($device) {
     @if map.has-key($breakpoints, $device) {
         @media (min-width: map.get($breakpoints, $device)) {
             @content;
@@ -172,7 +168,7 @@ $breakpoints: (
         }
     }
     // 사용 예
-    // @include responsive(tablet-sm) {
+    // @include breakpoint(tablet-sm) {
     //     padding: 24px;
     // }
 }

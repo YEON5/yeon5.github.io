@@ -175,6 +175,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-msg" role="alert">
+                                                <span class="error">* 는 필수 입력입니다.</span>
+                                                <span class="info">&#8251; 안내문구</span>
+                                                <span class="hint">도움말</span>
+                                            </div>
                                         </div>
                                     </li>
                                     <li>
@@ -1145,10 +1150,26 @@
                                 <div class="title-area">
                                     <h4 class="h5-title">스텝 목록</h4>
                                 </div>
-                                <ul class="step-list">
-                                    <li class="item"></li>
-                                    <li class="item"></li>
-                                </ul>
+                                <!-- 세로형 : type-column 클래스 추가 -->
+                                <ol class="step-list type-column" aria-label="진행 단계">
+                                    <li class="item is-complete">
+                                        <span class="step-num">1</span>
+                                        <span class="desc">약관 동의</span>
+                                    </li>
+                                    <li class="item is-complete">
+                                        <span class="step-num">2</span>
+                                        <span class="desc">정보 입력</span>
+                                    </li>
+                                    <li class="item is-current" aria-current="step">
+                                        <span class="sr-only">현재 단계</span>
+                                        <span class="step-num">3</span>
+                                        <span class="desc">확인</span>
+                                    </li>
+                                    <li class="item">
+                                        <span class="step-num">4</span>
+                                        <span class="desc">완료</span>
+                                    </li>
+                                </ol>
                             </div>
                         </article>
                         <!-- //article -->
@@ -1161,9 +1182,48 @@
                                 </div>
                                 <ul class="card-list">
                                     <li class="item">
-                                        <div class="card-figure"></div>
+                                        <div class="card-visual img-object">
+                                            <div class="figure">
+                                                <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
+                                            </div>
+                                        </div>
+                                        <div class="card-info">
+                                            <div class="badge-group">
+                                                <span class="badge primary">Badge</span>
+                                            </div>
+                                            <span class="sub">sub text</span>
+                                            <strong class="title">card title</strong>
+                                            <p class="desc">card description</p>
+                                        </div>
                                     </li>
-                                    <li class="item"></li>
+                                    <li class="item">
+                                        <div class="card-visual img-object">
+                                            <div class="figure">
+                                                <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
+                                            </div>
+                                        </div>
+                                        <div class="card-info">
+                                            <span class="sub">sub text</span>
+                                            <strong class="title">
+                                                <a href="#!" class="btn-card-link"> card title </a>
+                                            </strong>
+                                            <p class="desc">card description</p>
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="card-visual img-object">
+                                            <div class="figure">
+                                                <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
+                                            </div>
+                                        </div>
+                                        <div class="card-info">
+                                            <span class="sub">sub text</span>
+                                            <strong class="title">
+                                                <button type="button" class="btn-card-link">card title</button>
+                                            </strong>
+                                            <p class="desc">card description</p>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </article>
@@ -1213,7 +1273,7 @@
                                 #탭고정 필요시 tab-nav: type-sticky 추가
                             </p>
                             <div class="tab">
-                                <div class="tab-nav type-scroll">
+                                <div class="tab-nav">
                                     <ul role="tablist">
                                         <li role="none" class="is-active">
                                             <button type="button" id="tabItem1" role="tab" aria-controls="tabpanel1" aria-selected="true">Tab-1</button>
@@ -1229,9 +1289,6 @@
                                         </li>
                                         <li role="none">
                                             <button type="button" id="tabItem5" role="tab" aria-controls="tabpanel5" aria-selected="false">Tab-5</button>
-                                        </li>
-                                        <li role="none">
-                                            <button type="button" id="tabItem6" role="tab" aria-controls="tabpanel6" aria-selected="false">Tab-6</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -1264,12 +1321,6 @@
                                         <h3 class="sr-only">Tab5 title</h3>
                                         <div>
                                             <p>Tab5 content</p>
-                                        </div>
-                                    </div>
-                                    <div id="tabpanel6" role="tabpanel" aria-labelledby="tabItem6" aria-hidden="true" class="tab-cont">
-                                        <h3 class="sr-only">Tab6 title</h3>
-                                        <div>
-                                            <p>Tab6 content</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1450,6 +1501,7 @@
                         <!-- article -->
                         <p class="h1-title">@Accordion</p>
                         <article>
+                            <p>#single</p>
                             <div class="accordion-wrap" data-accordion="single">
                                 <div class="accordion">
                                     <div class="item-head">
@@ -1487,6 +1539,7 @@
 
                         <!-- article -->
                         <article>
+                            <p>#multiple</p>
                             <div class="accordion-wrap">
                                 <div class="accordion">
                                     <div class="item-head">
@@ -1537,7 +1590,7 @@
                                 <button type="button" class="btn btn-tooltip" aria-describedby="tips1">텍스트 툴팁 UP (마우스오버/포커스)</button>
                                 <div id="tips1" class="tooltip-inner" role="tooltip">
                                     <div class="cont-area">
-                                        <p>Tooltip<br />contents</p>
+                                        <p>Tooltip contents</p>
                                     </div>
                                 </div>
                             </div>
@@ -1625,7 +1678,7 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
-                        <p class="h1-title">@Sub slide menu / Step menu</p>
+                        <p class="h1-title">@loading</p>
                         <article>
                             <p>#name</p>
                         </article>
@@ -1688,7 +1741,7 @@
                         <article>
                             <p>#object-fit</p>
                             <div class="img-object">
-                                <div class="figure-wrap">
+                                <div class="figure">
                                     <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
                                 </div>
                             </div>
@@ -1697,22 +1750,9 @@
 
                         <!-- article -->
                         <article>
-                            <p>#picture</p>
-                            <div class="img-box">
-                                <picture>
-                                    <source media="(min-width: 586px)" srcset="main_slide1.jpg" />
-                                    <source media="(min-width: 768px)" srcset="main_slide1.jpg" />
-                                    <img src="./src/images/temp/main_slide1.jpg" alt="배너" />
-                                </picture>
-                            </div>
-                        </article>
-                        <!-- //article -->
-
-                        <!-- article -->
-                        <article>
                             <p>#padding-bottom</p>
                             <div class="img-container">
-                                <div class="figure-wrap">
+                                <div class="figure">
                                     <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
                                 </div>
                             </div>
@@ -1723,7 +1763,7 @@
                         <article>
                             <p>#calc</p>
                             <div class="img-box">
-                                <div class="figure-wrap">
+                                <div class="figure">
                                     <img src="./src/images/temp/main_slide1.jpg" alt="이미지" />
                                 </div>
                             </div>
@@ -1795,7 +1835,7 @@
                     <div class="popup-foot">
                         <div class="btn-wrap type-sticky">
                             <button type="button" class="btn secondary" data-popup-close>취소</button>
-                            <button type="button" class="btn primary">확인</button>
+                            <button type="button" class="btn primary" data-popup-trigger="popupBottom">확인</button>
                         </div>
                         <!-- <div class="btn-wrap type-sticky agree">
                             <p class="agree-desc">동의안내문구영역입니다.</p>
