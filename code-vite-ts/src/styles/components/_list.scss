@@ -520,19 +520,3 @@
         }
     }
 }
-
-// calc
-// 비율계산 예시 = calc(((100vw - 좌우간격)/좌우간격 뺀 넓이)*높이);
-// .img-box .figure {height:calc(((100vw - 4rem)/320)*160);}
-// 디자인px 수치
-.img-box {
-    max-height: 16rem;
-    overflow: hidden;
-    .figure {
-        height: calc(((100vw - 4rem) / 2) * 1);
-        overflow: hidden;
-        > img {
-            max-width: 100%;
-        }
-    }
-}
