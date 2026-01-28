@@ -1,51 +1,61 @@
-import { slideDown, slideUp } from './utils';
+import { slideUp, slideDown } from './utils';
 
-export const initAccordion = () => {
-  document.addEventListener('click', e => {
-    const target = e.target as HTMLElement;
-    const header = target.closest('.accordion .item-head');
+export function initAccordion() {
+  const handleAccordion = (e: Event) => {
+    const btn = e.currentTarget as HTMLElement;
+    const item = btn.closest('.accordion') as HTMLElement;
+    const wrapper = btn.closest('.accordion-wrap, .inner-accordion') as HTMLElement;
 
-    if (header) {
-      const accordion = header.closest('.accordion') as HTMLElement;
-      if (accordion) {
-        toggleAccordion(accordion);
+    if (!item || !wrapper) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // 단일 오픈 모드 확인
+    const isSingleOpen = wrapper.dataset.accordion === 'single';
+    const isActive = item.classList.contains('is-active');
+
+    if (isActive) {
+      closeItem(item);
+    } else {
+      if (isSingleOpen) {
+        // 형제 요소 중 열린 것 닫기
+        const siblings = Array.from(wrapper.children).filter(
+          (child) => child !== item && child.classList.contains('accordion') && child.classList.contains('is-active')
+        ) as HTMLElement[];
+        
+        siblings.forEach((sibling) => closeItem(sibling));
       }
+      openItem(item);
     }
+  };
+
+  // 이벤트 바인딩 (동적 요소 대응을 위해 상위 위임 권장하나, 여기선 직관적으로 작성)
+  const buttons = document.querySelectorAll('.btn-expand');
+  buttons.forEach((btn) => {
+    btn.removeEventListener('click', handleAccordion); // 중복 방지
+    btn.addEventListener('click', handleAccordion);
   });
-};
+}
 
-const toggleAccordion = (accordion: HTMLElement) => {
-  const body = accordion.querySelector('.item-body') as HTMLElement;
-  const btn = accordion.querySelector('.btn-expand');
+function openItem(item: HTMLElement) {
+  const btn = item.querySelector('.btn-expand') as HTMLElement;
+  const body = item.querySelector('.item-body') as HTMLElement;
 
-  if (!body) return;
-
-  if (accordion.classList.contains('is-active')) {
-    accordion.classList.remove('is-active');
-    slideUp(body, 350);
-    btn?.setAttribute('aria-expanded', 'false');
-  } else {
-    accordion.classList.add('is-active');
+  if (btn && body) {
+    item.classList.add('is-active');
+    btn.setAttribute('aria-expanded', 'true');
     slideDown(body, 350);
-    btn?.setAttribute('aria-expanded', 'true');
-
-    // 개별 동작해야 하는 경우 주석 처리
-    // const parent = accordion.parentElement;
-    // if (parent && parent.classList.contains('accordion-wrap')) {
-    //   const siblings = Array.from(parent.children).filter(
-    //     (child) => child !== accordion && child.classList.contains('accordion')
-    //   );
-    //   siblings.forEach((child) => {
-    //     const sibling = child as HTMLElement;
-    //     const sibBody = sibling.querySelector('.item-body') as HTMLElement;
-    //     const sibBtn = sibling.querySelector('.btn-expand');
-
-    //     if (sibling.classList.contains('is-active')) {
-    //       sibling.classList.remove('is-active');
-    //       if (sibBody) slideUp(sibBody, 350);
-    //       sibBtn?.setAttribute('aria-expanded', 'false');
-    //     }
-    //   });
-    // }
   }
-};
+}
+
+function closeItem(item: HTMLElement) {
+  const btn = item.querySelector('.btn-expand') as HTMLElement;
+  const body = item.querySelector('.item-body') as HTMLElement;
+
+  if (btn && body) {
+    item.classList.remove('is-active');
+    btn.setAttribute('aria-expanded', 'false');
+    slideUp(body, 350);
+  }
+}

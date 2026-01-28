@@ -1,165 +1,228 @@
-import { scrollOn, scrollOff } from './utils';
+// 팝업을 연 버튼(Opener)을 저장하기 위한 WeakMap
+const popupOpenerMap = new WeakMap<HTMLElement, HTMLElement>();
 
-declare global {
-  interface Window {
-    popupOpen: (id: string, focus?: HTMLElement) => void;
-    popupClose: (id: string) => void;
-  }
-}
+// 스크롤 위치 저장 변수
+let savedScrollTop = 0;
 
-let activeFocus: HTMLElement | null = null;
+export function initPopup() {
+  // 1. Popup Trigger (열기)
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('[data-popup-trigger]') as HTMLElement;
 
-export const initPopup = () => {
-  // Track focus for accessibility return
-  document.addEventListener('focusin', (e) => {
-    activeFocus = e.target as HTMLElement;
+    if (btn) {
+      e.preventDefault();
+      const targetId = btn.dataset.popupTrigger;
+      if (targetId) popupOpen(targetId, btn);
+    }
   });
 
-  // Expose to window for legacy onclick support
-  window.popupOpen = popupOpen;
-  window.popupClose = popupClose;
+  // 2. External Popup Load (동적 로드)
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('[data-popup-load]') as HTMLElement;
 
-  // Initialize Toast Popups if any
-  initToastPopup();
-};
+    if (btn) {
+      e.preventDefault();
+      const url = btn.dataset.popupLoad;
+      if (url) loadExternalPopup(url, btn);
+    }
+  });
 
-export const popupOpen = (id: string, focus?: HTMLElement) => {
+  // 3. Popup Close (닫기 버튼)
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('[data-popup-close]') as HTMLElement;
+
+    if (btn) {
+      e.preventDefault();
+      const popWrap = btn.closest('.popup-wrap') as HTMLElement;
+      if (popWrap) popupClose(popWrap.id);
+    }
+  });
+
+  // 4. Dimmed Click Close (배경 클릭 시 닫기)
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('popup-wrap')) {
+      popupClose(target.id);
+    }
+  });
+
+  // 5. Keyboard Events (ESC & Tab)
+  document.addEventListener('keydown', (e) => {
+    const activePopups = document.querySelectorAll('.popup-wrap.is-active');
+    if (activePopups.length === 0) return;
+
+    const topPopup = activePopups[activePopups.length - 1] as HTMLElement;
+
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      popupClose(topPopup.id);
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      handleFocusTrap(e, topPopup);
+    }
+  });
+}
+
+// =================================================================
+// Core Functions
+// =================================================================
+
+export function popupOpen(id: string, opener: HTMLElement | null = null) {
   const popWrap = document.getElementById(id);
   if (!popWrap) return;
 
-  const focusTarget = popWrap.querySelector('.popup') as HTMLElement;
-  // Use a safer way to find the last button or focusable element
-  const focusable = popWrap.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  const lastFocus = focusable.length > 0 ? (focusable[focusable.length - 1] as HTMLElement) : null;
-
-  // Store opener
-  (popWrap as any)._opener = activeFocus;
+  const trigger = opener || (document.activeElement as HTMLElement);
+  if (trigger) {
+    popupOpenerMap.set(popWrap, trigger);
+  }
 
   popWrap.classList.add('is-active');
   popWrap.setAttribute('aria-hidden', 'false');
 
-  // Event listener for transition end to set focus
-  const onTransitionEnd = () => {
-      if (popWrap.classList.contains('is-active')) {
-          focusTarget?.setAttribute('tabindex', '0');
-          focusTarget?.focus();
+  const baseZIndex = 1002;
+  const activeCount = document.querySelectorAll('.popup-wrap.is-active').length;
+  popWrap.style.zIndex = (baseZIndex + activeCount).toString();
 
-          // Add focus guard if not exists
-          if (lastFocus && !popWrap.querySelector('.popup-focus')) {
-              const guard = document.createElement('div');
-              guard.className = 'popup-focus';
-              guard.tabIndex = 0;
-              lastFocus.after(guard);
-              guard.addEventListener('focusin', () => {
-                  focusTarget?.focus();
-              });
-          }
-      }
-      popWrap.removeEventListener('transitionend', onTransitionEnd);
-  };
-  popWrap.addEventListener('transitionend', onTransitionEnd);
-  
-  // Fallback if no transition
+  // 첫 번째 팝업일 때만 스크롤 잠금 실행
+  if (activeCount === 1) {
+    lockScroll();
+  }
+
   setTimeout(() => {
-     if (window.getComputedStyle(popWrap).transitionDuration === '0s') {
-         onTransitionEnd();
-     }
+    const popupInner = popWrap.querySelector('.popup') as HTMLElement;
+    if (popupInner) {
+      popupInner.setAttribute('tabindex', '-1');
+      popupInner.focus();
+    }
   }, 50);
+}
 
-  scrollOn();
-  changeZindex(id);
-};
-
-export const popupClose = (id: string) => {
+export function popupClose(id: string) {
   const popWrap = document.getElementById(id);
   if (!popWrap) return;
-
-  const opener = (popWrap as any)._opener as HTMLElement;
-
-  // Remove focus guard
-  const guard = popWrap.querySelector('.popup-focus');
-  if (guard) guard.remove();
 
   popWrap.classList.remove('is-active');
   popWrap.setAttribute('aria-hidden', 'true');
   popWrap.style.removeProperty('z-index');
 
-  const onTransitionEnd = () => {
-      if (!popWrap.classList.contains('is-active')) {
-          if (opener && document.body.contains(opener)) {
-              opener.focus();
-          }
-      }
-      popWrap.removeEventListener('transitionend', onTransitionEnd);
-  };
-  popWrap.addEventListener('transitionend', onTransitionEnd);
+  const activeCount = document.querySelectorAll('.popup-wrap.is-active').length;
   
-  // Fallback
-  setTimeout(() => {
-    if (window.getComputedStyle(popWrap).transitionDuration === '0s') {
-        onTransitionEnd();
-    }
- }, 50);
+  // 남은 팝업이 없을 때만 스크롤 잠금 해제
+  if (activeCount === 0) {
+    unlockScroll();
+  }
 
-  scrollOff();
-};
+  const opener = popupOpenerMap.get(popWrap);
+  if (opener && document.body.contains(opener)) {
+    opener.focus();
+  }
+  popupOpenerMap.delete(popWrap);
 
-const changeZindex = (id: string) => {
-  const popWrap = document.getElementById(id);
-  if (!popWrap) return;
-
-  const activePopups = document.querySelectorAll('.popup-wrap.is-active').length;
-  const baseZIndex = 1002;
-  const currentZ = baseZIndex + activePopups;
-  popWrap.style.zIndex = currentZ.toString();
-};
-
-/*-------------------------------------------------------------------
-    ## Toast Alert Popup
--------------------------------------------------------------------*/
-const initToastPopup = () => {
-    const toastBtns = document.querySelectorAll('.btn-toast');
-    toastBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const target = e.currentTarget as HTMLElement;
-            const id = target.getAttribute('data-id');
-            if (!id) return;
-            
-            const toast = document.getElementById(id);
-            if (!toast) return;
-            
-            const textEl = toast.querySelector('p');
-
-            if (!target.classList.contains('is-active')) {
-                target.classList.add('is-active');
-                target.setAttribute('title', '저장함');
-                if (textEl) textEl.textContent = '저장되었습니다.';
-            } else {
-                target.classList.remove('is-active');
-                target.setAttribute('title', '');
-                if (textEl) textEl.textContent = '취소되었습니다.';
-            }
-            
-            toastAction(toast);
-        });
-    });
-};
-
-const toastAction = (target: HTMLElement, speed: number = 500, duration: number = 1000) => {
-    // fadeIn
-    target.style.display = 'block';
-    target.style.opacity = '0';
-    target.style.transition = `opacity ${speed}ms`;
-    
-    // Trigger reflow
-    target.offsetHeight;
-    target.style.opacity = '1';
-    
+  if (popWrap.dataset.dynamic === 'true') {
     setTimeout(() => {
-        // fadeOut
-        target.style.opacity = '0';
+      popWrap.remove();
+    }, 300);
+  }
+}
+
+function loadExternalPopup(url: string, btn: HTMLElement) {
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.text();
+    })
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const popupEl = doc.querySelector('.popup-wrap') || doc.body.firstElementChild;
+      
+      if (popupEl instanceof HTMLElement) {
+        popupEl.setAttribute('data-dynamic', 'true');
+        document.body.appendChild(popupEl);
+
+        const targetId = popupEl.id;
         setTimeout(() => {
-             target.style.display = 'none';
-        }, speed);
-    }, duration + speed);
-};
+          popupOpen(targetId, btn);
+        }, 50);
+      }
+    })
+    .catch(error => {
+      console.error('Popup Load Error:', error);
+      alert('팝업을 불러오는데 실패했습니다.');
+    });
+}
+
+function handleFocusTrap(e: KeyboardEvent, popWrap: HTMLElement) {
+  const focusableEls = popWrap.querySelectorAll<HTMLElement>(
+    'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+  );
+
+  if (focusableEls.length === 0) return;
+
+  const firstEl = focusableEls[0];
+  const lastEl = focusableEls[focusableEls.length - 1];
+  const activeEl = document.activeElement as HTMLElement;
+
+  if (e.shiftKey) {
+    if (activeEl === firstEl || activeEl === popWrap.querySelector('.popup')) {
+      e.preventDefault();
+      lastEl.focus();
+    }
+  } else {
+    if (activeEl === lastEl) {
+      e.preventDefault();
+      firstEl.focus();
+    }
+  }
+}
+
+// =================================================================
+// Scroll Control (Fix applied)
+// =================================================================
+
+function lockScroll() {
+  const body = document.body;
+  const wrapper = document.querySelector('.wrapper');
+
+  // 현재 위치 저장
+  savedScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  // body 고정 및 위치 조정
+  body.style.top = `-${savedScrollTop}px`;
+  body.classList.add('scrollOff');
+
+  if (wrapper) wrapper.setAttribute('aria-hidden', 'true');
+}
+
+function unlockScroll() {
+  const body = document.body;
+  const html = document.documentElement;
+  const wrapper = document.querySelector('.wrapper');
+
+  // 1. 애니메이션/부드러운 스크롤 강제 종료 (중요)
+  html.style.scrollBehavior = 'auto';
+  body.style.scrollBehavior = 'auto';
+  body.style.transition = 'none'; // 혹시 모를 transition 제거
+
+  // 2. 스타일 초기화
+  body.classList.remove('scrollOff');
+  body.style.removeProperty('top');
+  body.style.removeProperty('padding-right');
+
+  // 3. 저장했던 위치로 즉시 이동
+  window.scrollTo(0, savedScrollTop);
+
+  // 접근성 해제
+  if (wrapper) wrapper.removeAttribute('aria-hidden');
+
+  // 4. 속성 복구 (지연 실행)
+  setTimeout(() => {
+    html.style.removeProperty('scroll-behavior');
+    body.style.removeProperty('scroll-behavior');
+    body.style.removeProperty('transition'); // transition 복구
+  }, 10);
+}

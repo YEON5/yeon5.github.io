@@ -18,15 +18,13 @@ function uiInit() {
     SelectUiInit();
     stickyInit();
     scrollSpy();
-    scrollEvent();
+    scrollCheck();
     // scrollAnimated();
     popoverInit();
     popupInit();
-    // toastPopInit();
     progressInit();
     includeLayout();
     // headerPercent();
-    // datepickerInit();
 }
 
 /*-------------------------------------------------------------------
@@ -427,7 +425,7 @@ function scrollCorrection($btn) {
     // 현재 스크롤 위치
     const currentScroll = $(window).scrollTop();
     
-    // ★ 디버깅용: 콘솔에 찍어보세요 (F12)
+    // 디버깅용
     // console.log('탭 위치:', contentStartTop, 'CSS Top:', cssTop, 'Nav높이:', navHeight, '목표:', targetScroll);
 
     // 스크롤이 목표 지점보다 더 내려가 있을 때만 끌어올림 (약간의 오차범위 5px 허용)
@@ -444,75 +442,79 @@ function scrollCorrection($btn) {
 -------------------------------------------------------------------*/
 function toggleInit() {
     $(document).on('click', '.btn-toggle', function (e) {
-        e.stopPropagation(); // 버튼 클릭 시 document 클릭 이벤트로 퍼지는 것 방지
-        const $ele = $(this).closest('.dropdown');
-        toggleAction($ele);
+        e.preventDefault();
+        const $currentDropdown = $(this).closest('.dropdown');
+        
+        // 현재 눌린 것이 활성화 상태인지 확인
+        if ($currentDropdown.hasClass('is-active')) {
+            closeToggle($currentDropdown);
+        } else {
+            closeAllToggles();
+            openToggle($currentDropdown);
+        }
     });
 
-    // 바닥(외부) 클릭 시 닫기
-    toggleClose();
+    // 외부 클릭 및 스크롤 이벤트 바인딩
+    bindGlobalEvents();
 }
 
-function toggleAction($ele) {
-    const $body = $ele.find('.item-body');
-    const $btn = $ele.find('.btn-toggle');
-    const $list = $ele.find('.drop-list');
-
-    if ($ele.hasClass('is-active')) {
-        // 닫기
-        $ele.removeClass('is-active');
-        $btn.attr('aria-expanded', 'false');
-        $list.attr('aria-hidden', 'true');
-        $body.stop().slideUp(200);
-    } else {
-        // 다른 열려있는 드롭다운 닫기
-        $('.dropdown.is-active').each(function () {
-            const $other = $(this);
-            $other.removeClass('is-active');
-            $other.find('.btn-toggle').attr('aria-expanded', 'false');
-            $other.find('.item-body').stop().slideUp(200);
-        });
-
-        // 현재 드롭다운 열기
-        $ele.addClass('is-active');
-        $btn.attr('aria-expanded', 'true');
-        $list.attr('aria-hidden', 'false');
-        $body.stop().slideDown(200);
-    }
+// 토글 열기
+function openToggle($ele) {
+    $ele.addClass('is-active');
+    $ele.find('.btn-toggle').attr('aria-expanded', 'true');
+    $ele.find('.drop-list').attr('aria-hidden', 'false');
+    $ele.find('.item-body').stop().slideDown(200);
 }
 
-function toggleClose() {
-    // 바닥(외부) 클릭 시 닫기
+// 토글 닫기
+function closeToggle($ele) {
+    $ele.removeClass('is-active');
+    $ele.find('.btn-toggle').attr('aria-expanded', 'false');
+    $ele.find('.drop-list').attr('aria-hidden', 'true');
+    $ele.find('.item-body').stop().slideUp(200);
+}
+
+// 모든 활성화된 토글 닫기
+function closeAllToggles() {
+    $('.dropdown.is-active').each(function () {
+        closeToggle($(this));
+    });
+}
+
+// 외부 클릭 & 스크롤 시 닫기
+function bindGlobalEvents() {
+    // 외부 클릭 시 닫기
     $(document).on('click', function (e) {
+        // 클릭된 요소가 .dropdown 내부가 아니라면 닫기
         if (!$(e.target).closest('.dropdown').length) {
-            $('.dropdown.is-active').each(function () {
-                toggleAction($(this));
-            });
+            closeAllToggles();
         }
     });
 
-    // 스크롤 시 닫기 (요소가 있는 경우에만)
-    $('.main, window').on('scroll', function () {
+    // 스크롤 시 닫기
+    $(window).add('.main').on('scroll', function () {
         if ($('.dropdown.is-active').length) {
-            $('.dropdown.is-active').each(function () {
-                toggleAction($(this));
-            });
+            closeAllToggles();
         }
     });
 }
+
 
 function dropInit() {
-    $(document).on('click', '.btn-dropdown', function () {
+    $(document).on('click', '.btn-dropdown', function (e) {
+        e.preventDefault();
         const $ele = $(this).closest('.dropdowns');
+        const isActive = $ele.hasClass('is-active');
 
-        if (!$ele.hasClass('is-active')) {
-            $ele.addClass('is-active');
-            $ele.find('.btn-dropdown').attr('aria-expanded', 'true');
-            $ele.find('.drop-body').attr('aria-hidden', 'false');
-        } else {
+        // 상태 토글 (현재 활성이면 닫고, 아니면 열기)
+        if (isActive) {
             $ele.removeClass('is-active');
             $ele.find('.btn-dropdown').attr('aria-expanded', 'false');
             $ele.find('.drop-body').attr('aria-hidden', 'true');
+        } else {
+            $ele.addClass('is-active');
+            $ele.find('.btn-dropdown').attr('aria-expanded', 'true');
+            $ele.find('.drop-body').attr('aria-hidden', 'false');
         }
     });
 }
@@ -888,9 +890,9 @@ function scrollSpy() {
 }
 
 /*-------------------------------------------------------------------
-	## Scroll Event : Scroll Up/Down Custom Event (스크롤 상태 및 위치 확인)
+	## Scroll Check : Scroll Up/Down Custom Event (스크롤 상태 및 위치 확인)
 -------------------------------------------------------------------*/
-function scrollEvent() {
+function scrollCheck() {
     const $window = $(window);
     const $body = $('body');
     const $document = $(document);
@@ -1441,69 +1443,6 @@ function range() {
     });
 }
 
-/* Datepicker */
-function datepickerInit() {
-    $('.ui-datepicker-div').each(function () {
-        var id = $(this).attr('id');
-        datepickerSet(id);
-    });
-}
-function datepickerSet(id) {
-    var $ele = $('#' + id);
-    $ele.datepicker({
-        prevText: '이전달',
-        nextText: '다음달',
-        monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-        weekHeader: 'Wk',
-        dateFormat: 'yy-mm-dd',
-        firstDay: 0,
-        isRTL: false,
-        showMonthAfterYear: true,
-        yearSuffix: '.',
-        changeMonth: false,
-        changeYear: false,
-        beforeShow: function (input) {
-            $('.ui-datepicker-div').attr('tabindex', '0');
-            setTimeout(function () {
-                $('.ui-datepicker-div').focus();
-
-                // 년도 버튼 추가
-                var preYearBtn = $("<button class='ui-datepicker-prev-year' title='이전년도'><span class='blind'>이전 년도</span></button>");
-                preYearBtn.unbind('click').bind('click', function () {
-                    $.datepicker._adjustDate($(input), -1, 'Y');
-                });
-                var nextYearBtn = $("<button class='ui-datepicker-next-year' title='다음년도'><span class='blind'>다음 년도</span></button>");
-                nextYearBtn.unbind('click').bind('click', function () {
-                    $.datepicker._adjustDate($(input), +1, 'Y');
-                });
-
-                $('.ui-datepicker-header .ui-datepicker-prev').before(preYearBtn);
-                $('.ui-datepicker-header .ui-datepicker-next').after(nextYearBtn);
-                // $('.ui-datepicker-header').append(nextYearBtn, preYearBtn);
-            }, 100);
-        },
-        onChangeMonthYear: function (year, month, inst) {
-            setTimeout(function () {
-                var preYearBtn = $("<button class='ui-datepicker-prev-year' title='이전년도'><span class='blind'>이전 년도</span></button>");
-                preYearBtn.unbind('click').bind('click', function () {
-                    $.datepicker._adjustDate($(inst.input), -1, 'Y');
-                });
-                var nextYearBtn = $("<button class='ui-datepicker-next-year' title='다음년도'><span class='blind'>다음 년도</span></button>");
-                nextYearBtn.unbind('click').bind('click', function () {
-                    $.datepicker._adjustDate($(inst.input), +1, 'Y');
-                });
-
-                $('.ui-datepicker-header .ui-datepicker-prev').before(preYearBtn);
-                $('.ui-datepicker-header .ui-datepicker-next').after(nextYearBtn);
-                // $(".ui-datepicker-header").append(nextYearBtn, preYearBtn);
-            }, 100);
-        },
-    });
-}
 
 /*-------------------------------------------------------------------
 	## Header scroll Percent

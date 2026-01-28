@@ -163,7 +163,7 @@ input[type='text'] {
             @include position(absolute, $t: 50%, $r: 1.5rem);
             width: 2rem;
             height: 2rem;
-            background: url('../images/icons/ico_select.png') no-repeat right center;
+            background: url('/assets/images/icons/ico_select.png') no-repeat right center;
             transform: translateY(-50%);
         }
         .select {

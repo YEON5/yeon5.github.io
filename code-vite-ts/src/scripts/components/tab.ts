@@ -1,56 +1,82 @@
-export const initTab = () => {
-  // Standard Tab
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    const tabBtn = target.closest('.tab-nav li > button');
-    
-    if (tabBtn) {
+export function initTab() {
+  const tabButtons = document.querySelectorAll('[class^="tab"] .tab-nav button');
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const li = tabBtn.parentElement;
-      if (li && !li.classList.contains('is-active')) {
-        const id = tabBtn.getAttribute('aria-controls');
-        if (id) {
-            activateTab(li, id);
-        }
-      }
-    }
-  });
-};
+      const target = e.currentTarget as HTMLElement;
+      const li = target.parentElement as HTMLElement;
+      
+      if (li.classList.contains('is-active')) return;
 
-const activateTab = (activeLi: HTMLElement, contentId: string) => {
-  // Deactivate siblings
-  const ul = activeLi.parentElement;
-  if (ul) {
-      Array.from(ul.children).forEach(li => {
-          if (li !== activeLi) {
-              li.classList.remove('is-active');
-              const btn = li.querySelector('button');
-              btn?.setAttribute('aria-selected', 'false');
-          }
+      const targetId = target.getAttribute('aria-controls');
+      if (!targetId) return;
+      
+      const tabBody = target.closest('.tab, .tab-round')?.querySelector('.tab-body');
+      const targetPanel = document.getElementById(targetId);
+
+      if (!tabBody || !targetPanel) return;
+
+      // 1. Tab Nav 활성화
+      const siblingsLi = Array.from(li.parentElement?.children || []);
+      siblingsLi.forEach((sib) => {
+        sib.classList.remove('is-active');
+        sib.querySelector('button')?.setAttribute('aria-selected', 'false');
       });
-  }
-  
-  // Activate current
-  activeLi.classList.add('is-active');
-  const activeBtn = activeLi.querySelector('button');
-  activeBtn?.setAttribute('aria-selected', 'true');
 
-  // Show Content
-  const content = document.getElementById(contentId);
-  if (content) {
-      content.classList.add('is-active');
-      content.setAttribute('aria-hidden', 'false');
-      // Hide sibling contents
-      const parent = content.parentElement;
-      if (parent) {
-          Array.from(parent.children).forEach(child => {
-              if (child !== content && child.classList.contains('tab-cont')) {
-                  child.classList.remove('is-active');
-                  child.setAttribute('aria-hidden', 'true');
-                  (child as HTMLElement).style.display = 'none'; // Ensure hidden if using show/hide logic
-              }
-          });
-      }
-      content.style.display = 'block'; // Ensure shown
+      li.classList.add('is-active');
+      target.setAttribute('aria-selected', 'true');
+
+      // 2. Tab Content 활성화
+      const siblingsPanel = Array.from(tabBody.children);
+      siblingsPanel.forEach((panel) => {
+        panel.classList.remove('is-active');
+        panel.setAttribute('aria-hidden', 'true');
+      });
+
+      targetPanel.classList.add('is-active');
+      targetPanel.setAttribute('aria-hidden', 'false');
+
+      // 3. 스크롤 보정
+      moveScrollToLeft(li);
+      scrollCorrection(target);
+    });
+  });
+}
+
+// 탭 버튼 좌측 정렬 (가로 스크롤 시)
+function moveScrollToLeft(targetLi: HTMLElement) {
+  const ul = targetLi.parentElement;
+  if (!ul) return;
+
+  const offset = 20;
+  const newScrollPos = ul.scrollLeft + targetLi.offsetLeft - offset;
+
+  ul.scrollTo({
+    left: newScrollPos,
+    behavior: 'smooth'
+  });
+}
+
+// 탭 전환 시 화면 스크롤 보정 (Sticky 대응)
+function scrollCorrection(btn: HTMLElement) {
+  const tabNav = btn.closest('.tab-nav') as HTMLElement;
+  const tabWrap = btn.closest('.tab') as HTMLElement;
+
+  if (!tabNav || !tabWrap) return;
+
+  const contentStartTop = tabWrap.getBoundingClientRect().top + window.scrollY;
+  const styleTop = getComputedStyle(tabNav).top;
+  const cssTop = styleTop === 'auto' ? 0 : parseFloat(styleTop);
+  const navHeight = tabNav.offsetHeight;
+
+  const targetScroll = contentStartTop - cssTop - navHeight;
+  const currentScroll = window.scrollY;
+
+  if (currentScroll > targetScroll + 5) {
+    window.scrollTo({
+      top: targetScroll,
+      behavior: 'auto' // 즉시 이동
+    });
   }
-};
+}

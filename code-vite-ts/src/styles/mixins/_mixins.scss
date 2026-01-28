@@ -90,7 +90,7 @@ $flex-map: (
 }
 
 // background image
-@mixin bg-img($path, $url: '../images/', $format: 'svg') {
+@mixin bg-img($path, $url: '/assets/images/', $format: 'svg') {
     background-image: url('#{$url}#{$path}.#{$format}');
     background-repeat: no-repeat;
     background-size: contain;
