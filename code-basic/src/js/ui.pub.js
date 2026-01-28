@@ -722,7 +722,7 @@ function SelectUiInit() {
 	## Sticky
 -------------------------------------------------------------------*/
 function stickyInit() {
-    // initStickyAnchor();
+    initStickyAnchor();
 
     //Click scroll top button
     $(window).on('scroll', function (e) {
@@ -758,21 +758,16 @@ function initStickyAnchor() {
     // 상단 헤더 높이
     const headerHeight = $('.header').outerHeight() || 0;
 
-    const $placeholder = $('<div>').height($anchorWrap.outerHeight()).hide();
-    $anchorWrap.after($placeholder);
-
     $window.on('scroll', function() {
         const scrollTop = $window.scrollTop();
         
         if (scrollTop >= anchorInitialTop - headerHeight) {
             if (!$anchorWrap.hasClass('is-fixed')) {
                 $anchorWrap.addClass('is-fixed');
-                $placeholder.show();
             }
         } else {
             if ($anchorWrap.hasClass('is-fixed')) {
                 $anchorWrap.removeClass('is-fixed');
-                $placeholder.hide();
             }
         }
     });
@@ -784,109 +779,132 @@ function initStickyAnchor() {
 function scrollSpy() {
     const $anchorWrap = $('.anchor-wrap');
     const $nav = $anchorWrap.find('.anchor-nav');
-    const $links = $nav.find('a');
-    const $sections = $('.section'); // 실제 컨텐츠 섹션들 (ID가 있는)
+    const $links = $nav.find('a, button');
+    
+    // 2. 링크들과 매칭되는 실제 섹션들을 동적으로 수집
+    let $sections = $(); 
 
+    $links.each(function() {
+        const targetId = $(this).attr('href') || $(this).data('target');
+        
+        // [수정 1] 유효성 검사 강화
+        // - 값이 없거나, '#'만 있거나, '#!'로 시작하는 등 잘못된 선택자 제외
+        if (!targetId || targetId === '#' || targetId.indexOf('#!') > -1 || !targetId.startsWith('#')) {
+            return; // 건너뛰기
+        }
+
+        // [수정 2] 문법 에러 방지를 위한 try-catch 추가
+        try {
+            const $target = $(targetId);
+            if ($target.length) {
+                $sections = $sections.add($target);
+            }
+        } catch (error) {
+            // #123, #! 등 jQuery 선택자로 쓸 수 없는 문자열은 조용히 무시
+            // console.warn('유효하지 않은 선택자:', targetId); 
+        }
+    });
+
+    // --------------------------------------------------------
+    // 클릭 이벤트 핸들러
+    // --------------------------------------------------------
     $links.on('click', function(e) {
         e.preventDefault();
         
-        const targetId = $(this).attr('href');
-        const $target = $(targetId);
-        
-        // 헤더 높이 + 앵커 높이만큼 빼고 이동 (Sticky 가림 방지)
-        // CSS html { scroll-padding-top: ... }을 썼다면 offset 계산 없이 바로 이동해도 됨
-        const headerHeight = $('.header').outerHeight() || 0;
-        const anchorHeight = $anchorWrap.outerHeight() || 0;
-        const offset = headerHeight + anchorHeight; 
+        const targetId = $(this).attr('href') || $(this).data('target');
 
-        if ($target.length) {
-            $('html, body').animate({
-                scrollTop: $target.offset().top - offset + 2
-            }, 500);
+        // [수정 3] 클릭 시에도 안전장치 추가
+        if (!targetId || targetId === '#' || targetId.indexOf('#!') > -1 || !targetId.startsWith('#')) {
+            return;
+        }
+
+        try {
+            const $target = $(targetId);
             
-            updateActiveState($(this));
+            // 오프셋 계산
+            const headerHeight = $('.header').outerHeight() || 0;
+            const anchorHeight = $anchorWrap.outerHeight() || 0;
+            const offset = headerHeight + anchorHeight; 
+
+            if ($target.length) {
+                $('html, body').stop().animate({
+                    scrollTop: $target.offset().top - offset + 2
+                }, 500);
+                
+                updateActiveState($(this));
+            }
+        } catch (error) {
+            console.log('이동할 수 없는 타겟입니다:', targetId);
         }
     });
 
-    // 스크롤 감지
-    $(window).on('scroll', function() {
-        const scrollTop = $(window).scrollTop();
-        
-        // Sticky 헤더 높이만큼 보정해서 감지
-        const headerHeight = $('.header').outerHeight() || 0;
-        const anchorHeight = $anchorWrap.outerHeight() || 0;
-        const checkPoint = scrollTop + headerHeight + anchorHeight + 10; 
+    // --------------------------------------------------------
+    // 스크롤 감지 핸들러
+    // --------------------------------------------------------
+    // $(window).on('scroll', function() {
+    //     if (!$sections.length) return;
 
-        $sections.each(function() {
-            const $this = $(this);
-            const top = $this.offset().top;
-            const bottom = top + $this.outerHeight();
+    //     const scrollTop = $(window).scrollTop();
+    //     const headerHeight = $('.header').outerHeight() || 0;
+    //     const anchorHeight = $anchorWrap.outerHeight() || 0;
+    //     const checkPoint = scrollTop + headerHeight + anchorHeight + 10; 
 
-            // 현재 스크롤이 섹션 영역 안에 들어왔는지 체크
-            if (checkPoint >= top && checkPoint < bottom) {
-                const targetId = '#' + $this.attr('id');
-                const $activeLink = $links.filter('[href="' + targetId + '"]');
+    //     $sections.each(function() {
+    //         const $this = $(this);
+    //         const top = $this.offset().top;
+    //         const bottom = top + $this.outerHeight();
+
+    //         if (checkPoint >= top && checkPoint < bottom) {
+    //             const currentId = '#' + $this.attr('id');
                 
-                // 이미 활성화 상태면 무시 (성능 낭비 방지)
-                if (!$activeLink.hasClass('is-active')) {
-                    updateActiveState($activeLink);
-                }
-            }
-        });
-    });
+    //             const $activeLink = $links.filter(function() {
+    //                 const linkTarget = $(this).attr('href') || $(this).data('target');
+    //                 return linkTarget === currentId;
+    //             });
+                
+    //             if (!$activeLink.hasClass('is-active')) {
+    //                 updateActiveState($activeLink);
+    //             }
+    //         }
+    //     });
+    // });
 
-    // 활성화 상태 업데이트 & 가로 스크롤 자동 이동 함수
+    // 공통 함수 (기존 유지)
     function updateActiveState($targetLink) {
-        // 접근성 대응
         $links.removeClass('is-active').removeAttr('aria-current');
         $targetLink.addClass('is-active').attr('aria-current', 'location');
-
         alignActiveTabLeft($targetLink);
     }
 
-    // 가로 스크롤 중앙 정렬
-    function centerActiveTab($target) {
-        if (!$target.length) return;
-
-        const $ul = $nav.find('ul');
-        const $li = $target.parent('li');
-        
-        // ul의 너비와 현재 스크롤 위치
-        const containerWidth = $ul.width();
-        const scrollLeft = $ul.scrollLeft();
-        
-        // 타겟(li)의 위치와 너비
-        const targetLeft = $li.position().left + scrollLeft; 
-        const targetWidth = $li.outerWidth();
-
-        const centerPosition = targetLeft - (containerWidth / 2) + (targetWidth / 2);
-
-        $ul.stop().animate({ scrollLeft: centerPosition }, 300);
-    }
-
-    // 가로 스크롤 맨 왼쪽 정렬
     function alignActiveTabLeft($target) {
-        const $anchorNav = $('.anchor-nav');
-        const $ul = $anchorNav.find('ul');
-        const $li = $target.parent('li');
-
-        if (!$li.length) return;
-
-        // 현재 스크롤된 상태에서의 절대 위치 계산
-        const scrollLeft = $ul.scrollLeft();
-        const liOffsetLeft = $li.position().left; 
+        if (!$target.length) return;
         
-        // 스크롤 위치 계산
-        let targetScrollLeft = scrollLeft + liOffsetLeft; 
+        const $ul = $nav.find('ul, div'); 
+        const $li = $target.parent(); 
+        
+        // [설정] 왼쪽에서 띄우고 싶은 간격 (px)
+        const paddingLeft = 20; 
 
-        if ($li.is(':first-child')) {
-            targetScrollLeft = 0;
+        if ($ul.length) {
+            const scrollLeft = $ul.scrollLeft();
+            const eleOffsetLeft = $li.position().left; 
+            
+            // 기본 위치 계산 (현재 스크롤 + 화면 내 요소 위치)
+            // 여기서 paddingLeft만큼 빼주면 그만큼 덜 가서 멈춤
+            let targetScrollLeft = scrollLeft + eleOffsetLeft - paddingLeft; 
+
+            // 1. 첫 번째 아이템은 무조건 0으로 (맨 앞 여백이 CSS에 있다면 0이 깔끔함)
+            if ($li.is(':first-child')) {
+                targetScrollLeft = 0;
+            }
+            // 2. 계산 결과가 0보다 작으면 0으로 고정 (음수 방지)
+            else if (targetScrollLeft < 0) {
+                targetScrollLeft = 0;
+            }
+
+            $ul.stop().animate({ scrollLeft: targetScrollLeft }, 300);
         }
-
-        // 애니메이션 이동
-        $ul.stop().animate({ scrollLeft: targetScrollLeft }, 300);
     }
-    
 }
 
 /*-------------------------------------------------------------------

@@ -1,141 +1,137 @@
 export function initScrollSpy() {
-  const anchorWrap = document.querySelector('.anchor-wrap') as HTMLElement;
+  const anchorWrap = document.querySelector<HTMLElement>('.anchor-wrap');
   if (!anchorWrap) return;
 
-  const nav = anchorWrap.querySelector('.anchor-nav') as HTMLElement;
-  const ul = nav.querySelector('ul') as HTMLElement;
-  const links = nav.querySelectorAll('a');
-  // 실제 컨텐츠 섹션들 (ID가 있는 요소만)
-  const sections = document.querySelectorAll('.section[id]'); 
+  const ul = anchorWrap.querySelector<HTMLElement>('.anchor-nav ul');
+  if (!ul) return;
 
-  if (sections.length === 0 || links.length === 0) return;
+  // [수정 1] a 태그와 button 태그 모두 선택
+  const triggers = ul.querySelectorAll<HTMLElement>('a, button');
+  if (!triggers.length) return;
 
-  // 1. 링크 클릭 핸들러
-  links.forEach((link) => {
-    link.addEventListener('click', (e) => {
+  // 타겟 매핑
+  const sections = new Map<HTMLElement, HTMLElement>();
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', e => {
+      // [수정 2] ID 추출: href가 없으면 data-target 확인
+      const rawId = trigger.getAttribute('href') || trigger.getAttribute('data-target');
+      
+      // 유효성 검사 (#으로 시작하고 길이가 2 이상인 경우만)
+      if (!rawId || !rawId.startsWith('#') || rawId.length < 2) return;
+
+      const target = document.getElementById(rawId.slice(1));
+      if (!target) return;
+
       e.preventDefault();
-      
-      const targetId = link.getAttribute('href');
-      if (!targetId || targetId === '#' || targetId === '#!') return;
-      
-      const targetSection = document.querySelector(targetId) as HTMLElement;
-      
-      if (targetSection) {
-        // 헤더 및 앵커 높이 계산
-        const headerHeight = getHeaderHeight();
-        const anchorHeight = anchorWrap.offsetHeight || 0;
-        const offset = headerHeight + anchorHeight;
-        
-        // 부드러운 스크롤 이동
-        const targetTop = targetSection.getBoundingClientRect().top + window.scrollY;
-        
-        window.scrollTo({
-          top: targetTop - offset + 2, // +2는 오차 보정
-          behavior: 'smooth'
-        });
 
-        updateActiveState(link, ul);
-      }
+      updateActiveTab(trigger, ul);
+      alignTabLeft(trigger, ul);
+
+      const offset = getScrollOffset(anchorWrap);
+      
+      // [보정] 정확한 위치 계산
+      const y = target.getBoundingClientRect().top + window.scrollY - offset + 1;
+
+      smoothScrollTo(y, 500);
     });
   });
 
-  // 2. 스크롤 감지 핸들러
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    
-    // 계산용 변수 업데이트
-    const headerHeight = getHeaderHeight();
-    const anchorHeight = anchorWrap.offsetHeight || 0;
-    
-    // 체크 포인트 (헤더+앵커바 높이만큼 아래 지점을 기준으로 인식)
-    const checkPoint = scrollTop + headerHeight + anchorHeight + 10;
-
-    sections.forEach((section) => {
-      const el = section as HTMLElement;
-      const top = el.getBoundingClientRect().top + window.scrollY;
-      const bottom = top + el.offsetHeight;
-
-      // 현재 스크롤이 섹션 영역 안에 들어왔는지 체크
-      if (checkPoint >= top && checkPoint < bottom) {
-        const targetId = '#' + el.id;
-        
-        // 해당 ID를 가진 링크 찾기
-        // NodeList는 filter가 없으므로 Array로 변환하여 찾음
-        const activeLink = Array.from(links).find(
-          (link) => link.getAttribute('href') === targetId
-        );
-
-        if (activeLink) {
-          // 이미 활성화 상태가 아닐 때만 업데이트 (성능 최적화)
-          if (!activeLink.classList.contains('is-active')) {
-            updateActiveState(activeLink, ul);
-          }
-        }
-      }
-    });
-  }, { passive: true }); // passive 옵션으로 스크롤 성능 향상
+  // 스크롤 감지 필요시 주석 해지
+  // initScrollObserver(sections, ul, anchorWrap);
 }
 
-// Helper: 헤더 높이 구하기
-function getHeaderHeight(): number {
-  const header = document.querySelector('.header') as HTMLElement;
-  return header ? header.offsetHeight : 0;
+// --------------------------------------------------
+// offset 계산
+// --------------------------------------------------
+function getScrollOffset(anchorWrap: HTMLElement): number {
+  const header = document.querySelector<HTMLElement>('.header');
+  return (header?.offsetHeight || 0) + anchorWrap.offsetHeight;
 }
 
-// 활성화 상태 업데이트 & 가로 스크롤 자동 이동
-function updateActiveState(targetLink: HTMLAnchorElement, ul: HTMLElement) {
-  // 모든 링크 비활성화
-  const allLinks = ul.querySelectorAll('a');
-  allLinks.forEach((link) => {
-    link.classList.remove('is-active');
-    link.removeAttribute('aria-current');
+// --------------------------------------------------
+// active 처리
+// --------------------------------------------------
+function updateActiveTab(target: HTMLElement, ul: HTMLElement) {
+  // [수정 3] a와 button 모두에서 active 클래스 제거
+  ul.querySelectorAll('a, button').forEach(el => {
+    el.classList.remove('is-active');
+    el.removeAttribute('aria-current');
   });
 
-  // 타겟 링크 활성화
-  targetLink.classList.add('is-active');
-  targetLink.setAttribute('aria-current', 'location');
-
-  // 탭 가로 정렬 (왼쪽 기준)
-  alignActiveTabLeft(targetLink, ul);
+  target.classList.add('is-active');
+  target.setAttribute('aria-current', 'location');
 }
 
-// 가로 스크롤 맨 왼쪽 정렬
-function alignActiveTabLeft(targetLink: HTMLAnchorElement, ul: HTMLElement) {
-  const li = targetLink.parentElement as HTMLElement;
+// --------------------------------------------------
+// 탭 가로 스크롤 정렬
+// --------------------------------------------------
+function alignTabLeft(target: HTMLElement, ul: HTMLElement) {
+  const li = target.parentElement as HTMLElement;
   if (!li) return;
 
-  // offsetLeft는 부모(ul) 기준 왼쪽에서의 거리입니다.
-  // 첫 번째 요소면 0, 아니면 해당 위치로 스크롤
-  let targetScrollLeft = li.offsetLeft;
-  
-  // 첫 번째 요소는 무조건 0으로 (여백 문제 방지)
-  if (li === ul.firstElementChild) {
-    targetScrollLeft = 0;
-  }
+  // li의 offsetLeft 위치로 스크롤 이동 (왼쪽 정렬)
+  // 첫 번째 요소면 0으로 강제 (패딩 오차 방지)
+  const leftPos = (li === ul.firstElementChild) ? 0 : li.offsetLeft;
 
-  // 부드럽게 가로 스크롤 이동
   ul.scrollTo({
-    left: targetScrollLeft,
+    left: leftPos,
     behavior: 'smooth'
   });
 }
 
-// 가로 스크롤 중앙 정렬 - 필요 시 교체해서 사용하세요
-/*
-function centerActiveTab(targetLink: HTMLAnchorElement, ul: HTMLElement) {
-  const li = targetLink.parentElement as HTMLElement;
-  if (!li) return;
+// --------------------------------------------------
+// smooth scroll
+// --------------------------------------------------
+function smoothScrollTo(targetY: number, duration = 500) {
+  const startY = window.scrollY;
+  const diff = targetY - startY;
+  let start: number | null = null;
 
-  const containerWidth = ul.offsetWidth;
-  const targetLeft = li.offsetLeft; // ul 내부에서의 위치
-  const targetWidth = li.offsetWidth;
+  const ease = (t: number) =>
+    t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
-  // 중앙 위치 계산: (요소위치) - (컨테이너절반) + (요소절반)
-  const centerPosition = targetLeft - (containerWidth / 2) + (targetWidth / 2);
+  const step = (time: number) => {
+    if (!start) start = time;
+    const progress = Math.min((time - start) / duration, 1);
+    window.scrollTo(0, startY + diff * ease(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  };
 
-  ul.scrollTo({
-    left: centerPosition,
-    behavior: 'smooth'
+  requestAnimationFrame(step);
+}
+
+
+// --------------------------------------------------
+// 스크롤 감지
+// --------------------------------------------------
+function initScrollObserver(
+  sectionMap: Map<HTMLElement, HTMLElement>,
+  ul: HTMLElement,
+  anchorWrap: HTMLElement
+) {
+  const offset = getScrollOffset(anchorWrap);
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const trigger = sectionMap.get(entry.target as HTMLElement);
+        if (!trigger) return;
+
+        updateActiveTab(trigger, ul);
+        alignTabLeft(trigger, ul);
+      });
+    },
+    {
+      root: null,
+      rootMargin: `-${offset}px 0px -70% 0px`,
+      threshold: 0
+    }
+  );
+
+  sectionMap.forEach((_, section) => {
+    observer.observe(section);
   });
 }
-*/
