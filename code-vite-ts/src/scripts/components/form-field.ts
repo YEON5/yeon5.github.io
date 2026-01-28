@@ -8,7 +8,7 @@ export function initFormField() {
       const input = item.querySelector('input') as HTMLInputElement;
       if (!input) return;
 
-      // 1. 삭제 버튼 생성 (Lazy Creation)
+      // 삭제 버튼 생성
       const createClearBtn = (): HTMLButtonElement => {
         let onRight = item.querySelector('.on-right') as HTMLElement;
 
@@ -38,7 +38,7 @@ export function initFormField() {
         return btn;
       };
 
-      // 2. 상태 업데이트
+      // 상태 업데이트
       const updateState = () => {
         let clearBtn = item.querySelector('.btn-input-clear') as HTMLElement;
 
@@ -76,12 +76,12 @@ export function initFormField() {
         }
       };
 
-      // 3. Blur 지연 처리
+      // Blur 지연 처리
       const handleBlur = () => {
         setTimeout(updateState, 150);
       };
 
-      // 4. 초기 이벤트 연결
+      // 초기 이벤트 연결
       input.addEventListener('input', updateState);
       input.addEventListener('focus', updateState);
       input.addEventListener('blur', handleBlur);

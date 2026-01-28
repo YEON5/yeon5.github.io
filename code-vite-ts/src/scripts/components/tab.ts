@@ -17,7 +17,7 @@ export function initTab() {
 
       if (!tabBody || !targetPanel) return;
 
-      // 1. Tab Nav 활성화
+      // Tab Nav 활성화
       const siblingsLi = Array.from(li.parentElement?.children || []);
       siblingsLi.forEach((sib) => {
         sib.classList.remove('is-active');
@@ -27,7 +27,7 @@ export function initTab() {
       li.classList.add('is-active');
       target.setAttribute('aria-selected', 'true');
 
-      // 2. Tab Content 활성화
+      // Tab Content 활성화
       const siblingsPanel = Array.from(tabBody.children);
       siblingsPanel.forEach((panel) => {
         panel.classList.remove('is-active');
@@ -37,7 +37,7 @@ export function initTab() {
       targetPanel.classList.add('is-active');
       targetPanel.setAttribute('aria-hidden', 'false');
 
-      // 3. 스크롤 보정
+      // 스크롤 보정
       moveScrollToLeft(li);
       scrollCorrection(target);
     });

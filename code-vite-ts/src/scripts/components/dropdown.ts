@@ -1,7 +1,7 @@
 import { slideUp, slideDown } from './utils';
 
 export function initDropdown() {
-  // 1. 토글형 (Dropdown)
+  // 토글형 (Dropdown)
   const toggleBtns = document.querySelectorAll('.btn-toggle');
   
   toggleBtns.forEach(btn => {
@@ -19,7 +19,7 @@ export function initDropdown() {
     });
   });
 
-  // 2. 메뉴형 (Dropdowns)
+  // 메뉴형 (Dropdowns)
   const menuBtns = document.querySelectorAll('.btn-dropdown');
   menuBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {

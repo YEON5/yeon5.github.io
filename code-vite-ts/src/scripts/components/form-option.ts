@@ -3,7 +3,6 @@ export function initFormOption() {
   initFileField();
 }
 
-// =================================================================
 // Checkbox & Radio Toggle
 function initOptionToggle() {
   const inputs = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
@@ -64,11 +63,8 @@ function toggleRadioContent(radio: HTMLInputElement) {
   });
 }
 
-// =================================================================
 // File Input Logic
 function initFileField() {
-  // 이벤트 위임(Delegation)을 사용하여 동적으로 생성된 요소도 처리
-
   // [A] 파일 선택 시 파일명 표시 (공통)
   document.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement;

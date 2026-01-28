@@ -1,5 +1,5 @@
 export function initPopover() {
-  // 1. Popover Trigger Click (열기/토글)
+  // Popover 열기
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const btn = target.closest('[data-popover-trigger]') as HTMLElement;
@@ -25,7 +25,7 @@ export function initPopover() {
     }
   });
 
-  // 2. Close Button Click (닫기 버튼)
+  // Close Button Click (닫기 버튼)
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const closeBtn = target.closest('[data-popover-close]') as HTMLElement;
@@ -37,7 +37,7 @@ export function initPopover() {
     }
   });
 
-  // 3. Outside Click (외부 영역 클릭 시 닫기)
+  // 외부 영역 클릭 시 닫기
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     
@@ -47,8 +47,7 @@ export function initPopover() {
     }
   });
 
-  // 4. Scroll Event (스크롤 시 닫기)
-  // window 스크롤
+  // 스크롤 시 닫기 (window 스크롤)
   window.addEventListener('scroll', handleScrollClose, { passive: true });
   
   // .container 스크롤 (필요한 경우)

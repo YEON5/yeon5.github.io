@@ -5,7 +5,7 @@ const popupOpenerMap = new WeakMap<HTMLElement, HTMLElement>();
 let savedScrollTop = 0;
 
 export function initPopup() {
-  // 1. Popup Trigger (열기)
+  // Popup 열기 버튼
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const btn = target.closest('[data-popup-trigger]') as HTMLElement;
@@ -17,7 +17,7 @@ export function initPopup() {
     }
   });
 
-  // 2. External Popup Load (동적 로드)
+  // Popup Load (동적 로드)
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const btn = target.closest('[data-popup-load]') as HTMLElement;
@@ -29,7 +29,7 @@ export function initPopup() {
     }
   });
 
-  // 3. Popup Close (닫기 버튼)
+  // Popup 닫기 버튼
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const btn = target.closest('[data-popup-close]') as HTMLElement;
@@ -41,7 +41,7 @@ export function initPopup() {
     }
   });
 
-  // 4. Dimmed Click Close (배경 클릭 시 닫기)
+  // Dimmed 배경 클릭 시 닫기
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (target.classList.contains('popup-wrap')) {
@@ -49,7 +49,7 @@ export function initPopup() {
     }
   });
 
-  // 5. Keyboard Events (ESC & Tab)
+  // Keyboard Events (ESC & Tab)
   document.addEventListener('keydown', (e) => {
     const activePopups = document.querySelectorAll('.popup-wrap.is-active');
     if (activePopups.length === 0) return;
@@ -68,9 +68,8 @@ export function initPopup() {
 }
 
 // =================================================================
-// Core Functions
+// popup Core Functions
 // =================================================================
-
 export function popupOpen(id: string, opener: HTMLElement | null = null) {
   const popWrap = document.getElementById(id);
   if (!popWrap) return;
@@ -150,10 +149,10 @@ function loadExternalPopup(url: string, btn: HTMLElement) {
         }, 50);
       }
     })
-    .catch(error => {
-      console.error('Popup Load Error:', error);
-      alert('팝업을 불러오는데 실패했습니다.');
-    });
+    // .catch(error => {
+    //   console.error('Popup Load Error:', error);
+    //   alert('팝업을 불러오는데 실패했습니다.');
+    // });
 }
 
 function handleFocusTrap(e: KeyboardEvent, popWrap: HTMLElement) {
@@ -183,7 +182,6 @@ function handleFocusTrap(e: KeyboardEvent, popWrap: HTMLElement) {
 // =================================================================
 // Scroll Control (Fix applied)
 // =================================================================
-
 function lockScroll() {
   const body = document.body;
   const wrapper = document.querySelector('.wrapper');
@@ -203,23 +201,23 @@ function unlockScroll() {
   const html = document.documentElement;
   const wrapper = document.querySelector('.wrapper');
 
-  // 1. 애니메이션/부드러운 스크롤 강제 종료 (중요)
+  // 애니메이션/부드러운 스크롤 강제 종료
   html.style.scrollBehavior = 'auto';
   body.style.scrollBehavior = 'auto';
   body.style.transition = 'none'; // 혹시 모를 transition 제거
 
-  // 2. 스타일 초기화
+  // 스타일 초기화
   body.classList.remove('scrollOff');
   body.style.removeProperty('top');
   body.style.removeProperty('padding-right');
 
-  // 3. 저장했던 위치로 즉시 이동
+  // 저장했던 위치로 즉시 이동
   window.scrollTo(0, savedScrollTop);
 
   // 접근성 해제
   if (wrapper) wrapper.removeAttribute('aria-hidden');
 
-  // 4. 속성 복구 (지연 실행)
+  // 속성 복구 (지연 실행)
   setTimeout(() => {
     html.style.removeProperty('scroll-behavior');
     body.style.removeProperty('scroll-behavior');

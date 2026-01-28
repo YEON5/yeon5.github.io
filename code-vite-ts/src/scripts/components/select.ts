@@ -78,7 +78,7 @@ export function initSelect() {
   });
 
   // =========================================================================
-  // [추가됨] 키보드 접근성 (Focus Trap & ESC)
+  // 접근성 (Focus Trap & ESC)
   // =========================================================================
   document.addEventListener('keydown', (e) => {
     const openBox = document.querySelector('[data-select].is-active') as HTMLElement;
@@ -93,7 +93,7 @@ export function initSelect() {
         return;
     }
 
-    // 2. Tab 키 포커스 가두기 (모바일에서만 동작)
+    // Tab 키 포커스 가두기 (모바일에서만 동작)
     if (window.innerWidth <= MOBILE_BREAKPOINT && e.key === 'Tab') {
         const layer = openBox.querySelector('.select-layer') as HTMLElement;
         // 레이어 내부의 포커스 가능한 요소들 찾기

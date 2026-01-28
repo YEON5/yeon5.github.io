@@ -36,8 +36,6 @@ export function initStickyAnchor() {
   
   if (!anchorWrap) return;
 
-  // [중요] Placeholder 생성 (Fixed 전환 시 빈 공간 채우기용)
-  // 이것이 없으면 스크롤이 튑니다.
   const placeholder = document.createElement('div');
   placeholder.style.width = '100%';
   placeholder.style.display = 'none'; // 평소엔 숨김
@@ -75,18 +73,18 @@ export function initStickyAnchor() {
   const handleScroll = () => {
     const scrollTop = window.scrollY;
     
-    // [핵심] 스크롤이 (앵커 위치 - 헤더 높이) 보다 내려갔을 때
+    // 스크롤이 (앵커 위치 - 헤더 높이) 보다 내려갔을 때
     if (scrollTop >= anchorInitialTop - headerHeight) {
       if (!anchorWrap.classList.contains('is-fixed')) {
         anchorWrap.classList.add('is-fixed');
-        anchorWrap.style.top = `${headerHeight}px`; // 헤더 바로 아래 붙임
-        placeholder.style.display = 'block'; // [중요] 빈 공간 차지하여 덜컹거림 방지
+        anchorWrap.style.top = `${headerHeight}px`; 
+        placeholder.style.display = 'block'; 
       }
     } else {
       if (anchorWrap.classList.contains('is-fixed')) {
         anchorWrap.classList.remove('is-fixed');
         anchorWrap.style.removeProperty('top');
-        placeholder.style.display = 'none'; // [중요] 공간 제거
+        placeholder.style.display = 'none'; 
       }
     }
   };

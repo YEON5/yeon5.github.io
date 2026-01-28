@@ -3,10 +3,7 @@ interface SlideElement extends HTMLElement {
   _slideTimer?: number;
 }
 
-// =================================================================
-// Slide Animation Utils (Accordion, Dropdown 등에서 사용)
-// =================================================================
-
+// Slide Animation Utils (Accordion, Dropdown)
 export const slideUp = (element: SlideElement, duration: number = 300) => {
   // 기존 타이머가 있다면 취소 (광클 방지)
   if (element._slideTimer) clearTimeout(element._slideTimer);

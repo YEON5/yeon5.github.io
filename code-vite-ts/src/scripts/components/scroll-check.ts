@@ -3,7 +3,7 @@ let scrollHandler: (() => void) | null = null;
 let resizeHandler: (() => void) | null = null;
 
 export function initScrollCheck(): void {
-  // 1. 기존 리스너가 있다면 제거 (중복 실행 방지)
+  // 기존 리스너가 있다면 제거 (중복 실행 방지)
   if (scrollHandler) {
     window.removeEventListener('scroll', scrollHandler);
   }
@@ -35,7 +35,7 @@ export function initScrollCheck(): void {
     }
   };
 
-  // 2. 스크롤 핸들러 정의
+  // 스크롤 핸들러 정의
   scrollHandler = (): void => {
     const curScrTop: number = window.scrollY;
     const body = document.body;
@@ -68,7 +68,7 @@ export function initScrollCheck(): void {
     }, 100);
   };
 
-  // 3. 리사이즈 핸들러 정의
+  // 리사이즈 핸들러 정의
   resizeHandler = (): void => {
     if (resizeEndTime) clearTimeout(resizeEndTime);
     resizeEndTime = window.setTimeout(() => {
@@ -78,10 +78,10 @@ export function initScrollCheck(): void {
     }, 100);
   };
 
-  // 4. 초기 상태 실행
+  // 초기 상태 실행
   checkScrollPosition(oldScrTop);
 
-  // 5. 이벤트 등록 (passive: true로 스크롤 성능 최적화)
+  // 이벤트 등록 (passive: true로 스크롤 성능 최적화)
   window.addEventListener('scroll', scrollHandler, { passive: true });
   window.addEventListener('resize', resizeHandler);
 }
