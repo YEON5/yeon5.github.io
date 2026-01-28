@@ -1362,29 +1362,33 @@ function includeLayout() {
         const $this = $(this);
         const url = $this.data('include');
 
-        // 각 load 작업을 Promise로 감싸서 배열에 저장
-        const loadJob = new Promise((resolve, reject) => {
+        const loadJob = new Promise((resolve) => {
             $this.load(url, function (response, status) {
                 if (status === 'error') {
-                    console.error('Failed to load:', url);
-                    // 에러가 나도 다른 로딩은 진행되도록 resolve 처리 (혹은 reject 처리 후 catch)
-                    resolve();
+                    // 에러 처리
                 } else {
                     $this.removeAttr('data-include');
-                    resolve();
                 }
+                resolve();
             });
         });
-
         loadPromises.push(loadJob);
     });
 
-    // 모든 include 로딩이 끝난 시점에 단 한 번 실행
-    // Promise.all(loadPromises).then(() => {
-    //     if (typeof gnbInit === 'function') {
-    //         gnbInit();
-    //     }
-    // });
+    // 공통 함수 호출 시!!
+    Promise.all(loadPromises).then(() => {
+        
+        // 1. 헤더 관련 기능들 실행
+        if (typeof gnbInit === 'function') gnbInit();   // GNB 메뉴
+        if (typeof utilInit === 'function') utilInit(); // 로그인/회원가입 버튼 등
+
+        // 2. 푸터 관련 기능 실행 (예: 패밀리 사이트 셀렉트박스)
+        if (typeof footerInit === 'function') footerInit();
+
+        // 2. (옵션) 페이지별로 따로 해야 할 작업이 있다면 이벤트를 날려줌
+        // 예: 메인 페이지 슬라이드는 헤더가 로드된 뒤에 계산해야 한다면?
+        $(document).trigger('layout-loaded');
+    });
 }
 
 /*-------------------------------------------------------------------

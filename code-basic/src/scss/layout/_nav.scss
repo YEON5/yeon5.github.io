@@ -17,12 +17,12 @@
                     padding-left: 1rem;
                 }
             }
-            > a.depth-text {
+            > a.depth-txt {
                 text-decoration: underline;
                 text-underline-offset: 0.3rem;
-                color: $color-txt-sub;
+                color: #333;
             }
-            > span.depth-text {
+            > span.depth-txt {
                 font-weight: 500;
             }
         }
