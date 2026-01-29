@@ -1482,19 +1482,19 @@ function includeLayout() {
     });
 
     // 공통 함수 호출 시!!
-    Promise.all(loadPromises).then(() => {
+    // Promise.all(loadPromises).then(() => {
         
-        // 1. 헤더 관련 기능들 실행
-        if (typeof gnbInit === 'function') gnbInit();   // GNB 메뉴
-        if (typeof utilInit === 'function') utilInit(); // 로그인/회원가입 버튼 등
+    //     // 1. 헤더 관련 기능들 실행
+    //     if (typeof gnbInit === 'function') gnbInit();   // GNB 메뉴
+    //     if (typeof utilInit === 'function') utilInit(); // 로그인/회원가입 버튼 등
 
-        // 2. 푸터 관련 기능 실행 (예: 패밀리 사이트 셀렉트박스)
-        if (typeof footerInit === 'function') footerInit();
+    //     // 2. 푸터 관련 기능 실행 (예: 패밀리 사이트 셀렉트박스)
+    //     if (typeof footerInit === 'function') footerInit();
 
-        // 2. (옵션) 페이지별로 따로 해야 할 작업이 있다면 이벤트를 날려줌
-        // 예: 메인 페이지 슬라이드는 헤더가 로드된 뒤에 계산해야 한다면?
-        $(document).trigger('layout-loaded');
-    });
+    //     // 2. (옵션) 페이지별로 따로 해야 할 작업이 있다면 이벤트를 날려줌
+    //     // 예: 메인 페이지 슬라이드는 헤더가 로드된 뒤에 계산해야 한다면?
+    //     $(document).trigger('layout-loaded');
+    // });
 }
 
 /*-------------------------------------------------------------------
