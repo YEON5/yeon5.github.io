@@ -15,10 +15,10 @@ function uiInit() {
     toggleInit();
     dropInit();
     accodiInit();
-    SelectUiInit();
+    selectUiInit();
     stickyInit();
     AnchorInit();
-    // scrollSpy();
+    scrollSpy();
     scrollCheck();
     // scrollAnimated();
     popoverInit();
@@ -573,7 +573,7 @@ function closeItem($item) {
 /*-------------------------------------------------------------------
 	## Select box (dropdown/bottom)
 -------------------------------------------------------------------*/
-function SelectUiInit() {
+function selectUiInit() {
     const $body = $('body');
     const MOBILE_BREAKPOINT = 768;
 
@@ -862,135 +862,176 @@ function StickyAnchor() {
 /*-------------------------------------------------------------------
 	## Scrollspy
 -------------------------------------------------------------------*/
+// ScrollSpy 초기화 함수
 function scrollSpy() {
-    const $anchorWrap = $('.anchor-wrap');
-    const $nav = $anchorWrap.find('.anchor-nav');
-    const $links = $nav.find('a, button');
+  // data-scrollspy="true" 속성이 있는 앵커 랩을 찾음
+  $('.anchor-wrap[data-scrollspy="true"]').each(function () {
+    const $wrap = $(this);
+    const $nav = $wrap.find('.anchor-nav');
+    // a 태그와 button 태그 모두 지원
+    const $links = $nav.find('a[href^="#"], button[data-target]');
     
-    // 2. 링크들과 매칭되는 실제 섹션들을 동적으로 수집
-    let $sections = $(); 
+    // 타겟 정보를 저장할 객체
+    let targets = {}; 
+    let scrollTimeout = null;
+    let isManualScroll = false; // 클릭 이동 중 감지 방지용 플래그
 
-    $links.each(function() {
-        const targetId = $(this).attr('href') || $(this).data('target');
+    // 링크가 없으면 중단
+    if ($links.length === 0) return;
+
+    // ----------------------------------------------------
+    // [함수] 범위 계산 (핵심 로직)
+    // ----------------------------------------------------
+    function calcRanges() {
+      targets = {}; // 초기화
+      const offset = getOffset();
+
+      $links.each(function () {
+        const $link = $(this);
+        const rawId = $link.attr('href') || $link.data('target');
         
-        // [수정 1] 유효성 검사 강화
-        // - 값이 없거나, '#'만 있거나, '#!'로 시작하는 등 잘못된 선택자 제외
-        if (!targetId || targetId === '#' || targetId.indexOf('#!') > -1 || !targetId.startsWith('#')) {
-            return; // 건너뛰기
-        }
+        if (!rawId || rawId.substring(0, 1) !== '#') return;
 
-        // [수정 2] 문법 에러 방지를 위한 try-catch 추가
-        try {
-            const $target = $(targetId);
-            if ($target.length) {
-                $sections = $sections.add($target);
-            }
-        } catch (error) {
-            // #123, #! 등 jQuery 선택자로 쓸 수 없는 문자열은 조용히 무시
-            // console.warn('유효하지 않은 선택자:', targetId); 
-        }
-    });
-
-    // --------------------------------------------------------
-    // 클릭 이벤트 핸들러
-    // --------------------------------------------------------
-    $links.on('click', function(e) {
-        e.preventDefault();
+        const id = rawId.substring(1);
         
-        const targetId = $(this).attr('href') || $(this).data('target');
+        // 1. 메인 타겟 (ID로 찾기)
+        const $mainTarget = $('#' + id);
+        
+        // 2. 그룹 타겟들 (data-spy-group="ID"로 찾기)
+        const $groupTargets = $('[data-spy-group="' + id + '"]');
+        
+        // jQuery .add()로 두 집합을 합침 (null 체크 불필요, 없으면 length 0)
+        const $allElements = $mainTarget.add($groupTargets);
 
-        // [수정 3] 클릭 시에도 안전장치 추가
-        if (!targetId || targetId === '#' || targetId.indexOf('#!') > -1 || !targetId.startsWith('#')) {
-            return;
-        }
+        if ($allElements.length === 0) return;
 
-        try {
-            const $target = $(targetId);
-            
-            // 오프셋 계산
-            const headerHeight = $('.header').outerHeight() || 0;
-            const anchorHeight = $anchorWrap.outerHeight() || 0;
-            const offset = headerHeight + anchorHeight; 
+        // 3. 그룹 전체의 범위(Start ~ End) 계산
+        let minTop = Infinity;
+        let maxBottom = -Infinity;
 
-            if ($target.length) {
-                $('html, body').stop().animate({
-                    scrollTop: $target.offset().top - offset + 2
-                }, 500);
-                
-                updateActiveState($(this));
-            }
-        } catch (error) {
-            console.log('이동할 수 없는 타겟입니다:', targetId);
-        }
-    });
+        $allElements.each(function () {
+          const $el = $(this);
+          // jQuery의 .offset().top은 문서 기준 절대 위치 (window.scrollY 포함됨)
+          const top = $el.offset().top; 
+          const bottom = top + $el.outerHeight();
 
-    // --------------------------------------------------------
-    // 스크롤 감지 핸들러
-    // --------------------------------------------------------
-    $(window).on('scroll', function() {
-        if (!$sections.length) return;
-
-        const scrollTop = $(window).scrollTop();
-        const headerHeight = $('.header').outerHeight() || 0;
-        const anchorHeight = $anchorWrap.outerHeight() || 0;
-        const checkPoint = scrollTop + headerHeight + anchorHeight + 10; 
-
-        $sections.each(function() {
-            const $this = $(this);
-            const top = $this.offset().top;
-            const bottom = top + $this.outerHeight();
-
-            if (checkPoint >= top && checkPoint < bottom) {
-                const currentId = '#' + $this.attr('id');
-                
-                const $activeLink = $links.filter(function() {
-                    const linkTarget = $(this).attr('href') || $(this).data('target');
-                    return linkTarget === currentId;
-                });
-                
-                if (!$activeLink.hasClass('is-active')) {
-                    updateActiveState($activeLink);
-                }
-            }
+          if (top < minTop) minTop = top;
+          if (bottom > maxBottom) maxBottom = bottom;
         });
+
+        // 맵(객체)에 저장 (오차 보정 -1 포함)
+        targets[rawId] = {
+          top: minTop - offset - 1,
+          bottom: maxBottom - offset - 1,
+          $link: $link
+        };
+      });
+    }
+
+    // ----------------------------------------------------
+    // [함수] 오프셋 계산 (헤더 높이 + 앵커 네비 높이)
+    // ----------------------------------------------------
+    function getOffset() {
+      const headerHeight = $('.header').outerHeight() || 0;
+      const wrapHeight = $wrap.outerHeight() || 0;
+      return headerHeight + wrapHeight;
+    }
+
+    // ----------------------------------------------------
+    // [함수] 스크롤 핸들러
+    // ----------------------------------------------------
+    function onScroll() {
+      if (isManualScroll) return;
+
+      if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+
+      scrollTimeout = requestAnimationFrame(function () {
+        const scrollTop = $(window).scrollTop();
+        // 감지 기준점 (화면 상단 + 5px 여유)
+        const triggerPoint = scrollTop + 5;
+        let activeId = null;
+
+        // 저장된 타겟들 순회
+        $.each(targets, function (id, range) {
+          if (triggerPoint >= range.top && triggerPoint < range.bottom) {
+            activeId = id;
+            // 겹치는 구간이 있을 경우 뒤에 정의된 것을 우선하려면 break 안 함
+          }
+        });
+
+        // 활성화 상태 업데이트
+        if (activeId) {
+          updateActive(targets[activeId].$link);
+        }
+      });
+    }
+
+    // ----------------------------------------------------
+    // [함수] 활성화 상태 업데이트 & 가로 정렬
+    // ----------------------------------------------------
+    function updateActive($targetLink) {
+      // 이미 활성화 상태면 무시
+      if ($targetLink.hasClass('is-active')) return;
+
+      // 전체 해제
+      $links.removeClass('is-active').removeAttr('aria-current');
+
+      // 타겟 활성화
+      $targetLink.addClass('is-active').attr('aria-current', 'location');
+
+      // 가로 스크롤 정렬
+      alignTab($targetLink);
+    }
+
+    // ----------------------------------------------------
+    // [함수] 탭 가로 스크롤 정렬
+    // ----------------------------------------------------
+    function alignTab($target) {
+      const $ul = $nav.find('ul');
+      const $li = $target.closest('li');
+
+      if (!$ul.length || !$li.length) return;
+
+      // 현재 스크롤 위치 감안하여 계산
+      const currentScrollLeft = $ul.scrollLeft();
+      const liPositionLeft = $li.position().left; // ul 기준 상대 위치
+      
+      let targetLeft = currentScrollLeft + liPositionLeft;
+
+      // 첫 번째 아이템은 0으로 강제 (padding/margin 오차 방지)
+      if ($li.is(':first-child')) {
+        targetLeft = 0;
+      }
+
+      // 부드럽게 이동
+      $ul.stop().animate({ scrollLeft: targetLeft }, 300);
+    }
+
+    // ----------------------------------------------------
+    // [초기화] 이벤트 바인딩 및 실행
+    // ----------------------------------------------------
+    
+    // 1. 초기 범위 계산
+    calcRanges();
+
+    // 2. 윈도우 스크롤 이벤트
+    $(window).on('scroll', onScroll);
+
+    // 3. 리사이즈 이벤트 (범위 재계산)
+    $(window).on('resize', function () {
+      calcRanges();
+      onScroll();
     });
 
-    // 공통 함수 (기존 유지)
-    function updateActiveState($targetLink) {
-        $links.removeClass('is-active').removeAttr('aria-current');
-        $targetLink.addClass('is-active').attr('aria-current', 'location');
-        alignActiveTabLeft($targetLink);
-    }
-
-    function alignActiveTabLeft($target) {
-        if (!$target.length) return;
-        
-        const $ul = $nav.find('ul, div'); 
-        const $li = $target.parent(); 
-        
-        // [설정] 왼쪽에서 띄우고 싶은 간격 (px)
-        const paddingLeft = 20; 
-
-        if ($ul.length) {
-            const scrollLeft = $ul.scrollLeft();
-            const eleOffsetLeft = $li.position().left; 
-            
-            // 기본 위치 계산 (현재 스크롤 + 화면 내 요소 위치)
-            // 여기서 paddingLeft만큼 빼주면 그만큼 덜 가서 멈춤
-            let targetScrollLeft = scrollLeft + eleOffsetLeft - paddingLeft; 
-
-            // 1. 첫 번째 아이템은 무조건 0으로 (맨 앞 여백이 CSS에 있다면 0이 깔끔함)
-            if ($li.is(':first-child')) {
-                targetScrollLeft = 0;
-            }
-            // 2. 계산 결과가 0보다 작으면 0으로 고정 (음수 방지)
-            else if (targetScrollLeft < 0) {
-                targetScrollLeft = 0;
-            }
-
-            $ul.stop().animate({ scrollLeft: targetScrollLeft }, 300);
-        }
-    }
+    // 4. 링크 클릭 시 수동 스크롤 플래그 설정
+    $links.on('click', function () {
+      isManualScroll = true;
+      // 1초 뒤 자동 감지 재개
+      setTimeout(function () {
+        isManualScroll = false;
+      }, 1000);
+    });
+  });
 }
 
 /*-------------------------------------------------------------------
