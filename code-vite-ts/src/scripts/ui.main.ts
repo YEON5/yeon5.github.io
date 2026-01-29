@@ -10,7 +10,8 @@ import { initSelect } from './components/select';
 import { initPopup } from './components/popup';
 import { initPopover } from './components/popover';
 import { initSticky } from './components/sticky';
-import { initScrollSpy } from './components/scrollspy';
+import { initAnchor } from './components/anchor';
+// import { initScrollSpy } from './components/scrollspy';
 import { initScrollCheck } from './components/scroll-check';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPopup();
     initPopover();
     initSticky();
-    initScrollSpy();
+    initAnchor();
+    // initScrollSpy();
     initScrollCheck();
 });

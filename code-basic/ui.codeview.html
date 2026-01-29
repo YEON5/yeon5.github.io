@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="keywords" content="" />
         <meta name="description" content="" />
@@ -1241,8 +1241,8 @@
                                     <ul>
                                         <li><a href="#!" class="is-active">anchor tab1</a></li>
                                         <li><a href="#anchor1">anchor tab2</a></li>
-                                        <li><a href="#!">anchor tab3</a></li>
-                                        <li><a href="#!">anchor tab4</a></li>
+                                        <li><button data-target="#anchor2">anchor tab3</button></li>
+                                        <li><a href="#anchor3">anchor tab4</a></li>
                                         <li><a href="#!">anchor tab5</a></li>
                                         <li><a href="#!">anchor tab6</a></li>
                                         <li><a href="#!">anchor tab7</a></li>
@@ -1251,10 +1251,10 @@
                             </div>
                             <!-- initStickyAnchor 호출 시 content 영역 필요 없이 독자 사용 -->
                             <!-- Scroll Content -->
-                            <div style="height: 500px; background: #f9f9f9; margin-top: 2rem">
-                                <div>Content Area 1</div>
-                                <div>Content Area 2</div>
-                                <div>Content Area 3</div>
+                            <div>
+                                <div style="height: 500px; background: #f9f9f9; margin-top: 2rem">Content Area 1</div>
+                                <div id="anchor2" style="height: 500px; background: #f9f9f9; margin-top: 2rem">Content Area 2</div>
+                                <div id="anchor3" style="height: 500px; background: #f9f9f9; margin-top: 2rem">Content Area 3</div>
                             </div>
                         </article>
                         <!-- //article -->

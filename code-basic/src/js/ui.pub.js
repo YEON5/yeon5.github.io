@@ -17,7 +17,8 @@ function uiInit() {
     accodiInit();
     SelectUiInit();
     stickyInit();
-    scrollSpy();
+    AnchorInit();
+    // scrollSpy();
     scrollCheck();
     // scrollAnimated();
     popoverInit();
@@ -722,8 +723,6 @@ function SelectUiInit() {
 	## Sticky
 -------------------------------------------------------------------*/
 function stickyInit() {
-    initStickyAnchor();
-
     //Click scroll top button
     $(window).on('scroll', function (e) {
         const $btnScroll = $('.btn-scrollTop');
@@ -744,23 +743,110 @@ function stickyInit() {
     });
 }
 
-// anchor tab (anchor-wrap을 단독으로 사용할 경우 호출 + scrollspy 조합)
-function initStickyAnchor() {
+/*-------------------------------------------------------------------
+	## AnchorNav
+-------------------------------------------------------------------*/
+function AnchorInit() {
+    const $anchorWrap = $('.anchor-wrap');
+    if (!$anchorWrap.length) return;
+
+    const $ul = $anchorWrap.find('.anchor-nav > ul');
+    const $triggers = $ul.find('a, button');
+    if (!$triggers.length) return;
+
+    $triggers.on('click', function (e) {
+        const $target = $(this);
+        const rawId = $target.attr('href') || $target.data('target');
+
+        const isAnchor =
+            rawId &&
+            rawId.startsWith('#') &&
+            rawId.length > 1 &&
+            rawId !== '#!';
+
+        if (isAnchor) {
+            const $section = $(rawId);
+            if (!$section.length) return;
+
+            e.preventDefault();
+
+            const offset = getScrollOffset($anchorWrap);
+            const y = $section.offset().top - offset + 1;
+
+            $('html, body').stop().animate({ scrollTop: y }, 500);
+        }
+
+        updateActive($target, $ul);
+        alignLeft($target, $ul, $anchorWrap);
+    });
+
+    // 앵커 컨텐츠 관계 없이 fixed 필요시 호출
+    // StickyAnchor();
+}
+
+// active 처리 (a / button 공통)
+function updateActive($target, $ul) {
+    $ul.find('a, button').removeClass('is-active').removeAttr('aria-current');
+    $target.addClass('is-active').attr('aria-current', 'location');
+}
+
+// 모바일 가로 스크롤 왼쪽 정렬
+function alignLeft($target, $ul) {
+    const $li = $target.closest('li');
+    if (!$li.length) return;
+
+    const ulEl = $ul[0];
+    const liEl = $li[0];
+
+    const currentScroll = ulEl.scrollLeft;
+
+    // viewport 기준 위치
+    const liRect = liEl.getBoundingClientRect();
+    const ulRect = ulEl.getBoundingClientRect();
+
+    // ul padding-left 값
+    const ulPaddingLeft = parseInt(
+        window.getComputedStyle(ulEl).paddingLeft,
+        10
+    ) || 0;
+
+    // ul content 시작점 기준 계산
+    const targetLeft =
+        currentScroll +
+        (liRect.left - ulRect.left) -
+        ulPaddingLeft;
+
+    ulEl.scrollTo({
+        left: Math.max(0, targetLeft),
+        behavior: 'smooth'
+    });
+}
+
+// offset
+function getScrollOffset($anchorWrap) {
+    const headerHeight = $('.header').outerHeight() || 0;
+    const anchorHeight = $anchorWrap.outerHeight() || 0;
+    return headerHeight + anchorHeight;
+}
+
+// --------------------------------------------------------
+// anchor tab (anchor-wrap fixed 처리)
+function StickyAnchor() {
     const $window = $(window);
     const $anchorWrap = $('.anchor-wrap');
-    
+
     // 앵커가 없으면 실행 중지
     if (!$anchorWrap.length) return;
 
     // 앵커 초기 위치
     const anchorInitialTop = $anchorWrap.offset().top;
-    
+
     // 상단 헤더 높이
     const headerHeight = $('.header').outerHeight() || 0;
 
-    $window.on('scroll', function() {
+    $window.on('scroll', function () {
         const scrollTop = $window.scrollTop();
-        
+
         if (scrollTop >= anchorInitialTop - headerHeight) {
             if (!$anchorWrap.hasClass('is-fixed')) {
                 $anchorWrap.addClass('is-fixed');
@@ -841,33 +927,33 @@ function scrollSpy() {
     // --------------------------------------------------------
     // 스크롤 감지 핸들러
     // --------------------------------------------------------
-    // $(window).on('scroll', function() {
-    //     if (!$sections.length) return;
+    $(window).on('scroll', function() {
+        if (!$sections.length) return;
 
-    //     const scrollTop = $(window).scrollTop();
-    //     const headerHeight = $('.header').outerHeight() || 0;
-    //     const anchorHeight = $anchorWrap.outerHeight() || 0;
-    //     const checkPoint = scrollTop + headerHeight + anchorHeight + 10; 
+        const scrollTop = $(window).scrollTop();
+        const headerHeight = $('.header').outerHeight() || 0;
+        const anchorHeight = $anchorWrap.outerHeight() || 0;
+        const checkPoint = scrollTop + headerHeight + anchorHeight + 10; 
 
-    //     $sections.each(function() {
-    //         const $this = $(this);
-    //         const top = $this.offset().top;
-    //         const bottom = top + $this.outerHeight();
+        $sections.each(function() {
+            const $this = $(this);
+            const top = $this.offset().top;
+            const bottom = top + $this.outerHeight();
 
-    //         if (checkPoint >= top && checkPoint < bottom) {
-    //             const currentId = '#' + $this.attr('id');
+            if (checkPoint >= top && checkPoint < bottom) {
+                const currentId = '#' + $this.attr('id');
                 
-    //             const $activeLink = $links.filter(function() {
-    //                 const linkTarget = $(this).attr('href') || $(this).data('target');
-    //                 return linkTarget === currentId;
-    //             });
+                const $activeLink = $links.filter(function() {
+                    const linkTarget = $(this).attr('href') || $(this).data('target');
+                    return linkTarget === currentId;
+                });
                 
-    //             if (!$activeLink.hasClass('is-active')) {
-    //                 updateActiveState($activeLink);
-    //             }
-    //         }
-    //     });
-    // });
+                if (!$activeLink.hasClass('is-active')) {
+                    updateActiveState($activeLink);
+                }
+            }
+        });
+    });
 
     // 공통 함수 (기존 유지)
     function updateActiveState($targetLink) {
