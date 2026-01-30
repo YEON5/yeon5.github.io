@@ -56,14 +56,37 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-input">
-                                            <input type="text" name="" id="formItem" class="inp" maxlength="" value="" placeholder="placeholder" aria-required="true" />
+                                            <input type="text" name="" id="formItem" class="inp" maxlength="" value="" placeholder="placeholder" aria-required="true" aria-describedby="msg" />
                                             <!-- 필수 입력인 경우 aria-required="true" 추가 -->
                                         </div>
                                     </div>
-                                    <div class="form-msg" role="alert">
-                                        <span class="error">* 는 필수 입력입니다.</span>
-                                        <span class="info">&#8251; 안내문구</span>
-                                        <span class="hint">도움말</span>
+                                    <div class="form-msg">
+                                        <span id="msg" class="error" role="alert">* 는 필수 입력입니다.</span>
+                                        <span id="msg" class="info">&#8251; 안내문구</span>
+                                        <span id="msg" class="hint">도움말</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+                        <!-- //article -->
+                        <article>
+                            <p>#입력폼 : 모션 (form-field에 floating 추가)</p>
+                            <div class="form-wrap">
+                                <div class="form-field floating">
+                                    <div class="form-label">
+                                        <label for="formItem">레이블<span class="required-dot" aria-hidden="true">*</span></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <input type="text" name="" id="formItem" class="inp" maxlength="" value="" placeholder="placeholder" aria-required="true" aria-describedby="msg" />
+                                            <!-- 필수 입력인 경우 aria-required="true" 추가 -->
+                                        </div>
+                                    </div>
+                                    <div class="form-msg">
+                                        <span id="msg" class="error" role="alert">* 는 필수 입력입니다.</span>
+                                        <span id="msg" class="info">&#8251; 안내문구</span>
+                                        <span id="msg" class="hint">도움말</span>
                                     </div>
                                 </div>
                             </div>
@@ -1742,17 +1765,6 @@
                         <article>
                             <p>#padding-bottom</p>
                             <div class="img-container">
-                                <div class="figure">
-                                    <img src="/code-basic/src/images/temp/main_slide1.jpg" alt="이미지" />
-                                </div>
-                            </div>
-                        </article>
-                        <!-- //article -->
-
-                        <!-- article -->
-                        <article>
-                            <p>#calc</p>
-                            <div class="img-box">
                                 <div class="figure">
                                     <img src="/code-basic/src/images/temp/main_slide1.jpg" alt="이미지" />
                                 </div>

@@ -1175,12 +1175,16 @@
 }
 
 input[type=text],
+input[type=password],
+input[type=tel],
 textarea,
 select {
   outline: none;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=tel] {
   position: relative;
   width: 100%;
   height: 5.6rem;
@@ -1194,32 +1198,46 @@ input[type=text] {
   color: #0b0d0f;
   transition: 0.4s ease-in-out;
 }
-input[type=text]:disabled {
+input[type=text]:disabled,
+input[type=password]:disabled,
+input[type=tel]:disabled {
   color: #c4c8d4;
   background-color: #f3f4f5;
   opacity: 1;
   -webkit-text-fill-color: inherit;
 }
-input[type=text][readonly] {
+input[type=text][readonly],
+input[type=password][readonly],
+input[type=tel][readonly] {
   color: #0b0d0f;
   background-color: #f3f4f5;
 }
-input[type=text]:not(:-moz-placeholder) + .on-right > .btn-input-clear {
+input[type=text]:not(:-moz-placeholder) + .on-right > .btn-input-clear, input[type=password]:not(:-moz-placeholder) + .on-right > .btn-input-clear, input[type=tel]:not(:-moz-placeholder) + .on-right > .btn-input-clear {
   display: inline-flex;
 }
-input[type=text]:not(:placeholder-shown) + .on-right > .btn-input-clear {
+input[type=text]:not(:placeholder-shown) + .on-right > .btn-input-clear,
+input[type=password]:not(:placeholder-shown) + .on-right > .btn-input-clear,
+input[type=tel]:not(:placeholder-shown) + .on-right > .btn-input-clear {
   display: inline-flex;
 }
-input[type=text]:not(:-moz-placeholder):disabled + .on-right > .btn-input-clear, input[type=text]:not(:-moz-placeholder):read-only + .on-right > .btn-input-clear {
+input[type=text]:not(:-moz-placeholder):disabled + .on-right > .btn-input-clear, input[type=text]:not(:-moz-placeholder):read-only + .on-right > .btn-input-clear, input[type=password]:not(:-moz-placeholder):disabled + .on-right > .btn-input-clear, input[type=password]:not(:-moz-placeholder):read-only + .on-right > .btn-input-clear, input[type=tel]:not(:-moz-placeholder):disabled + .on-right > .btn-input-clear, input[type=tel]:not(:-moz-placeholder):read-only + .on-right > .btn-input-clear {
   display: none;
 }
-input[type=text]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-input-clear {
+input[type=text]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-input-clear, input[type=password]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-input-clear, input[type=tel]:not(:placeholder-shown):-moz-read-only + .on-right > .btn-input-clear {
   display: none;
 }
-input[type=text]:not(:placeholder-shown):disabled + .on-right > .btn-input-clear, input[type=text]:not(:placeholder-shown):read-only + .on-right > .btn-input-clear, input[type=text]:not(:focus) + .on-right > .btn-input-clear {
+input[type=text]:not(:placeholder-shown):disabled + .on-right > .btn-input-clear, input[type=text]:not(:placeholder-shown):read-only + .on-right > .btn-input-clear, input[type=text]:not(:focus) + .on-right > .btn-input-clear,
+input[type=password]:not(:placeholder-shown):disabled + .on-right > .btn-input-clear,
+input[type=password]:not(:placeholder-shown):read-only + .on-right > .btn-input-clear,
+input[type=password]:not(:focus) + .on-right > .btn-input-clear,
+input[type=tel]:not(:placeholder-shown):disabled + .on-right > .btn-input-clear,
+input[type=tel]:not(:placeholder-shown):read-only + .on-right > .btn-input-clear,
+input[type=tel]:not(:focus) + .on-right > .btn-input-clear {
   display: none;
 }
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=tel]:focus {
   border-color: #0046ff;
 }
 
@@ -1259,6 +1277,16 @@ input[type=text]:focus {
 .form-field .form-group .split {
   flex-shrink: 0;
 }
+.form-field .form-group.type-card {
+  gap: 0.4rem;
+}
+.form-field .form-group.type-card input {
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+}
+.form-field .form-group.type-card .form-input .on-right {
+  right: 0.4rem;
+}
 .form-field .form-input {
   position: relative;
   flex-grow: 1;
@@ -1282,7 +1310,6 @@ input[type=text]:focus {
   display: none;
   width: 2rem;
   height: 2rem;
-  margin-right: 0.8rem;
   border-radius: 50%;
   background-image: url("../images/icons/btn_file_delete.png");
   background-repeat: no-repeat;
@@ -1300,6 +1327,9 @@ input[type=text]:focus {
   border: 0;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+.form-field .form-input .btn-input-clear ~ * {
+  margin-left: 0.8rem;
 }
 .form-field .form-msg > span {
   display: flex;
@@ -1367,6 +1397,66 @@ input[type=text]:focus {
 .form-field .form-select .select:focus {
   border-color: #0046ff;
   transition: 0.4s ease-in-out;
+}
+
+/* input text floating */
+.form-field.floating {
+  gap: 0;
+}
+.form-field.floating .form-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6.6rem;
+  padding: 0 1.6rem;
+  pointer-events: none;
+  z-index: 5;
+}
+.form-field.floating .form-label label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.6rem;
+  color: #0b0d0f;
+  transform-origin: left top;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s;
+}
+.form-field.floating .form-group .form-input input[type=text],
+.form-field.floating .form-group .form-input input[type=password],
+.form-field.floating .form-group .form-input input[type=tel] {
+  height: 6.6rem;
+  padding-top: 2.2rem;
+  padding-bottom: 0.6rem;
+}
+.form-field.floating .form-group .form-input input[type=text]::-moz-placeholder, .form-field.floating .form-group .form-input input[type=password]::-moz-placeholder, .form-field.floating .form-group .form-input input[type=tel]::-moz-placeholder {
+  color: transparent;
+}
+.form-field.floating .form-group .form-input input[type=text]::placeholder,
+.form-field.floating .form-group .form-input input[type=password]::placeholder,
+.form-field.floating .form-group .form-input input[type=tel]::placeholder {
+  color: transparent;
+}
+.form-field.floating .form-group .form-input input[type=text]::-webkit-input-placeholder,
+.form-field.floating .form-group .form-input input[type=password]::-webkit-input-placeholder,
+.form-field.floating .form-group .form-input input[type=tel]::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-field.floating .form-group .form-input .on-right {
+  transform: translateY(-10%);
+}
+.form-field.floating:has(input:not(:-moz-placeholder)) .form-label label {
+  transform: translateY(-0.8rem) scale(0.75);
+}
+.form-field.floating:focus-within .form-label label, .form-field.floating:has(input:not(:placeholder-shown)) .form-label label {
+  transform: translateY(-0.8rem) scale(0.75);
+}
+.form-field.floating:focus-within .form-label label {
+  color: #0046ff;
+}
+.form-field.floating .form-msg {
+  margin-top: 1.2rem;
 }
 
 /* input file */

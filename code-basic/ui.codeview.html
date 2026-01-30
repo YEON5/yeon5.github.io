@@ -10,6 +10,9 @@
         <link rel="shortcut icon" type="image/x-icon" href="" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="./src/css/ui.style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
         <script src="./src/js/libs/jquery-3.7.1.min.js"></script>
         <script src="./src/js/ui.pub.js"></script>
         <title>UI CODEVIEW</title>
@@ -64,14 +67,37 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-input">
-                                            <input type="text" name="" id="formItem" class="inp" maxlength="" value="" placeholder="placeholder" aria-required="true" />
+                                            <input type="text" name="" id="formItem" class="inp" maxlength="" value="" placeholder="placeholder" aria-required="true" aria-describedby="msg" />
                                             <!-- 필수 입력인 경우 aria-required="true" 추가 -->
                                         </div>
                                     </div>
-                                    <div class="form-msg" role="alert">
-                                        <span class="error">* 는 필수 입력입니다.</span>
-                                        <span class="info">&#8251; 안내문구</span>
-                                        <span class="hint">도움말</span>
+                                    <div class="form-msg">
+                                        <span id="msg" class="error" role="alert">* 는 필수 입력입니다.</span>
+                                        <span id="msg" class="info">&#8251; 안내문구</span>
+                                        <span id="msg" class="hint">도움말</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- //article -->
+                        <!-- //article -->
+                        <article>
+                            <p>#입력폼 : 모션 (form-field에 floating 추가)</p>
+                            <div class="form-wrap">
+                                <div class="form-field floating">
+                                    <div class="form-label">
+                                        <label for="formItem">레이블<span class="required-dot" aria-hidden="true">*</span></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <input type="text" name="" id="formItem" class="inp" maxlength="" value="" placeholder="placeholder" aria-required="true" aria-describedby="msg" />
+                                            <!-- 필수 입력인 경우 aria-required="true" 추가 -->
+                                        </div>
+                                    </div>
+                                    <div class="form-msg">
+                                        <span id="msg" class="error" role="alert">* 는 필수 입력입니다.</span>
+                                        <span id="msg" class="info">&#8251; 안내문구</span>
+                                        <span id="msg" class="hint">도움말</span>
                                     </div>
                                 </div>
                             </div>
@@ -95,6 +121,31 @@
                                                 <span class="split">-</span>
                                                 <div class="form-input">
                                                     <input type="text" name="" id="sText2-1" class="inp" maxlength="" value="" placeholder="placeholder" title="두번째" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-field">
+                                            <div class="form-label">
+                                                <label for="card2">레이블</label>
+                                            </div>
+                                            <!-- input + input -->
+                                            <div class="form-group type-card">
+                                                <div class="form-input">
+                                                    <input type="text" name="" id="card2" class="inp" maxlength="4" value="" placeholder="4자리" title="첫번째" />
+                                                </div>
+                                                <span class="split">-</span>
+                                                <div class="form-input">
+                                                    <input type="text" name="" id="card2-1" class="inp" maxlength="4" value="" placeholder="4자리" title="두번째" />
+                                                </div>
+                                                <span class="split">-</span>
+                                                <div class="form-input">
+                                                    <input type="password" name="" id="card2-2" class="inp" maxlength="4" value="" placeholder="4자리" title="세번째" />
+                                                </div>
+                                                <span class="split">-</span>
+                                                <div class="form-input">
+                                                    <input type="password" name="" id="card2-3" class="inp" maxlength="4" value="" placeholder="4자리" title="네번째" />
                                                 </div>
                                             </div>
                                         </div>
@@ -174,11 +225,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-msg" role="alert">
-                                                <span class="error">* 는 필수 입력입니다.</span>
-                                                <span class="info">&#8251; 안내문구</span>
-                                                <span class="hint">도움말</span>
-                                            </div>
                                         </div>
                                     </li>
                                     <li>
@@ -192,6 +238,24 @@
                                         </div>
                                     </li>
                                 </ul>
+                            </div>
+                        </article>
+                        <!-- //article -->
+
+                        <!-- article -->
+                        <article>
+                            <p>#달력 flatpickr</p>
+                            <div class="form-wrap">
+                                <div class="form-field">
+                                    <div class="form-label">
+                                        <label for="inpDate1">레이블<span class="required-dot" aria-hidden="true">*</span></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <input type="text" id="inpDate1" class="datePicker" placeholder="날짜 선택" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </article>
                         <!-- //article -->
@@ -1878,4 +1942,19 @@
             margin-top: 6rem;
         }
     </style>
+
+    <script>
+        flatpickr('.datePicker', {
+            locale: 'ko',
+            dateFormat: 'Y-m-d',
+            disableMobile: true, //모바일에서 네이티브 input 대신 강제 UI
+            mode: 'range', // 날짜 범위 선택 (체크인/체크아웃)
+            // defaultDate: 'today', // 오늘 날짜 기본 선택
+
+            allowInput: true, // readonly
+            // 최소/최대 날짜 제한
+            // minDate: 'today',
+            // maxDate: '2026-12-31',
+        });
+    </script>
 </html>
