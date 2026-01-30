@@ -3,6 +3,7 @@ import htmlInject from 'vite-plugin-html-inject';
 import { resolve } from 'path';
 
 export default defineConfig({
+  base: './',
   plugins: [
     // HTML 파일 내에서 <load src="..." /> 문법을 사용할 수 있게 해줍니다.
     htmlInject(),
@@ -18,6 +19,16 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         guide: resolve(__dirname, 'src/pages/guide-ui.html'),
+      },
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'assets/ui.style.css';
+          }
+          return 'assets/[name].[ext]';
+        },
       },
     },
   },
