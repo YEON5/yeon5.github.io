@@ -1,0 +1,43 @@
+@use '../common/variables' as *;
+@use '../mixins/mixins' as *;
+
+/* 로딩 */
+.loading-wrap {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.3);
+    &.is-active {
+        display: flex;
+    }
+}
+
+// type css
+// 스피너 모양 (원형)
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spinner 1s linear infinite;
+}
+// 로딩 애니메이션 키프레임
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// lottie
+#lottie-player {
+    // 로티 크기 조절
+    width: 50px;
+    height: 50px;
+}

@@ -191,9 +191,7 @@
             // 아이콘
             &.ico {
                 &::after {
-                    top: 50%;
                     right: 1rem;
-                    transform: translateY(-50%);
                 }
             }
             .link-title {

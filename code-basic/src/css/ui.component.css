@@ -638,9 +638,7 @@
   border: 1px solid #a8aebd;
 }
 .link-list.type-outline .link.ico::after {
-  top: 50%;
   right: 1rem;
-  transform: translateY(-50%);
 }
 .link-list.type-outline .link .link-title .desc {
   padding-top: 0.4rem;
@@ -2888,4 +2886,45 @@ input[type=tel]:focus {
   border-radius: 2rem;
   background: linear-gradient(45deg, #ffc400, #f0d);
   background: -webkit-linear-gradient(45deg, #ffc400, #f0d);
+}
+
+/* 로딩 */
+.loading-wrap {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.3);
+}
+.loading-wrap.is-active {
+  display: flex;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+#lottie-player {
+  width: 50px;
+  height: 50px;
 }

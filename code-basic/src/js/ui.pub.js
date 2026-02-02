@@ -1457,46 +1457,156 @@ function scrollOff() {
 // }
 
 /*-------------------------------------------------------------------
-	## Loading - 호출예시: 로딩실행 loading('open'); / 로딩닫기 loading('close');
+	## Loading - Loading.show(), Loading.hide();
 -------------------------------------------------------------------*/
-function loading(action, callback) {
-    const $body = $('body');
-    const $eleModule = $('.loading-wrap');
-    //실행
-    if (action == 'open') {
-        $eleModule.removeAttr('hidden');
-        setTimeout(function () {
-            $eleModule.addClass('is-active');
-        });
-        $eleModule.one('transitionend', function () {
-            if ($eleModule.hasClass('is-active')) {
-                if (callback) {
-                    callback;
-                }
+// TYPE : css
+window.Loading = {
+    html: 
+    `
+        <div class="loading-wrap" role="alert" aria-busy="true">
+            <div class="loading-spinner"></div>
+        </div>
+    `,
+
+    /**
+     * 로딩 보여주기
+     * @param {Function} [callback] - 로딩이 뜬 직후 실행할 함수
+     */
+    show: function (callback) {
+        const $loading = $('.loading-wrap');
+        if ($loading.length === 0) {
+            $('body').append(this.html);
+        }
+        $('.loading-wrap').removeAttr('hidden').addClass('is-active');
+
+        // 스크롤 잠금
+        this.lockScroll();
+
+        // 콜백 처리
+        if (typeof callback === 'function') {
+            requestAnimationFrame(() => {
+                // 브라우저가 로딩바를 그릴 시간을 확실히 보장
+                setTimeout(callback, 10);
+            });
+        }
+    },
+
+    /**
+     * 로딩 숨기기
+     * @param {Function} [callback] - 로딩이 사라진 후 실행할 함수
+     */
+    hide: function (callback) {
+        const $loading = $('.loading-wrap');
+        $loading.removeClass('is-active');
+
+        // 애니메이션 시간(예: 0.3초)만큼 기다렸다가 완전히 숨김
+        setTimeout(() => {
+            $loading.attr('hidden', 'hidden');
+            // 스크롤 잠금 해제
+            this.unlockScroll();
+
+            // 콜백 실행
+            if (typeof callback === 'function') {
+                callback();
             }
-        });
-        setTimeout(function () {
-            //$dim.removeClass('is-active');
-            $body.addClass('scrollOff');
-        }, 50);
+        }, 300); // CSS transition: opacity 0.3s 와 시간을 맞춰주세요.
+    },
+
+    // 스크롤 잠금
+    lockScroll: function() {
+        // 스크롤바 너비 계산
+        const scrollBarWidth = window.innerWidth - document.body.clientWidth;
+        
+        // 컨텐츠 밀림 방지용 패딩 부여
+        if (scrollBarWidth > 0) {
+            $('body').css('padding-right', scrollBarWidth + 'px');
+        }
+
+        $('body').addClass('no-scroll');
+    },
+    // 스크롤 잠금 해제
+    unlockScroll: function() {
+        $('body').removeClass('no-scroll');
+        $('body').css('padding-right', '');
     }
-    //닫기
-    else if (action == 'close') {
-        $eleModule.removeClass('is-active');
-        $eleModule.one('transitionend', function () {
-            if (!$(this).hasClass('is-active')) {
-                $eleModule.attr('hidden', 'hidden');
-                if (callback) {
-                    callback;
-                }
-            }
-        });
-        setTimeout(function () {
-            //$dim.removeClass('is-active');
-            $body.removeClass('scrollOff');
-        }, 50);
-    }
-}
+};
+
+// TYPE : lottie
+// window.Loading = {
+//     jsonPath: './assets/lottie/loading.json',
+//     animation: null,
+//     html: `
+//         <div class="loading-wrap">
+//             <div id="lottie-player"></div>
+//         </div>
+//     `,
+
+//     init: function() {
+//         if ($('.loading-wrap').length === 0) {
+//             $('body').append(this.html);
+//         }
+//         // ... (Lottie 로드 로직 동일) ...
+//         const container = document.getElementById('lottie-player');
+//         this.animation = lottie.loadAnimation({
+//             container: container,
+//             renderer: 'svg',
+//             loop: true,
+//             autoplay: false,
+//             path: this.jsonPath
+//         });
+//     },
+
+//     show: function (callback) {
+//         if (!this.animation) this.init();
+
+//         const $loading = $('.loading-wrap');
+//         $loading.removeAttr('hidden').addClass('is-active');
+//         this.animation.play();
+
+//         // ★ [추가] 스크롤 잠금 실행
+//         this.lockScroll();
+
+//         if (typeof callback === 'function') {
+//             requestAnimationFrame(() => callback());
+//         }
+//     },
+//     hide: function (callback) {
+//         const $loading = $('.loading-wrap');
+//         $loading.removeClass('is-active');
+
+//         setTimeout(() => {
+//             $loading.attr('hidden', 'hidden');
+//             if (this.animation) this.animation.stop();
+
+//             // ★ [추가] 스크롤 잠금 해제
+//             this.unlockScroll();
+
+//             if (typeof callback === 'function') callback();
+//         }, 300);
+//     },
+
+//     // 스크롤 고정 잠금
+//     lockScroll: function() {
+//         // 1. 현재 스크롤바의 너비 계산 (윈도우 전체 너비 - 내용 너비)
+//         const scrollBarWidth = window.innerWidth - document.body.clientWidth;
+        
+//         // 2. body에 padding-right를 줘서 컨텐츠가 밀리는 것 방지
+//         if (scrollBarWidth > 0) {
+//             $('body').css('padding-right', scrollBarWidth + 'px');
+//         }
+
+//         // 3. 스크롤 막기
+//         $('body').addClass('no-scroll');
+//     },
+//     unlockScroll: function() {
+//         // 1. 스크롤 풀기
+//         $('body').removeClass('no-scroll');
+        
+//         // 2. 줬던 padding 다시 제거
+//         $('body').css('padding-right', '');
+//     }
+// };
+
 
 /*-------------------------------------------------------------------
 	## Include HTML
