@@ -151,11 +151,11 @@
   position: relative;
   padding: 4rem 2rem;
 }
-.content:has(.btn-wrap.sticky) {
-  padding-bottom: 12rem;
+.content:has(.btn-wrap.type-sticky) {
+  padding-bottom: calc(12rem + env(safe-area-inset-bottom));
 }
-.content:has(.btn-wrap.sticky.agree) {
-  padding-bottom: 16rem;
+.content:has(.btn-wrap.type-sticky.agree) {
+  padding-bottom: calc(16rem + env(safe-area-inset-bottom));
 }
 .content:not(:has(.btn-wrap)) .section:last-of-type {
   padding-bottom: 2rem;

@@ -80,11 +80,11 @@
     padding: $sec-gap-40 $sec-gap-20;
 
     // sticky button type padding
-    &:has(.btn-wrap.sticky) {
-        padding-bottom: 12rem;
+    &:has(.btn-wrap.type-sticky) {
+        padding-bottom: calc(12rem + env(safe-area-inset-bottom));
     }
-    &:has(.btn-wrap.sticky.agree) {
-        padding-bottom: 16rem;
+    &:has(.btn-wrap.type-sticky.agree) {
+        padding-bottom: calc(16rem + env(safe-area-inset-bottom));
     }
     &:not(:has(.btn-wrap)) {
         .section {

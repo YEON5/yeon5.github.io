@@ -23,5 +23,6 @@
   ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "liveServer.settings.port": 5502
+  "liveServer.settings.port": 5502,
+  "tailwindCSS.rootFontSize": 10,
 }
