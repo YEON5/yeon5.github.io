@@ -1733,17 +1733,6 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
-                        <p class="h1-title">@Toast</p>
-                        <article>
-                            <p>#Toast</p>
-                        </article>
-                        <!-- //article -->
-                    </section>
-                    <!-- //section -->
-
-                    <!-- section -->
-                    <section>
-                        <!-- article -->
                         <p class="h1-title">@Popup</p>
                         <article>
                             <div class="btn-wrap type-column">
@@ -1769,21 +1758,35 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
+                        <p class="h1-title">@Toast</p>
+                        <article>
+                            <p>#Toast.show('네트워크 연결 상태가 좋지 않습니다.');</p>
+                            <p><button type="button" data-toast="저장되었습니다" data-toast-time="2000">찜하기</button></p>
+                            <pre style="padding: 0 10px; background-color: #ddd; white-space: pre-line">
+                                <code>
+                                Toast.show({
+                                    message: '네트워크 연결 상태가 좋지 않습니다. 잠시 후 다시 시도해주세요.',
+                                    duration: 5000 
+                                });
+                                </code>
+                            </pre>
+                        </article>
+                        <!-- //article -->
+                    </section>
+                    <!-- //section -->
+
+                    <!-- section -->
+                    <section>
+                        <!-- article -->
                         <p class="h1-title">@Loading</p>
                         <article>
                             <p>#Loading.show();</p>
                             <p>#Loading.hide();</p>
-                            <p>
-                                #Loading TYPE별 호출
-                                <br />
-                                Loading.show({ type: 'texted' })
-                                <br />
-                                Loading.show({ type: 'lottie' })
-                                <br />
-                            </p>
-                            <p><button type="button" onclick="loadData()">loading 확인용</button></p>
+                            <p><button type="button" data-loading="true">loading 테스트용</button></p>
                             <pre style="padding: 0 10px; background-color: #ddd; white-space: pre-line">
                                 <code>
+                                #Loading TYPE별 호출
+
                                 // 1. 기본형
                                 Loading.show();
 
@@ -1801,20 +1804,6 @@
                                 });
                                 </code>
                             </pre>
-                            <script>
-                                function loadData() {
-                                    // Loading.show();
-                                    Loading.show({
-                                        type: 'texted',
-                                        text: ['준비중입니다', '데이터 처리중', '완료되었습니다'],
-                                    });
-                                    // Loading.show({
-                                    //     type: 'lottie',
-                                    //     lottiePath: '/assets/lottie_loading.json',
-                                    //     text: ['안전한 결제 환경을 점검중입니다.', '결제 승인 요청 중...']
-                                    // });
-                                }
-                            </script>
                         </article>
                         <!-- //article -->
                     </section>

@@ -34,13 +34,13 @@
         justify-content: center;
         width: 100%;
         max-width: 320px; // 모바일 대응
-        gap: 15px;
+        gap: 1.5rem;
         text-align: center;
 
         // 로딩 문구
         .loading-text {
             display: none;
-            font-size: 16px;
+            font-size: 1.6rem;
             color: #fff;
             line-height: 1.5;
             white-space: pre-wrap; // 줄바꿈(\n)
@@ -67,8 +67,8 @@
 .loading-lottie {
     display: none;
     // 로티 크기 조절
-    width: 50px;
-    height: 50px;
+    width: 5rem;
+    height: 5rem;
     margin: 0 auto;
     &.is-show {
         display: block;
@@ -78,8 +78,8 @@
 // type css
 // 스피너 모양 (원형)
 .loading-spinner {
-    width: 50px;
-    height: 50px;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
     border: 5px solid rgba(255, 255, 255, 0.3);
     border-top-color: #fff;

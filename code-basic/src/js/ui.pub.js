@@ -26,6 +26,7 @@ function uiInit() {
     progressInit();
     includeLayout();
     // headerPercent();
+    initGlobalEvents(); // loading, toast
 }
 
 /*-------------------------------------------------------------------
@@ -1456,6 +1457,176 @@ function scrollOff() {
 //     }, 50);
 // }
 
+
+function initGlobalEvents() {
+  document.body.addEventListener('click', (e) => {
+    const target = e.target;
+
+    // Toast
+    const toastBtn = target.closest('[data-toast]');
+    if (toastBtn) {
+      const msg = toastBtn.getAttribute('data-toast');
+      const time = toastBtn.getAttribute('data-toast-time');
+
+      if (msg) {
+        // Toast 객체 호출
+        Toast.show({
+            message: msg,
+            duration: time ? Number(time) : 3000,
+        });
+      }
+    }
+
+    // Loading
+    const loadingBtn = target.closest('[data-loading]');
+    if (loadingBtn) {
+
+        // Case 1: 기본형 (아이콘만)
+        Loading.show({
+            type: 'default'
+        });
+        
+        // Case 2: 텍스트 롤링 (현재 코드)
+        Loading.show({
+            type: 'texted',
+            text: ['준비중입니다', '데이터 처리중', '완료되었습니다'],
+            textInterval: 2000, // 교체 속도 조절
+        });
+
+        // Case C: Lottie + 텍스트
+        // Loading.show({
+        //     type: 'lottie',
+        //     lottiePath: './assets/lottie/loading.json', // 경로 확인
+        //     text: ['보안 환경 점검 중...', '결제 승인 요청 중...']
+        // });
+    
+
+        // 3초 뒤에 자동으로 닫기
+        //   setTimeout(() => {
+        //     Loading.hide();
+        //   }, 3000);
+        }
+    });
+}
+// 페이지 로드 시 이벤트 초기화 실행
+// document.addEventListener('DOMContentLoaded', initGlobalEvents);
+
+/*-------------------------------------------------------------------
+	## Toast
+-------------------------------------------------------------------*/
+/**
+ * 토스트 컨트롤러 (Singleton)
+ */
+const ToastController = (function () {
+  let instance = null;
+
+  class Controller {
+    constructor() {
+      this.container = null;
+    }
+
+    /**
+     * 컨테이너 초기화 (내부 사용)
+     * - DOM에 .toast-container가 없으면 생성하여 body에 추가
+     */
+    _initContainer() {
+      if (document.querySelector('.toast-container')) {
+        this.container = document.querySelector('.toast-container');
+      } else {
+        const div = document.createElement('div');
+        div.className = 'toast-container';
+        div.setAttribute('role', 'status');
+        document.body.appendChild(div);
+        this.container = div;
+      }
+    }
+
+    /**
+     * 토스트 메시지 노출
+     * @param {string|Object} messageOrOptions - 메시지 문자열 또는 옵션 객체
+     * @param {string} messageOrOptions.message - 메시지 내용
+     * @param {number} [messageOrOptions.duration=3000] - 지속 시간 (ms)
+     */
+    show(messageOrOptions) {
+      this._initContainer();
+      if (!this.container) return;
+
+      // 1. 옵션 정규화 (문자열로 오면 객체로 변환)
+      const options =
+        typeof messageOrOptions === 'string'
+          ? { message: messageOrOptions }
+          : messageOrOptions;
+
+      // duration이 없으면 기본 3000, 0이면 무한(자동 삭제 안 함)
+      const duration = options.duration !== undefined ? options.duration : 3000;
+
+      // 2. 토스트 요소 생성
+      const toastEl = document.createElement('div');
+      toastEl.className = 'toast-item';
+
+      // 텍스트 (보안을 위해 innerHTML 대신 textContent 사용)
+      const textSpan = document.createElement('span');
+      textSpan.textContent = options.message;
+      toastEl.appendChild(textSpan);
+
+      // 컨테이너에 추가
+      this.container.appendChild(toastEl);
+
+      // 3. 타이머 로직 (클로저 활용)
+      let timer = null;
+
+      // 삭제 함수 (애니메이션 후 제거)
+      const remove = () => {
+        if (toastEl.isConnected) {
+          toastEl.classList.add('is-hiding');
+          // CSS animation이 끝나는 시점에 DOM 제거
+          toastEl.addEventListener('animationend', () => toastEl.remove(), {
+            once: true,
+          });
+        }
+      };
+
+      // 타이머 시작
+      const startTimer = () => {
+        if (!timer && duration > 0) {
+          timer = window.setTimeout(remove, duration);
+        }
+      };
+
+      // 타이머 일시 정지
+      const pauseTimer = () => {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      };
+
+      // 4. 실행 및 이벤트 바인딩
+      startTimer();
+
+      // [접근성] 사용자가 내용을 확인하려 할 때(마우스 호버, 포커스) 사라지지 않게 멈춤
+      toastEl.addEventListener('mouseenter', pauseTimer);
+      toastEl.addEventListener('mouseleave', startTimer);
+      toastEl.addEventListener('focusin', pauseTimer);
+      toastEl.addEventListener('focusout', startTimer);
+    }
+  }
+
+  // 싱글톤 인스턴스 반환 로직
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = new Controller();
+      }
+      return instance;
+    },
+  };
+})();
+
+// 전역 객체 등록
+window.Toast = ToastController.getInstance();
+
+
 /*-------------------------------------------------------------------
 	## Loading - Loading.show(), Loading.hide();
 -------------------------------------------------------------------*/
@@ -1477,8 +1648,9 @@ const LoadingController = (function () {
       this.typeClasses = ['type-default', 'type-texted', 'type-lottie'];
 
       // HTML 템플릿
-      this.template = `
-        <div class="loading-wrap type-default" role="status" aria-busy="true" aria-live="polite">
+      this.template = 
+      `
+        <div class="loading-wrap type-default" role="status">
             <div class="loading-content">
                 <div class="loading-spinner"></div>
                 <div class="loading-lottie"></div>

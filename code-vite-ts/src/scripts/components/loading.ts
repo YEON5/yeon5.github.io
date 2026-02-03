@@ -19,8 +19,9 @@ export class LoadingController {
   private readonly typeClasses = ['type-default', 'type-texted', 'type-lottie'];
 
   // HTML 템플릿
-  private readonly template = `
-    <div class="loading-wrap type-default" role="status" aria-busy="true" aria-live="polite">
+  private readonly template = 
+  `
+    <div class="loading-wrap type-default" role="status">
         <div class="loading-content">
             <div class="loading-spinner"></div>
             <div class="loading-lottie"></div>
