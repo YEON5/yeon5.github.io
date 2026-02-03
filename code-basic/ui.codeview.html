@@ -1733,6 +1733,17 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
+                        <p class="h1-title">@Toast</p>
+                        <article>
+                            <p>#Toast</p>
+                        </article>
+                        <!-- //article -->
+                    </section>
+                    <!-- //section -->
+
+                    <!-- section -->
+                    <section>
+                        <!-- article -->
                         <p class="h1-title">@Popup</p>
                         <article>
                             <div class="btn-wrap type-column">
@@ -1758,10 +1769,52 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
-                        <p class="h1-title">@loading</p>
+                        <p class="h1-title">@Loading</p>
                         <article>
                             <p>#Loading.show();</p>
                             <p>#Loading.hide();</p>
+                            <p>
+                                #Loading TYPE별 호출
+                                <br />
+                                Loading.show({ type: 'texted' })
+                                <br />
+                                Loading.show({ type: 'lottie' })
+                                <br />
+                            </p>
+                            <p><button type="button" onclick="loadData()">loading 확인용</button></p>
+                            <pre style="padding: 0 10px; background-color: #ddd; white-space: pre-line">
+                                <code>
+                                // 1. 기본형
+                                Loading.show();
+
+                                // 2. 텍스트 롤링
+                                Loading.show({
+                                    type: 'texted',
+                                    text: ['준비중입니다', '데이터 처리중', '완료되었습니다']
+                                });
+
+                                // 3. Lottie + 텍스트
+                                Loading.show({
+                                    type: 'lottie',
+                                    lottiePath: '/assets/lottie_loading.json',
+                                    text: ['안전한 결제 환경을 점검중입니다.', '결제 승인 요청 중...']
+                                });
+                                </code>
+                            </pre>
+                            <script>
+                                function loadData() {
+                                    // Loading.show();
+                                    Loading.show({
+                                        type: 'texted',
+                                        text: ['준비중입니다', '데이터 처리중', '완료되었습니다'],
+                                    });
+                                    // Loading.show({
+                                    //     type: 'lottie',
+                                    //     lottiePath: '/assets/lottie_loading.json',
+                                    //     text: ['안전한 결제 환경을 점검중입니다.', '결제 승인 요청 중...']
+                                    // });
+                                }
+                            </script>
                         </article>
                         <!-- //article -->
                     </section>

@@ -1459,153 +1459,188 @@ function scrollOff() {
 /*-------------------------------------------------------------------
 	## Loading - Loading.show(), Loading.hide();
 -------------------------------------------------------------------*/
-// TYPE : css
-window.Loading = {
-    html: 
-    `
-        <div class="loading-wrap" role="alert" aria-busy="true">
-            <div class="loading-spinner"></div>
+/**
+ * 로딩 컨트롤러 (Singleton)
+ * - type: 'default' | 'texted' | 'lottie'
+ */
+const LoadingController = (function () {
+  let instance = null;
+
+  class Controller {
+    constructor() {
+      // 상태 변수
+      this.lottieAnim = null;
+      this.msgInterval = null;
+      this.$wrap = null;
+
+      // 타입 클래스 목록 (초기화용)
+      this.typeClasses = ['type-default', 'type-texted', 'type-lottie'];
+
+      // HTML 템플릿
+      this.template = `
+        <div class="loading-wrap type-default" role="status" aria-busy="true" aria-live="polite">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <div class="loading-lottie"></div>
+                <p class="loading-text"></p>
+            </div>
         </div>
-    `,
-
-    /**
-     * 로딩 보여주기
-     * @param {Function} [callback] - 로딩이 뜬 직후 실행할 함수
-     */
-    show: function (callback) {
-        const $loading = $('.loading-wrap');
-        if ($loading.length === 0) {
-            $('body').append(this.html);
-        }
-        $('.loading-wrap').removeAttr('hidden').addClass('is-active');
-
-        // 스크롤 잠금
-        this.lockScroll();
-
-        // 콜백 처리
-        if (typeof callback === 'function') {
-            requestAnimationFrame(() => {
-                // 브라우저가 로딩바를 그릴 시간을 확실히 보장
-                setTimeout(callback, 10);
-            });
-        }
-    },
-
-    /**
-     * 로딩 숨기기
-     * @param {Function} [callback] - 로딩이 사라진 후 실행할 함수
-     */
-    hide: function (callback) {
-        const $loading = $('.loading-wrap');
-        $loading.removeClass('is-active');
-
-        // 애니메이션 시간(예: 0.3초)만큼 기다렸다가 완전히 숨김
-        setTimeout(() => {
-            $loading.attr('hidden', 'hidden');
-            // 스크롤 잠금 해제
-            this.unlockScroll();
-
-            // 콜백 실행
-            if (typeof callback === 'function') {
-                callback();
-            }
-        }, 300); // CSS transition: opacity 0.3s 와 시간을 맞춰주세요.
-    },
-
-    // 스크롤 잠금
-    lockScroll: function() {
-        // 스크롤바 너비 계산
-        const scrollBarWidth = window.innerWidth - document.body.clientWidth;
-        
-        // 컨텐츠 밀림 방지용 패딩 부여
-        if (scrollBarWidth > 0) {
-            $('body').css('padding-right', scrollBarWidth + 'px');
-        }
-
-        $('body').addClass('no-scroll');
-    },
-    // 스크롤 잠금 해제
-    unlockScroll: function() {
-        $('body').removeClass('no-scroll');
-        $('body').css('padding-right', '');
+      `;
     }
-};
 
-// TYPE : lottie
-// window.Loading = {
-//     jsonPath: './assets/lottie/loading.json',
-//     animation: null,
-//     html: `
-//         <div class="loading-wrap">
-//             <div id="lottie-player"></div>
-//         </div>
-//     `,
+    /**
+     * DOM 초기화 (내부 사용)
+     */
+    _initDOM() {
+      if (document.querySelector('.loading-wrap')) {
+        this.$wrap = document.querySelector('.loading-wrap');
+        return;
+      }
+      document.body.insertAdjacentHTML('beforeend', this.template);
+      this.$wrap = document.querySelector('.loading-wrap');
+    }
 
-//     init: function() {
-//         if ($('.loading-wrap').length === 0) {
-//             $('body').append(this.html);
-//         }
-//         // ... (Lottie 로드 로직 동일) ...
-//         const container = document.getElementById('lottie-player');
-//         this.animation = lottie.loadAnimation({
-//             container: container,
-//             renderer: 'svg',
-//             loop: true,
-//             autoplay: false,
-//             path: this.jsonPath
-//         });
-//     },
+    /**
+     * 로딩 노출
+     * @param {Object} options
+     * @param {string} [options.type='default'] - 'default' | 'texted' | 'lottie'
+     * @param {string|string[]} [options.text] - 노출 문구
+     * @param {number} [options.textInterval=2000] - 문구 교체 속도
+     * @param {string} [options.lottiePath] - Lottie JSON 파일 경로
+     */
+    show(options = {}) {
+      this._initDOM();
+      if (!this.$wrap) return;
 
-//     show: function (callback) {
-//         if (!this.animation) this.init();
+      const $spinner = this.$wrap.querySelector('.loading-spinner');
+      const $lottie = this.$wrap.querySelector('.loading-lottie');
+      const $text = this.$wrap.querySelector('.loading-text');
 
-//         const $loading = $('.loading-wrap');
-//         $loading.removeAttr('hidden').addClass('is-active');
-//         this.animation.play();
+      // 1. 타입 설정 (기본값: default)
+      const currentType = options.type || 'default';
 
-//         // ★ [추가] 스크롤 잠금 실행
-//         this.lockScroll();
+      // 기존 타입 클래스 제거 후 새 타입 추가
+      this.$wrap.classList.remove(...this.typeClasses);
+      this.$wrap.classList.add(`type-${currentType}`);
 
-//         if (typeof callback === 'function') {
-//             requestAnimationFrame(() => callback());
-//         }
-//     },
-//     hide: function (callback) {
-//         const $loading = $('.loading-wrap');
-//         $loading.removeClass('is-active');
+      // 2. 요소별 노출 제어 로직
 
-//         setTimeout(() => {
-//             $loading.attr('hidden', 'hidden');
-//             if (this.animation) this.animation.stop();
+      // [Lottie 제어] type이 'lottie'일 때만 노출
+      // (전역 객체 window.lottie가 존재해야 함)
+      if (currentType === 'lottie' && options.lottiePath && window.lottie) {
+        $spinner.style.display = 'none'; // 스피너 숨김
+        $lottie.style.display = 'block'; // 로티 노출
+        this._playLottie($lottie, options.lottiePath);
+      } else {
+        $lottie.style.display = 'none';
+        this._stopLottie();
 
-//             // ★ [추가] 스크롤 잠금 해제
-//             this.unlockScroll();
+        // 'lottie' 타입이 아니면 무조건 스피너 노출
+        $spinner.style.display = 'block';
+      }
 
-//             if (typeof callback === 'function') callback();
-//         }, 300);
-//     },
+      // [텍스트 제어] type이 'default'가 아닐 때만 노출 ('texted', 'lottie')
+      if (currentType !== 'default' && options.text) {
+        this._handleText($text, options.text, options.textInterval);
+      } else {
+        // default 타입이거나 텍스트가 없으면 숨김
+        $text.classList.remove('is-show');
+        this._stopTextInterval();
+      }
 
-//     // 스크롤 고정 잠금
-//     lockScroll: function() {
-//         // 1. 현재 스크롤바의 너비 계산 (윈도우 전체 너비 - 내용 너비)
-//         const scrollBarWidth = window.innerWidth - document.body.clientWidth;
-        
-//         // 2. body에 padding-right를 줘서 컨텐츠가 밀리는 것 방지
-//         if (scrollBarWidth > 0) {
-//             $('body').css('padding-right', scrollBarWidth + 'px');
-//         }
+      // 3. 화면 표시 및 스크롤 잠금
+      this.$wrap.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+    }
 
-//         // 3. 스크롤 막기
-//         $('body').addClass('no-scroll');
-//     },
-//     unlockScroll: function() {
-//         // 1. 스크롤 풀기
-//         $('body').removeClass('no-scroll');
-        
-//         // 2. 줬던 padding 다시 제거
-//         $('body').css('padding-right', '');
-//     }
-// };
+    /**
+     * 로딩 숨김
+     */
+    hide() {
+      if (!this.$wrap) return;
+
+      this.$wrap.classList.remove('is-active');
+      document.body.style.removeProperty('overflow');
+
+      this._stopTextInterval();
+      this._stopLottie();
+    }
+
+    // ============================================================
+    //  ▼ Private Methods (관례적으로 _ 사용)
+    // ============================================================
+
+    _handleText(el, text, interval = 2000) {
+      this._stopTextInterval();
+
+      // 배열 처리
+      if (Array.isArray(text)) {
+        if (text.length === 0) return;
+        let idx = 0;
+        this._updateTextWithAnimation(el, text[0]);
+
+        if (text.length > 1) {
+          this.msgInterval = window.setInterval(() => {
+            idx = (idx + 1) % text.length;
+            this._updateTextWithAnimation(el, text[idx]);
+          }, interval);
+        }
+      } else {
+        // 문자열 처리
+        this._updateTextWithAnimation(el, text);
+      }
+    }
+
+    _updateTextWithAnimation(el, newText) {
+      el.classList.remove('is-show');
+      void el.offsetWidth; // Reflow 강제 발생 (애니메이션 리셋용)
+      el.innerText = newText;
+      el.classList.add('is-show');
+    }
+
+    _stopTextInterval() {
+      if (this.msgInterval) {
+        clearInterval(this.msgInterval);
+        this.msgInterval = null;
+      }
+    }
+
+    _playLottie(container, path) {
+      // 이미 로드된 애니메이션이 있으면 재생만
+      if (this.lottieAnim) {
+        this.lottieAnim.play();
+        return;
+      }
+      // 없으면 새로 로드
+      this.lottieAnim = window.lottie.loadAnimation({
+        container: container,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: path,
+      });
+    }
+
+    _stopLottie() {
+      if (this.lottieAnim) {
+        this.lottieAnim.destroy(); // 메모리 해제
+        this.lottieAnim = null;
+      }
+    }
+  }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = new Controller();
+      }
+      return instance;
+    },
+  };
+})();
+
+// 전역 객체 등록
+window.Loading = LoadingController.getInstance();
 
 
 /*-------------------------------------------------------------------

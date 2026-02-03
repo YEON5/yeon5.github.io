@@ -15,11 +15,6 @@ import { initScrollSpy } from './components/scrollspy';
 import { initScrollCheck } from './components/scroll-check';
 import { Loading } from './components/loading';
 
-declare global {
-  interface Window {
-    Loading: typeof Loading;
-  }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('UI Scripts Initialized');

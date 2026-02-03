@@ -3,7 +3,7 @@ export function initSticky() {
 
 }
 
-// 1. Scroll Top Button (맨 위로 가기)
+// Scroll Top Button (맨 위로 가기)
 function handleScrollTop() {
   const btnScroll = document.querySelector('.btn-scrollTop') as HTMLElement;
   if (!btnScroll) return;

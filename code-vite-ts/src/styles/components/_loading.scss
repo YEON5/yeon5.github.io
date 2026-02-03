@@ -3,7 +3,9 @@
 
 /* 로딩 */
 .loading-wrap {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -12,9 +14,64 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+    transition:
+        opacity 0.3s ease,
+        visibility 0s linear 0.3s;
+    // 활성화 상태
     &.is-active {
+        visibility: visible;
+        opacity: 1;
+        transition:
+            opacity 0.3s ease,
+            visibility 0s;
+    }
+
+    .loading-content {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 320px; // 모바일 대응
+        gap: 15px;
+        text-align: center;
+
+        // 로딩 문구
+        .loading-text {
+            display: none;
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.5;
+            white-space: pre-wrap; // 줄바꿈(\n)
+            &.is-show {
+                display: block;
+                animation: fadeInUp 0.5s ease-out forwards;
+            }
+        }
+    }
+
+    // 로딩 타입
+    // 로딩 type1
+    &.type-default {
+    }
+    // 로딩 type2
+    &.type-texted {
+    }
+    // 로딩 type3
+    &.type-lottie {
+    }
+}
+
+// lottie
+.loading-lottie {
+    display: none;
+    // 로티 크기 조절
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    &.is-show {
+        display: block;
     }
 }
 
@@ -23,9 +80,9 @@
 .loading-spinner {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
     border: 5px solid rgba(255, 255, 255, 0.3);
     border-top-color: #fff;
-    border-radius: 50%;
     animation: spinner 1s linear infinite;
 }
 // 로딩 애니메이션 키프레임
@@ -34,10 +91,19 @@
         transform: rotate(360deg);
     }
 }
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-// lottie
-#lottie-player {
-    // 로티 크기 조절
-    width: 50px;
-    height: 50px;
+// 로딩 호출 시 스크롤 잠금
+body.no-scroll {
+    overflow: hidden;
+    touch-action: none;
 }
