@@ -724,25 +724,58 @@ function selectUiInit() {
 	## Sticky
 -------------------------------------------------------------------*/
 function stickyInit() {
-    //Click scroll top button
-    $(window).on('scroll', function (e) {
-        const $btnScroll = $('.btn-scrollTop');
-        if ($(this).scrollTop() > 0) {
-            $btnScroll.addClass('is-active');
-        } else {
-            $btnScroll.removeClass('is-active');
-        }
+    initScrollTopButton();
+    initStickyPadding();
+}
+
+// 하단 sticky button 높이 계산
+function initStickyPadding() {
+    const $stickyBtn = document.querySelector('.btn-wrap.btn-sticky');
+    const $content = document.querySelector('.content');
+
+    if (!$stickyBtn || !$content) return;
+
+    // 높이 감지 및 CSS 변수 세팅 함수
+    const setPadding = () => {
+        const height = $stickyBtn.offsetHeight;
+        // content 요소에 직접 변수 주입
+        $content.style.setProperty('--sticky-height', `${height}px`);
+    };
+    // 초기 실행
+    setPadding();
+
+    // 리사이즈 감지 (텍스트 줄바꿈 등으로 높이 변할 때 대응)
+    const observer = new ResizeObserver(() => {
+        setPadding();
     });
-    $(document).on('click', '.btn-scrollTop', function (e) {
+    observer.observe($stickyBtn);
+}
+
+// 스크롤 버튼 top 이동
+function initScrollTopButton() {
+    const $window = $(window);
+    const $btnScroll = $('.btn-scrollTop');
+    const THRESHOLD = 100; // 버튼 노출 기준 px
+
+    if (!$btnScroll.length) return;
+
+    // 스크롤 이벤트
+    $window.on('scroll.scrollTopBtn', function () {
+        const isActive = $window.scrollTop() > THRESHOLD;
+        $btnScroll.toggleClass('is-active', isActive);
+    });
+
+    // 클릭 이벤트
+    $btnScroll.on('click.scrollTopBtn', function (e) {
         e.preventDefault();
-        $('html').animate(
-            {
-                scrollTop: 0,
-            },
-            300,
+
+        $('html, body').stop().animate(
+            { scrollTop: 0 },
+            300
         );
     });
 }
+
 
 /*-------------------------------------------------------------------
 	## AnchorNav
@@ -1458,6 +1491,9 @@ function scrollOff() {
 // }
 
 
+/*-------------------------------------------------------------------
+	## GlobalEvent (loading, toast)
+-------------------------------------------------------------------*/
 function initGlobalEvents() {
   document.body.addEventListener('click', (e) => {
     const target = e.target;
@@ -1514,9 +1550,6 @@ function initGlobalEvents() {
 /*-------------------------------------------------------------------
 	## Toast
 -------------------------------------------------------------------*/
-/**
- * 토스트 컨트롤러 (Singleton)
- */
 const ToastController = (function () {
   let instance = null;
 

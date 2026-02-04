@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>UI CODEVIEW - LAYOUT</title>
+
+    <!-- 스타일: SCSS 파일을 직접 연결 (Vite가 자동으로 변환 처리) -->
+    <!-- <link rel="stylesheet" href="../styles/ui.style.scss" /> -->
+  </head>
+  <body>
+    <!-- header line percent -->
+    <!-- <div class="header-line"></div> -->
+    <!-- //header line percent -->
+
+    <!-- skipNav -->
+    <div class="skip-nav">
+      <a href="#content" title="본문바로가기">본문바로가기</a>
+    </div>
+    <!-- //skipNav -->
+
+    <!-- wrapper -->
+    <div class="wrapper">
+      <!-- header -->
+      <div id="header-include"></div>
+      <!-- //header -->
+
+      <!-- aside -->
+      <!-- <aside id="sidebar-include"></aside> -->
+      <!-- //aside -->
+
+      <!-- main -->
+      <main class="main">
+        <!-- content -->
+        <div class="content" id="content">
+          <!-- section -->
+          <section class="section" style="flex-grow: 0; margin-bottom: 30px">
+            <nav class="breadcrumb-wrap" id="breadcrumb" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="home"><a href="#!" class="depth-txt">홈</a></li>
+                <li><a href="#!" class="depth-txt">1Depth</a></li>
+                <li><a href="#!" class="depth-txt">2Depth</a></li>
+                <li><a href="#!" class="depth-txt">3Depth</a></li>
+                <li><span class="depth-txt" aria-current="page">4Depth</span></li>
+              </ol>
+            </nav>
+          </section>
+          <!-- //section -->
+
+          <!-- step -->
+          <div class="page-step">
+            <span class="sr-only">총 4 단계로 구성되어 있습니다.</span>
+            <em>
+              <span class="sr-only">현재 단계</span>
+              3
+            </em>
+            <span aria-hidden="true">/4</span>
+          </div>
+          <!-- //step -->
+          <!-- main title -->
+          <div class="main-title">
+            <h2 class="h2-title">h2메인타이틀</h2>
+            <p class="sub-desc">메인설명문구</p>
+          </div>
+          <!-- //main title -->
+
+          <!-- section -->
+          <section class="section">
+            <!-- group -->
+            <div class="sec-group">
+              <div class="sec-head">
+                <div class="title-area">
+                  <h3 class="h4-title">컨텐츠 타이틀1</h3>
+                  <p class="desc">컨텐츠 설명문구1</p>
+                </div>
+                <!-- <div class="util-area">
+                  <span class="info">정보/버튼영역1</span>
+                </div> -->
+              </div>
+              <div class="sec-body">
+                <div>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+              </div>
+            </div>
+            <!-- //group -->
+
+            <!-- group -->
+            <div class="sec-group">
+              <div class="sec-head">
+                <div class="title-area">
+                  <h3 class="h4-title">컨텐츠 타이틀1</h3>
+                </div>
+                <!-- <div class="util-area">
+                  <span class="info">정보/버튼영역1</span>
+                </div> -->
+              </div>
+              <div class="sec-body">
+                <div>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+              </div>
+            </div>
+            <!-- //group -->
+          </section>
+          <!-- //section -->
+
+          <!-- section -->
+          <section class="section has-divider">
+            <div class="sec-head">
+              <div class="title-area">
+                <h3 class="h4-title">컨텐츠 타이틀2</h3>
+              </div>
+              <div class="util-area">
+                <span class="info">정보/버튼영역2</span>
+              </div>
+            </div>
+            <div class="sec-body">
+              <div>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+            </div>
+          </section>
+          <!-- //section -->
+
+          <!-- button sticky -->
+          <div class="btn-wrap btn-sticky">
+            <button type="button" class="btn fill secondary"><span>취소</span></button>
+            <button type="button" class="btn fill primary"><span>확인</span></button>
+          </div>
+          <!-- //button sticky -->
+
+          <!-- button sticky column -->
+          <!-- <div class="btn-wrap btn-sticky type-column">
+            <p class="desc">동의안내문구영역입니다.</p>
+            <div class="btn-group">
+              <button type="button" class="btn fill secondary"><span>동의 안함</span></button>
+              <button type="button" class="btn fill primary"><span>동의</span></button>
+            </div>
+          </div> -->
+          <!-- //button sticky column -->
+        </div>
+        <!-- //content -->
+      </main>
+      <!-- //main -->
+
+      <!-- footer -->
+      <!-- <div id="footer-include"></div> -->
+      <!-- //footer -->
+    </div>
+    <!-- //wrapper -->
+
+    <!-- 스크립트: 메인 UI 스크립트 연결 -->
+    <script type="module" src="../scripts/ui.main.ts"></script>
+  </body>
+</html>

@@ -1724,10 +1724,52 @@
                     <!-- section -->
                     <section>
                         <!-- article -->
+                        <p class="h1-title">@Toast</p>
+                        <article>
+                            <p>#Toast.show('네트워크 연결 상태가 좋지 않습니다.');</p>
+                            <p><button type="button" data-toast="저장되었습니다" data-toast-time="2000">찜하기</button></p>
+                            <pre style="padding: 0 10px; background-color: #ddd; white-space: pre-line">
+                                <code>
+                                Toast.show({
+                                    message: '네트워크 연결 상태가 좋지 않습니다. 잠시 후 다시 시도해주세요.',
+                                    duration: 5000 
+                                });
+                                </code>
+                            </pre>
+                        </article>
+                        <!-- //article -->
+                    </section>
+                    <!-- //section -->
+
+                    <!-- section -->
+                    <section>
+                        <!-- article -->
                         <p class="h1-title">@Loading</p>
                         <article>
                             <p>#Loading.show();</p>
                             <p>#Loading.hide();</p>
+                            <p><button type="button" data-loading="true">loading 테스트용</button></p>
+                            <pre style="padding: 0 10px; background-color: #ddd; white-space: pre-line">
+                                <code>
+                                #Loading TYPE별 호출
+
+                                // 1. 기본형
+                                Loading.show();
+
+                                // 2. 텍스트 롤링
+                                Loading.show({
+                                    type: 'texted',
+                                    text: ['준비중입니다', '데이터 처리중', '완료되었습니다']
+                                });
+
+                                // 3. Lottie + 텍스트
+                                Loading.show({
+                                    type: 'lottie',
+                                    lottiePath: '/assets/lottie_loading.json',
+                                    text: ['안전한 결제 환경을 점검중입니다.', '결제 승인 요청 중...']
+                                });
+                                </code>
+                            </pre>
                         </article>
                         <!-- //article -->
                     </section>
@@ -1873,12 +1915,12 @@
                         </div>
                     </div>
                     <div class="popup-foot">
-                        <div class="btn-wrap type-sticky">
+                        <div class="btn-wrap btn-sticky">
                             <button type="button" class="btn secondary" data-popup-close>취소</button>
                             <button type="button" class="btn primary" data-popup-trigger="popupBottom">확인</button>
                         </div>
-                        <!-- <div class="btn-wrap type-sticky agree">
-                            <p class="agree-desc">동의안내문구영역입니다.</p>
+                        <!-- <div class="btn-wrap btn-sticky type-column">
+                            <p class="desc">동의안내문구영역입니다.</p>
                             <div class="btn-group">
                                 <button type="button" class="btn secondary" data-popup-close><span>동의 안함</span></button>
                                 <button type="button" class="btn primary"><span>동의</span></button>
@@ -1904,7 +1946,7 @@
                         </div>
                     </div>
                     <div class="popup-foot">
-                        <div class="btn-wrap type-sticky">
+                        <div class="btn-wrap btn-sticky">
                             <button type="button" class="btn primary h48" data-popup-close>확인</button>
                         </div>
                     </div>
@@ -1950,8 +1992,8 @@
             flatpickr('#datepicker-1', {
                 locale: 'ko', // 한글 설정
                 dateFormat: 'Y-m-d', // 데이터 포맷 (예: 2026-01-30)
-                allowInput: true, // 키보드로 직접 입력 허용 (선택사항)
                 disableMobile: true, // 모바일에서도 Flatpickr 테마 사용 (추천)
+                allowInput: true, // 키보드로 직접 입력 허용 (선택사항)
 
                 // [중요] 플로팅 라벨과 호환성을 위한 옵션
                 // 날짜가 선택되면 라벨이 예쁘게 떠있도록 유지됩니다.

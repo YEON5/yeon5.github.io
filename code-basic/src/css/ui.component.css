@@ -166,42 +166,45 @@
 .btn-wrap.align-around {
   justify-content: space-around;
 }
-.btn-wrap.type-sticky {
+.btn-wrap.btn-sticky {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   justify-content: space-between;
   z-index: 2;
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: calc(2rem + env(safe-area-inset-bottom));
   background-color: #fff;
 }
-.btn-wrap.type-sticky .btn {
+.btn-wrap.btn-sticky .btn {
   flex-grow: 1;
   flex-basis: 0;
   min-height: 5.6rem;
   border-radius: 0.8rem;
   font-size: 1.8rem;
 }
-.btn-wrap.type-sticky.agree {
-  flex-direction: column;
+.btn-wrap.btn-sticky.type-column {
+  align-items: center;
   row-gap: 1.6rem;
 }
-.btn-wrap.type-sticky.agree .agree-desc {
-  font-size: 1.4rem;
+.btn-wrap.btn-sticky.type-column .desc {
+  font-size: 1.6rem;
   color: #656b7b;
   text-align: center;
 }
-.btn-wrap.type-sticky.agree .btn-group {
+.btn-wrap.btn-sticky.type-column .btn-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   -moz-column-gap: 1rem;
        column-gap: 1rem;
+}
+.btn-wrap.btn-sticky.type-column .btn {
+  align-self: stretch;
 }
 .btn-wrap .btn {
   display: flex;
@@ -2820,10 +2823,10 @@ input[type=tel]:focus {
 .popup-wrap.type-full .popup .popup-foot {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
-.popup-wrap.type-full .popup .popup-foot:has(.type-sticky) {
+.popup-wrap.type-full .popup .popup-foot:has(.btn-sticky) {
   min-height: 9rem;
 }
-.popup-wrap.type-full .popup .popup-foot:has(.type-sticky.agree) {
+.popup-wrap.type-full .popup .popup-foot:has(.btn-sticky.type-column) {
   min-height: 12rem;
 }
 .popup-wrap.type-bottom {
@@ -2834,7 +2837,7 @@ input[type=tel]:focus {
   border-radius: 2rem 2rem 0 0;
   transform: translate(0, 100%);
 }
-.popup-wrap.type-bottom .popup .popup-foot:has(.type-sticky) {
+.popup-wrap.type-bottom .popup .popup-foot:has(.btn-sticky) {
   min-height: 8rem;
 }
 @media screen and (min-width: 769px) {
@@ -2854,7 +2857,7 @@ input[type=tel]:focus {
     border-radius: 0 0 1.2rem 1.2rem;
     background-color: #fff;
   }
-  .popup-wrap.type-full .popup .popup-foot .type-sticky, .popup-wrap.type-bottom .popup .popup-foot .type-sticky {
+  .popup-wrap.type-full .popup .popup-foot .btn-sticky, .popup-wrap.type-bottom .popup .popup-foot .btn-sticky {
     background-color: transparent;
   }
   .popup-wrap.type-full .popup .popup-foot {

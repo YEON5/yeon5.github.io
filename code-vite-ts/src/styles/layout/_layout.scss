@@ -77,16 +77,31 @@
 }
 .content {
     position: relative;
-    padding: $sec-gap-40 $sec-gap-20;
+    padding-top: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
 
     // sticky button type padding
-    &:has(.btn-wrap.type-sticky) {
-        padding-bottom: calc(12rem + env(safe-area-inset-bottom));
+    // &:has(.btn-wrap.type-sticky) {
+    //     padding-bottom: calc(12rem + env(safe-area-inset-bottom));
+    // }
+    // &:has(.btn-wrap.type-sticky.agree) {
+    //     padding-bottom: calc(16rem + env(safe-area-inset-bottom));
+    // }
+
+    // 버튼이 있을 때만 패딩 적용
+    --sticky-height: 0px;
+    &:has(.btn-wrap.btn-sticky) {
+        // 계산된 높이 + 2rem
+        padding-bottom: calc(var(--sticky-height) + 2rem);
+
+        // 아이폰 하단 바 대응 (Safe Area)
+        padding-bottom: calc(var(--sticky-height) + 2rem + env(safe-area-inset-bottom));
     }
-    &:has(.btn-wrap.type-sticky.agree) {
-        padding-bottom: calc(16rem + env(safe-area-inset-bottom));
-    }
-    &:not(:has(.btn-wrap)) {
+
+    // 버튼 없을 때 마지막 section 간격
+    &:not(:has(.btn-wrap.btn-sticky)) {
         .section {
             &:last-of-type {
                 padding-bottom: $sec-gap-20;

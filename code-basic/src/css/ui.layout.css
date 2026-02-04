@@ -149,15 +149,17 @@
 
 .content {
   position: relative;
-  padding: 4rem 2rem;
+  padding-top: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  --sticky-height: 0px;
 }
-.content:has(.btn-wrap.type-sticky) {
-  padding-bottom: calc(12rem + env(safe-area-inset-bottom));
+.content:has(.btn-wrap.btn-sticky) {
+  padding-bottom: calc(var(--sticky-height) + 2rem);
+  padding-bottom: calc(var(--sticky-height) + 2rem + env(safe-area-inset-bottom));
 }
-.content:has(.btn-wrap.type-sticky.agree) {
-  padding-bottom: calc(16rem + env(safe-area-inset-bottom));
-}
-.content:not(:has(.btn-wrap)) .section:last-of-type {
+.content:not(:has(.btn-wrap.btn-sticky)) .section:last-of-type {
   padding-bottom: 2rem;
 }
 

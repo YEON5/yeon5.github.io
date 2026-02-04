@@ -127,10 +127,10 @@ $breakpoint-pc: 769px;
             transform: translate(0, 100%);
             .popup-foot {
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-                &:has(.type-sticky) {
+                &:has(.btn-sticky) {
                     min-height: 9rem;
                 }
-                &:has(.type-sticky.agree) {
+                &:has(.btn-sticky.type-column) {
                     min-height: 12rem;
                 }
             }
@@ -145,7 +145,7 @@ $breakpoint-pc: 769px;
             border-radius: 2rem 2rem 0 0;
             transform: translate(0, 100%);
             .popup-foot {
-                &:has(.type-sticky) {
+                &:has(.btn-sticky) {
                     min-height: 8rem;
                 }
             }
@@ -169,7 +169,7 @@ $breakpoint-pc: 769px;
                 .popup-foot {
                     border-radius: 0 0 1.2rem 1.2rem;
                     background-color: #fff;
-                    .type-sticky {
+                    .btn-sticky {
                         background-color: transparent;
                     }
                 }
@@ -187,7 +187,7 @@ $breakpoint-pc: 769px;
         &.type-bottom {
             .popup {
                 .popup-foot {
-                    .type-sticky {
+                    .btn-sticky {
                         // box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
                     }
                 }
