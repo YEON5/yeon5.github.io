@@ -128,10 +128,10 @@ $breakpoint-pc: 769px;
             .popup-foot {
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
                 &:has(.btn-sticky) {
-                    min-height: 9rem;
+                    min-height: 10rem;
                 }
                 &:has(.btn-sticky.type-column) {
-                    min-height: 12rem;
+                    min-height: 14rem;
                 }
             }
         }

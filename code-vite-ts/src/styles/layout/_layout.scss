@@ -99,6 +99,12 @@
         // 아이폰 하단 바 대응 (Safe Area)
         padding-bottom: calc(var(--sticky-height) + 2rem + env(safe-area-inset-bottom));
     }
+    // 반응형인 경우 content 하단 간격
+    @include breakpoint(pc) {
+        &:has(.btn-wrap.btn-sticky) {
+            padding-bottom: 5rem; // 원래 .content의 기본 패딩값으로 복귀
+        }
+    }
 
     // 버튼 없을 때 마지막 section 간격
     &:not(:has(.btn-wrap.btn-sticky)) {

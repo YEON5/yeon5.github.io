@@ -88,6 +88,15 @@ $btn-color: (
                 // width: 100%;
             }
         }
+
+        @include breakpoint(pc) {
+            position: static;
+            padding: 4rem 0 0;
+            background-color: transparent;
+            .btn {
+                min-height: 5.6rem;
+            }
+        }
     }
 
     // button 공통

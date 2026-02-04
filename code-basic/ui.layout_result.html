@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <link rel="shortcut icon" type="image/x-icon" href="" />
+        <link rel="stylesheet" href="./src/css/ui.style.css" />
+        <script src="./src/js/libs/jquery-3.7.1.min.js"></script>
+        <script src="./src/js/ui.pub.js"></script>
+        <title>UI LAYOUT</title>
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div class="wrapper type-result">
+            <!-- header -->
+            <header class="header" data-include="./html/inc/header.html"></header>
+            <!-- //header -->
+
+            <!-- main -->
+            <main class="main">
+                <!-- content -->
+                <div class="content" id="content">
+                    <!-- section -->
+                    <section class="section">
+                        <!-- result page -->
+                        <div class="result-view">
+                            <i class="icon-result">✅</i>
+                            <h2 class="h2-title">완료되었습니다</h2>
+                            <p class="desc">처리 결과를 확인해주세요.</p>
+                        </div>
+                        <!-- //result page -->
+                    </section>
+                    <!-- //section -->
+
+                    <!-- button sticky -->
+                    <div class="btn-wrap btn-sticky">
+                        <button type="button" class="btn fill primary"><span>확인</span></button>
+                    </div>
+                    <!-- //button sticky -->
+                </div>
+                <!-- //content -->
+            </main>
+            <!-- //main -->
+
+            <!-- footer -->
+            <footer class="footer" data-include="./html/inc/footer.html"></footer>
+            <!-- //footer -->
+        </div>
+        <!-- //wrapper -->
+    </body>
+</html>

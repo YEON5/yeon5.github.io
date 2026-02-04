@@ -99,6 +99,12 @@
         // 아이폰 하단 바 대응 (Safe Area)
         padding-bottom: calc(var(--sticky-height) + 2rem + env(safe-area-inset-bottom));
     }
+    // 반응형인 경우 content 하단 간격
+    @include breakpoint(pc) {
+        &:has(.btn-wrap.btn-sticky) {
+            padding-bottom: 5rem; // 원래 .content의 기본 패딩값으로 복귀
+        }
+    }
 
     // 버튼 없을 때 마지막 section 간격
     &:not(:has(.btn-wrap.btn-sticky)) {
@@ -158,6 +164,62 @@
     // sec-body
     .sec-body {
         position: relative;
+    }
+}
+
+// 결과 화면
+.wrapper {
+    // 결과 화면 100%
+    &.type-result {
+        .header,
+        .footer {
+            display: none;
+        }
+        .main,
+        .content {
+            padding-top: 0;
+        }
+
+        // 결과 화면 내용
+        .result-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem;
+            height: 100%;
+            text-align: center;
+            .icon-result {
+                margin-bottom: 2rem;
+            }
+            .h2-title {
+                margin-bottom: 1rem;
+            }
+            .desc {
+                color: $color-txt-sub;
+            }
+        }
+
+        @include breakpoint(pc) {
+            height: auto;
+            min-height: 100%;
+            .header,
+            .footer {
+                display: block;
+            }
+            .main {
+                padding-top: 5.4rem;
+            }
+            .content {
+                padding-top: 8rem;
+            }
+            .result-view {
+                display: block;
+                height: auto;
+                margin-bottom: 4rem;
+                padding: 6rem 0;
+            }
+        }
     }
 }
 

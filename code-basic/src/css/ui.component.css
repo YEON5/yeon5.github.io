@@ -206,6 +206,16 @@
 .btn-wrap.btn-sticky.type-column .btn {
   align-self: stretch;
 }
+@media (min-width: 1280px) {
+  .btn-wrap.btn-sticky {
+    position: static;
+    padding: 4rem 0 0;
+    background-color: transparent;
+  }
+  .btn-wrap.btn-sticky .btn {
+    min-height: 5.6rem;
+  }
+}
 .btn-wrap .btn {
   display: flex;
   align-items: center;
@@ -2824,10 +2834,10 @@ input[type=tel]:focus {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 .popup-wrap.type-full .popup .popup-foot:has(.btn-sticky) {
-  min-height: 9rem;
+  min-height: 10rem;
 }
 .popup-wrap.type-full .popup .popup-foot:has(.btn-sticky.type-column) {
-  min-height: 12rem;
+  min-height: 14rem;
 }
 .popup-wrap.type-bottom {
   justify-content: flex-end;
