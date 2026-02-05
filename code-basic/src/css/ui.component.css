@@ -589,7 +589,9 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
+  width: 100%;
   padding: 1.4rem 4rem 1.4rem 0;
+  text-align: left;
 }
 .link-list .item .link.align-row {
   align-items: center;
@@ -651,7 +653,10 @@
   border: 1px solid #a8aebd;
 }
 .link-list.type-outline .link.ico::after {
-  right: 1rem;
+  right: 2rem;
+}
+.link-list.type-outline .link.ico-c::after {
+  right: 2rem;
 }
 .link-list.type-outline .link .link-title .desc {
   padding-top: 0.4rem;
