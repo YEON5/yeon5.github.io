@@ -25,6 +25,7 @@ function uiInit() {
     popupInit();
     progressInit();
     includeLayout();
+    datePickerInit();
     // headerPercent();
     initGlobalEvents(); // loading, toast
 }
@@ -1846,6 +1847,41 @@ const LoadingController = (function () {
 
 // 전역 객체 등록
 window.Loading = LoadingController.getInstance();
+
+
+/*-------------------------------------------------------------------
+	## Date Picker
+-------------------------------------------------------------------*/
+function datePickerInit() {
+    const pickers = document.querySelectorAll('duet-date-picker');
+
+    // 한글 설정
+    const KO_LOCALE = {
+        buttonLabel: '날짜 선택',
+        placeholder: 'YYYY-MM-DD',
+        selectedDateMessage: '선택된 날짜',
+        prevMonthLabel: '이전 달',
+        nextMonthLabel: '다음 달',
+        monthSelectLabel: '월',
+        yearSelectLabel: '년',
+        closeLabel: '닫기',
+        calendarHeading: '날짜를 선택하세요',
+        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        locale: 'ko-KR',
+    };
+
+    // 설정
+    pickers.forEach(picker => {
+        picker.localization = KO_LOCALE;
+        // 날짜 변경 이벤트 리스너
+        picker.addEventListener('duetChange', function (e) {
+            // 어떤 녀석이 변경되었는지 확인하기 위해 e.target 사용 가능
+            console.log(`${e.target.identifier} 선택된 날짜:`, e.detail.value);
+        });
+    });
+}
 
 
 /*-------------------------------------------------------------------

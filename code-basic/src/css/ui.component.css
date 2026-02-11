@@ -3042,3 +3042,77 @@ body.no-scroll {
   overflow: hidden;
   touch-action: none;
 }
+
+/* Duet Date Picker */
+:root {
+  --color-primary: #0046ff;
+}
+
+duet-date-picker {
+  --duet-color-primary: var(--color-primary);
+  --duet-color-border: #ddd;
+  --duet-color-text: #333;
+  --duet-radius: 8px;
+  --duet-color-button: #fff;
+}
+
+.duet-date__input {
+  height: 5.6rem !important;
+}
+
+.duet-date__dialog-content {
+  padding: 0 1rem 1rem;
+}
+.duet-date__dialog-content .duet-date__mobile {
+  margin-bottom: 1rem;
+  padding: 2rem 5rem 1rem;
+  border-bottom: 0;
+}
+.duet-date__dialog-content .duet-date__mobile .duet-date__mobile-heading {
+  font-size: 1.8rem;
+}
+.duet-date__dialog-content .duet-date__mobile .duet-date__close svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.duet-date__dialog-content .duet-date__header {
+  padding-left: 1rem;
+}
+.duet-date__dialog-content .duet-date__header .duet-date__select .duet-date__select-label {
+  font-size: 1.4rem;
+}
+.duet-date__dialog-content .duet-date__table .duet-date__table-header > span {
+  font-size: 1.4rem;
+}
+.duet-date__dialog-content .duet-date__table td .duet-date__day {
+  font-size: 1.4rem;
+}
+@media (min-width: 768px) {
+  .duet-date__dialog-content {
+    padding: 1.6rem;
+  }
+  .duet-date__dialog-content .duet-date__mobile {
+    padding: 0;
+    margin: 0;
+  }
+  .duet-date__dialog-content .duet-date__header {
+    padding-left: 0.5rem;
+  }
+}
+
+.duet-date__toggle {
+  box-shadow: none;
+  background: url("../images/icons/ico_calendar.png") no-repeat center center;
+  background-size: 22px auto;
+}
+
+.duet-date__toggle-icon {
+  display: none;
+}
+
+duet-date-picker::part(input) {
+  height: 5.6rem;
+  border: 1px solid #ddd;
+  font-size: 1.6rem;
+  padding-left: 1.6rem;
+}

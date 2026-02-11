@@ -251,7 +251,17 @@
                             <p>#달력 Duet Date Picker</p>
                             <div class="form-wrap">
                                 <div class="form-field">
-                                    <duet-date-picker identifier="date" name="date"></duet-date-picker>
+                                    <div class="form-label">
+                                        <label for="date-start">Duet Date Picker</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <duet-date-picker identifier="date-start" label="시작일 선택" name="startDate"></duet-date-picker>
+                                        </div>
+                                        <div class="form-input">
+                                            <duet-date-picker identifier="date-end" label="종료일 선택" name="endDate"></duet-date-picker>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -2017,71 +2027,9 @@
         section + section {
             margin-top: 6rem;
         }
-
-        /* Duet Date Picker */
-        :root {
-            --color-primary: #0046ff;
-        }
-        duet-date-picker {
-            /* 1. 달력 포인트 컬러 변경 */
-            --duet-color-primary: var(--color-primary);
-            --duet-color-border: #ddd;
-            /* 2. 인풋 테두리 및 배경 */
-            --duet-color-text: #333;
-            --duet-radius: 8px;
-            --duet-color-button: #fff;
-        }
-        .duet-date__input {
-            height: 5.6rem !important;
-        }
-        .duet-date__toggle {
-            box-shadow: none;
-            background: url('./src/images/icons/ico_calendar.png') no-repeat center center;
-            background-size: 22px auto;
-        }
-        .duet-date__toggle-icon {
-            display: none;
-        }
-        /* 3. 인풋 높이 및 스타일 강제 조정 */
-        /* ::part(input)을 사용해야 내부 input에 접근 가능 */
-        duet-date-picker::part(input) {
-            height: 5.6rem;
-            border: 1px solid #ddd;
-            font-size: 1.6rem;
-            padding-left: 1.6rem;
-        }
     </style>
 
     <script>
-        // Duet Date Picker
-        // 1. 요소 선택
-        const picker = document.querySelector('duet-date-picker');
-
-        // 2. 한글 설정 객체 정의
-        const KO_LOCALE = {
-            buttonLabel: '날짜 선택',
-            placeholder: 'YYYY-MM-DD',
-            selectedDateMessage: '선택된 날짜',
-            prevMonthLabel: '이전 달',
-            nextMonthLabel: '다음 달',
-            monthSelectLabel: '월',
-            yearSelectLabel: '년',
-            closeLabel: '닫기',
-            calendarHeading: '날짜를 선택하세요',
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            locale: 'ko-KR',
-        };
-
-        // 3. 설정 주입
-        picker.localization = KO_LOCALE;
-
-        // 4. 날짜 변경 이벤트 리스너
-        picker.addEventListener('duetChange', function (e) {
-            console.log('선택된 날짜:', e.detail.value); // 2026-02-09
-        });
-
         // flatpickr
         let openedInstance = null;
         document.querySelectorAll('.datePicker').forEach(el => {
