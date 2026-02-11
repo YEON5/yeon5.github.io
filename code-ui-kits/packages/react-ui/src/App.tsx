@@ -18,7 +18,9 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '@/components/ui/field';
 import { SingleAccordion, MultipleAccordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { Tabs, TabsContent, BoxTabsList, BoxTabsTrigger, LineTabsList, LineTabsTrigger } from '@/components/ui/tabs';
+// import { Tabs, TabsContent, BoxTabsList, BoxTabsTrigger, LineTabsList, LineTabsTrigger } from '@/components/ui/tabs';
+
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs-radix';
 
 function App() {
     // 1. 폼 초기화 (react-hook-form)
@@ -29,6 +31,24 @@ function App() {
             email: '',
         },
     });
+
+    const boxTabData = [
+        {
+            value: 'dataTab1',
+            label: 'Data Tab 1',
+            content: <div className="px-4 font-bold">데이터 map Tab 1 Content</div>,
+        },
+        {
+            value: 'dataTab2',
+            label: 'Data Tab 2',
+            content: <div className="px-4 font-bold">데이터 map Tab 2 Content</div>,
+        },
+        {
+            value: 'dataTab3',
+            label: 'Data Tab 3',
+            content: <div className="px-4 font-bold">데이터 map Tab 3 Content</div>,
+        },
+    ];
 
     return (
         // Tailwind로 간단한 레이아웃 잡기 (중앙 정렬, 여백)
@@ -194,8 +214,8 @@ function App() {
                 <div className="space-y-4">
                     <h2 className="text-xl font-bold">tabs</h2>
                     {/* 1. 박스형 탭 사용 예시 */}
-                    <Tabs defaultValue="music" className="w-full">
-                        {/* 박스형 List & Trigger 사용 */}
+                    {/* 박스형 List & Trigger 사용 */}
+                    {/* <Tabs defaultValue="music" className="w-full">
                         <BoxTabsList>
                             <BoxTabsTrigger value="music">Music</BoxTabsTrigger>
                             <BoxTabsTrigger value="video">Video</BoxTabsTrigger>
@@ -211,11 +231,11 @@ function App() {
                         <TabsContent value="live" className="p-4 border rounded-md mt-2">
                             🔴 실시간 라이브 영역입니다.
                         </TabsContent>
-                    </Tabs>
+                    </Tabs> */}
 
                     {/* 2. 라인형 탭 사용 예시 */}
-                    <Tabs defaultValue="account" className="w-full">
-                        {/* 라인형 List & Trigger 사용 */}
+                    {/* 라인형 List & Trigger 사용 */}
+                    {/* <Tabs defaultValue="account" className="w-full">
                         <LineTabsList>
                             <LineTabsTrigger value="account">내 계정</LineTabsTrigger>
                             <LineTabsTrigger value="password">비밀번호</LineTabsTrigger>
@@ -228,6 +248,64 @@ function App() {
                         <TabsContent value="password" className="pt-4">
                             <h3 className="font-bold">비밀번호 변경</h3>
                             <p className="text-slate-500 text-sm">안전한 비밀번호를 사용하세요.</p>
+                        </TabsContent>
+                    </Tabs> */}
+                </div>
+
+                <div className="space-y-4">
+                    <Tabs defaultValue={boxTabData[0].value} className="w-full">
+                        <TabsList>
+                            {boxTabData.map(tab => (
+                                <TabsTrigger key={tab.value} value={tab.value}>
+                                    {tab.label}
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+                        {boxTabData.map(tab => (
+                            <TabsContent key={tab.value} value={tab.value} className="mt-2">
+                                {tab.content}
+                            </TabsContent>
+                        ))}
+                    </Tabs>
+
+                    <Tabs defaultValue="BasicTab1" className="w-full">
+                        <TabsList>
+                            <TabsTrigger value="BasicTab1">Basic Tab 1</TabsTrigger>
+                            <TabsTrigger value="BasicTab2">Basic Tab 2</TabsTrigger>
+                            <TabsTrigger value="BasicTab3">Basic Tab 3</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="BasicTab1" className="pt-4">
+                            <div className="px-4">Basic Tab 1 Content</div>
+                        </TabsContent>
+                        <TabsContent value="BasicTab2" className="pt-4">
+                            <div className="px-4">Basic Tab 2 Content</div>
+                        </TabsContent>
+                        <TabsContent value="BasicTab3" className="pt-4">
+                            <div className="px-4">Basic Tab 3 Content</div>
+                        </TabsContent>
+                    </Tabs>
+
+                    <Tabs defaultValue="lineTab1" className="w-full">
+                        <TabsList variant="line">
+                            {/* full 형태가 아닌경우 className="flex-none" */}
+                            <TabsTrigger value="lineTab1" className="flex-none">
+                                Line Tab 1
+                            </TabsTrigger>
+                            <TabsTrigger value="lineTab2" className="flex-none">
+                                Line Tab 2
+                            </TabsTrigger>
+                            <TabsTrigger value="lineTab3" className="flex-none">
+                                Line Tab 3
+                            </TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="lineTab1" className="pt-4">
+                            <div className="px-4">Line Tab 1 Content</div>
+                        </TabsContent>
+                        <TabsContent value="lineTab2" className="pt-4">
+                            <div className="px-4">Line Tab 2 Content</div>
+                        </TabsContent>
+                        <TabsContent value="lineTab3" className="pt-4">
+                            <div className="px-4">Line Tab 3 Content</div>
                         </TabsContent>
                     </Tabs>
                 </div>
