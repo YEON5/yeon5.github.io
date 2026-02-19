@@ -112,3 +112,8 @@ npx shadcn@latest add input button card dialog
 
 * 설치모드 방식
 npx shadcn@latest add
+
+4.Radix UI 설치
+* 예ㅒ시
+npm install @radix-ui/react-tabs
+npm install @radix-ui/react-slot
