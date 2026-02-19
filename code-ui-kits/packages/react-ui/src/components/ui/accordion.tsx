@@ -3,89 +3,173 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+/**
+ * 아코디언 스타일 변형
+ * primary: 밑줄형 (Line Style)
+ * secondary: 박스형 (Solid/Segmented Style)
+ */
+type AccordionVariant = "primary" | "secondary"; 
+type AccordionSize = "md" | "lg"; 
 
-const Accordion = AccordionPrimitive.Root
+interface AccordionContextValue {
+  variant: AccordionVariant;
+  size: AccordionSize;
+}
+const AccordionContext = React.createContext<AccordionContextValue>({
+  variant: "primary",
+  size: "md",
+});
 
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={cn("border-b", className)}
-    {...props}
-  />
+const AccordionStyles = {
+  variant: {
+    primary: {
+      item: "border-b",
+      trigger: "data-[state=open]:font-semibold data-[state=open]:text-orange-600 hover:font-bold hover:text-orange-600",
+      content: "bg-white",
+    },
+    secondary: {
+      item: "bg-slate-100",
+      trigger: "data-[state=open]:font-semibold data-[state=open]:text-orange-600 hover:font-bold hover:text-orange-600",
+      content: "bg-white",
+    },
+  },
+  size: {
+    md: {
+      trigger: "py-5 px-2 text-sm",
+      content: "pt-3 pb-5 px-2 text-sm",
+      icon: "h-4 w-4"
+    },
+    lg: {
+      trigger: "py-6 px-2 text-base",
+      content: "pb-8 pt-5 px-2 text-base",
+      icon: "h-5 w-5"
+    }
+  }
+} as const;
+
+
+// radix Accordion components
+interface AccordionProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
+  variant?: AccordionVariant;
+  size?: AccordionSize;
+}
+
+// AccordionRoot (Context Provider)
+const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>,AccordionProps>(
+  ({ className, variant = "primary", size = "md", ...props }, ref) => (
+  <AccordionContext.Provider value={{ variant, size }}>
+    <AccordionPrimitive.Root
+      ref={ref}
+      className={cn("w-full", className)}
+      {...props}
+    />
+  </AccordionContext.Provider>
 ))
-AccordionItem.displayName = "AccordionItem"
+Accordion.displayName = AccordionPrimitive.Root.displayName
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
-    <AccordionPrimitive.Trigger
+
+// AccordionItem
+const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>,React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>>(
+  ({ className, ...props }, ref) => {
+  const { variant } = React.useContext(AccordionContext);
+  
+  return (
+    <AccordionPrimitive.Item
       ref={ref}
       className={cn(
-        "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180",
+        AccordionStyles.variant[variant].item,
         className
       )}
       {...props}
-    >
-      {children}
-      <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-))
+    />
+  )
+})
+AccordionItem.displayName = AccordionPrimitive.Item.displayName
+
+
+// AccordionTrigger
+const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>,React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>>(
+  ({ className, children, ...props }, ref) => {
+  const { variant, size } = React.useContext(AccordionContext);
+
+  return (
+    <AccordionPrimitive.Header className="flex">
+      <AccordionPrimitive.Trigger
+        ref={ref}
+        className={cn(
+          "flex flex-1 items-center justify-between font-medium transition-all text-left [&[data-state=open]>svg]:rotate-180",
+          AccordionStyles.variant[variant].trigger,
+          AccordionStyles.size[size].trigger,
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <ChevronDown 
+          className={cn(
+            "shrink-0 text-muted-foreground transition-transform duration-200",
+            AccordionStyles.size[size].icon
+          )} 
+        />
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
+  )
+})
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Content
-    ref={ref}
-    className={cn(
-        "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-        className
-      )}
-    {...props}
-  >
-    <div className={cn("pb-4 pt-0", className)}>{children}</div>
-  </AccordionPrimitive.Content>
-))
+
+// 4. AccordionContent
+const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>,React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>>(
+  ({ className, children, ...props }, ref) => {
+  const { variant, size } = React.useContext(AccordionContext);
+
+  return (
+    <AccordionPrimitive.Content
+      ref={ref}
+      className="overflow-hidden transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      {...props}
+    >
+      <div className={cn(
+          AccordionStyles.variant[variant].content,
+          AccordionStyles.size[size].content,
+          className
+        )}
+      >
+        {children}
+      </div>
+    </AccordionPrimitive.Content>
+  )
+})
 AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
 
-
-interface AccordionRootProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
-    className?: string;
-}
-
-// Root Wrapper: Single 모드 (하나만 열림)
-// children을 받아서 내부 내용을 자유롭게
-export function SingleAccordion({ className, children, ...props }: AccordionRootProps) {
+// --- Wrappers ---
+type WrapperProps = Omit<AccordionProps, "type" | "collapsible">;
+export function SingleAccordion({ className, variant, size, children, ...props }: WrapperProps) {
     return (
-        <AccordionPrimitive.Root
+        <Accordion
             type="single"
             collapsible
-            className={cn('w-full space-y-2', className)}
+            variant={variant}
+            size={size}
+            className={cn("w-full", className)}
             {...props}
         >
             {children}
-        </AccordionPrimitive.Root>
+        </Accordion>
     );
 }
-
-// Root Wrapper: Multiple 모드 (여러 개 열림)
-export function MultipleAccordion({ className, children, ...props }: AccordionRootProps) {
+export function MultipleAccordion({ className, variant, size, children, ...props }: WrapperProps) {
     return (
-        <AccordionPrimitive.Root
+        <Accordion
             type="multiple"
-            className={cn('w-full space-y-2', className)}
+            variant={variant}
+            size={size}
+            className={cn("w-full", className)}
             {...props}
         >
             {children}
-        </AccordionPrimitive.Root>
+        </Accordion>
     );
 }
 

@@ -53,7 +53,6 @@ const TabsContent = TabsPrimitive.Content;
 interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
   variant?: TabsVariant;
   size?: TabsSize;
-  className?: string;
 }
 const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, TabsListProps>(
   ({ className, variant = "primary", size = "auto", ...props }, ref) => {
@@ -77,26 +76,20 @@ TabsList.displayName = TabsPrimitive.List.displayName;
 
 
 // TabsTrigger
-interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {
-  variant?: TabsVariant;
-  size?: TabsSize;
-  className?: string;
-}
-const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigger>, TabsTriggerProps>(
-  ({ className, variant, size, ...props }, ref) => {
-    
-    // finalVariant 정의 추가
-    const contextVariant = React.useContext(TabsVariantContext);
-    const finalVariant = variant || contextVariant.variant || "primary";
-    const finalSize = size || contextVariant.size || "auto";
+const TabsTrigger = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>, 
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+>(({ className, ...props }, ref) => {
+
+    const { variant, size } = React.useContext(TabsVariantContext);
 
     return (
       <TabsPrimitive.Trigger
         ref={ref}
         className={cn(
           "inline-flex items-center justify-center whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
-          TabStyles.variant[finalVariant].trigger,
-          TabStyles.size[finalSize].trigger,
+          TabStyles.variant[variant].trigger,
+          TabStyles.size[size].trigger,
           className
         )}
         {...props}

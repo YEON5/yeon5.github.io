@@ -30,6 +30,7 @@ function App() {
         },
     });
 
+    // tab 데이터
     const boxTabData = [
         {
             value: 'dataTab1',
@@ -167,16 +168,7 @@ function App() {
 
                 <hr className="border-slate-200" />
 
-                {/* 2. 아코디언 테스트 (Radix 동작 확인) */}
-                {/* <div className="space-y-4">
-                    <h2 className="text-xl font-bold">1. Single Accordion</h2>
-                    <SingleAccordion />
-                </div>
-                <div className="space-y-4">
-                    <h2 className="text-xl font-bold">2. Multiple Accordion</h2>
-                    <MultipleAccordion />
-                </div> */}
-
+                {/* Accordion */}
                 <div className="space-y-4">
                     <h2 className="text-xl font-bold">1. Single Accordion</h2>
                     {/* 1. 싱글 모드 사용 예시 */}
@@ -185,7 +177,6 @@ function App() {
                             <AccordionTrigger>React가 뭔가요?</AccordionTrigger>
                             <AccordionContent>React는 사용자 인터페이스를 만들기 위한 JS 라이브러리입니다.</AccordionContent>
                         </AccordionItem>
-
                         <AccordionItem value="single-item2">
                             <AccordionTrigger className="text-red-500">스타일 커스텀도 되나요?</AccordionTrigger>
                             <AccordionContent>
@@ -193,11 +184,10 @@ function App() {
                             </AccordionContent>
                         </AccordionItem>
                     </SingleAccordion>
-                </div>
-                <div className="space-y-4">
+
                     <h2 className="text-xl font-bold">2. Multiple Accordion</h2>
                     {/* 2. 멀티 모드 사용 예시 */}
-                    <MultipleAccordion>
+                    <MultipleAccordion variant="secondary" size="lg">
                         <AccordionItem value="multiple-item1">
                             <AccordionTrigger>여러 개 열어보세요</AccordionTrigger>
                             <AccordionContent>첫 번째 내용입니다.</AccordionContent>
@@ -209,9 +199,10 @@ function App() {
                     </MultipleAccordion>
                 </div>
 
+                {/* tabs */}
                 <div className="space-y-4">
                     <h2 className="text-xl font-bold">tabs</h2>
-
+                    {/* 데이터용 */}
                     <Tabs defaultValue={boxTabData[0].value} className="w-full">
                         <TabsList className="mb-4">
                             {boxTabData.map(tab => (
@@ -227,6 +218,7 @@ function App() {
                         ))}
                     </Tabs>
 
+                    {/* 라인형 */}
                     <Tabs defaultValue="tab1">
                         <TabsList className="mb-4">
                             <TabsTrigger value="tab1">Home</TabsTrigger>
@@ -241,14 +233,15 @@ function App() {
                         <TabsContent value="tab3">Settings Content</TabsContent>
                     </Tabs>
 
+                    {/* 박스형 */}
                     <Tabs defaultValue="boxTab1">
                         <TabsList variant="secondary" size="full" className="mb-4">
                             {/* asChild: slot 기능 */}
-                            <TabsTrigger value="boxTab1" asChild>
-                                <a href="">Home</a>
-                            </TabsTrigger>
+                            <TabsTrigger value="boxTab1">Home</TabsTrigger>
                             <TabsTrigger value="boxTab2">Profile</TabsTrigger>
-                            <TabsTrigger value="boxTab3">Settings</TabsTrigger>
+                            <TabsTrigger value="boxTab3" asChild>
+                                <a href="">Settings</a>
+                            </TabsTrigger>
                         </TabsList>
 
                         <TabsContent value="boxTab1">Home Content</TabsContent>
