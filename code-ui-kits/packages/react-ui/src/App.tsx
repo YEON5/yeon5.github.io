@@ -213,7 +213,7 @@ function App() {
                     <h2 className="text-xl font-bold">tabs</h2>
 
                     <Tabs defaultValue={boxTabData[0].value} className="w-full">
-                        <TabsList>
+                        <TabsList className="mb-4">
                             {boxTabData.map(tab => (
                                 <TabsTrigger key={tab.value} value={tab.value}>
                                     {tab.label}
@@ -221,46 +221,39 @@ function App() {
                             ))}
                         </TabsList>
                         {boxTabData.map(tab => (
-                            <TabsContent key={tab.value} value={tab.value} className="mt-2">
+                            <TabsContent key={tab.value} value={tab.value}>
                                 {tab.content}
                             </TabsContent>
                         ))}
                     </Tabs>
 
                     <Tabs defaultValue="tab1">
-                        <TabsList>
+                        <TabsList className="mb-4">
                             <TabsTrigger value="tab1">Home</TabsTrigger>
                             <TabsTrigger value="tab2">Profile</TabsTrigger>
-                            <TabsTrigger value="tab3">Settings</TabsTrigger>
+                            <TabsTrigger value="tab3" disabled>
+                                Settings
+                            </TabsTrigger>
                         </TabsList>
 
-                        <TabsContent value="tab1" className="pt-4">
-                            Home Content
-                        </TabsContent>
-                        <TabsContent value="tab2" className="pt-4">
-                            Profile Content
-                        </TabsContent>
-                        <TabsContent value="tab3" className="pt-4">
-                            Settings Content
-                        </TabsContent>
+                        <TabsContent value="tab1">Home Content</TabsContent>
+                        <TabsContent value="tab2">Profile Content</TabsContent>
+                        <TabsContent value="tab3">Settings Content</TabsContent>
                     </Tabs>
 
                     <Tabs defaultValue="boxTab1">
-                        <TabsList variant="secondary" size="full">
-                            <TabsTrigger value="boxTab1">Home</TabsTrigger>
+                        <TabsList variant="secondary" size="full" className="mb-4">
+                            {/* asChild: slot 기능 */}
+                            <TabsTrigger value="boxTab1" asChild>
+                                <a href="">Home</a>
+                            </TabsTrigger>
                             <TabsTrigger value="boxTab2">Profile</TabsTrigger>
                             <TabsTrigger value="boxTab3">Settings</TabsTrigger>
                         </TabsList>
 
-                        <TabsContent value="boxTab1" className="pt-4">
-                            Home Content
-                        </TabsContent>
-                        <TabsContent value="boxTab2" className="pt-4">
-                            Profile Content
-                        </TabsContent>
-                        <TabsContent value="boxTab3" className="pt-4">
-                            Settings Content
-                        </TabsContent>
+                        <TabsContent value="boxTab1">Home Content</TabsContent>
+                        <TabsContent value="boxTab2">Profile Content</TabsContent>
+                        <TabsContent value="boxTab3">Settings Content</TabsContent>
                     </Tabs>
                 </div>
             </div>

@@ -24,12 +24,12 @@ const TabsVariantContext = React.createContext<TabsContextValue>({
 const TabStyles = {
   variant: {
     primary: {
-      list: "flex items-center justify-start w-full border-b border-gray-200",
-      trigger: "inline-flex items-center px-5 py-2.5 -mb-[1px] text-sm font-medium border-b-2 border-transparent hover:text-foreground/80 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600",
+      list: "justify-start w-full border-b border-gray-200",
+      trigger: "px-5 py-2.5 -mb-[1px] text-sm font-medium border-b-2 border-transparent hover:text-foreground/80 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600",
     },
     secondary: {
-      list: "flex items-center justify-between h-12 px-2 py-1 rounded-md bg-muted text-muted-foreground",
-      trigger: "rounded-md px-4 py-2 text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow"
+      list: "justify-between h-12 px-1.5 py-1 rounded-md bg-muted text-muted-foreground",
+      trigger: "rounded-md px-4 py-2.5 text-xs font-bold data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow"
     },
   },
   size: {
@@ -62,6 +62,7 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, T
         <TabsPrimitive.List
           ref={ref}
           className={cn(
+            "flex items-center",
             TabStyles.variant[variant].list,
             TabStyles.size[size].list,
             className
@@ -93,7 +94,7 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
       <TabsPrimitive.Trigger
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center whitespace-nowrap transition-all ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
           TabStyles.variant[finalVariant].trigger,
           TabStyles.size[finalSize].trigger,
           className
