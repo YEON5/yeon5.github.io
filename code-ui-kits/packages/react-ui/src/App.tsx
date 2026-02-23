@@ -1,6 +1,8 @@
 // export default App
 // import { useState } from 'react'
 import { useForm } from 'react-hook-form'; // 1. useForm 추가
+import { Link } from 'react-router-dom'; // vite 환경 Link 컴포넌트
+// import Link from "next/link"; // next 환경 Link 컴포넌트
 import {
     Form,
     FormField,
@@ -18,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '@/components/ui/field';
 import { SingleAccordion, MultipleAccordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import { User } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 function App() {
@@ -174,7 +177,9 @@ function App() {
                     {/* 1. 싱글 모드 사용 예시 */}
                     <SingleAccordion>
                         <AccordionItem value="single-item1">
-                            <AccordionTrigger>React가 뭔가요?</AccordionTrigger>
+                            {/* svg 이미지 사용시 img */}
+                            {/* <AccordionTrigger icon={<img src={userIconUrl} alt="User" className="h-5 w-5" />}>디자이너 원본 아이콘</AccordionTrigger> */}
+                            <AccordionTrigger icon={<User className="h-4 w-4" />}>React가 뭔가요?</AccordionTrigger>
                             <AccordionContent>React는 사용자 인터페이스를 만들기 위한 JS 라이브러리입니다.</AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="single-item2">
@@ -240,7 +245,8 @@ function App() {
                             <TabsTrigger value="boxTab1">Home</TabsTrigger>
                             <TabsTrigger value="boxTab2">Profile</TabsTrigger>
                             <TabsTrigger value="boxTab3" asChild>
-                                <a href="">Settings</a>
+                                {/* <a href="#none">Settings</a> */}
+                                <Link to="/settings">Settings</Link>
                             </TabsTrigger>
                         </TabsList>
 

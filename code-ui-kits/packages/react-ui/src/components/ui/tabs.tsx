@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils"
  * secondary: 박스형 (Solid/Segmented Style)
  * tertiary: 캡슐형 (Capsule Style)
  */
-type TabsVariant = "primary" | "secondary";
-type TabsSize = "auto" | "full";
+export type TabsVariant = "primary" | "secondary";
+export type TabsSize = "auto" | "full";
 
 interface TabsContextValue {
   variant: TabsVariant;
@@ -47,13 +47,11 @@ const TabStyles = {
 
 // radix tabs components
 const Tabs = TabsPrimitive.Root;
-Tabs.displayName = "Tabs"
 const TabsContent = TabsPrimitive.Content;
-TabsContent.displayName = "TabsContent"
 
 
 // TabsList
-interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
+export interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
   variant?: TabsVariant;
   size?: TabsSize;
 }

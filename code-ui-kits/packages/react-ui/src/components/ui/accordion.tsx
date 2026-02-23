@@ -8,19 +8,16 @@ import { cn } from "@/lib/utils"
  * primary: 밑줄형 (Line Style)
  * secondary: 박스형 (Solid/Segmented Style)
  */
-type AccordionVariant = "primary" | "secondary"; 
-type AccordionSize = "md" | "lg"; 
+export type AccordionVariant = "primary" | "secondary"; 
+export type AccordionSize = "md" | "lg"; 
 
 interface AccordionContextValue {
   variant: AccordionVariant;
   size: AccordionSize;
 }
-// const AccordionContext = React.createContext<AccordionContextValue>({
-//   variant: "primary",
-//   size: "md",
-// });
-const AccordionContext = React.createContext<AccordionContextValue | null>(null)
 
+const AccordionContext = React.createContext<AccordionContextValue | null>(null)
+// AccordionItem 만 사용했을때 에러 표시
 function useAccordionContext() {
   const context = React.useContext(AccordionContext)
   if (!context) {
@@ -109,10 +106,14 @@ AccordionItem.displayName = "AccordionItem"
 
 
 // AccordionTrigger
+interface AccordionTriggerProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
+  icon?: React.ReactNode; // 👈 밖에서 아이콘을 넘겨받을 수 있게 구멍을 뚫어줍니다.
+}
+
 const AccordionTrigger = React.forwardRef<
 React.ElementRef<typeof AccordionPrimitive.Trigger>,
-React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
+AccordionTriggerProps
+>(({ className, children, icon, ...props }, ref) => {
   const { variant, size } = useAccordionContext();
 
   return (
@@ -127,7 +128,11 @@ React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
         )}
         {...props}
       >
-        {children}
+        <div className="flex items-center gap-2">
+          {icon && <span className="shrink-0">{icon}</span>}
+          {children}
+        </div>
+
         <ChevronDown 
           className={cn(
             "shrink-0 text-muted-foreground transition-transform duration-200",
@@ -169,7 +174,7 @@ AccordionContent.displayName = "AccordionContent"
 
 
 // --- Wrappers ---
-type SingleAccordionProps = Omit<Extract<RootBaseProps, { type: "single" }>,
+export type SingleAccordionProps = Omit<Extract<RootBaseProps, { type: "single" }>,
   "type" | "collapsible"> & BaseAccordionProps
 
 export function SingleAccordion({ className, variant, size, children, ...props
@@ -188,7 +193,7 @@ export function SingleAccordion({ className, variant, size, children, ...props
   )
 }
 
-type MultipleAccordionProps = Omit<Extract<RootBaseProps, { type: "multiple" }>,
+export type MultipleAccordionProps = Omit<Extract<RootBaseProps, { type: "multiple" }>,
   "type"> & BaseAccordionProps
 
 export function MultipleAccordion({ className, variant, size, children, ...props
