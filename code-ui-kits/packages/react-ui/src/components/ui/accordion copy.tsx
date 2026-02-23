@@ -15,21 +15,10 @@ interface AccordionContextValue {
   variant: AccordionVariant;
   size: AccordionSize;
 }
-// const AccordionContext = React.createContext<AccordionContextValue>({
-//   variant: "primary",
-//   size: "md",
-// });
-const AccordionContext = React.createContext<AccordionContextValue | null>(null)
-
-function useAccordionContext() {
-  const context = React.useContext(AccordionContext)
-  if (!context) {
-    throw new Error(
-      "Accordion components (Item, Trigger, Content) must be used within <Accordion />"
-    )
-  }
-  return context
-}
+const AccordionContext = React.createContext<AccordionContextValue>({
+  variant: "primary",
+  size: "md",
+});
 
 const AccordionStyles = {
   variant: {
@@ -59,7 +48,9 @@ const AccordionStyles = {
 } as const;
 
 
-// Radix Props
+// radix Accordion components
+
+// Props
 type RootBaseProps = React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 // 추가 Props
 interface BaseAccordionProps {
@@ -84,15 +75,13 @@ const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Ro
     />
   </AccordionContext.Provider>
 ))
-Accordion.displayName = "Accordion"
+Accordion.displayName = AccordionPrimitive.Root.displayName
 
 
 // AccordionItem
-const AccordionItem = React.forwardRef<
-React.ElementRef<typeof AccordionPrimitive.Item>,
-React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => {
-  const { variant } = useAccordionContext();
+const AccordionItem = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Item>,React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>>(
+  ({ className, ...props }, ref) => {
+  const { variant } = React.useContext(AccordionContext);
   
   return (
     <AccordionPrimitive.Item
@@ -105,15 +94,13 @@ React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
     />
   )
 })
-AccordionItem.displayName = "AccordionItem"
+AccordionItem.displayName = AccordionPrimitive.Item.displayName
 
 
 // AccordionTrigger
-const AccordionTrigger = React.forwardRef<
-React.ElementRef<typeof AccordionPrimitive.Trigger>,
-React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
-  const { variant, size } = useAccordionContext();
+const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>,React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>>(
+  ({ className, children, ...props }, ref) => {
+  const { variant, size } = React.useContext(AccordionContext);
 
   return (
     <AccordionPrimitive.Header className="flex">
@@ -138,15 +125,13 @@ React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
 })
-AccordionTrigger.displayName = "AccordionTrigger"
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
 
-// AccordionContent
-const AccordionContent = React.forwardRef<
-React.ElementRef<typeof AccordionPrimitive.Content>,
-React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => {
-  const { variant, size } = useAccordionContext();
+// 4. AccordionContent
+const AccordionContent = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Content>,React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>>(
+  ({ className, children, ...props }, ref) => {
+  const { variant, size } = React.useContext(AccordionContext);
 
   return (
     <AccordionPrimitive.Content
@@ -165,7 +150,7 @@ React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
     </AccordionPrimitive.Content>
   )
 })
-AccordionContent.displayName = "AccordionContent"
+AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
 
 // --- Wrappers ---
@@ -205,6 +190,5 @@ export function MultipleAccordion({ className, variant, size, children, ...props
     </Accordion>
   )
 }
-
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

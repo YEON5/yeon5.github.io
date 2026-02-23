@@ -24,7 +24,7 @@ const TabsVariantContext = React.createContext<TabsContextValue>({
 const TabStyles = {
   variant: {
     primary: {
-      list: "justify-start border-b border-gray-200",
+      list: "justify-start w-full border-b border-gray-200",
       trigger: "px-5 py-2.5 -mb-[1px] text-sm font-medium border-b-2 border-transparent hover:text-foreground/80 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600",
     },
     secondary: {
@@ -47,24 +47,21 @@ const TabStyles = {
 
 // radix tabs components
 const Tabs = TabsPrimitive.Root;
-Tabs.displayName = "Tabs"
 const TabsContent = TabsPrimitive.Content;
-TabsContent.displayName = "TabsContent"
-
 
 // TabsList
-interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
+interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: TabsVariant;
   size?: TabsSize;
 }
-const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, TabsListProps>(
+const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, variant = "primary", size = "auto", ...props }, ref) => {
     return (
       <TabsVariantContext.Provider value={{ variant, size }}>
         <TabsPrimitive.List
           ref={ref}
           className={cn(
-            "flex items-center mb-4",
+            "flex items-center",
             TabStyles.variant[variant].list,
             TabStyles.size[size].list,
             className
@@ -75,15 +72,18 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, T
     );
   }
 );
-TabsList.displayName = "TabsList";
+TabsList.displayName = TabsPrimitive.List.displayName;
 
 
 // TabsTrigger
-const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Trigger>, 
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => {
-
+interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  value: string;
+  asChild?: boolean;
+  href?: string;     // a 태그
+  target?: string;   // a 태그 새 창 띄우기
+}
+const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
+  ({ className, ...props }, ref) => {
     const { variant, size } = React.useContext(TabsVariantContext);
     return (
       <TabsPrimitive.Trigger
@@ -99,9 +99,7 @@ const TabsTrigger = React.forwardRef<
     );
   }
 );
-TabsTrigger.displayName = "TabsTrigger";
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };
-
-

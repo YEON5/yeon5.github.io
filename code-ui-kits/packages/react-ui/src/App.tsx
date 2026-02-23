@@ -204,7 +204,7 @@ function App() {
                     <h2 className="text-xl font-bold">tabs</h2>
                     {/* 데이터용 */}
                     <Tabs defaultValue={boxTabData[0].value} className="w-full">
-                        <TabsList className="mb-4">
+                        <TabsList>
                             {boxTabData.map(tab => (
                                 <TabsTrigger key={tab.value} value={tab.value}>
                                     {tab.label}
@@ -220,7 +220,7 @@ function App() {
 
                     {/* 라인형 */}
                     <Tabs defaultValue="tab1">
-                        <TabsList className="mb-4">
+                        <TabsList>
                             <TabsTrigger value="tab1">Home</TabsTrigger>
                             <TabsTrigger value="tab2">Profile</TabsTrigger>
                             <TabsTrigger value="tab3" disabled>
@@ -235,7 +235,7 @@ function App() {
 
                     {/* 박스형 */}
                     <Tabs defaultValue="boxTab1">
-                        <TabsList variant="secondary" size="full" className="mb-4">
+                        <TabsList variant="secondary" size="full">
                             {/* asChild: slot 기능 */}
                             <TabsTrigger value="boxTab1">Home</TabsTrigger>
                             <TabsTrigger value="boxTab2">Profile</TabsTrigger>
