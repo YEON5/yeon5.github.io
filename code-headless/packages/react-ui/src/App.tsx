@@ -20,8 +20,8 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '@/components/ui/field';
 import { SingleAccordion, MultipleAccordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { User } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { User } from 'lucide-react';
 
 function App() {
     // 1. 폼 초기화 (react-hook-form)
@@ -225,7 +225,7 @@ function App() {
 
                     {/* 라인형 */}
                     <Tabs defaultValue="tab1">
-                        <TabsList>
+                        <TabsList size="full">
                             <TabsTrigger value="tab1">Home</TabsTrigger>
                             <TabsTrigger value="tab2">Profile</TabsTrigger>
                             <TabsTrigger value="tab3" disabled>

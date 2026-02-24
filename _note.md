@@ -8,12 +8,12 @@ SCSS: background-image: url('/assets/images/bg.png');
 
 
 
-## code-ui-kits
+## code-headless
 
 # react 설치 방법
 1.next.js
 * 경로이동
-cd code-ui-kits/apps
+cd code-headless/apps
 
 * react-docs라는 이름으로 Next.js 생성
 cmd: npx create-next-app@latest react-docs

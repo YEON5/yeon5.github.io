@@ -5,8 +5,8 @@ import {
     FormLabel,
     FormControl,
     FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "./form";
+import { Input } from "./input";
 
 interface EasyFormFieldProps {
     name: string;

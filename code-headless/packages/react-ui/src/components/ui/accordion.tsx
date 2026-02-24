@@ -1,7 +1,9 @@
+"use client"
+
 import * as React from "react"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import { ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 /**
  * 아코디언 스타일 변형
@@ -17,6 +19,7 @@ interface AccordionContextValue {
 }
 
 const AccordionContext = React.createContext<AccordionContextValue | null>(null)
+
 // AccordionItem 만 사용했을때 에러 표시
 function useAccordionContext() {
   const context = React.useContext(AccordionContext)
@@ -56,20 +59,19 @@ const AccordionStyles = {
 } as const;
 
 
-// Radix Props
-type RootBaseProps = React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
-// 추가 Props
-interface BaseAccordionProps {
-  variant?: AccordionVariant
-  size?: AccordionSize
-}
-// 최종 Props
-type AccordionProps = RootBaseProps & BaseAccordionProps
+// Radix의 기본 Props
+type RootBaseProps = React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>;
+// AccordionContextValue에 Partial로 물음표(?)만 붙여서 재사용
+type AccordionOptions = Partial<AccordionContextValue>; 
+// 최종 Accordion Props
+export type AccordionProps = RootBaseProps & AccordionOptions;
 
 
 // AccordionRoot (Context Provider)
-const Accordion = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>,AccordionProps>(
-  ({ className, variant = "primary", size = "md", ...props }, ref) => (
+const Accordion = React.forwardRef<
+React.ElementRef<typeof AccordionPrimitive.Root>,
+AccordionProps
+>(({ className, variant = "primary", size = "md", ...props }, ref) => (
   <AccordionContext.Provider value={{ variant, size }}>
     <AccordionPrimitive.Root
       ref={ref}
@@ -175,7 +177,7 @@ AccordionContent.displayName = "AccordionContent"
 
 // --- Wrappers ---
 export type SingleAccordionProps = Omit<Extract<RootBaseProps, { type: "single" }>,
-  "type" | "collapsible"> & BaseAccordionProps
+  "type" | "collapsible"> & AccordionOptions
 
 export function SingleAccordion({ className, variant, size, children, ...props
 }: SingleAccordionProps) {
@@ -194,7 +196,7 @@ export function SingleAccordion({ className, variant, size, children, ...props
 }
 
 export type MultipleAccordionProps = Omit<Extract<RootBaseProps, { type: "multiple" }>,
-  "type"> & BaseAccordionProps
+  "type"> & AccordionOptions
 
 export function MultipleAccordion({ className, variant, size, children, ...props
 }: MultipleAccordionProps) {

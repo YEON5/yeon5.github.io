@@ -1,6 +1,8 @@
+"use client"
+
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 
 /**
@@ -55,8 +57,10 @@ export interface TabsListProps extends React.ComponentPropsWithoutRef<typeof Tab
   variant?: TabsVariant;
   size?: TabsSize;
 }
-const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, TabsListProps>(
-  ({ className, variant = "primary", size = "auto", ...props }, ref) => {
+const TabsList = React.forwardRef<
+React.ElementRef<typeof TabsPrimitive.List>,
+TabsListProps
+>(({ className, variant = "primary", size = "auto", ...props }, ref) => {
     return (
       <TabsVariantContext.Provider value={{ variant, size }}>
         <TabsPrimitive.List
@@ -78,8 +82,8 @@ TabsList.displayName = "TabsList";
 
 // TabsTrigger
 const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Trigger>, 
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+React.ElementRef<typeof TabsPrimitive.Trigger>, 
+React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
 >(({ className, ...props }, ref) => {
 
     const { variant, size } = React.useContext(TabsVariantContext);
@@ -101,5 +105,3 @@ TabsTrigger.displayName = "TabsTrigger";
 
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };
-
-
