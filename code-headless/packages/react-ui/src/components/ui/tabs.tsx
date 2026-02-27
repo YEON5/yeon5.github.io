@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils"
 
 
@@ -11,96 +12,103 @@ import { cn } from "../../lib/utils"
  * secondary: 박스형 (Solid/Segmented Style)
  * tertiary: 캡슐형 (Capsule Style)
  */
-export type TabsVariant = "primary" | "secondary";
-export type TabsSize = "auto" | "full";
+
+// tabsListVariants
+const tabsListVariants = cva(
+  "flex items-center", // 공통 기본 스타일
+  {
+    variants: {
+      variant: {
+        primary: "justify-start border-b border-gray-200",
+        secondary: "justify-between h-12 px-1.5 py-1 rounded-md bg-muted text-muted-foreground",
+      },
+      size: {
+        auto: "inline-flex w-max",
+        full: "w-full",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "auto",
+    },
+  }
+);
+
+// tabsTriggerVariants
+const tabsTriggerVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-background", // 공통 기본 스타일
+  {
+    variants: {
+      variant: {
+        primary:
+          "px-5 py-2.5 -mb-[1px] text-sm font-medium border-b-2 border-transparent hover:text-foreground/80 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600",
+        secondary:
+          "rounded-md px-4 py-2.5 text-xs font-bold data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
+      },
+      size: {
+        auto: "w-auto",
+        full: "flex-1",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "auto",
+    },
+  }
+);
+
+
+// TabsContext
+type TabsVariants = VariantProps<typeof tabsListVariants>;
 
 interface TabsContextValue {
-  variant: TabsVariant;
-  size: TabsSize;
+  variant: NonNullable<TabsVariants["variant"]>;
+  size: NonNullable<TabsVariants["size"]>;
 }
-const TabsVariantContext = React.createContext<TabsContextValue>({
+
+const TabsContext = React.createContext<TabsContextValue>({
   variant: "primary",
   size: "auto",
 });
 
-const TabStyles = {
-  variant: {
-    primary: {
-      list: "justify-start border-b border-gray-200",
-      trigger: "px-5 py-2.5 -mb-[1px] text-sm font-medium border-b-2 border-transparent hover:text-foreground/80 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600",
-    },
-    secondary: {
-      list: "justify-between h-12 px-1.5 py-1 rounded-md bg-muted text-muted-foreground",
-      trigger: "rounded-md px-4 py-2.5 text-xs font-bold data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow"
-    },
-  },
-  size: {
-    auto: {
-      list: "inline-flex w-max",
-      trigger: "w-auto"
-    },
-    full: {
-      list: "w-full",
-      trigger: "flex-1"
-    }
-  }
-} as const;
 
-
-// radix tabs components
+// tabs, TabsContent
 const Tabs = TabsPrimitive.Root;
 const TabsContent = TabsPrimitive.Content;
 
-
 // TabsList
-export interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
-  variant?: TabsVariant;
-  size?: TabsSize;
-}
-const TabsList = React.forwardRef<
-React.ElementRef<typeof TabsPrimitive.List>,
-TabsListProps
->(({ className, variant = "primary", size = "auto", ...props }, ref) => {
-    return (
-      <TabsVariantContext.Provider value={{ variant, size }}>
-        <TabsPrimitive.List
-          ref={ref}
-          className={cn(
-            "flex items-center mb-4",
-            TabStyles.variant[variant].list,
-            TabStyles.size[size].list,
-            className
-          )}
-          {...props}
-        />
-      </TabsVariantContext.Provider>
-    );
-  }
+export interface TabsListProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>,
+    VariantProps<typeof tabsListVariants> {}
+
+const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, TabsListProps>(
+  ({ className, variant = "primary", size = "auto", ...props }, ref) => (
+    <TabsContext.Provider value={{ variant, size }}>
+      <TabsPrimitive.List
+        ref={ref}
+        className={cn(tabsListVariants({ variant, size }), className)}
+        {...props}
+      />
+    </TabsContext.Provider>
+  ),
 );
 TabsList.displayName = "TabsList";
 
-
 // TabsTrigger
 const TabsTrigger = React.forwardRef<
-React.ElementRef<typeof TabsPrimitive.Trigger>, 
-React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
 >(({ className, ...props }, ref) => {
+  const { variant, size } = React.useContext(TabsContext);
 
-    const { variant, size } = React.useContext(TabsVariantContext);
-    return (
-      <TabsPrimitive.Trigger
-        ref={ref}
-        className={cn(
-          "inline-flex items-center justify-center whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
-          TabStyles.variant[variant].trigger,
-          TabStyles.size[size].trigger,
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <TabsPrimitive.Trigger
+      ref={ref}
+      className={cn(tabsTriggerVariants({ variant, size }), className)}
+      {...props}
+    />
+  );
+});
 TabsTrigger.displayName = "TabsTrigger";
 
 

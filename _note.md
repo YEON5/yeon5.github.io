@@ -124,3 +124,15 @@ npx shadcn@latest add input button card dialog
 
 * 설치모드 방식
 npx shadcn@latest add
+
+
+4.radix로 설치
+npm install @radix-ui/react-tabs
+
+
+# vue 설치 방법
+
+radix vue UI
+
+설치 방법
+npm install radix-vue
