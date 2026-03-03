@@ -1,0 +1,13 @@
+{
+  "name": "@code-headless/style-ui",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./src/style.css -o ./dist/style.css --watch",
+    "build": "tailwindcss -i ./src/style.css -o ./dist/style.css --minify"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

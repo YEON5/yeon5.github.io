@@ -1,5 +1,5 @@
 {
-  "name": "code-headless-root",
+  "name": "code-headless",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -8,5 +8,17 @@
   "scripts": {
     "dev": "npm run dev --workspaces",
     "build": "npm run build --workspaces"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.576.0",
+    "reka-ui": "^2.8.2",
+    "tailwind-merge": "^3.5.0"
   }
 }

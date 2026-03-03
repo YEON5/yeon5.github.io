@@ -11,16 +11,16 @@ import {
     FormControl, // Input/Checkbox를 감싸는 용도
     FormDescription,
     FormMessage,
-} from '@/components/ui/form';
-import { EasyFormField } from '@/components/ui/form-layout';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
-import { ButtonGroup } from '@/components/ui/button-group';
-import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '@/components/ui/field';
-import { SingleAccordion, MultipleAccordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+} from '@/components/form/form';
+import { EasyFormField } from '@/components/form/form-layout';
+import { Label } from '@/components/label/label';
+import { Input } from '@/components/input/input';
+import { Checkbox } from '@/components/checkbox/checkbox';
+import { Button } from '@/components/button/button';
+import { ButtonGroup } from '@/components/button/button-group';
+import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '@/components/form/field';
+import { SingleAccordion, MultipleAccordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/accordion/accordion';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/tabs/tabs';
 import { User } from 'lucide-react';
 
 function App() {

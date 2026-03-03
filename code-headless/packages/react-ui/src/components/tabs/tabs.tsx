@@ -58,9 +58,10 @@ const tabsTriggerVariants = cva(
 );
 
 
-// TabsContext
+// TabsContext (CVA가 자동으로 타입 생성)
 type TabsVariants = VariantProps<typeof tabsListVariants>;
 
+// Context 정의
 interface TabsContextValue {
   variant: NonNullable<TabsVariants["variant"]>;
   size: NonNullable<TabsVariants["size"]>;
