@@ -13,16 +13,12 @@ export default defineNuxtConfig({
   devServer: {
     port: 3001,
   },
+  // 우리가 수정한 중앙 통제형 CSS를 품고 있는 파일 경로 (유지)
   css: [path.resolve(__dirname, 'assets/css/main.css')],
+  
+  // 패키지 참조 경로 (유지)
   alias: {
-    // vue-ui 패키지의 src 폴더를 'vue-ui'라는 이름으로 참조
     'vue-ui': path.resolve(__dirname, '../../packages/vue-ui/src'),
     '@': path.resolve(__dirname, './'),
-  },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
   },
 })

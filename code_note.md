@@ -58,134 +58,72 @@ npm install reka-ui
 
 
 code-headless/
-├── _note.md
-├── .prettierignore
-├── .prettierrc
-├── package-lock.json
-├── package.json
-├── apps/
-│   ├── react-docs/
+├── apps/                            # 문서 및 데모 애플리케이션
+│   ├── react-docs/                  # React UI 컴포넌트 문서 (Next.js)
+│   │   ├── app/
+│   │   ├── public/
 │   │   ├── eslint.config.mjs
-│   │   ├── next-env.d.ts
 │   │   ├── next.config.ts
 │   │   ├── package.json
-│   │   ├── postcss.config.mjs
 │   │   ├── README.md
-│   │   ├── tailwind.config.ts
-│   │   ├── tsconfig.json
-│   │   ├── app/
-│   │   │   ├── accordion/
-│   │   │   │   └── page.tsx
-│   │   │   ├── tabs/
-│   │   │   │   └── page.tsx
-│   │   │   ├── favicon.ico
-│   │   │   ├── globals.css
-│   │   │   ├── layout.tsx
-│   │   │   └── page.tsx
-│   │   └── public/
-│   │       ├── file.svg
-│   │       ├── globe.svg
-│   │       ├── next.svg
-│   │       ├── vercel.svg
-│   │       └── window.svg
-│   └── vue-docs/
+│   │   └── tsconfig.json
+│   │
+│   └── vue-docs/                    # Vue UI 컴포넌트 문서 (Nuxt.js)
+│       ├── app/
+│       ├── assets/
+│       ├── public/
 │       ├── nuxt.config.ts
 │       ├── package.json
 │       ├── README.md
-│       ├── tailwind.config.js
+│       └── tsconfig.json
+│
+├── packages/                        # 공통으로 사용되는 패키지들
+│   ├── react-ui/                    # React 컴포넌트 라이브러리
+│   │   ├── public/
+│   │   ├── src/
+│   │   │   ├── assets/
+│   │   │   ├── components/
+│   │   │   ├── lib/
+│   │   │   ├── App.tsx
+│   │   │   ├── index.ts
+│   │   │   └── main.tsx
+│   │   ├── components.json
+│   │   ├── eslint.config.js
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.node.json
+│   │   └── vite.config.ts
+│   │
+│   ├── style-ui/                    # 공통 스타일 패키지 (Tailwind CSS)
+│   │   ├── src/
+│   │   │   └── style.css
+│   │   ├── dist/
+│   │   ├── note.md
+│   │   ├── package.json
+│   │   └── tailwind.config.js
+│   │
+│   └── vue-ui/                      # Vue 컴포넌트 라이브러리
+│       ├── public/
+│       ├── src/
+│       │   ├── assets/
+│       │   ├── components/
+│       │   ├── lib/
+│       │   ├── App.vue
+│       │   ├── index.ts
+│       │   └── main.ts
+│       ├── index.html
+│       ├── package.json
+│       ├── README.md
+│       ├── tsconfig.app.json
 │       ├── tsconfig.json
-│       ├── app/
-│       │   ├── layouts/
-│       │   │   └── default.vue
-│       │   ├── pages/
-│       │   │   ├── tabs/
-│       │   │   │   └── index.vue
-│       │   │   └── index.vue
-│       │   └── app.vue
-│       ├── assets/
-│       │   └── css/
-│       │       └── main.css
-│       └── public/
-│           ├── favicon.ico
-│           └── robots.txt
-└── packages/
-    ├── react-ui/
-    │   ├── components.json
-    │   ├── eslint.config.js
-    │   ├── index.html
-    │   ├── package.json
-    │   ├── postcss.config.js
-    │   ├── README.md
-    │   ├── tailwind.config.js
-    │   ├── tailwind.config.ts
-    │   ├── tsconfig.app.json
-    │   ├── tsconfig.json
-    │   ├── tsconfig.node.json
-    │   ├── vite.config.ts
-    │   ├── public/
-    │   │   └── vite.svg
-    │   └── src/
-    │       ├── assets/
-    │       │   └── react.svg
-    │       ├── components/
-    │       │   ├── accordion/
-    │       │   │   ├── accordion copy.tsx
-    │       │   │   └── accordion.tsx
-    │       │   ├── button/
-    │       │   │   ├── button-group.tsx
-    │       │   │   └── button.tsx
-    │       │   ├── checkbox/
-    │       │   │   └── checkbox.tsx
-    │       │   ├── form/
-    │       │   │   ├── field.tsx
-    │       │   │   ├── form-layout.tsx
-    │       │   │   └── form.tsx
-    │       │   ├── input/
-    │       │   │   └── input.tsx
-    │       │   ├── label/
-    │       │   │   └── label.tsx
-    │       │   ├── separator/
-    │       │   │   └── separator.tsx
-    │       │   ├── tabs/
-    │       │   │   ├── tabs.tsx
-    │       │   │   ├── tabs2.tsx
-    │       │   │   └── tabs_htmlattr.tsx
-    │       │   └── textarea/
-    │       │       └── textarea.tsx
-    │       ├── lib/
-    │       │   └── utils.ts
-    │       ├── App.css
-    │       ├── App.tsx
-    │       ├── base.css
-    │       ├── index.css
-    │       ├── index.ts
-    │       └── main.tsx
-    └── vue-ui/
-        ├── index.html
-        ├── package.json
-        ├── postcss.config.js
-        ├── README.md
-        ├── tailwind.config.js
-        ├── tsconfig.app.json
-        ├── tsconfig.json
-        ├── tsconfig.node.json
-        ├── vite.config.ts
-        ├── public/
-        │   └── vite.svg
-        └── src/
-            ├── assets/
-            │   └── vue.svg
-            ├── components/
-            │   └── tabs/
-            │       ├── index.ts
-            │       ├── tabs.style.ts
-            │       ├── tabs.vue
-            │       ├── tabsContent.vue
-            │       ├── tabsList.vue
-            │       └── tabsTrigger.vue
-            ├── lib/
-            │   └── utils.ts
-            ├── App.vue
-            ├── index.ts
-            ├── main.ts
-            └── style.css
+│       ├── tsconfig.node.json
+│       └── vite.config.ts
+│
+├── .prettierignore                  # Prettier 무시 파일 설정
+├── .prettierrc                      # Prettier 포맷팅 설정
+├── _note.md                         # 프로젝트 관련 노트
+├── package-lock.json
+└── package.json                     # Root 패키지 설정 (Monorepo 기반)
