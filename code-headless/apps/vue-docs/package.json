@@ -1,0 +1,23 @@
+{
+  "name": "vue-docs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@code-headless/style-ui": "*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.576.0",
+    "nuxt": "^4.3.1",
+    "reka-ui": "^2.8.2",
+    "tailwind-merge": "^3.5.0",
+    "vue": "^3.5.29",
+    "vue-router": "^4.6.4"
+  }
+}
