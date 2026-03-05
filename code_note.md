@@ -9,7 +9,7 @@ SCSS: background-image: url('/assets/images/bg.png');
 
 
 -----------------------------------------------------------------------------------
-## code-headless
+## code-headless 
 
 # react: radix 설치 방법
 1.Shadcn UI
