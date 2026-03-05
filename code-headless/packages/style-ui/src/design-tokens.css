@@ -1,0 +1,84 @@
+
+
+/* Do not edit directly */
+
+:root {
+
+  /* COLOR */
+  --pds-color-states-dark-100-80: #000000cc;
+  --pds-color-states-dark-100-75: #000000bf;
+  --pds-color-states-dark-100-50: #00000080;
+  --pds-color-states-dark-100-30: #0000004d;
+  --pds-color-states-dark-100-15: #00000026;
+  --pds-color-states-dark-100-10: #0000001a;
+  --pds-color-states-dark-100-5: #0000000d;
+  --pds-color-states-light-100-60: #ffffff99;
+  --pds-color-states-light-100-50: #ffffff80;
+  --pds-color-gray-color-black: #000000;
+  --pds-color-gray-color-white: #ffffff;
+  --pds-color-gray-color-gray-950: #1f1f1f;
+  --pds-color-gray-color-gray-900: #3f3f3f;
+  --pds-color-gray-color-gray-800: #555555;
+  --pds-color-gray-color-gray-700: #616161;
+  --pds-color-gray-color-gray-600: #777777;
+  --pds-color-gray-color-gray-500: #949494;
+  --pds-color-gray-color-gray-400: #b5b5b5;
+  --pds-color-gray-color-gray-300: #c5c5c5;
+  --pds-color-gray-color-gray-200: #dedede;
+  --pds-color-gray-color-gray-100: #ededed;
+  --pds-color-gray-color-gray-50: #f5f6f7;
+  --pds-color-gray-color-gray-25: #f8f9f9;
+  --pds-color-mint-color-mint-950: #003c33;
+  --pds-color-mint-color-mint-900: #0c554b;
+  --pds-color-mint-color-mint-800: #08675a;
+  --pds-color-mint-color-mint-700: #009b7f;
+  --pds-color-mint-color-mint-600: #00a48a;
+  --pds-color-mint-color-mint-500: #00c29f;
+  --pds-color-mint-color-mint-400: #3dd5b4;
+  --pds-color-mint-color-mint-300: #68e0c4;
+  --pds-color-mint-color-mint-200: #99ecdb;
+  --pds-color-mint-color-mint-100: #d2f5ed;
+  --pds-color-mint-color-mint-50: #eefaf7;
+  --pds-color-banner-color-bg-green: #e8faf2;
+  --pds-color-banner-color-bg-blue: #e8f5ff;
+  --pds-color-banner-color-bg-violet: #eeecff;
+  --pds-color-banner-color-bg-orange: #ffece9;
+  --pds-color-banner-color-bg-pink: #ffeff4;
+  --pds-color-banner-color-bg-yellow: #fef5db;
+
+  /* PRIMITIVE */
+
+  /* RESPONSIVE-VALUE-SET */
+  --pds-value-set-radius-radius-none: 0rem;
+  --pds-value-set-radius-radius-sm: 0.2rem;
+  --pds-value-set-radius-radius-md: 0.4rem;
+  --pds-value-set-radius-radius-lg: 0.8rem;
+  --pds-value-set-radius-radius-xl: 1.2rem;
+  --pds-value-set-radius-radius-2xl: 1.6rem;
+  --pds-value-set-radius-radius-3xl: 2rem;
+  --pds-value-set-radius-radius-full: 999.9rem;
+  --pds-value-set-spacing-spacing-1: 0.2rem;
+  --pds-value-set-spacing-spacing-2: 0.4rem;
+  --pds-value-set-spacing-spacing-3: 0.8rem;
+  --pds-value-set-spacing-spacing-4: 1.2rem;
+  --pds-value-set-spacing-spacing-5: 1.6rem;
+  --pds-value-set-spacing-spacing-6: 2rem;
+  --pds-value-set-spacing-spacing-7: 2.4rem;
+  --pds-value-set-spacing-spacing-8: 3.2rem;
+  --pds-value-set-spacing-spacing-9: 4rem;
+  --pds-value-set-spacing-spacing-10: 4.8rem;
+  --pds-value-set-spacing-spacing-11: 6rem;
+  --pds-value-set-spacing-spacing-12: 7.2rem;
+  --pds-value-set-spacing-spacing-13: 8rem;
+  --pds-value-set-text-4xl: 3.6rem;
+  --pds-value-set-text-3xl: 3rem;
+  --pds-value-set-text-2xl: 2.4rem;
+  --pds-value-set-text-xl: 2rem;
+  --pds-value-set-text-lg: 1.8rem;
+  --pds-value-set-text-md: 1.6rem;
+  --pds-value-set-text-sm: 1.4rem;
+  --pds-value-set-text-xs: 1.3rem;
+  --pds-value-set-text-xxs: 1.2rem;
+
+  /* SEMANTIC */
+}
