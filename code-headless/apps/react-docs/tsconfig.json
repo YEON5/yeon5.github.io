@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "react-ui": ["../../packages/react-ui/src/index"]
     }
   },
   "include": [
