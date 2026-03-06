@@ -6,6 +6,17 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/tabs';
     <div class="w-full max-w-3xl mx-auto p-10 space-y-10">
         <h1 class="text-3xl font-bold text-gray-900">Tabs Component Test</h1>
 
+        <!-- pds 디자인토큰 css -->
+        <section>
+            <div class="bg-pds-mint-500 text-pds-gray-white p-pds-4 rounded-pds-md">bg-pds-mint-500</div>
+
+            <div class="bg-pds-banner-green p-pds-3 rounded-pds-sm">bg-pds-banner-green</div>
+
+            <span class="text-pds-gray-900 text-pds-xl">text-pds-xl / pds-gray-900</span>
+
+            <div class="p-pds-5 rounded-pds-lg border border-pds-gray-200">p-pds-5 / rounded-pds-lg</div>
+        </section>
+
         <!-- 1. Primary Variant (기본형: 하단 라인) -->
         <section>
             <h2 class="text-xl font-semibold mb-4 text-gray-700">1. Primary Variant</h2>

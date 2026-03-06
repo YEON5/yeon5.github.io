@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "tailwindcss -i ./src/style.css -o ./dist/style.css --watch",
-    "build": "tailwindcss -i ./src/style.css -o ./dist/style.css --minify"
+    "generate:tokens": "node scripts/generate-tokens.js",
+    "dev": "npm run generate:tokens && tailwindcss -i ./src/style.css -o ./dist/style.css --watch",
+    "build": "npm run generate:tokens && tailwindcss -i ./src/style.css -o ./dist/style.css --minify"
   },
   "dependencies": {
     "tailwindcss": "^3.4.1",
