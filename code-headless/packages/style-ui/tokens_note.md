@@ -5,20 +5,36 @@
 ```
 packages/style-ui/
 ├── src/
-│   ├── design-tokens.css   # 피그마에서 export한 디자인 토큰 CSS 변수 (원본)
-│   ├── pds-tokens.js       # generate-tokens.js가 자동 생성하는 파일 (수정 금지)
-│   └── style.css           # Tailwind 진입점 CSS
+│   ├── tokens/
+│   │   └── design-tokens.json  # 피그마에서 export한 디자인 토큰 (원본, 단일 소스)
+│   ├── design-tokens.css       # CSS 변수 모음 (직접 var() 참조 시 사용)
+│   ├── pds-tokens.js           # generate-tokens.js가 자동 생성 (수정 금지)
+│   └── style.css               # Tailwind 진입점 CSS
 ├── dist/
-│   └── style.css           # 빌드 결과물 (react-docs, vue-docs에서 import)
+│   └── style.css               # 빌드 결과물 (react-docs, vue-docs에서 import)
 ├── scripts/
-│   └── generate-tokens.js  # design-tokens.css → pds-tokens.js 파서 스크립트
-├── tailwind.config.js      # Tailwind 설정 (pds-tokens.js를 import해서 theme에 주입)
-└── postcss.config.js       # PostCSS 설정 (tailwindcss + autoprefixer)
+│   └── generate-tokens.js      # JSON → pds-tokens.js 파서 스크립트
+├── tailwind.config.js          # Tailwind 설정 (pds-tokens.js를 import해서 theme에 주입)
+└── postcss.config.js           # PostCSS 설정 (tailwindcss + autoprefixer)
 ```
 
 ---
 
-## 빌드 방법
+## 빌드 흐름
+
+```
+design-tokens.json
+      ↓ generate-tokens.js 실행
+src/pds-tokens.js  (자동 생성, 수정 금지)
+      ↓ tailwind.config.js에서 require()
+npm run build
+      ↓
+dist/style.css  ←  react-docs, vue-docs에서 @import
+```
+
+---
+
+## 빌드 명령어
 
 루트 경로(`code-headless/`)에서 실행
 
@@ -29,55 +45,72 @@ npm run build -w packages/style-ui
 # 개발 모드 (파일 변경 감지 + 자동 재빌드)
 npm run dev -w packages/style-ui
 
-# 토큰 파일만 재생성 (CSS 빌드 없이)
+# 토큰 파일만 재생성 (CSS 빌드 없이 확인할 때)
 npm run generate:tokens -w packages/style-ui
 ```
 
 ---
 
-## design-tokens.css가 변경됐을 때
+## design-tokens.json이 변경됐을 때
 
-### 케이스 1: 기존 변수 값만 변경 (색상 코드 등)
+### 케이스 1: 기존 토큰 값만 변경 (색상 코드 등)
 ```bash
 npm run build -w packages/style-ui
 ```
 → 스크립트 수정 없이 자동 반영
 
-### 케이스 2: 기존 그룹에 새 변수 추가
-예) `--pds-color-mint-color-mint-25` 추가
+### 케이스 2: 기존 그룹에 새 토큰 추가
+예) `mint` 그룹에 `"color-mint-25"` 추가
 ```bash
 npm run build -w packages/style-ui
 ```
 → 자동 반영
 
 ### 케이스 3: 완전히 새로운 색상 그룹 추가
-예) `--pds-color-blue-color-blue-500` 추가
+예) JSON에 `"blue": { "color-blue-500": { ... } }` 추가
+```bash
+npm run build -w packages/style-ui
 ```
-scripts/generate-tokens.js 수정 필요
-→ 새 그룹 파싱 규칙 추가 후 npm run build -w packages/style-ui
+→ **스크립트 수정 없이 자동 반영** (JSON 기반의 핵심 장점)
+
+### 케이스 4: JSON 최상위 구조 자체가 변경
+예) `color.color.{group}` 경로가 바뀌는 경우
+```
+scripts/generate-tokens.js 상단의 탐색 경로 수정 필요
+const colorGroups = tokens?.color?.color ?? {};  ← 이 부분
 ```
 
-### 케이스 4: 변수명 규칙(네이밍 컨벤션) 자체가 변경
+---
+
+## Tailwind 클래스 접두사 변경
+
+`scripts/generate-tokens.js` 상단의 `PREFIX` 상수만 바꾸고 재빌드하면 됩니다.
+
+```js
+// ✏️ 이 값만 변경하면 모든 토큰 클래스에 반영됨
+const PREFIX = "pds";  // → "ds"로 바꾸면 bg-ds-mint-500, text-ds-xl ...
 ```
-scripts/generate-tokens.js 전면 수정 필요
+
+```bash
+npm run build -w packages/style-ui
 ```
 
 ---
 
 ## generate-tokens.js 동작 원리
 
-`design-tokens.css`의 CSS 변수명 prefix 패턴을 파싱해서 `pds-tokens.js`를 자동 생성합니다.
+`design-tokens.json` 구조를 순회하여 `pds-tokens.js`를 자동 생성합니다.
+그룹명과 중복 접두사(`color-`, `bg-`)를 제거해 깔끔한 키를 추출합니다.
 
-| CSS 변수 prefix | Tailwind theme 카테고리 | 생성되는 클래스 예시 |
+| JSON 경로 | Tailwind theme | 생성 클래스 예시 |
 |---|---|---|
-| `--pds-color-states-dark-*` | `colors["pds-states-dark"]` | `bg-pds-states-dark-100-50` |
-| `--pds-color-states-light-*` | `colors["pds-states-light"]` | `bg-pds-states-light-100-60` |
-| `--pds-color-gray-color-*` | `colors["pds-gray"]` | `bg-pds-gray-950` |
-| `--pds-color-mint-color-mint-*` | `colors["pds-mint"]` | `bg-pds-mint-500` |
-| `--pds-color-banner-color-bg-*` | `colors["pds-banner"]` | `bg-pds-banner-green` |
-| `--pds-value-set-radius-radius-*` | `borderRadius` | `rounded-pds-md` |
-| `--pds-value-set-spacing-spacing-*` | `spacing` | `p-pds-4`, `m-pds-2`, `gap-pds-3` |
-| `--pds-value-set-text-*` | `fontSize` | `text-pds-xl` |
+| `color.color.states.*` | `colors["pds-states"]` | `bg-pds-states-dark-100-50` |
+| `color.color.gray.*` | `colors["pds-gray"]` | `bg-pds-gray-950`, `text-pds-gray-white` |
+| `color.color.mint.*` | `colors["pds-mint"]` | `bg-pds-mint-500` |
+| `color.color.banner.*` | `colors["pds-banner"]` | `bg-pds-banner-green` |
+| `responsive-value-set.radius.*` | `borderRadius` | `rounded-pds-md`, `rounded-pds-full` |
+| `responsive-value-set.spacing.*` | `spacing` | `p-pds-4`, `m-pds-2`, `gap-pds-3` |
+| `responsive-value-set.text-*` | `fontSize` | `text-pds-xl`, `text-pds-md` |
 
 ---
 
@@ -95,7 +128,6 @@ scripts/generate-tokens.js 전면 수정 필요
 
 <!-- 상태 오버레이 -->
 <div class="bg-pds-states-dark-100-50">어두운 오버레이 50%</div>
-<div class="bg-pds-states-light-100-60">밝은 오버레이 60%</div>
 
 <!-- 모서리 -->
 <div class="rounded-pds-sm">rounded sm</div>
@@ -113,16 +145,19 @@ scripts/generate-tokens.js 전면 수정 필요
 <span class="text-pds-xxs">xxs 텍스트</span>
 ```
 
+기존 Tailwind 클래스(`bg-blue-500`, `text-sm` 등)와 함께 사용 가능합니다.
+
 ---
 
 ## CSS 적용 구조
 
 ```
-style-ui/dist/style.css
-    ↑ 빌드 결과물
-
 apps/react-docs/app/globals.css   → @import "@code-headless/style-ui/dist/style.css"
 apps/vue-docs/assets/css/main.css → @import "@code-headless/style-ui/dist/style.css"
 ```
 
-기존 Tailwind 클래스(`bg-blue-500`, `text-sm` 등)와 PDS 토큰 클래스를 함께 사용할 수 있습니다.
+## design-tokens.css 관련
+
+`src/style.css`에 `@import './design-tokens.css'`가 포함되어 있어
+CSS 변수(`var(--pds-color-mint-500)` 등)를 직접 참조하는 것도 가능합니다.
+Tailwind 클래스만 사용한다면 없어도 동작하지만, 그대로 두는 것을 권장합니다.

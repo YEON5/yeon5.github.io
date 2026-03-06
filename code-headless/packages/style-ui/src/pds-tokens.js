@@ -1,92 +1,90 @@
-// Auto-generated from design-tokens.css — do not edit manually
+// Auto-generated from design-tokens.json — do not edit manually
 // Run: npm run generate:tokens
 module.exports = {
   "colors": {
-    "pds-states-dark": {
-      "100-80": "var(--pds-color-states-dark-100-80)",
-      "100-75": "var(--pds-color-states-dark-100-75)",
-      "100-50": "var(--pds-color-states-dark-100-50)",
-      "100-30": "var(--pds-color-states-dark-100-30)",
-      "100-15": "var(--pds-color-states-dark-100-15)",
-      "100-10": "var(--pds-color-states-dark-100-10)",
-      "100-5": "var(--pds-color-states-dark-100-5)"
-    },
-    "pds-states-light": {
-      "100-60": "var(--pds-color-states-light-100-60)",
-      "100-50": "var(--pds-color-states-light-100-50)"
+    "pds-states": {
+      "dark-100-50": "#00000080",
+      "dark-100-75": "#000000bf",
+      "dark-100-80": "#000000cc",
+      "dark-100-30": "#0000004d",
+      "dark-100-15": "#00000026",
+      "dark-100-5": "#0000000d",
+      "dark-100-10": "#0000001a",
+      "light-100-60": "#ffffff99",
+      "light-100-50": "#ffffff80"
     },
     "pds-gray": {
-      "25": "var(--pds-color-gray-color-gray-25)",
-      "50": "var(--pds-color-gray-color-gray-50)",
-      "100": "var(--pds-color-gray-color-gray-100)",
-      "200": "var(--pds-color-gray-color-gray-200)",
-      "300": "var(--pds-color-gray-color-gray-300)",
-      "400": "var(--pds-color-gray-color-gray-400)",
-      "500": "var(--pds-color-gray-color-gray-500)",
-      "600": "var(--pds-color-gray-color-gray-600)",
-      "700": "var(--pds-color-gray-color-gray-700)",
-      "800": "var(--pds-color-gray-color-gray-800)",
-      "900": "var(--pds-color-gray-color-gray-900)",
-      "950": "var(--pds-color-gray-color-gray-950)",
-      "black": "var(--pds-color-gray-color-black)",
-      "white": "var(--pds-color-gray-color-white)"
+      "25": "#f8f9f9",
+      "50": "#f5f6f7",
+      "100": "#ededed",
+      "200": "#dedede",
+      "300": "#c5c5c5",
+      "400": "#b5b5b5",
+      "500": "#949494",
+      "600": "#777777",
+      "700": "#616161",
+      "800": "#555555",
+      "900": "#3f3f3f",
+      "950": "#1f1f1f",
+      "white": "#ffffff",
+      "black": "#000000"
     },
     "pds-mint": {
-      "50": "var(--pds-color-mint-color-mint-50)",
-      "100": "var(--pds-color-mint-color-mint-100)",
-      "200": "var(--pds-color-mint-color-mint-200)",
-      "300": "var(--pds-color-mint-color-mint-300)",
-      "400": "var(--pds-color-mint-color-mint-400)",
-      "500": "var(--pds-color-mint-color-mint-500)",
-      "600": "var(--pds-color-mint-color-mint-600)",
-      "700": "var(--pds-color-mint-color-mint-700)",
-      "800": "var(--pds-color-mint-color-mint-800)",
-      "900": "var(--pds-color-mint-color-mint-900)",
-      "950": "var(--pds-color-mint-color-mint-950)"
+      "50": "#eefaf7",
+      "100": "#d2f5ed",
+      "200": "#99ecdb",
+      "300": "#68e0c4",
+      "400": "#3dd5b4",
+      "500": "#00c29f",
+      "600": "#00a48a",
+      "700": "#009b7f",
+      "800": "#08675a",
+      "900": "#0c554b",
+      "950": "#003c33"
     },
     "pds-banner": {
-      "green": "var(--pds-color-banner-color-bg-green)",
-      "blue": "var(--pds-color-banner-color-bg-blue)",
-      "violet": "var(--pds-color-banner-color-bg-violet)",
-      "orange": "var(--pds-color-banner-color-bg-orange)",
-      "pink": "var(--pds-color-banner-color-bg-pink)",
-      "yellow": "var(--pds-color-banner-color-bg-yellow)"
+      "green": "#e8faf2",
+      "blue": "#e8f5ff",
+      "violet": "#eeecff",
+      "orange": "#ffece9",
+      "pink": "#ffeff4",
+      "yellow": "#fef5db"
     }
   },
   "borderRadius": {
-    "pds-none": "var(--pds-value-set-radius-radius-none)",
-    "pds-sm": "var(--pds-value-set-radius-radius-sm)",
-    "pds-md": "var(--pds-value-set-radius-radius-md)",
-    "pds-lg": "var(--pds-value-set-radius-radius-lg)",
-    "pds-xl": "var(--pds-value-set-radius-radius-xl)",
-    "pds-2xl": "var(--pds-value-set-radius-radius-2xl)",
-    "pds-3xl": "var(--pds-value-set-radius-radius-3xl)",
-    "pds-full": "var(--pds-value-set-radius-radius-full)"
+    "pds-none": "0rem",
+    "pds-md": "0.4rem",
+    "pds-lg": "0.8rem",
+    "pds-full": "999.9rem",
+    "pds-sm": "0.2rem",
+    "pds-xl": "1.2rem",
+    "pds-2xl": "1.6rem",
+    "pds-3xl": "2rem"
   },
   "spacing": {
-    "pds-1": "var(--pds-value-set-spacing-spacing-1)",
-    "pds-2": "var(--pds-value-set-spacing-spacing-2)",
-    "pds-3": "var(--pds-value-set-spacing-spacing-3)",
-    "pds-4": "var(--pds-value-set-spacing-spacing-4)",
-    "pds-5": "var(--pds-value-set-spacing-spacing-5)",
-    "pds-6": "var(--pds-value-set-spacing-spacing-6)",
-    "pds-7": "var(--pds-value-set-spacing-spacing-7)",
-    "pds-8": "var(--pds-value-set-spacing-spacing-8)",
-    "pds-9": "var(--pds-value-set-spacing-spacing-9)",
-    "pds-10": "var(--pds-value-set-spacing-spacing-10)",
-    "pds-11": "var(--pds-value-set-spacing-spacing-11)",
-    "pds-12": "var(--pds-value-set-spacing-spacing-12)",
-    "pds-13": "var(--pds-value-set-spacing-spacing-13)"
+    "pds-1": "0.2rem",
+    "pds-2": "0.4rem",
+    "pds-3": "0.8rem",
+    "pds-4": "1.2rem",
+    "pds-5": "1.6rem",
+    "pds-6": "2rem",
+    "pds-7": "2.4rem",
+    "pds-8": "3.2rem",
+    "pds-9": "4rem",
+    "pds-10": "4.8rem",
+    "pds-11": "6rem",
+    "pds-12": "7.2rem",
+    "pds-13": "8rem"
   },
   "fontSize": {
-    "pds-4xl": "var(--pds-value-set-text-4xl)",
-    "pds-3xl": "var(--pds-value-set-text-3xl)",
-    "pds-2xl": "var(--pds-value-set-text-2xl)",
-    "pds-xl": "var(--pds-value-set-text-xl)",
-    "pds-lg": "var(--pds-value-set-text-lg)",
-    "pds-md": "var(--pds-value-set-text-md)",
-    "pds-sm": "var(--pds-value-set-text-sm)",
-    "pds-xs": "var(--pds-value-set-text-xs)",
-    "pds-xxs": "var(--pds-value-set-text-xxs)"
+    "pds-text-4xl": "3.6rem",
+    "pds-text-2xl": "2.4rem",
+    "pds-text-xl": "2rem",
+    "pds-text-xxs": "1.2rem",
+    "pds-text-sm": "1.4rem",
+    "pds-text-xs": "1.3rem",
+    "pds-text-3xl": "3rem",
+    "pds-text-lg": "1.8rem",
+    "pds-text-md": "1.6rem"
   }
 };
