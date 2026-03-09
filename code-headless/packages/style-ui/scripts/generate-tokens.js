@@ -1,8 +1,9 @@
 const fs   = require("fs");
 const path = require("path");
 
-const INPUT  = path.resolve(__dirname, "../src/tokens/design-tokens.json");
-const OUTPUT = path.resolve(__dirname, "../src/design-tokens.js");
+const INPUT      = path.resolve(__dirname, "../src/tokens/design-tokens.json");
+const OUTPUT_JS  = path.resolve(__dirname, "../src/design-tokens.js");
+const OUTPUT_CSS = path.resolve(__dirname, "../src/design-tokens.css");
 
 const tokens = JSON.parse(fs.readFileSync(INPUT, "utf-8"));
 
@@ -33,59 +34,79 @@ function cleanKey(group, rawKey) {
     .replace(new RegExp(`^${group}-`), "");
 }
 
+const colors = {};
+const borderRadius = {};
+const spacing = {};
+const fontSize = {};
+let cssVariables = ":root {\n";
+
 // ── Colors ──────────────────────────────────────────────────────────
 // color.color.{group}.{key} → pds-{group}[cleanKey]
-const colors = {};
 const colorGroups = tokens?.color?.color ?? {};
 
 for (const [group, entries] of Object.entries(colorGroups)) {
   colors[`${PREFIX}-${group}`] = {};
   for (const [rawKey, token] of Object.entries(entries)) {
     if (token.type === "color" && token.value) {
-      colors[`${PREFIX}-${group}`][cleanKey(group, rawKey)] = token.value;
+      const clean = cleanKey(group, rawKey);
+      colors[`${PREFIX}-${group}`][clean] = token.value;
+      cssVariables += `  --${PREFIX}-${group}-${clean}: ${token.value};\n`;
     }
   }
 }
 
 // ── Border Radius ────────────────────────────────────────────────────
 // responsive-value-set.radius.radius-{name} → pds-{name}
-const borderRadius = {};
 const radiusEntries = tokens?.["responsive-value-set"]?.radius ?? {};
 
 for (const [rawKey, token] of Object.entries(radiusEntries)) {
   if (token.type === "dimension" && token.value) {
-    borderRadius[`${PREFIX}-` + rawKey.replace(/^radius-/, "")] = token.value;
+    const clean = rawKey.replace(/^radius-/, "");
+    borderRadius[`${PREFIX}-` + clean] = token.value;
+    cssVariables += `  --${PREFIX}-radius-${clean}: ${token.value};\n`;
   }
 }
 
 // ── Spacing ──────────────────────────────────────────────────────────
 // responsive-value-set.spacing.spacing-{n} → pds-{n}
-const spacing = {};
 const spacingEntries = tokens?.["responsive-value-set"]?.spacing ?? {};
 
 for (const [rawKey, token] of Object.entries(spacingEntries)) {
   if (token.type === "dimension" && token.value) {
-    spacing[`${PREFIX}-` + rawKey.replace(/^spacing-/, "")] = token.value;
+    const clean = rawKey.replace(/^spacing-/, "");
+    spacing[`${PREFIX}-` + clean] = token.value;
+    cssVariables += `  --${PREFIX}-spacing-${clean}: ${token.value};\n`;
   }
 }
 
 // ── Font Size ─────────────────────────────────────────────────────────
 // responsive-value-set.text-{size}.value (px 숫자) → pds-text-{size}: rem
 // JSON 값은 px 기준 숫자 → ÷10 하여 rem 변환 (root 10px 기준)
-const fontSize = {};
 const valueSet = tokens?.["responsive-value-set"] ?? {};
 
 for (const [rawKey, token] of Object.entries(valueSet)) {
   if (rawKey.startsWith("text-") && token.type === "text" && token.value) {
-    fontSize[`${PREFIX}-${rawKey}`] = `${parseFloat(token.value) / 10}rem`;
+    const remValue = `${parseFloat(token.value) / 10}rem`;
+    fontSize[`${PREFIX}-${rawKey}`] = remValue;
+    cssVariables += `  --${PREFIX}-${rawKey}: ${remValue};\n`;
   }
 }
 
-// ── Output ────────────────────────────────────────────────────────────
-const output = `// Auto-generated from design-tokens.json — do not edit manually
+cssVariables += "}\n";
+
+// ── Output JS ─────────────────────────────────────────────────────────
+const outputJs = `// Auto-generated from design-tokens.json — do not edit manually
 // Run: npm run generate:tokens
 module.exports = ${JSON.stringify({ colors, borderRadius, spacing, fontSize }, null, 2)};
 `;
 
-fs.writeFileSync(OUTPUT, output);
-console.log("✓ design-tokens.js generated from design-tokens.json");
+fs.writeFileSync(OUTPUT_JS, outputJs);
+console.log("✓ design-tokens.js generated");
+
+// ── Output CSS ────────────────────────────────────────────────────────
+const outputCss = `/* Auto-generated from design-tokens.json — do not edit manually */
+/* Run: npm run generate:tokens */
+${cssVariables}`;
+
+fs.writeFileSync(OUTPUT_CSS, outputCss);
+console.log("✓ design-tokens.css generated");
