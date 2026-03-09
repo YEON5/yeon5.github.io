@@ -2,7 +2,7 @@ const fs   = require("fs");
 const path = require("path");
 
 const INPUT  = path.resolve(__dirname, "../src/tokens/design-tokens.json");
-const OUTPUT = path.resolve(__dirname, "../src/pds-tokens.js");
+const OUTPUT = path.resolve(__dirname, "../src/design-tokens.js");
 
 const tokens = JSON.parse(fs.readFileSync(INPUT, "utf-8"));
 
@@ -13,7 +13,7 @@ const tokens = JSON.parse(fs.readFileSync(INPUT, "utf-8"));
 // 현재: "pds"  →  bg-pds-mint-500, text-pds-xl, rounded-pds-md ...
 // 변경 예시: "ds" →  bg-ds-mint-500, text-ds-xl, rounded-ds-md ...
 // ─────────────────────────────────────────────────────────────────────
-const PREFIX = "pds";
+const { PREFIX } = require("../src/tokens-config");
 
 /**
  * 그룹명·공통 접두사(color-, bg-)를 제거해 깔끔한 키를 추출합니다.
@@ -54,7 +54,7 @@ const radiusEntries = tokens?.["responsive-value-set"]?.radius ?? {};
 
 for (const [rawKey, token] of Object.entries(radiusEntries)) {
   if (token.type === "dimension" && token.value) {
-    borderRadius["pds-" + rawKey.replace(/^radius-/, "")] = token.value;
+    borderRadius[`${PREFIX}-` + rawKey.replace(/^radius-/, "")] = token.value;
   }
 }
 
@@ -65,7 +65,7 @@ const spacingEntries = tokens?.["responsive-value-set"]?.spacing ?? {};
 
 for (const [rawKey, token] of Object.entries(spacingEntries)) {
   if (token.type === "dimension" && token.value) {
-    spacing["pds-" + rawKey.replace(/^spacing-/, "")] = token.value;
+    spacing[`${PREFIX}-` + rawKey.replace(/^spacing-/, "")] = token.value;
   }
 }
 
@@ -77,7 +77,7 @@ const valueSet = tokens?.["responsive-value-set"] ?? {};
 
 for (const [rawKey, token] of Object.entries(valueSet)) {
   if (rawKey.startsWith("text-") && token.type === "text" && token.value) {
-    fontSize[`pds-${rawKey}`] = `${parseFloat(token.value) / 10}rem`;
+    fontSize[`${PREFIX}-${rawKey}`] = `${parseFloat(token.value) / 10}rem`;
   }
 }
 
@@ -88,4 +88,4 @@ module.exports = ${JSON.stringify({ colors, borderRadius, spacing, fontSize }, n
 `;
 
 fs.writeFileSync(OUTPUT, output);
-console.log("✓ pds-tokens.js generated from design-tokens.json");
+console.log("✓ design-tokens.js generated from design-tokens.json");

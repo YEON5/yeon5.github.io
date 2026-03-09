@@ -8,13 +8,13 @@ packages/style-ui/
 │   ├── tokens/
 │   │   └── design-tokens.json  # 피그마에서 export한 디자인 토큰 (원본, 단일 소스)
 │   ├── design-tokens.css       # CSS 변수 모음 (직접 var() 참조 시 사용)
-│   ├── pds-tokens.js           # generate-tokens.js가 자동 생성 (수정 금지)
+│   ├── design-tokens.js           # generate-tokens.js가 자동 생성 (수정 금지)
 │   └── style.css               # Tailwind 진입점 CSS
 ├── dist/
 │   └── style.css               # 빌드 결과물 (react-docs, vue-docs에서 import)
 ├── scripts/
-│   └── generate-tokens.js      # JSON → pds-tokens.js 파서 스크립트
-├── tailwind.config.js          # Tailwind 설정 (pds-tokens.js를 import해서 theme에 주입)
+│   └── generate-tokens.js      # JSON → design-tokens.js 파서 스크립트
+├── tailwind.config.js          # Tailwind 설정 (design-tokens.js를 import해서 theme에 주입)
 └── postcss.config.js           # PostCSS 설정 (tailwindcss + autoprefixer)
 ```
 
@@ -25,7 +25,7 @@ packages/style-ui/
 ```
 design-tokens.json
       ↓ generate-tokens.js 실행
-src/pds-tokens.js  (자동 생성, 수정 금지)
+src/design-tokens.js  (자동 생성, 수정 금지)
       ↓ tailwind.config.js에서 require()
 npm run build
       ↓
@@ -99,7 +99,7 @@ npm run build -w packages/style-ui
 
 ## generate-tokens.js 동작 원리
 
-`design-tokens.json` 구조를 순회하여 `pds-tokens.js`를 자동 생성합니다.
+`design-tokens.json` 구조를 순회하여 `design-tokens.js`를 자동 생성합니다.
 그룹명과 중복 접두사(`color-`, `bg-`)를 제거해 깔끔한 키를 추출합니다.
 
 | JSON 경로 | Tailwind theme | 생성 클래스 예시 |
