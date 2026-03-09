@@ -7,14 +7,15 @@ packages/style-ui/
 ├── src/
 │   ├── tokens/
 │   │   └── design-tokens.json  # 피그마에서 export한 디자인 토큰 (원본, 단일 소스)
+│   ├── tokens-config.js        # ✏️ Tailwind 클래스 접두사(PREFIX) 단일 관리 지점
 │   ├── design-tokens.css       # CSS 변수 모음 (직접 var() 참조 시 사용)
-│   ├── design-tokens.js           # generate-tokens.js가 자동 생성 (수정 금지)
-│   └── style.css               # Tailwind 진입점 CSS
+│   ├── design-tokens.js        # generate-tokens.js가 자동 생성 (수정 금지)
+│   └── style.css               # Tailwind 진입점 CSS (시맨틱 변수 통합)
 ├── dist/
 │   └── style.css               # 빌드 결과물 (react-docs, vue-docs에서 import)
 ├── scripts/
 │   └── generate-tokens.js      # JSON → design-tokens.js 파서 스크립트
-├── tailwind.config.js          # Tailwind 설정 (design-tokens.js를 import해서 theme에 주입)
+├── tailwind.config.js          # Tailwind 설정 (design-tokens.js 테마 주입 및 Safelist)
 └── postcss.config.js           # PostCSS 설정 (tailwindcss + autoprefixer)
 ```
 
@@ -29,7 +30,7 @@ src/design-tokens.js  (자동 생성, 수정 금지)
       ↓ tailwind.config.js에서 require()
 npm run build
       ↓
-dist/style.css  ←  react-docs, vue-docs에서 @import
+dist/style.css  ←  react-docs, vue-docs 등에서 @import
 ```
 
 ---
@@ -82,18 +83,37 @@ const colorGroups = tokens?.color?.color ?? {};  ← 이 부분
 
 ---
 
-## Tailwind 클래스 접두사 변경
+## Tailwind 클래스 접두사(PREFIX) 변경
 
-`scripts/generate-tokens.js` 상단의 `PREFIX` 상수만 바꾸고 재빌드하면 됩니다.
+토큰 클래스의 접두사(pds)를 변경하려면 src/tokens-config.js 파일의 상수를 수정하면 됩니다.
+이곳의 값을 변경하면 토큰 생성 스크립트와 Tailwind의 Safelist에 모두 자동 반영됩니다.
 
 ```js
-// ✏️ 이 값만 변경하면 모든 토큰 클래스에 반영됨
-const PREFIX = "pds";  // → "ds"로 바꾸면 bg-ds-mint-500, text-ds-xl ...
+// src/tokens-config.js
+// ✏️ 이 값만 변경하면 모든 토큰 클래스 및 Safelist에 반영됨
+const PREFIX = "ds";  // "pds"에서 "ds"로 변경 시 bg-ds-mint-500, text-ds-xl 등으로 변경됨
 ```
 
+변경 후 재빌드합니다.
 ```bash
 npm run build -w packages/style-ui
 ```
+
+---
+
+## Safelist (동적 클래스 할당 안전 보장)
+tailwind.config.js에는 PDS 토큰에 대한 광범위한
+safelist 정규식(^bg-${PREFIX}-, ^text-${PREFIX}- 등)이 기본으로 설정되어 있습니다.
+이 설정 덕분에 React나 Vue 컴포넌트 내부에서 상태에 따라
+클래스명을 동적으로 조합하더라도 빌드 시 클래스가 누락되지 않습니다.
+
+```
+// isActive 상태에 따라 동적으로 토큰 클래스 할당 가능
+<div className={`bg-pds-mint-${isActive ? '500' : '200'}`}>
+  동적 렌더링 컴포넌트
+</div>
+```
+
 
 ---
 
@@ -152,8 +172,11 @@ npm run build -w packages/style-ui
 ## CSS 적용 구조
 
 ```
-apps/react-docs/app/globals.css   → @import "@code-headless/style-ui/dist/style.css"
-apps/vue-docs/assets/css/main.css → @import "@code-headless/style-ui/dist/style.css"
+/* apps/react-docs/app/globals.css */
+→ @import "@code-headless/style-ui/dist/style.css"; /* */
+
+/* apps/vue-docs/assets/css/main.css */
+→ @import "@code-headless/style-ui/dist/style.css"; /* */
 ```
 
 ## design-tokens.css 관련
