@@ -2159,8 +2159,6 @@ function airDatePickerInit() {
             });
         });
     });
-
-    console.log('재반영2');
 }
 
 
