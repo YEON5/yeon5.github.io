@@ -124,6 +124,7 @@
                             </div>
                         </article>
                         <!-- //article -->
+
                         <!-- article -->
                         <article>
                             <p>#폼조합 #폼리스트</p>
@@ -149,16 +150,60 @@
                                     <li>
                                         <div class="form-field">
                                             <div class="form-label">
+                                                <label for="userId1">주민등록번호</label>
+                                            </div>
+                                            <!-- input + input -->
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <input type="tel" name="" id="userId1" class="inp" maxlength="6" value="" placeholder="placeholder" aria-label="주민등록번호 앞 6자리" />
+                                                </div>
+                                                <span class="split">-</span>
+                                                <div class="form-input">
+                                                    <input type="password" name="" id="userId2" class="inp" maxlength="7" value="" placeholder="placeholder" aria-label="주민등록번호 뒤 7자리" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-field">
+                                            <div class="form-label">
+                                                <label for="user-id1">주민등록번호</label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <input type="tel" id="user-id1" class="inp" maxlength="6" placeholder="앞 6자리" aria-label="주민등록번호 앞 6자리" />
+                                                </div>
+
+                                                <span class="split" aria-hidden="true">-</span>
+
+                                                <div class="form-input id-back">
+                                                    <input type="tel" id="user-id2" class="inp" maxlength="1" aria-label="주민등록번호 뒤 첫번째 자리" />
+                                                    <div class="masking" aria-hidden="true">
+                                                        <span class="dot"></span>
+                                                        <span class="dot"></span>
+                                                        <span class="dot"></span>
+                                                        <span class="dot"></span>
+                                                        <span class="dot"></span>
+                                                        <span class="dot"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-field">
+                                            <div class="form-label">
                                                 <label for="card2">카드번호</label>
                                             </div>
                                             <!-- input + input -->
                                             <div class="form-group type-card">
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="card2" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 첫 번째 4자리" />
+                                                    <input type="tel" name="" id="card2" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 첫 번째 4자리" />
                                                 </div>
                                                 <span class="split" aria-hidden="true">-</span>
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="card2-1" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 두 번째 4자리" />
+                                                    <input type="tel" name="" id="card2-1" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 두 번째 4자리" />
                                                 </div>
                                                 <span class="split" aria-hidden="true">-</span>
                                                 <div class="form-input">
@@ -182,12 +227,45 @@
                                                     <input type="text" name="" id="sEmail" class="inp" maxlength="" value="" placeholder="placeholder" aria-label="이메일 아이디" />
                                                 </div>
                                                 <span class="split">@</span>
-                                                <div class="form-select">
+                                                <!-- <div class="form-select">
                                                     <select name="emailSelect" id="emailSelect" aria-label="이메일 주소 선택" class="select">
                                                         <option value="" selected>선택</option>
                                                         <option value="">gmail.com</option>
                                                         <option value="selectEtc">직접입력</option>
                                                     </select>
+                                                </div> -->
+                                                <div class="select-box" data-select>
+                                                    <div class="label-wrap">
+                                                        <button type="button" class="btn-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="selectList1" aria-labelledby="selectLabel1" data-select-trigger>
+                                                            <span class="select-value">선택</span>
+                                                        </button>
+                                                        <input type="hidden" name="selectValue" class="select-hidden-input" />
+                                                    </div>
+                                                    <!-- select layer -->
+                                                    <div class="select-layer">
+                                                        <div class="select-group">
+                                                            <div class="select-head">
+                                                                <strong class="select-title">선택해주세요</strong>
+                                                                <button type="button" class="btn-close" data-select-close>
+                                                                    <span class="sr-only">닫기</span>
+                                                                </button>
+                                                            </div>
+                                                            <!-- select list -->
+                                                            <ul id="selectList1" class="select-list" role="listbox" aria-labelledby="selectLabel1">
+                                                                <li role="none">
+                                                                    <button type="button" class="option current" role="option" aria-selected="true">naver.com</button>
+                                                                </li>
+                                                                <li role="none">
+                                                                    <button type="button" class="option" role="option" aria-selected="false">gmail.com</button>
+                                                                </li>
+                                                                <li role="none">
+                                                                    <button type="button" class="option" role="option" aria-selected="false">직접입력</button>
+                                                                </li>
+                                                            </ul>
+                                                            <!-- //select list -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- //select layer -->
                                                 </div>
                                             </div>
                                             <div class="form-input">
@@ -223,7 +301,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="formItem2" class="inp" maxlength="" value="" placeholder="placeholder" />
+                                                    <input type="tel" name="" id="formItem2" class="inp" maxlength="" value="" placeholder="placeholder" />
                                                     <div class="on-right">
                                                         <span class="txt">원</span>
                                                     </div>

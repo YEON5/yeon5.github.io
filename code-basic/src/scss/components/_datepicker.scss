@@ -95,6 +95,11 @@ duet-date-picker::part(input) {
 }
 
 /* Air Datepicker */
+.btn-calendar {
+    @include size-set(2.4rem);
+    background: url('../images/icons/ico_calendar.png') no-repeat center center;
+    background-size: 22px auto;
+}
 @include mobile-only {
     // 배경 오버레이
     div.air-datepicker-overlay {

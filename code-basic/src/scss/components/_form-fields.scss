@@ -74,7 +74,8 @@ input[type='tel'] {
             flex-shrink: 0;
         }
 
-        // 유형
+        /* input 유형 */
+        // 카드번호 입력
         &.type-card {
             gap: 0.4rem;
             input {
@@ -85,6 +86,37 @@ input[type='tel'] {
                 .on-right {
                     right: 0.4rem;
                 }
+            }
+        }
+        // 주민등록번호 뒷자리 마스킹
+        .id-back {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            .inp {
+                width: 4rem;
+                flex: none;
+                text-align: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            // masking
+            .masking {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                .dot {
+                    display: inline-block;
+                    width: 0.8rem;
+                    height: 0.8rem;
+                    border-radius: 50%;
+                    background-color: $color-txt-body;
+                    opacity: 0.6;
+                }
+            }
+            .btn-input-clear {
+                display: none !important;
             }
         }
     }
@@ -199,6 +231,11 @@ input[type='tel'] {
                 transition: 0.4s ease-in-out;
             }
         }
+    }
+    // Select dropdown
+    .select-box {
+        flex-grow: 1;
+        flex-basis: 0;
     }
 }
 

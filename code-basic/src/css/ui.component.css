@@ -1295,6 +1295,9 @@ input[type=tel]:focus {
 .form-field .form-group .split {
   flex-shrink: 0;
 }
+.form-field .form-group {
+  /* input 유형 */
+}
 .form-field .form-group.type-card {
   gap: 0.4rem;
 }
@@ -1304,6 +1307,34 @@ input[type=tel]:focus {
 }
 .form-field .form-group.type-card .form-input .on-right {
   right: 0.4rem;
+}
+.form-field .form-group .id-back {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.form-field .form-group .id-back .inp {
+  width: 4rem;
+  flex: none;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.form-field .form-group .id-back .masking {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.form-field .form-group .id-back .masking .dot {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: #0b0d0f;
+  opacity: 0.6;
+}
+.form-field .form-group .id-back .btn-input-clear {
+  display: none !important;
 }
 .form-field .form-input {
   position: relative;
@@ -1415,6 +1446,10 @@ input[type=tel]:focus {
 .form-field .form-select .select:focus {
   border-color: #0046ff;
   transition: 0.4s ease-in-out;
+}
+.form-field .select-box {
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 /* input text floating */
@@ -3122,6 +3157,13 @@ duet-date-picker::part(input) {
 }
 
 /* Air Datepicker */
+.btn-calendar {
+  width: 2.4rem;
+  height: 2.4rem;
+  background: url("../images/icons/ico_calendar.png") no-repeat center center;
+  background-size: 22px auto;
+}
+
 @media (max-width: 767px) {
   div.air-datepicker-overlay {
     display: flex !important;
