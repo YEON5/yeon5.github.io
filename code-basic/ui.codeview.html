@@ -8,15 +8,15 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="./src/css/ui.style.css" />
-        <!-- flatpickr -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+        <!-- air datepicker -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.2/air-datepicker.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.2/air-datepicker.min.js"></script>
         <!-- Duet Date Picker -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/themes/default.css" />
         <script type="module" src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"></script>
         <script nomodule src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js"></script>
+
+        <link rel="stylesheet" href="./src/css/ui.style.css" />
         <script src="./src/js/libs/jquery-3.7.1.min.js"></script>
         <script src="./src/js/ui.pub.js"></script>
         <title>UI CODEVIEW</title>
@@ -84,6 +84,7 @@
                             </div>
                         </article>
                         <!-- //article -->
+
                         <!-- //article -->
                         <article>
                             <p>#입력폼 : 모션 (form-field에 floating 추가)</p>
@@ -107,6 +108,7 @@
                             </div>
                         </article>
                         <!-- //article -->
+
                         <!-- article -->
                         <article>
                             <p>#폼조합 #폼리스트</p>
@@ -120,11 +122,11 @@
                                             <!-- input + input -->
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="sText2" class="inp" maxlength="" value="" placeholder="placeholder" title="첫번째" />
+                                                    <input type="text" name="" id="sText2" class="inp" maxlength="" value="" placeholder="placeholder" aria-label="레이블 첫번째" />
                                                 </div>
                                                 <span class="split">-</span>
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="sText2-1" class="inp" maxlength="" value="" placeholder="placeholder" title="두번째" />
+                                                    <input type="text" name="" id="sText2-1" class="inp" maxlength="" value="" placeholder="placeholder" aria-label="레이블 두번째" />
                                                 </div>
                                             </div>
                                         </div>
@@ -132,24 +134,24 @@
                                     <li>
                                         <div class="form-field">
                                             <div class="form-label">
-                                                <label for="card2">레이블</label>
+                                                <label for="card2">카드번호</label>
                                             </div>
                                             <!-- input + input -->
                                             <div class="form-group type-card">
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="card2" class="inp" maxlength="4" value="" placeholder="4자리" title="첫번째" />
+                                                    <input type="text" name="" id="card2" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 첫 번째 4자리" />
                                                 </div>
-                                                <span class="split">-</span>
+                                                <span class="split" aria-hidden="true">-</span>
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="card2-1" class="inp" maxlength="4" value="" placeholder="4자리" title="두번째" />
+                                                    <input type="text" name="" id="card2-1" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 두 번째 4자리" />
                                                 </div>
-                                                <span class="split">-</span>
+                                                <span class="split" aria-hidden="true">-</span>
                                                 <div class="form-input">
-                                                    <input type="password" name="" id="card2-2" class="inp" maxlength="4" value="" placeholder="4자리" title="세번째" />
+                                                    <input type="password" name="" id="card2-2" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 세 번째 4자리" />
                                                 </div>
-                                                <span class="split">-</span>
+                                                <span class="split" aria-hidden="true">-</span>
                                                 <div class="form-input">
-                                                    <input type="password" name="" id="card2-3" class="inp" maxlength="4" value="" placeholder="4자리" title="네번째" />
+                                                    <input type="password" name="" id="card2-3" class="inp" maxlength="4" value="" placeholder="4자리" aria-label="카드번호 마지막 4자리" />
                                                 </div>
                                             </div>
                                         </div>
@@ -157,16 +159,16 @@
                                     <li>
                                         <div class="form-field">
                                             <div class="form-label">
-                                                <label for="">레이블</label>
+                                                <label for="sEmail">이메일</label>
                                             </div>
                                             <!-- input + select -->
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="sEmail" class="inp" maxlength="" value="" placeholder="placeholder" title="첫번째" />
+                                                    <input type="text" name="" id="sEmail" class="inp" maxlength="" value="" placeholder="placeholder" aria-label="이메일 아이디" />
                                                 </div>
                                                 <span class="split">@</span>
                                                 <div class="form-select">
-                                                    <select name="emailSelect" id="emailSelect" title="이메일 주소 선택" class="select">
+                                                    <select name="emailSelect" id="emailSelect" aria-label="이메일 주소 선택" class="select">
                                                         <option value="" selected>선택</option>
                                                         <option value="">gmail.com</option>
                                                         <option value="selectEtc">직접입력</option>
@@ -174,8 +176,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-input">
-                                                <div class="input-add" style="display: block">
-                                                    <input type="text" name="" id="sEmailCus" class="inp" placeholder="placeholder" title="이메일 주소 직접입력" />
+                                                <div class="input-add">
+                                                    <input type="text" name="" id="sEmailCus" class="inp" placeholder="placeholder" aria-label="이메일 주소 직접입력" />
                                                 </div>
                                             </div>
                                         </div>
@@ -188,13 +190,13 @@
                                             <!-- input 3개 -->
                                             <div class="form-group column">
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="sText3" class="inp" maxlength="" value="" placeholder="placeholder" title="첫번째" />
+                                                    <input type="text" name="" id="sText3" class="inp" maxlength="" value="" placeholder="placeholder" aria-label="레이블 첫번째" />
                                                 </div>
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="sText3-1" class="inp" maxlength="" value="readonly" placeholder="placeholder" title="두번째" readonly />
+                                                    <input type="text" name="" id="sText3-1" class="inp" maxlength="" value="readonly" placeholder="placeholder" aria-label="레이블 두번째" readonly />
                                                 </div>
                                                 <div class="form-input">
-                                                    <input type="text" name="" id="sText3-2" class="inp" maxlength="" value="disabled" placeholder="placeholder" title="세번째" disabled />
+                                                    <input type="text" name="" id="sText3-2" class="inp" maxlength="" value="disabled" placeholder="placeholder" aria-label="레이블 세번째" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -269,32 +271,30 @@
 
                         <!-- article -->
                         <article>
-                            <p>#달력 flatpickr</p>
+                            <p>#달력 air datepicker</p>
                             <div class="form-wrap">
                                 <div class="form-field">
                                     <div class="form-label">
-                                        <label for="inpDate1">레이블<span class="required-dot" aria-hidden="true">*</span></label>
+                                        <label for="my-date1">날짜 선택<span class="required-dot" aria-hidden="true">*</span></label>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-input">
-                                            <input type="text" name="" id="inpDate1" class="datePicker" value="" placeholder="날짜 선택" aria-haspopup="dialog" aria-expanded="false" />
+                                            <input type="text" id="my-date1" class="inp js-date-input" aria-label="시작일 선택" placeholder="시작일 선택" maxlength="10" />
+
+                                            <div class="on-right">
+                                                <button type="button" class="btn btn-calendar js-date-button" aria-haspopup="dialog" aria-expanded="false">
+                                                    <span>버튼</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- //article -->
-                        <!-- //article -->
-                        <article>
-                            <p>#달력 flatpickr : 모션 (form-field에 floating 추가)</p>
-                            <div class="form-wrap">
-                                <div class="form-field floating">
-                                    <div class="form-label">
-                                        <label for="inpDate2">레이블<span class="required-dot" aria-hidden="true">*</span></label>
-                                    </div>
-                                    <div class="form-group">
                                         <div class="form-input">
-                                            <input type="text" name="" id="inpDate2" class="datePicker inp" value="" placeholder="날짜 선택" aria-haspopup="dialog" aria-expanded="false" />
+                                            <input type="text" id="my-date2" class="inp js-date-input" aria-label="종료일 선택" placeholder="종료일 선택" maxlength="10" />
+
+                                            <div class="on-right">
+                                                <button type="button" class="btn btn-calendar js-date-button" aria-haspopup="dialog" aria-expanded="false">
+                                                    <span>버튼</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2028,63 +2028,4 @@
             margin-top: 6rem;
         }
     </style>
-
-    <script>
-        // flatpickr
-        let openedInstance = null;
-        document.querySelectorAll('.datePicker').forEach(el => {
-            const fp = flatpickr(el, {
-                locale: 'ko',
-                dateFormat: 'Y-m-d',
-                disableMobile: true,
-                allowInput: true,
-
-                // ⭐ 포커스로 열리지 않게
-                clickOpens: false,
-
-                onOpen() {
-                    if (openedInstance && openedInstance !== this) {
-                        openedInstance.close();
-                    }
-                    openedInstance = this;
-                    this.input.setAttribute('aria-expanded', 'true');
-
-                    requestAnimationFrame(() => {
-                        const days = this.calendarContainer.querySelectorAll('.flatpickr-day');
-
-                        // 모든 날짜를 Tab 불가 상태로
-                        days.forEach(day => day.setAttribute('tabindex', '-1'));
-
-                        // today가 있으면 today 우선
-                        const target = this.calendarContainer.querySelector('.flatpickr-day.today:not(.flatpickr-disabled)') || this.calendarContainer.querySelector('.flatpickr-day:not(.flatpickr-disabled)');
-
-                        if (target) {
-                            target.setAttribute('tabindex', '0');
-                            target.focus();
-                        }
-                    });
-                },
-
-                onClose() {
-                    this.input.setAttribute('aria-expanded', 'false');
-                    if (openedInstance === this) {
-                        openedInstance = null;
-                    }
-                },
-            });
-
-            /* 클릭하면 열기 */
-            el.addEventListener('click', () => {
-                fp.open();
-            });
-
-            /* 키보드 접근성 */
-            el.addEventListener('keydown', e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    fp.open();
-                }
-            });
-        });
-    </script>
 </html>

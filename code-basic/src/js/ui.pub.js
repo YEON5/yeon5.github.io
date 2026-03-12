@@ -25,7 +25,8 @@ function uiInit() {
     popupInit();
     progressInit();
     includeLayout();
-    datePickerInit();
+    duetDatePickerInit();
+    airDatePickerInit();
     // headerPercent();
     initGlobalEvents(); // loading, toast
 }
@@ -1852,7 +1853,8 @@ window.Loading = LoadingController.getInstance();
 /*-------------------------------------------------------------------
 	## Date Picker
 -------------------------------------------------------------------*/
-function datePickerInit() {
+// Duet Date Picker
+function duetDatePickerInit() {
     const pickers = document.querySelectorAll('duet-date-picker');
 
     // 한글 설정
@@ -1882,6 +1884,285 @@ function datePickerInit() {
         });
     });
 }
+
+
+// air datepicker
+function airDatePickerInit() {
+    // 1. 한국어 설정
+    const localeKo = {
+        days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+        months: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        monthsShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        today: '오늘',
+        clear: '지우기',
+        dateFormat: 'yyyy-MM-dd',
+        timeFormat: 'hh:mm aa',
+        firstDay: 0,
+    };
+
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const airDateInputs = document.querySelectorAll('.js-date-input');
+    const dpInstances = [];
+
+    // 전역: 외부 영역 클릭 감지
+    const handleOutsideAction = function(e) {
+        dpInstances.forEach(function(obj) {
+            if (obj.buttonElement.getAttribute('aria-expanded') === 'true') {
+                const target = e.target;
+                const dp = obj.instance.$datepicker;
+                
+                const isInsideInput = obj.inputElement.contains(target) || obj.inputElement === target;
+                const isInsideButton = obj.buttonElement.contains(target) || obj.buttonElement === target;
+                const isInsideDatepicker = dp && (dp.contains(target) || dp === target);
+                
+                if (!isInsideInput && !isInsideButton && !isInsideDatepicker) {
+                    obj.instance.hide();
+                }
+            }
+        });
+    };
+
+    ['mousedown', 'touchstart', 'focusin'].forEach(function(evt) {
+        document.addEventListener(evt, handleOutsideAction, true);
+    });
+
+    // 🔥 [핵심 추가] 달력 내부 요소에 포커스와 접근성을 부여하는 공통 함수
+    const applyA11yToDatepicker = (dp) => {
+        if (!dp) return null;
+
+        // 1. 달력 컨테이너 자체를 모달 다이얼로그로 설정
+        dp.setAttribute('role', 'dialog');
+        dp.setAttribute('aria-modal', 'true');
+        dp.setAttribute('aria-label', '날짜 선택 달력');
+
+        // 2. [날짜 셀] Roving Tabindex 설정
+        const cells = dp.querySelectorAll('.air-datepicker-cell');
+        cells.forEach(cell => cell.setAttribute('tabindex', '-1'));
+        
+        const targetCell = dp.querySelector('.air-datepicker-cell.-selected-:not(.-disabled-)') || 
+                        dp.querySelector('.air-datepicker-cell.-current-:not(.-disabled-)') || 
+                        cells[0];
+        
+        if (targetCell) {
+            targetCell.setAttribute('tabindex', '0');
+        }
+
+        // 3. [상단 네비게이션] 이전/다음 버튼, 년월 타이틀에 포커스 허용
+        const navElements = dp.querySelectorAll('.air-datepicker-nav--action, .air-datepicker-nav--title');
+        navElements.forEach(el => {
+            el.setAttribute('tabindex', '0');
+            el.setAttribute('role', 'button');
+        });
+
+        return targetCell; // 포커스를 보내야 할 최종 셀 반환
+    };
+
+
+    airDateInputs.forEach(function (inputElement) {
+        const wrapper = inputElement.closest('.form-input');
+        const buttonElement = wrapper.querySelector('.js-date-button');
+
+        if (!buttonElement) return;
+
+        const isInitReadOnly = inputElement.hasAttribute('readonly') || inputElement.readOnly;
+        const isInitDisabled = inputElement.hasAttribute('disabled') || inputElement.disabled;
+
+        buttonElement.setAttribute('role', 'button');
+        buttonElement.setAttribute('aria-haspopup', 'dialog');
+        buttonElement.setAttribute('aria-expanded', 'false');
+
+        if (isInitReadOnly || isInitDisabled) {
+            buttonElement.disabled = true;
+            buttonElement.style.pointerEvents = 'none'; 
+        }
+
+        const stopAutoOpen = function(e) {
+            e.stopImmediatePropagation(); 
+            if (['mousedown', 'touchstart', 'focusin'].includes(e.type)) {
+                handleOutsideAction(e);
+            }
+        };
+        
+        ['focus', 'focusin', 'click', 'mousedown', 'pointerdown', 'touchstart'].forEach(function(evt) {
+            inputElement.addEventListener(evt, stopAutoOpen, true);
+        });
+
+        // Air Datepicker 인스턴스 생성
+        const instance = new AirDatepicker(inputElement, {
+            locale: localeKo,
+            isMobile: mediaQuery.matches,
+            autoClose: true,
+            keyboardNav: false, 
+            
+            // 🔥 [추가] 달력 하단에 '닫기' 버튼 강제 생성!
+            buttons: [
+                {
+                    content: '닫기',
+                    onClick: (dp) => {
+                        dp.hide();
+                        buttonElement.focus();
+                    }
+                }
+            ],
+            
+            onShow: function (isFinished) {
+                if (!isFinished) {
+                    buttonElement.setAttribute('aria-expanded', 'true');
+                } else {
+                    // 달력이 완전히 열리면 a11y 셋팅 적용 후 날짜로 포커스
+                    const targetCell = applyA11yToDatepicker(instance.$datepicker);
+                    if (targetCell) targetCell.focus();
+                }
+            },
+            onHide: function (isFinished) {
+                if (!isFinished) {
+                    buttonElement.setAttribute('aria-expanded', 'false');
+                    if (!isInitReadOnly) inputElement.removeAttribute('readonly');
+                } else {
+                    // 닫히면 버튼으로 포커스 복귀
+                    const activeEl = document.activeElement;
+                    if (!activeEl || activeEl === document.body || (instance.$datepicker && instance.$datepicker.contains(activeEl))) {
+                        buttonElement.focus();
+                    }
+                    if (!isInitReadOnly) inputElement.removeAttribute('readonly');
+                }
+            },
+            // 🔥 [추가] 달이 변경될 때(이전/다음달 클릭) 포커스 속성 재적용
+            onChangeViewDate: function () {
+                setTimeout(() => {
+                    applyA11yToDatepicker(instance.$datepicker);
+                }, 10);
+            }
+        });
+
+        // [a11y] 키보드 접근성 완벽 제어 (Focus Trap + 방향키)
+        if (instance.$datepicker) {
+            instance.$datepicker.addEventListener('keydown', function(e) {
+                // 1. ESC 키: 닫고 복귀
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    instance.hide();
+                    buttonElement.focus();
+                    return;
+                }
+
+                // 2. 🔥 Tab 키: 포커스 트랩 (Focus Trap)
+                if (e.key === 'Tab') {
+                    // 달력 안에서 포커스를 받을 수 있는 모든 요소 추출
+                    const focusableEls = Array.from(instance.$datepicker.querySelectorAll(
+                        '.air-datepicker-nav--action, .air-datepicker-nav--title, .air-datepicker-cell[tabindex="0"], .air-datepicker-button'
+                    )).filter(el => !el.disabled && el.offsetParent !== null); // 화면에 보이는 것만
+
+                    if (focusableEls.length === 0) return;
+
+                    const firstEl = focusableEls[0]; // [이전달] 버튼
+                    const lastEl = focusableEls[focusableEls.length - 1]; // [닫기] 버튼
+
+                    // Shift + Tab (역방향)
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstEl) {
+                            e.preventDefault();
+                            lastEl.focus(); // 첫 번째에서 이전으로 가면 맨 끝으로
+                        }
+                    } 
+                    // Tab (정방향)
+                    else {
+                        if (document.activeElement === lastEl) {
+                            e.preventDefault();
+                            firstEl.focus(); // 맨 끝에서 다음으로 가면 첫 번째로
+                        }
+                    }
+                    return;
+                }
+
+                // 3. Enter / Space : 클릭 이벤트 실행 (날짜 선택 및 네비게이션 버튼 누름)
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const activeEl = document.activeElement;
+                    if (activeEl && (activeEl.classList.contains('air-datepicker-cell') || 
+                                    activeEl.classList.contains('air-datepicker-nav--action') || 
+                                    activeEl.classList.contains('air-datepicker-nav--title'))) {
+                        e.preventDefault();
+                        activeEl.click(); 
+                    }
+                    return;
+                }
+
+                // 4. 방향키 : 날짜 셀 간의 이동
+                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                    const activeEl = document.activeElement;
+                    if (!activeEl || !activeEl.classList.contains('air-datepicker-cell')) return;
+
+                    const cells = Array.from(instance.$datepicker.querySelectorAll('.air-datepicker-cell:not(.-disabled-)'));
+                    const currentIndex = cells.indexOf(activeEl);
+                    if (currentIndex === -1) return;
+
+                    let targetIndex = currentIndex;
+                    if (e.key === 'ArrowRight') targetIndex = currentIndex + 1;
+                    if (e.key === 'ArrowLeft') targetIndex = currentIndex - 1;
+                    if (e.key === 'ArrowDown') targetIndex = currentIndex + 7;
+                    if (e.key === 'ArrowUp') targetIndex = currentIndex - 7;
+
+                    if (targetIndex >= 0 && targetIndex < cells.length) {
+                        e.preventDefault();
+                        activeEl.setAttribute('tabindex', '-1');
+                        cells[targetIndex].setAttribute('tabindex', '0');
+                        cells[targetIndex].focus(); 
+                    }
+                }
+            });
+        }
+
+        // 모바일 Readonly 방어
+        if (!isInitReadOnly) {
+            inputElement.removeAttribute('readonly'); 
+            const observer = new MutationObserver(function() {
+                if (inputElement.hasAttribute('readonly')) {
+                    inputElement.removeAttribute('readonly');
+                }
+            });
+            observer.observe(inputElement, { attributes: true, attributeFilter: ['readonly'] });
+        }
+
+        buttonElement.addEventListener('click', function (e) {
+            if (isInitReadOnly || isInitDisabled) return; 
+            inputElement.blur(); 
+            
+            if (buttonElement.getAttribute('aria-expanded') === 'true') {
+                instance.hide();
+            } else {
+                instance.show();     
+            }
+            e.stopPropagation(); 
+        });
+
+        inputElement.addEventListener('input', function (e) {
+            if (isInitReadOnly || isInitDisabled) return;
+            const val = e.target.value;
+            if (val.length === 10) {
+                const date = new Date(val);
+                if (!isNaN(date.getTime())) {
+                    instance.selectDate(date, { updateTime: true, silent: true });
+                    instance.setViewDate(date);
+                }
+            }
+        });
+
+        dpInstances.push({ instance, inputElement, buttonElement });
+    });
+
+    mediaQuery.addEventListener('change', function (e) {
+        dpInstances.forEach(function (obj) {
+            obj.instance.update({
+                isMobile: e.matches,
+            });
+        });
+    });
+
+    console.log('재반영2');
+}
+
 
 
 /*-------------------------------------------------------------------
