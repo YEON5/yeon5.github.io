@@ -3,8 +3,11 @@
 // 이 값을 바꾸면 generate-tokens.js, tailwind.config.js 양쪽에 자동 반영됩니다.
 //
 // 현재: "pds"  →  bg-pds-mint-500, text-pds-xl, rounded-pds-md ...
-// 변경 예: "ds" →  bg-ds-mint-500,  text-ds-xl,  rounded-ds-md ...
+// 빈 문자열: "" → bg-mint-500, text-xl, rounded-md ...
 // ─────────────────────────────────────────────────────────
-const PREFIX = "pds";
+const PREFIX = ""; // 문자열 필요시 원하는 문자열 넣기
 
-module.exports = { PREFIX };
+// PREFIX가 있으면 "pds-", 없으면 "" (빈 문자열) 반환
+const PREFIX_DASH = PREFIX ? `${PREFIX}-` : "";
+
+module.exports = { PREFIX, PREFIX_DASH };
