@@ -1,4 +1,4 @@
-const pds = require("./src/design-tokens");
+const tokenValue = require("./src/design-tokens");
 
 // PREFIX_DASH를 가져옵니다.
 const { PREFIX_DASH } = require("./src/tokens-config");
@@ -83,21 +83,21 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // PDS 디자인 토큰 컬러 (design-tokens.js에서 자동 주입)
-        ...pds.colors,
+        // tokenValue 디자인 토큰 컬러 (design-tokens.js에서 자동 주입)
+        ...tokenValue.colors,
       },
 
-      // 기존 시맨틱 radius + PDS radius
+      // 기존 시맨틱 radius + tokenValue radius
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        ...pds.borderRadius,
+        ...tokenValue.borderRadius,
       },
 
-      // PDS spacing / fontSize
-      spacing: pds.spacing,
-      fontSize: pds.fontSize,
+      // tokenValue spacing / fontSize
+      spacing: tokenValue.spacing,
+      fontSize: tokenValue.fontSize,
 
       // Accordion 애니메이션 (Radix UI accordion-content height 애니메이션)
       keyframes: {
