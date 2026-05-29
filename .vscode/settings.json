@@ -1,5 +1,5 @@
 {
-  /* scss 설정 */
+  /* 기존 설정 유지 */
   "liveSassCompile.settings.formats": [
     {
       "format": "expanded",
@@ -8,15 +8,11 @@
     }
   ],
   "liveSassCompile.settings.generateMap": false,
-
-  /* 핵심: 특정 폴더 제외 설정 */
   "liveSassCompile.settings.excludeList": [
     "**/node_modules/**",
     ".vscode/**",
-    "code-vite-ts/**" // code-vite-ts 폴더 안의 모든 scss 파일은 컴파일에서 제외
+    "code-vite-ts/**"
   ],
-
-  /* 추가 권장 설정: 가급적 code-basic 폴더 내의 scss만 포함하도록 지정 */
   "liveSassCompile.settings.includeItems": [
     "code-basic/**/*.scss",
     "code-basic/**/*.sass"
@@ -25,4 +21,39 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "liveServer.settings.port": 5502,
   "tailwindCSS.rootFontSize": 10,
+
+  /* 👇 여기부터 추천 추가 설정입니다. */
+
+  /* 1. 에디터 탭 및 공백 설정 (Prettier와 동기화) */
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  /* 2. 저장 시 자동 수정 동작 */
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit", // ESLint 사용 시 자동 고침
+    "source.fixAll.stylelint": "explicit", // Stylelint 사용 시 자동 고침
+    "source.organizeImports": "explicit" // Import 구문 자동 정렬
+  },
+
+  /* 3. Tailwind CSS 자동완성 강화 */
+  "editor.quickSuggestions": {
+    "strings": true // HTML 속성(class="") 안에서도 Tailwind 자동완성 활성화
+  },
+  "tailwindCSS.emmetCompletions": true,
+
+  /* 4. Vue 환경 Emmet 지원 */
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+
+  /* 5. 탐색기 파일 중첩 (File Nesting) - 프로젝트 구조 시각적 정리 */
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    // .scss 파일 아래에 컴파일된 .css를 접어서 숨김 처리
+    "*.scss": "${capture}.css, ${capture}.css.map",
+    // Vue 컴포넌트 관련 파일들 그룹화
+    "*.vue": "${capture}.ts, ${capture}.js, ${capture}.story.vue, ${capture}.spec.ts"
+  }
 }
