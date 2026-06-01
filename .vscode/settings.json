@@ -1,5 +1,47 @@
 {
-  /* 기존 설정 유지 */
+  /* 에디터 기본 공백 및 포맷팅 설정 */
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  /* Vue 파일 전용 포맷팅 예외 처리 (ESLint에 위임) */
+  "[vue]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+
+  /* 저장 시 자동 수정 (Auto-fix) 동작 */
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  /* ESLint 상세 설정 (Flat Config & 모노레포 지원) */
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.quiet": true, // 노란색 경고(warn) 밑줄 화면에서 숨기기
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+
+  /* Tailwind CSS 및 Emmet 자동완성 설정 */
+  "tailwindCSS.rootFontSize": 10,
+  "tailwindCSS.emmetCompletions": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+
+  /* SCSS 라이브 컴파일 설정 */
   "liveSassCompile.settings.formats": [
     {
       "format": "expanded",
@@ -17,42 +59,7 @@
     "code-basic/**/*.scss",
     "code-basic/**/*.sass"
   ],
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "liveServer.settings.port": 5502,
-  "tailwindCSS.rootFontSize": 10,
 
-  /* 1. 에디터 탭 및 공백 설정 (Prettier와 동기화) */
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-
-  /* 2. 저장 시 자동 수정 동작 */
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit",
-    "source.organizeImports": "explicit"
-  },
-
-  /* 3. Tailwind CSS 자동완성 강화 */
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "tailwindCSS.emmetCompletions": true,
-
-  /* 4. Vue 환경 Emmet 지원 */
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "vue": "html"
-  },
-
-  /* 👇 추가된 설정: Vue 및 React에서 줄바꿈 보존 및 들여쓰기(Tab 2) 자동 정렬 */
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  /* 라이브 서버 설정 */
+  "liveServer.settings.port": 5502
 }

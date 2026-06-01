@@ -4,4 +4,6 @@
 **/.git
 **/*.json
 **/*.md
-**/components/ui/*.tsx
+**/*.vue
+**/*.jsx
+**/*.tsx

@@ -1,7 +1,0 @@
-**/*.js
-**/*.ts
-**/*.css
-**/.git
-**/*.json
-**/*.md
-**/components/ui/*.tsx

@@ -14,14 +14,15 @@
     {
       "files": "*.vue",
       "options": {
-        "singleAttributePerLine": false
+        "printWidth": 100,
+        "singleAttributePerLine": true
       }
     },
     {
       "files": ["*.jsx", "*.tsx"],
       "options": {
         "printWidth": 100,
-        "singleAttributePerLine": false
+        "singleAttributePerLine": true
       }
     },
     {
