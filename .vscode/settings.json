@@ -46,14 +46,4 @@
     "vue-html": "html",
     "vue": "html"
   },
-
-  /* 5. 탐색기 파일 중첩 (File Nesting) - 프로젝트 구조 시각적 정리 */
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.expand": false,
-  "explorer.fileNesting.patterns": {
-    // .scss 파일 아래에 컴파일된 .css를 접어서 숨김 처리
-    "*.scss": "${capture}.css, ${capture}.css.map",
-    // Vue 컴포넌트 관련 파일들 그룹화
-    "*.vue": "${capture}.ts, ${capture}.js, ${capture}.story.vue, ${capture}.spec.ts"
-  }
 }
