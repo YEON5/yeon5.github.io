@@ -22,10 +22,23 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
       'vue/multi-word-component-names': 'off',
 
-      /* ✨ 핵심 포맷팅 규칙 ✨ */
-      'vue/html-indent': ['warn', 2], // 틀리면 노란줄(하지만 에디터 설정으로 숨김), 저장 시 2칸 정렬
-      'vue/max-attributes-per-line': 'off', // 속성 줄바꿈 내 맘대로
-      'vue/singleline-html-element-content-newline': 'off', // 텍스트 줄바꿈 내 맘대로
+      /* ❌ TS/JS 기본 들여쓰기 끄기 (Vue 전용 들여쓰기와 충돌 방지) */
+      indent: 'off',
+      '@typescript-eslint/indent': 'off',
+
+      /* ✨ 템플릿(HTML)과 스크립트(JS/TS) 들여쓰기 2칸 강제 정렬 */
+      'vue/html-indent': ['warn', 2],
+      'vue/script-indent': [
+        'warn',2,
+        {
+          baseIndent: 1, // <script> 태그 안의 코드는 기본적으로 2칸 들여쓰고 시작
+          switchCase: 1, // switch-case 문도 2칸 들여쓰기 적용
+        },
+      ],
+
+      /* ✨ 속성 및 텍스트 줄바꿈/괄호 위치 내 맘대로 (에디터 강제 개입 차단) */
+      'vue/max-attributes-per-line': 'off',
+      'vue/singleline-html-element-content-newline': 'off',
       'vue/multiline-html-element-content-newline': 'off',
       'vue/html-closing-bracket-newline': 'off',
     },
