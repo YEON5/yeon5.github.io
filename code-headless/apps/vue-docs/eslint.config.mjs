@@ -1,6 +1,9 @@
 import eslint from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import typescriptEslint from 'typescript-eslint';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default [
   // 1. 기본 추천 규칙 적용
@@ -13,7 +16,9 @@ export default [
     files: ['**/*.vue'],
     languageOptions: {
       parserOptions: {
-        parser: typescriptEslint.parser, // Vue <script lang="ts"> 완벽 지원
+        parser: typescriptEslint.parser,
+        tsconfigRootDir: __dirname, 
+        extraFileExtensions: ['.vue'] // (보너스) vue 파일도 TS처럼 잘 읽도록 명시
       },
     },
     rules: {
@@ -22,21 +27,22 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
       'vue/multi-word-component-names': 'off',
 
-      /* ❌ TS/JS 기본 들여쓰기 끄기 (Vue 전용 들여쓰기와 충돌 방지) */
+      /* TS/JS 기본 들여쓰기 끄기 (Vue 전용 들여쓰기와 충돌 방지) */
       indent: 'off',
       '@typescript-eslint/indent': 'off',
 
-      /* ✨ 템플릿(HTML)과 스크립트(JS/TS) 들여쓰기 2칸 강제 정렬 */
+      /* 템플릿(HTML)과 스크립트(JS/TS) 들여쓰기 2칸 강제 정렬 */
       'vue/html-indent': ['warn', 2],
       'vue/script-indent': [
-        'warn',2,
+        'warn',
+        2,
         {
-          baseIndent: 1, // <script> 태그 안의 코드는 기본적으로 2칸 들여쓰고 시작
-          switchCase: 1, // switch-case 문도 2칸 들여쓰기 적용
+          baseIndent: 1, 
+          switchCase: 1, 
         },
       ],
 
-      /* ✨ 속성 및 텍스트 줄바꿈/괄호 위치 내 맘대로 (에디터 강제 개입 차단) */
+      /* 속성 및 텍스트 줄바꿈/괄호 위치 내 맘대로 */
       'vue/max-attributes-per-line': 'off',
       'vue/singleline-html-element-content-newline': 'off',
       'vue/multiline-html-element-content-newline': 'off',
