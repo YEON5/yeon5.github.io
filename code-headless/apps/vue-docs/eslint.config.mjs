@@ -35,9 +35,9 @@ export default [
       'vue/html-indent': ['warn', 2],
       'vue/script-indent': [
         'warn',
-        2,
+        2,0
         {
-          baseIndent: 1, 
+          baseIndent: 0, 
           switchCase: 1, 
         },
       ],

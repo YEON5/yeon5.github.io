@@ -46,18 +46,20 @@
     {
       "format": "expanded",
       "extensionName": ".css",
-      "savePath": "~/../css/"
+      "savePath": "~/../css"
     }
   ],
   "liveSassCompile.settings.generateMap": false,
   "liveSassCompile.settings.excludeList": [
-    "**/node_modules/**",
-    ".vscode/**",
-    "code-vite-ts/**"
+    // 🟢 모든 항목의 맨 앞에 슬래시(/) 추가
+    "/**/node_modules/**",
+    "/.vscode/**",
+    "/code-vite-ts/**"
   ],
   "liveSassCompile.settings.includeItems": [
-    "code-basic/**/*.scss",
-    "code-basic/**/*.sass"
+    // 🟢 모든 항목의 맨 앞에 슬래시(/) 추가
+    "/code-basic/**/*.scss",
+    "/code-basic/**/*.sass"
   ],
 
   /* 라이브 서버 설정 */

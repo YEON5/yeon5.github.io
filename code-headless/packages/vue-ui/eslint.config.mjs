@@ -17,7 +17,7 @@ export default [
     languageOptions: {
       parserOptions: {
         parser: typescriptEslint.parser,
-        tsconfigRootDir: __dirname, 
+        tsconfigRootDir: __dirname,
         extraFileExtensions: ['.vue'] // (보너스) vue 파일도 TS처럼 잘 읽도록 명시
       },
     },
@@ -37,7 +37,7 @@ export default [
         'warn',
         2,
         {
-          baseIndent: 1, 
+          baseIndent: 0, 
           switchCase: 1, 
         },
       ],
