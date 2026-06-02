@@ -51,13 +51,11 @@
   ],
   "liveSassCompile.settings.generateMap": false,
   "liveSassCompile.settings.excludeList": [
-    // 🟢 모든 항목의 맨 앞에 슬래시(/) 추가
     "/**/node_modules/**",
     "/.vscode/**",
     "/code-vite-ts/**"
   ],
   "liveSassCompile.settings.includeItems": [
-    // 🟢 모든 항목의 맨 앞에 슬래시(/) 추가
     "/code-basic/**/*.scss",
     "/code-basic/**/*.sass"
   ],
