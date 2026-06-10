@@ -1,7 +1,6 @@
 /* 초기화 */
 html,
 body {
-    height: 100%;
     -moz-text-size-adjust: none;
     -ms-text-size-adjust: none;
     text-size-adjust: none;
@@ -90,6 +89,7 @@ html {
 }
 
 body {
+    min-height: 100dvh;
     font-family:
         'Pretendard',
         -apple-system,
