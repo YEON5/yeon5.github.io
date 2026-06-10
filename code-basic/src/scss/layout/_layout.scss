@@ -171,19 +171,23 @@
         .footer {
             display: none;
         }
-        .main,
         .content {
-            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         // 결과 화면 내용
         .result-view {
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0 2rem;
-            height: 100%;
             text-align: center;
             .icon-result {
                 margin-bottom: 2rem;
@@ -197,23 +201,16 @@
         }
 
         @include breakpoint(pc) {
-            height: auto;
-            min-height: 100%;
             .header,
             .footer {
                 display: block;
-            }
-            .main {
-                padding-top: 5.4rem;
             }
             .content {
                 padding-top: 8rem;
             }
             .result-view {
                 display: block;
-                height: auto;
-                margin-bottom: 4rem;
-                padding: 6rem 0;
+                padding-top: 10rem;
             }
         }
     }

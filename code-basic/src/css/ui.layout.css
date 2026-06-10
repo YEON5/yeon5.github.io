@@ -2,13 +2,14 @@
 /* 전역변수 */
 .header {
   display: block;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   height: 5.4rem;
   background-color: #f6f7f8;
   z-index: 100;
+  padding-top: env(safe-area-inset-top);
 }
 .header .header-insec {
   display: flex;
@@ -122,14 +123,7 @@
 }
 
 .wrapper {
-  position: relative;
-  min-height: 100%;
-}
-.wrapper:has(.type-full-height) .main {
-  height: 100%;
-}
-.wrapper:has(.type-full-height) .content {
-  height: 100%;
+  min-height: 100dvh;
 }
 
 .main,
@@ -141,10 +135,6 @@
 .outer-sec {
   margin-left: -0.4rem;
   margin-right: -0.4rem;
-}
-
-.main {
-  padding-top: 5.4rem;
 }
 
 .content {
@@ -240,17 +230,21 @@
 .wrapper.type-result .footer {
   display: none;
 }
-.wrapper.type-result .main,
 .wrapper.type-result .content {
-  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper.type-result .section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 .wrapper.type-result .result-view {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 2rem;
-  height: 100%;
   text-align: center;
 }
 .wrapper.type-result .result-view .icon-result {
@@ -263,25 +257,16 @@
   color: #656b7b;
 }
 @media (min-width: 1280px) {
-  .wrapper.type-result {
-    height: auto;
-    min-height: 100%;
-  }
   .wrapper.type-result .header,
   .wrapper.type-result .footer {
     display: block;
-  }
-  .wrapper.type-result .main {
-    padding-top: 5.4rem;
   }
   .wrapper.type-result .content {
     padding-top: 8rem;
   }
   .wrapper.type-result .result-view {
     display: block;
-    height: auto;
-    margin-bottom: 4rem;
-    padding: 6rem 0;
+    padding-top: 10rem;
   }
 }
 
