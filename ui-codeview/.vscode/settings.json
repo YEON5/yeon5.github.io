@@ -1,0 +1,65 @@
+{
+  /* 에디터 기본 공백 및 포맷팅 설정 */
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  /* Vue 파일 전용 포맷팅 예외 처리 (ESLint에 위임) */
+  "[vue]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+
+  /* 저장 시 자동 수정 (Auto-fix) 동작 */
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  /* ESLint 상세 설정 (Flat Config & 모노레포 지원) */
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.quiet": true, // 노란색 경고(warn) 밑줄 화면에서 숨기기
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+
+  /* Tailwind CSS 및 Emmet 자동완성 설정 */
+  "tailwindCSS.rootFontSize": 10,
+  "tailwindCSS.emmetCompletions": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+
+  /* SCSS 라이브 컴파일 설정 */
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "~/../css"
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.excludeList": [
+    "/**/node_modules/**",
+    "/.vscode/**",
+    "/code-vite-ts/**"
+  ],
+  "liveSassCompile.settings.includeItems": [
+    "/code-basic/**/*.scss",
+    "/code-basic/**/*.sass"
+  ],
+
+  /* 라이브 서버 설정 */
+  "liveServer.settings.port": 5502
+}

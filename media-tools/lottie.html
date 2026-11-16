@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lottie JSON 압축</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="js/lottie-optimizer.js"></script>
+<script src="/common/js/nav.js"></script>
+<link rel="stylesheet" href="css/lottie.css">
+</head>
+<body>
+<main>
+  <div data-tabs></div>
+  <h1>Lottie JSON 압축</h1>
+  <p class="desc">피그마에서 내보낸 Lottie JSON을 끌어다 놓으면 용량을 줄여서 받을 수 있어요. 파일은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</p>
+
+  <div class="card">
+    <div class="opt-row">
+      <label><input type="checkbox" id="removeNames"> 레이어 이름(nm) 삭제</label>
+      <label><input type="checkbox" id="toWebp" checked> 내장 이미지 WebP 변환</label>
+    </div>
+    <p class="desc opt-note">· 소수점 3자리 반올림, 편집용 정보 삭제, 쓰지 않는·중복 이미지 정리는 항상 적용돼요.<br>· 레이어 이름으로 텍스트·색상을 코드에서 바꾸는 경우엔 이름 삭제를 끄세요.<br>· WebP 이미지는 웹(lottie-web)에선 잘 동작하지만, 구버전 iOS 네이티브 앱에선 표시되지 않을 수 있어요.</p>
+  </div>
+
+  <div class="drop" id="drop">JSON 파일을 여기로 드래그하거나 클릭해서 선택 (최대 20개)<input type="file" id="file" accept=".json,application/json" multiple hidden></div>
+  <p class="msg" id="msg" hidden></p>
+
+  <div id="result" hidden>
+    <div class="card result-card">
+      <table class="files">
+        <thead>
+          <tr>
+            <th>파일</th>
+            <th>원본</th>
+            <th>압축 후</th>
+            <th>감소</th>
+            <th>검사</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="card" id="previewCard">
+      <p class="pv-title pv-name" id="pvName"></p>
+      <div class="previews">
+        <div><div class="pv-title">원본</div><div class="pv" id="pvBefore"></div></div>
+        <div><div class="pv-title">압축 후 (차이가 없는지 확인하세요)</div><div class="pv" id="pvAfter"></div></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/lottie.js"></script>
+</body>
+</html>

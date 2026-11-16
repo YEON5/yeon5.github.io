@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이미지 압축</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.11/pako.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/upng-js/2.1.0/UPNG.min.js"></script>
+<script src="/common/js/nav.js"></script>
+<link rel="stylesheet" href="css/image.css">
+</head>
+<body>
+<main>
+  <div data-tabs></div>
+  <h1>이미지 압축</h1>
+  <p class="desc">JPG·PNG·WebP 이미지를 끌어다 놓으면 용량을 줄여서 받을 수 있어요. 파일은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</p>
+
+  <div class="card">
+    <div class="opt-row">
+      <label><input type="checkbox" id="toWebp"> WebP로 변환</label>
+      <label>이미지 리사이즈
+        <select id="resize">
+          <option value="0" selected>원본 크기</option>
+          <option value="3840">3840px</option>
+          <option value="2560">2560px</option>
+          <option value="1920">1920px</option>
+          <option value="1280">1280px</option>
+          <option value="custom">직접 입력</option>
+        </select>
+      </label>
+      <label id="pngWrap" hidden>PNG 품질
+        <select id="pngQ">
+          <option value="0" selected>무손실</option>
+          <option value="256">높음</option>
+          <option value="128">보통</option>
+          <option value="64">낮음</option>
+        </select>
+      </label>
+      <label id="customWrap" hidden>이미지 넓이(width) <input type="number" id="customW" min="16" max="10000" step="1" value="1000"> px</label>
+    </div>
+    <p class="desc opt-note">· PNG는 기본으로 색과 화질을 그대로 두고 저장 방식만 최적화해요(무손실). JPG·WebP는 품질 82%로 다시 저장해요.<br>· PNG 품질(목록에 PNG가 있을 때 표시)을 높음·보통·낮음으로 고르면 색 수를 256·128·64색으로 줄여 용량을 더 줄여요. 그라데이션에 계단 무늬가 생길 수 있으니 미리보기로 확인하세요.<br>· 이미지 리사이즈는 기준보다 큰 이미지만 넓이(width)를 지정한 값으로 줄이고, 높이는 비율에 맞춰 자동으로 줄여요.<br>· 압축 결과가 원본보다 크면 원본을 그대로 둬요. JPG를 다시 저장하면 촬영 정보(EXIF)는 빠져요.</p>
+  </div>
+
+  <div class="drop" id="drop">이미지를 여기로 드래그하거나 클릭해서 선택 (JPG·PNG·WebP, 최대 20개)<input type="file" id="file" accept="image/jpeg,image/png,image/webp" multiple hidden></div>
+  <p class="msg" id="msg" hidden></p>
+
+  <div id="result" hidden>
+    <div class="card result-card">
+      <table class="files">
+        <thead>
+          <tr>
+            <th>파일</th>
+            <th>원본</th>
+            <th>압축 후</th>
+            <th>감소</th>
+            <th>상태</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="files-foot"><button class="btn tonal" id="zipAll">모두 받기 (ZIP)</button></div>
+    </div>
+    <div class="card" id="previewCard">
+      <p class="pv-name" id="pvName"></p>
+      <div class="compare" id="compare">
+        <img id="pvBefore" alt="원본">
+        <img id="pvAfter" class="after" alt="압축본">
+        <span class="tag tag-before">원본</span>
+        <span class="tag tag-after">압축 후</span>
+        <span class="line"></span>
+        <input type="range" id="pvPos" min="0" max="100" value="50" aria-label="원본과 압축본 비교 위치">
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/image.js"></script>
+</body>
+</html>
