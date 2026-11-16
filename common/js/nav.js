@@ -190,6 +190,24 @@
           return '<a class="page-tab' + (active ? ' is-active' : '') + '" href="' + it.href + '"' +
             (active ? ' aria-current="page"' : '') + '><span>' + it.label + '</span></a>';
         }).join('') + '</nav>';
+
+      // PC: 상단에 붙었는지 감지 (탭 바로 위의 1px 기준점이 화면 밖으로 나가면 고정 상태)
+      var mark = document.createElement('div');
+      mark.style.height = '1px';
+      tabs.before(mark);
+      new IntersectionObserver(function (en) {
+        tabs.classList.toggle('is-stuck', !en[0].isIntersecting && en[0].boundingClientRect.top < 0);
+      }).observe(mark);
+
+      // PC: 다른 탭을 누르면 표시 배경이 옮겨가는 모션(0.2초)을 보여준 뒤 페이지 이동 (m3와 동일한 모션)
+      tabs.addEventListener('click', function (e) {
+        var t = e.target.closest('.page-tab');
+        if (!t || t.classList.contains('is-active') || mobile.matches || e.ctrlKey || e.metaKey || e.shiftKey) return;
+        e.preventDefault();
+        tabs.querySelector('.page-tab.is-active').classList.remove('is-active');
+        t.classList.add('is-active');
+        setTimeout(function () { location.href = t.href; }, 200);
+      });
     }
   }
 

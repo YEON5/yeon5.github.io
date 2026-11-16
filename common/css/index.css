@@ -4,8 +4,8 @@
   border-radius: 28px;
   padding: 72px 48px;
 }
-.home-hero h1 { margin: 0 0 16px; font-size: 57px; line-height: 64px; font-weight: 400; letter-spacing: -0.25px; }
-.home-hero p { margin: 0; max-width: 560px; font-size: 18px; line-height: 28px; color: var(--md-on-surface-variant); }
+.home-hero h1 { margin: 0 0 16px; font-size: 57px; line-height: 64px; font-weight: 600; letter-spacing: -0.25px; }
+.home-hero p { margin: 0; font-size: 18px; line-height: 28px; color: var(--md-on-surface-variant); }
 
 .home-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
 .home-card {
@@ -23,8 +23,8 @@
   background: var(--md-primary-container); color: var(--md-on-primary-container);
 }
 .home-card__icon svg { width: 28px; height: 28px; fill: currentColor; }
-.home-card h2 { margin: 0 0 8px; font-size: 24px; font-weight: 400; }
-.home-card p { margin: 0; font-size: 14px; line-height: 20px; color: var(--md-on-surface-variant); }
+.home-card h2 { margin: 0 0 8px; font-size: 26px; line-height: 34px; font-weight: 600; }
+.home-card p { margin: 0; font-size: 16px; line-height: 24px; color: var(--md-on-surface-variant); }
 
 @media (max-width: 599px) {
   .home-hero { padding: 40px 24px; }

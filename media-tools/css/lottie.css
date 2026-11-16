@@ -3,17 +3,17 @@
 .pv-title { font-size:13px; color:var(--sub); margin-bottom:6px; }
 .opt-row { display:flex; align-items:center; flex-wrap:wrap; gap:16px 48px; }
 .drop { padding:64px 16px; }
-/* 체크박스: 글자 크기(14px)와 같은 크기, M3 색 */
-.opt-row label { display:inline-flex; align-items:center; gap:8px; cursor:pointer; }
+/* 체크박스: 20px, M3 색 */
+.opt-row label { display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:16px; }
 .opt-row input[type=checkbox] {
   appearance:none; position:relative; flex:none;
-  width:14px; height:14px; margin:0;
+  width:20px; height:20px; margin:0;
   border:2px solid #49454e; border-radius:2px;
   cursor:pointer;
 }
 .opt-row input[type=checkbox]::before { /* hover·focus 시 원형 배경 */
   content:""; position:absolute; left:50%; top:50%;
-  width:28px; height:28px; margin:-14px 0 0 -14px; border-radius:50%;
+  width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
   background:rgb(102 85 150 / 10%); opacity:0; transition:opacity .15s;
 }
 .opt-row label:hover input[type=checkbox]::before,
@@ -37,6 +37,13 @@
   .files td, .files th { padding:8px 4px; font-size:13px; }
   .files td:first-child { word-break:break-all; }
 }
-.opt-note { margin:30px 0 0; }
+.opt-note { margin:30px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+.opt-note li { position:relative; padding-left:14px; }
+.opt-note li::before { content:""; position:absolute; left:2px; top:.7em; width:4px; height:4px; border-radius:50%; background:currentColor; }
 .result-card { margin-top:16px; }
 .pv-name { margin:0 0 12px; }
+
+/* PC */
+@media (min-width: 600px) {
+  .drop { padding:100px 16px; }
+}

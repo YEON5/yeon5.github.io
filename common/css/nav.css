@@ -31,13 +31,32 @@
   --topbar-h: 64px;
 }
 
+/* Pretendard (ui-codeview와 같은 폰트, common/font) */
+@font-face {
+  font-family: "Pretendard"; font-weight: 400; font-style: normal; font-display: swap;
+  src: url("../font/Pretendard-Regular.subset.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Pretendard"; font-weight: 500; font-style: normal; font-display: swap;
+  src: url("../font/Pretendard-Medium.subset.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Pretendard"; font-weight: 600; font-style: normal; font-display: swap;
+  src: url("../font/Pretendard-SemiBold.subset.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Pretendard"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("../font/Pretendard-Bold.subset.woff2") format("woff2");
+}
+
 * { box-sizing: border-box; }
+button, input, select, textarea { font-family: inherit; }
 
 body {
   margin: 0;
   background: var(--md-surface);
   color: var(--md-on-surface);
-  font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
   padding-left: var(--rail-w);
 }
 
@@ -72,7 +91,7 @@ body {
 .nav-rail__item:hover .nav-rail__pill,
 .nav-rail__item.is-hover .nav-rail__pill { background: var(--nav-hover-layer); }
 .nav-rail__item:active .nav-rail__pill { background: var(--nav-press-layer); }
-.nav-rail__item.is-active { color: var(--nav-text-active); }
+.nav-rail__item.is-active { color: var(--nav-text-active); font-weight: 700; }
 .nav-rail__item.is-active .nav-rail__pill { background: var(--nav-active-bg); }
 
 /* ---------- drawer (PC: rail 옆에 겹쳐서 펼침, 왼쪽 1px 구분선) ---------- */
@@ -106,7 +125,7 @@ body {
 .nav-drawer__link:active,
 .nav-drawer__group:active,
 .nav-drawer__back:active { background: var(--nav-press-layer); }
-.nav-drawer__link.is-active { background: var(--nav-active-bg); color: var(--nav-text-active); }
+.nav-drawer__link.is-active { background: var(--nav-active-bg); color: var(--nav-text-active); font-weight: 700; }
 .nav-drawer__link.is-soon { cursor: default; opacity: .5; }
 .nav-drawer__link.is-soon:hover { background: none; color: var(--nav-text); }
 .nav-drawer__badge { margin-left: auto; font-size: 11px; }
@@ -146,13 +165,26 @@ body {
   border-radius: 40px;
   background: var(--nav-active-bg);
   opacity: 0; transform: scaleX(.32);
-  transition: transform .2s cubic-bezier(.2, 0, 0, 1), opacity .2s;
+  transition: transform .2s cubic-bezier(.2, 0, 0, 1), opacity .2s cubic-bezier(.2, 0, 0, 1);
 }
 .page-tab span { position: relative; }
 .page-tab:hover { background: var(--nav-hover-layer); color: var(--nav-text-hover); }
 .page-tab:active { background: var(--nav-press-layer); }
-.page-tab.is-active { color: var(--nav-text-active); }
+.page-tab.is-active { color: var(--nav-text-active); font-weight: 700; }
 .page-tab.is-active::before { opacity: 1; transform: scaleX(1); }
+/* 선택된 탭에 마우스를 올리면 표시 배경을 살짝 어둡게 (m3 동일) */
+.page-tab.is-active:hover::before { background: linear-gradient(rgb(31 25 35 / 8%), rgb(31 25 35 / 8%)), var(--nav-active-bg); }
+.page-tab.is-active:active::before { background: linear-gradient(rgb(31 25 35 / 12%), rgb(31 25 35 / 12%)), var(--nav-active-bg); }
+
+/* PC: 탭 여백 + 스크롤해서 상단에 붙으면 낮아지고 그림자 (m3 .article-tab-list.sticky 동일) */
+@media (min-width: 600px) {
+  .page-tabs { padding-top: 40px; margin-bottom: 70px; transition: padding-top .3s cubic-bezier(.2, 0, 0, 1); }
+  .page-tabs__track { transition: box-shadow .3s cubic-bezier(.2, 0, 0, 1); }
+  .page-tab { transition: background-color .2s, color .2s, min-height .3s cubic-bezier(.2, 0, 0, 1); }
+  .page-tabs.is-stuck { padding-top: 9px; }
+  .page-tabs.is-stuck .page-tabs__track { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 30%), 0 1px 3px 1px rgb(0 0 0 / 15%); }
+  .page-tabs.is-stuck .page-tab { min-height: 63px; }
+}
 
 /* ---------- 모바일 상단 바 ---------- */
 .nav-topbar { display: none; }

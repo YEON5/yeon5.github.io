@@ -2,8 +2,8 @@
 * { box-sizing: border-box; }
 body { margin:0; font-family: -apple-system, "Pretendard", "Noto Sans KR", sans-serif; background:var(--bg); color:var(--text); }
 main { max-width:960px; margin:0 auto; padding:24px 16px 60px; }
-h1 { font-size:22px; margin:0 0 6px; }
-.desc { color:var(--sub); font-size:14px; margin:0 0 20px; }
+h1 { font-size:26px; font-weight:600; margin:0 0 6px; }
+.desc { color:var(--sub); font-size:16px; margin:0 0 20px; }
 .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:16px; }
 .drop { border:2px dashed #c3c8d2; border-radius:12px; padding:40px 16px; text-align:center; color:var(--sub); cursor:pointer; background:var(--card); }
 .drop.over { border-color:var(--accent); background:#eef3ff; }
@@ -17,3 +17,9 @@ label { font-size:14px; }
 table { width:100%; border-collapse:collapse; font-size:14px; }
 td, th { padding:8px; border-bottom:1px solid var(--line); text-align:left; }
 .good { color:#0a8f4a; font-weight:600; }
+
+/* PC */
+@media (min-width: 600px) {
+  h1 { margin-bottom: 14px; }
+  .card { margin-bottom: 40px; }
+}
