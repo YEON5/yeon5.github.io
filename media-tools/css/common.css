@@ -4,7 +4,7 @@ body { margin:0; font-family: -apple-system, "Pretendard", "Noto Sans KR", sans-
 main { max-width:960px; margin:0 auto; padding:24px 16px 60px; }
 h1 { font-size:26px; font-weight:600; margin:0 0 6px; }
 .desc { color:var(--sub); font-size:16px; margin:0 0 20px; }
-.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:26px 20px; margin-bottom:16px; }
 .drop { border:2px dashed #c3c8d2; border-radius:12px; padding:40px 16px; text-align:center; color:var(--sub); cursor:pointer; background:var(--card); }
 .drop.over { border-color:var(--accent); background:#eef3ff; }
 .btn { background:var(--accent); color:#fff; border:0; border-radius:8px; padding:10px 16px; font-size:14px; cursor:pointer; }

@@ -8,7 +8,7 @@
 .opt-row input[type=checkbox] {
   appearance:none; position:relative; flex:none;
   width:20px; height:20px; margin:0;
-  border:2px solid #49454e; border-radius:2px;
+  border:2px solid #49454e; border-radius:4px;
   cursor:pointer;
 }
 .opt-row input[type=checkbox]::before { /* hover·focus 시 원형 배경 */
@@ -20,7 +20,7 @@
 .opt-row input[type=checkbox]:focus-visible::before { opacity:1; }
 .opt-row input[type=checkbox]:checked {
   border-color:#665596;
-  background:#665596 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 12-12-1.4-1.4z' fill='white'/%3E%3C/svg%3E") center/100% no-repeat border-box;
+  background:#665596 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 12-12-1.4-1.4z' fill='white'/%3E%3C/svg%3E") center/90% no-repeat border-box; /* 체크 표시 크기 90% */
 }
 .files tr[data-i] { cursor:pointer; }
 .files tr.on td { background:#f7f8f9; }
@@ -38,8 +38,8 @@
   .files td:first-child { word-break:break-all; }
 }
 .opt-note { margin:30px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
-.opt-note li { position:relative; padding-left:14px; }
-.opt-note li::before { content:""; position:absolute; left:2px; top:.7em; width:4px; height:4px; border-radius:50%; background:currentColor; }
+.opt-note li { position:relative; padding-left:14px; font-size:14px; line-height:20px; color:var(--sub); }
+.opt-note li::before { content:""; position:absolute; left:2px; top:8px; width:4px; height:4px; border-radius:50%; background:currentColor; }
 .result-card { margin-top:16px; }
 .pv-name { margin:0 0 12px; }
 
