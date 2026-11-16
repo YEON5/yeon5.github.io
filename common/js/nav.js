@@ -30,10 +30,21 @@
   };
 
   // nav.css를 common/css/에서 불러옴 (nav.js 위치 기준)
-  var css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = new URL('../css/nav.css', document.currentScript.src).href;
-  document.head.appendChild(css);
+  // <head>에서 실행될 때는 일반 <link>처럼 넣어서, CSS가 적용되기 전 화면이 먼저 그려지지 않게 함
+  var cssHref = new URL('../css/nav.css', document.currentScript.src).href;
+  if (document.readyState === 'loading') {
+    document.write('<link rel="stylesheet" href="' + cssHref + '">');
+    // 자주 쓰는 굵기의 Pretendard를 미리 받아서, 글꼴이 늦게 바뀌며 글줄이 움직이는 현상을 줄임
+    ['Regular', 'Medium', 'SemiBold'].forEach(function (w) {
+      document.write('<link rel="preload" as="font" type="font/woff2" crossorigin href="' +
+        new URL('../font/Pretendard-' + w + '.subset.woff2', cssHref).href + '">');
+    });
+  } else {
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = cssHref;
+    document.head.appendChild(css);
+  }
 
   var mobile = window.matchMedia('(max-width: 599px)');
 
@@ -208,14 +219,12 @@
         t.classList.add('is-active');
         setTimeout(function () { location.href = t.href; }, 200);
       });
+
+      // 다 그려진 다음 프레임부터 모션 적용
+      requestAnimationFrame(function () { requestAnimationFrame(function () { tabs.classList.add('is-ready'); }); });
     }
   }
 
-  // nav.css 로드와 문서 준비가 둘 다 끝난 뒤 그림 (CSS 적용 전 메뉴가 잠깐 보이는 현상 방지)
-  var wait = 2;
-  function ready() { if (--wait === 0) build(); }
-  css.addEventListener('load', ready);
-  css.addEventListener('error', ready);
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
-  else ready();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
 })();

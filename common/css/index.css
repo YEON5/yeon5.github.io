@@ -32,3 +32,8 @@
   .home-hero p { font-size: 16px; line-height: 24px; }
   .home-card { padding: 24px; }
 }
+
+/* PC */
+@media (min-width: 600px) {
+  .home { padding: 24px; }
+}

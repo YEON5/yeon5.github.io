@@ -136,13 +136,16 @@ body {
 .nav-drawer__sub[hidden] { display: none; }
 
 /* ---------- 페이지 탭 (m3 .article-tab-list 기준) ---------- */
-.page-tabs {
+/* [data-tabs]: 탭이 그려지기 전에도 같은 자리를 차지해서 화면이 밀리지 않게 함 */
+.page-tabs, [data-tabs] {
+  display: block;
   position: sticky; top: 0; z-index: 10;
   padding-top: 8px;
   background: var(--md-surface);
   border-radius: 0 0 40px 40px;
   margin-bottom: 48px;
 }
+[data-tabs]:empty { min-height: 88px; } /* 8 + 탭 높이 80 */
 .page-tabs__track {
   display: flex;
   background: var(--nav-tab-track);
@@ -178,9 +181,12 @@ body {
 
 /* PC: 탭 여백 + 스크롤해서 상단에 붙으면 낮아지고 그림자 (m3 .article-tab-list.sticky 동일) */
 @media (min-width: 600px) {
-  .page-tabs { padding-top: 40px; margin-bottom: 70px; transition: padding-top .3s cubic-bezier(.2, 0, 0, 1); }
-  .page-tabs__track { transition: box-shadow .3s cubic-bezier(.2, 0, 0, 1); }
-  .page-tab { transition: background-color .2s, color .2s, min-height .3s cubic-bezier(.2, 0, 0, 1); }
+  .page-tabs, [data-tabs] { padding-top: 0; margin-bottom: 70px; } /* 탭 위 여백은 main padding-top이 담당 */
+  [data-tabs]:empty { min-height: 80px; } /* 탭 높이 80 */
+  /* 모션은 탭이 다 그려진 뒤(.is-ready)부터 적용: 처음 열 때 여백이 늘어나는 움직임 방지 */
+  .page-tabs.is-ready { transition: padding-top .3s cubic-bezier(.2, 0, 0, 1); }
+  .page-tabs.is-ready .page-tabs__track { transition: box-shadow .3s cubic-bezier(.2, 0, 0, 1); }
+  .page-tabs.is-ready .page-tab { transition: background-color .2s, color .2s, min-height .3s cubic-bezier(.2, 0, 0, 1); }
   .page-tabs.is-stuck { padding-top: 9px; }
   .page-tabs.is-stuck .page-tabs__track { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 30%), 0 1px 3px 1px rgb(0 0 0 / 15%); }
   .page-tabs.is-stuck .page-tab { min-height: 63px; }
@@ -212,6 +218,7 @@ body {
   .nav-scrim { position: fixed; inset: 0; z-index: 40; background: var(--md-scrim); }
   .nav-scrim.is-open { display: block; }
   body.nav-lock { overflow: hidden; }
-  .page-tabs { top: var(--topbar-h); }
-  .page-tab { min-height: 56px; padding: 0 20px; }
+  .page-tabs, [data-tabs] { top: var(--topbar-h); }
+  [data-tabs]:empty { min-height: 64px; } /* 8 + 56 */
+  .page-tab { flex: 1 1 0; min-height: 56px; padding: 0 20px; } /* 모바일: 탭 균등 넓이 */
 }
