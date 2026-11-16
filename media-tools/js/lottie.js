@@ -2,7 +2,7 @@ const $ = id => document.getElementById(id);
 const PRECISION = 3;   // 소수점 자릿수 고정
 const QUALITY = 0.82;  // WebP 품질 고정 (EasyLottie Balanced 모드와 같은 값)
 const MAX_FILES = 20;
-const mobile = matchMedia('(max-width:600px)');
+const mobile = matchMedia('(max-width:599px)');
 let items = [], selected = 0, anims = [];
 
 const fmt = b => b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(1) + ' KB' : (b / 1048576).toFixed(2) + ' MB';
@@ -96,7 +96,7 @@ function render() {
       <td>${ok ? fmt(after) : '-'}</td>
       <td class="good">${ok ? Math.max(0, (1 - after / it.size) * 100).toFixed(1) + '%' : '-'}</td>
       <td>${ok ? '검사 통과' : `<span class="fail">압축 실패</span><span class="note">${esc(it.error)}</span>`}</td>
-      <td><button class="btn" data-dl="${i}"${ok ? '' : ' disabled'}>다운로드</button></td>
+      <td><button class="btn btn-download" data-dl="${i}"${ok ? '' : ' disabled'}>다운로드</button></td>
     </tr>`;
   }).join('');
   $('result').hidden = false;
@@ -148,9 +148,9 @@ async function load(fileList) {
 const drop = $('drop');
 drop.onclick = () => $('file').click();
 $('file').onchange = e => { load(e.target.files); e.target.value = ''; };
-drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
-drop.ondragleave = () => drop.classList.remove('over');
-drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over'); load(e.dataTransfer.files); };
+drop.ondragover = e => { e.preventDefault(); drop.classList.add('is-dragover'); };
+drop.ondragleave = () => drop.classList.remove('is-dragover');
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove('is-dragover'); load(e.dataTransfer.files); };
 
 ['removeNames', 'toWebp'].forEach(id => $(id).onchange = runAll);
 

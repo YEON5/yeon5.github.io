@@ -1,19 +1,14 @@
-:root { --bg:#f6f7f9; --card:#fff; --text:#1d2129; --sub:#6b7280; --line:#e5e7eb; --accent:#2f6bff; }
+:root { --card:#fff; --sub:#6b7280; --line:#e5e7eb; --accent:#2f6bff; }
 * { box-sizing: border-box; }
-body { margin:0; font-family: -apple-system, "Pretendard", "Noto Sans KR", sans-serif; background:var(--bg); color:var(--text); }
 main { max-width:960px; margin:0 auto; padding:24px 16px 60px; }
 h1 { font-size:26px; font-weight:600; margin:0 0 6px; }
 .desc { color:var(--sub); font-size:16px; margin:0 0 20px; }
 .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:26px 20px; margin-bottom:16px; }
 .drop { border:2px dashed #c3c8d2; border-radius:12px; padding:40px 16px; text-align:center; color:var(--sub); cursor:pointer; background:var(--card); }
-.drop.over { border-color:var(--accent); background:#eef3ff; }
+.drop.is-dragover { border-color:rgb(102 85 150 / 30%); background:rgb(243 237 247 / 30%); } /* 끌어다 놓는 중: #665596, #f3edf7의 30% */
 .btn { background:var(--accent); color:#fff; border:0; border-radius:8px; padding:10px 16px; font-size:14px; cursor:pointer; }
 .btn:disabled { background:#b8c4dd; cursor:default; }
 label { font-size:14px; }
-.row { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
-.tool { display:block; text-decoration:none; color:inherit; }
-.tool.soon { opacity:.5; pointer-events:none; }
 table { width:100%; border-collapse:collapse; font-size:14px; }
 td, th { padding:8px; border-bottom:1px solid var(--line); text-align:left; }
 .good { color:#0a8f4a; font-weight:600; }

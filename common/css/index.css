@@ -1,4 +1,4 @@
-.home { max-width: 1200px; margin: 0 auto; padding: 16px; }
+.home { max-width: 1760px; margin: 0 auto; padding: 16px; }
 .home-hero {
   background: var(--md-surface-container-low);
   border-radius: 28px;
@@ -7,7 +7,7 @@
 .home-hero h1 { margin: 0 0 16px; font-size: 57px; line-height: 64px; font-weight: 600; letter-spacing: -0.25px; }
 .home-hero p { margin: 0; font-size: 18px; line-height: 28px; color: var(--md-on-surface-variant); }
 
-.home-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.home-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding-top: 40px; }
 .home-card {
   display: block; padding: 32px;
   background: var(--md-surface-container-low);

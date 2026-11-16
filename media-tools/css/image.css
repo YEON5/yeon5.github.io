@@ -24,14 +24,14 @@
 .opt-row select { width:110px; }
 .opt-row input[type=number] { width:96px; }
 
-.files-foot { display:flex; justify-content:center; margin-top:20px; }
+.btn-wrap { display:flex; justify-content:center; margin-top:20px; }
 .files tr[data-i] { cursor:pointer; }
 .files tr.on td { background:#f7f8f9; }
 .files .note { display:block; margin-top:2px; font-size:12px; color:var(--sub); }
 .fail { color:#b3261e; font-weight:600; }
-.btn.tonal { padding:6px 16px; border-radius:20px; font-size:13px; font-weight:500; background:var(--nav-active-bg); color:var(--nav-text-active); white-space:nowrap; }
-.btn.tonal:hover { box-shadow:inset 0 0 0 99px var(--nav-hover-layer); }
-.btn.tonal:disabled { background:#e8e8ea; color:#a0a0a5; box-shadow:none; cursor:default; } /* 다운로드 불가: 회색 */
+.btn-download { padding:6px 16px; border-radius:20px; font-size:13px; font-weight:500; background:var(--nav-active-bg); color:var(--nav-text-active); white-space:nowrap; }
+.btn-download:hover { box-shadow:inset 0 0 0 99px var(--nav-hover-layer); }
+.btn-download:disabled { background:#e8e8ea; color:#a0a0a5; box-shadow:none; cursor:default; } /* 다운로드 불가: 회색 */
 .files th { white-space:nowrap; }
 .msg { margin:12px 0 0; font-size:14px; color:#b3261e; }
 
@@ -43,7 +43,7 @@
 .compare input { position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize; }
 .compare .tag { position:absolute; top:8px; padding:2px 8px; border-radius:10px; background:rgb(0 0 0 / 55%); color:#fff; font-size:12px; pointer-events:none; }
 
-@media (max-width:600px) {
+@media (max-width:599px) {
   #previewCard { display:none; } /* 모바일에선 미리보기 숨김 */
   .files th:nth-child(2), .files td:nth-child(2) { display:none; }
   .files td, .files th { padding:8px 4px; font-size:13px; }

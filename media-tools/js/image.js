@@ -3,7 +3,7 @@ const QUALITY = 0.82;  // JPG·WebP 품질 고정 (Lottie 페이지와 같은 �
 const MAX_FILES = 20;
 const TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
 const OXIPNG = 'https://cdn.jsdelivr.net/npm/@jsquash/oxipng@2.3.0/codec/pkg/squoosh_oxipng.js';
-const mobile = matchMedia('(max-width:600px)');
+const mobile = matchMedia('(max-width:599px)');
 let items = [], selected = 0, oxipng = null;
 
 const fmt = b => b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(1) + ' KB' : (b / 1048576).toFixed(2) + ' MB';
@@ -118,7 +118,7 @@ function render() {
       <td>${ok ? fmt(it.out.size) : '-'}</td>
       <td class="good">${ok ? Math.max(0, (1 - it.out.size / it.file.size) * 100).toFixed(1) + '%' : '-'}</td>
       <td>${status}</td>
-      <td><button class="btn tonal" data-dl="${i}"${ok ? '' : ' disabled'}>다운로드</button></td>
+      <td><button class="btn btn-download" data-dl="${i}"${ok ? '' : ' disabled'}>다운로드</button></td>
     </tr>`;
   }).join('');
   $('result').hidden = false;
@@ -173,9 +173,9 @@ async function load(fileList) {
 const drop = $('drop');
 drop.onclick = () => $('file').click();
 $('file').onchange = e => { load(e.target.files); e.target.value = ''; };
-drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
-drop.ondragleave = () => drop.classList.remove('over');
-drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over'); load(e.dataTransfer.files); };
+drop.ondragover = e => { e.preventDefault(); drop.classList.add('is-dragover'); };
+drop.ondragleave = () => drop.classList.remove('is-dragover');
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove('is-dragover'); load(e.dataTransfer.files); };
 
 $('toWebp').onchange = runAll;
 $('pngQ').onchange = runAll;
