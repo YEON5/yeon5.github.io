@@ -31,6 +31,7 @@
 .btn-download:disabled { background:#e8e8ea; color:#a0a0a5; box-shadow:none; cursor:default; } /* 다운로드 불가: 회색 */
 .msg { margin:12px 0 0; font-size:14px; color:#b3261e; }
 .files th { white-space:nowrap; }
+.files td:last-child { text-align:center; } /* 다운로드 버튼 칸 */
 @media (max-width:599px) {
   #previewCard { display:none; } /* 모바일에선 미리보기 숨김 */
   .files th:nth-child(2), .files td:nth-child(2) { display:none; }

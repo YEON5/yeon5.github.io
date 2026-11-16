@@ -24,7 +24,7 @@
 .opt-row select { width:110px; }
 .opt-row input[type=number] { width:96px; }
 
-.btn-wrap { display:flex; justify-content:center; margin-top:20px; }
+.btn-wrap { display:flex; justify-content:center; margin-top:30px; }
 .files tr[data-i] { cursor:pointer; }
 .files tr.on td { background:#f7f8f9; }
 .files .note { display:block; margin-top:2px; font-size:12px; color:var(--sub); }
@@ -33,6 +33,7 @@
 .btn-download:hover { box-shadow:inset 0 0 0 99px var(--nav-hover-layer); }
 .btn-download:disabled { background:#e8e8ea; color:#a0a0a5; box-shadow:none; cursor:default; } /* 다운로드 불가: 회색 */
 .files th { white-space:nowrap; }
+.files td:last-child { text-align:center; } /* 다운로드 버튼 칸 */
 .msg { margin:12px 0 0; font-size:14px; color:#b3261e; }
 
 /* 비교 슬라이더 (Squoosh 방식): 왼쪽 원본 / 오른쪽 압축본 */
