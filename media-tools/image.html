@@ -19,26 +19,53 @@
 
   <div class="card">
     <div class="opt-row">
-      <label><input type="checkbox" id="toWebp"> WebP로 변환</label>
-      <label>이미지 리사이즈
-        <select id="resize">
-          <option value="0" selected>원본 크기</option>
-          <option value="3840">3840px</option>
-          <option value="2560">2560px</option>
-          <option value="1920">1920px</option>
-          <option value="1280">1280px</option>
-          <option value="custom">직접 입력</option>
-        </select>
-      </label>
-      <label id="pngWrap" hidden>PNG 품질
-        <select id="pngQ">
-          <option value="0" selected>무손실</option>
-          <option value="256">높음</option>
-          <option value="128">보통</option>
-          <option value="64">낮음</option>
-        </select>
-      </label>
-      <label id="customWrap" hidden>이미지 넓이(width) <input type="number" id="customW" min="16" max="10000" step="1" value="1000"> px</label>
+      <div class="check-group">
+        <label for="toWebp" class="form-check">
+          <input type="checkbox" name="toWebp" id="toWebp" class="chk">
+          <span class="chk-txt">WebP로 변환</span>
+        </label>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <label for="resize">이미지 리사이즈</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="resize" class="select">
+              <option value="0" selected>원본 크기</option>
+              <option value="3840">3840px</option>
+              <option value="2560">2560px</option>
+              <option value="1920">1920px</option>
+              <option value="1280">1280px</option>
+              <option value="custom">직접 입력</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="pngWrap" hidden>
+        <div class="form-label">
+          <label for="pngQ">PNG 품질</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="pngQ" class="select">
+              <option value="0" selected>무손실</option>
+              <option value="256">높음</option>
+              <option value="128">보통</option>
+              <option value="64">낮음</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="customWrap" hidden>
+        <div class="form-label"><label for="customW">이미지 넓이(width)</label></div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="customW" class="inp" min="16" max="10000" step="1" value="1000">
+            <div class="on-right"><span class="txt">px</span></div>
+          </div>
+        </div>
+      </div>
     </div>
     <ul class="opt-note">
       <li>PNG는 기본으로 색과 화질을 그대로 두고 저장 방식만 최적화해요(무손실). JPG·WebP는 품질 82%로 다시 저장해요.</li>
@@ -48,7 +75,10 @@
     </ul>
   </div>
 
-  <div class="drop" id="drop">이미지를 여기로 드래그하거나 클릭해서 선택 (JPG·PNG·WebP, 최대 20개)<input type="file" id="file" accept="image/jpeg,image/png,image/webp" multiple hidden></div>
+  <div class="drop" id="drop">
+    <span>이미지를 여기로 드래그하거나 클릭해서 선택 (JPG·PNG·WebP, 최대 20개)</span>
+    <input type="file" id="file" accept="image/jpeg,image/png,image/webp" multiple hidden>
+  </div>
   <p class="msg" id="msg" hidden></p>
 
   <div id="result" hidden>

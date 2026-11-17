@@ -18,8 +18,16 @@
 
   <div class="card">
     <div class="opt-row">
-      <label><input type="checkbox" id="removeNames"> 레이어 이름(nm) 삭제</label>
-      <label><input type="checkbox" id="toWebp" checked> 내장 이미지 WebP 변환</label>
+      <div class="check-group">
+        <label for="removeNames" class="form-check">
+          <input type="checkbox" name="removeNames" id="removeNames" class="chk">
+          <span class="chk-txt">레이어 이름(nm) 삭제</span>
+        </label>
+        <label for="toWebp" class="form-check">
+          <input type="checkbox" name="toWebp" id="toWebp" class="chk" checked>
+          <span class="chk-txt">내장 이미지 WebP 변환</span>
+        </label>
+      </div>
     </div>
     <ul class="opt-note">
       <li>소수점 3자리 반올림, 편집용 정보 삭제, 쓰지 않는·중복 이미지 정리는 항상 적용돼요.</li>
@@ -28,7 +36,10 @@
     </ul>
   </div>
 
-  <div class="drop" id="drop">JSON 파일을 여기로 드래그하거나 클릭해서 선택 (최대 20개)<input type="file" id="file" accept=".json,application/json" multiple hidden></div>
+  <div class="drop" id="drop">
+    <span>JSON 파일을 여기로 드래그하거나 클릭해서 선택 (최대 20개)</span>
+    <input type="file" id="file" accept=".json,application/json" multiple hidden>
+  </div>
   <p class="msg" id="msg" hidden></p>
 
   <div id="result" hidden>

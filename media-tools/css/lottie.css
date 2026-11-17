@@ -3,25 +3,35 @@
 .pv-title { font-size:13px; color:var(--sub); margin-bottom:6px; }
 .opt-row { display:flex; align-items:center; flex-wrap:wrap; gap:16px 48px; }
 .drop { padding:64px 16px; }
-/* 체크박스: 20px, M3 색 */
-.opt-row label { display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:16px; }
-.opt-row input[type=checkbox] {
+/* 체크박스 (ui-codeview .check-group / .form-check 구조, 크기·색은 M3) */
+.check-group { display:flex; align-items:center; flex-wrap:wrap; gap:inherit; }
+.form-check { display:flex; align-items:center; position:relative; font-size:16px; cursor:pointer; }
+.form-check .chk-txt { padding-left:8px; }
+.form-check input[type=checkbox] {
   appearance:none; position:relative; flex:none;
   width:20px; height:20px; margin:0;
-  border:2px solid #49454e; border-radius:4px;
+  border:2px solid #49454e; border-radius:4px; background-color:#fff;
   cursor:pointer;
 }
-.opt-row input[type=checkbox]::before { /* hover·focus 시 원형 배경 */
+.form-check input[type=checkbox]::before { /* hover·focus 시 원형 배경 */
   content:""; position:absolute; left:50%; top:50%;
   width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
   background:rgb(102 85 150 / 10%); opacity:0; transition:opacity .15s;
 }
-.opt-row label:hover input[type=checkbox]::before,
-.opt-row input[type=checkbox]:focus-visible::before { opacity:1; }
-.opt-row input[type=checkbox]:checked {
-  border-color:#665596;
-  background:#665596 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 12-12-1.4-1.4z' fill='white'/%3E%3C/svg%3E") center/90% no-repeat border-box; /* 체크 표시 크기 90% */
+.form-check:hover input[type=checkbox]::before,
+.form-check input[type=checkbox]:focus-visible::before { opacity:1; }
+.form-check input[type=checkbox]::after { /* 체크 표시 */
+  content:""; display:block; position:absolute; top:50%; left:50%;
+  width:5px; height:10px;
+  border-right:2px solid #fff; border-bottom:2px solid #fff;
+  transform:translate(-50%, -60%) rotate(45deg);
+  opacity:0; z-index:2;
 }
+.form-check input[type=checkbox]:checked {
+  border:10px solid #665596;
+  transition:all cubic-bezier(.4, 0, .23, 1) .3s;
+}
+.form-check input[type=checkbox]:checked::after { opacity:1; transition:opacity .2s .1s; }
 .files tr[data-i] { cursor:pointer; }
 .files tr.on td { background:#f7f8f9; }
 .files .note { display:block; margin-top:2px; font-size:12px; color:var(--sub); }
