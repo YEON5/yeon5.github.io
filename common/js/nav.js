@@ -12,7 +12,8 @@
       label: 'Tools', icon: 'tune', href: '/media-tools/lottie.html',
       items: [
         { label: 'Lottie JSON 압축', href: '/media-tools/lottie.html' },
-        { label: '이미지 압축', href: '/media-tools/image.html' }
+        { label: '이미지 압축', href: '/media-tools/image.html' },
+        { label: 'SVG 최적화', href: '/media-tools/svg.html' }
       ]
     },
     { label: 'Code', icon: 'code', href: '/ui-codeview/' }
@@ -201,6 +202,10 @@
           return '<a class="page-tab' + (active ? ' is-active' : '') + '" href="' + it.href + '"' +
             (active ? ' aria-current="page"' : '') + '><span>' + it.label + '</span></a>';
         }).join('') + '</nav>';
+
+      // 모바일: 탭이 화면보다 넓어 옆으로 넘기는 경우, 현재 탭이 보이도록 가운데로 스크롤
+      var track = tabs.firstChild, act = tabs.querySelector('.page-tab.is-active');
+      if (act) track.scrollLeft = act.offsetLeft - (track.clientWidth - act.offsetWidth) / 2;
 
       // PC: 상단에 붙었는지 감지 (탭 바로 위의 1px 기준점이 화면 밖으로 나가면 고정 상태)
       var mark = document.createElement('div');

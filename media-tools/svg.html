@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front UI - SVG Optimize</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="/common/js/nav.js"></script>
+<link rel="stylesheet" href="css/svg.css">
+</head>
+<body>
+<main>
+  <div data-tabs></div>
+  <h1>SVG 최적화</h1>
+  <p class="desc">피그마에서 내보낸 SVG 아이콘을 끌어다 놓으면 정리·압축하고 아이콘용 색·크기로 맞춰서 받을 수 있어요. <br>파일은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</p>
+
+  <div class="card">
+    <ul class="opt-note">
+      <li>주석·편집용 정보·쓰지 않는 id·그룹을 지우고, 아이콘 전체를 감싸기만 하는 피그마 clipPath도 지워요. viewBox는 그대로 둬요.</li>
+      <li>색이 1개 이하면 단색으로 보고 currentColor로 바꿔서, CSS의 color로 색을 바꿀 수 있게 해요. 2개 이상이면 다색으로 보고 원래 색을 유지해요.</li>
+      <li>그라데이션이 들어간 아이콘은 다색으로 봐요. 색을 셀 때 clipPath·mask·defs 안의 색은 빼요.</li>
+      <li>다색도 색 판별 칸의 [currentColor로 바꾸기] 버튼으로 바꿀 수 있어요. 이때도 그라데이션은 그대로 둬요.</li>
+      <li>height는 1em으로 바꿔서 글자 크기(font-size)를 따라가게 하고, width는 비율에 맞춰 바꿔요. 정사각형이면 1em × 1em, 24×16 아이콘이면 1.5em × 1em이에요.</li>
+    </ul>
+  </div>
+
+  <div class="drop" id="drop">SVG 파일이나 폴더를 여기로 드래그하거나 클릭해서 선택 (최대 50개)<input type="file" id="file" accept=".svg,image/svg+xml" multiple hidden></div>
+  <p class="msg" id="msg" hidden></p>
+
+  <div id="result" hidden>
+    <div class="card result-card">
+      <table class="files">
+        <thead>
+          <tr>
+            <th>파일</th>
+            <th>원본</th>
+            <th>압축 후</th>
+            <th>감소</th>
+            <th>색 판별</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="btn-wrap"><button class="btn btn-download" id="zipAll">모두 받기 (ZIP)</button></div>
+    </div>
+    <div class="card" id="previewCard">
+      <p class="pv-name" id="pvName"></p>
+      <div class="previews">
+        <figure class="pv-box">
+          <div class="pv-icon"><img id="pvBefore" alt="원본"></div>
+          <figcaption>원본</figcaption>
+        </figure>
+        <figure class="pv-box">
+          <div class="pv-icon"><img id="pvAfter" alt="결과"></div>
+          <figcaption>결과</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/svg.js"></script>
+</body>
+</html>

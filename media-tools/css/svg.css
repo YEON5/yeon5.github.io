@@ -1,0 +1,44 @@
+.drop { padding:64px 16px; }
+
+.btn-wrap { display:flex; justify-content:center; margin-top:30px; }
+.files tr[data-i] { cursor:pointer; }
+.files tr.on td { background:#f7f8f9; }
+.files .note { display:block; margin-top:2px; font-size:12px; color:var(--sub); }
+.fail { color:#b3261e; font-weight:600; }
+.btn-download { padding:6px 16px; border-radius:20px; font-size:13px; font-weight:500; background:var(--nav-active-bg); color:var(--nav-text-active); white-space:nowrap; }
+.btn-download:hover { box-shadow:inset 0 0 0 99px var(--nav-hover-layer); }
+.btn-download:disabled { background:#e8e8ea; color:#a0a0a5; box-shadow:none; cursor:default; } /* 다운로드 불가: 회색 */
+.files th { white-space:nowrap; }
+.files td:last-child { text-align:center; } /* 다운로드 버튼 칸 */
+.msg { margin:12px 0 0; font-size:14px; color:#b3261e; }
+
+/* 색 판별 칸: 사용된 색 표시, 다색 → currentColor 버튼 */
+.color-chip { display:inline-flex; align-items:center; gap:4px; margin-right:8px; }
+.color-chip i { width:10px; height:10px; border-radius:2px; box-shadow:inset 0 0 0 1px rgb(0 0 0 / 15%); }
+.color-chip i.is-grad { background:linear-gradient(135deg, #665596, #f3edf7); }
+.btn-recolor { display:block; margin-top:6px; padding:4px 12px; border:1px solid var(--line); border-radius:20px; background:#fff; color:var(--nav-text); font-size:12px; font-weight:500; white-space:nowrap; }
+.btn-recolor:hover { box-shadow:inset 0 0 0 99px var(--nav-hover-layer); }
+
+/* 미리보기: 원본 / 결과 나란히 */
+.previews { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.pv-box { margin:0; }
+.pv-icon { display:flex; align-items:center; justify-content:center; height:200px; border-radius:8px; background:#f7f8f9 repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0/20px 20px; }
+.pv-icon img { width:96px; height:96px; }
+.pv-box figcaption { margin-top:8px; font-size:14px; color:var(--sub); text-align:center; }
+
+@media (max-width:599px) {
+  #previewCard { display:none; } /* 모바일에선 미리보기 숨김 */
+  .files th:nth-child(2), .files td:nth-child(2) { display:none; }
+  .files td, .files th { padding:8px 4px; font-size:13px; }
+  .files td:first-child { word-break:break-all; }
+}
+.opt-note { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+.opt-note li { position:relative; padding-left:14px; font-size:14px; line-height:20px; color:var(--sub); }
+.opt-note li::before { content:""; position:absolute; left:2px; top:8px; width:4px; height:4px; border-radius:50%; background:currentColor; }
+.result-card { margin-top:16px; }
+.pv-name { margin:0 0 12px; font-size:14px; color:var(--sub); }
+
+/* PC */
+@media (min-width: 600px) {
+  .drop { padding:100px 16px; }
+}
