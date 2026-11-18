@@ -12,7 +12,7 @@
 <body>
 <main>
   <div data-tabs></div>
-  <h1>SVG 최적화</h1>
+  <h1 class="h1-title">SVG 최적화</h1>
   <p class="desc">피그마에서 내보낸 SVG 아이콘을 끌어다 놓으면 정리·압축하고 아이콘용 색·크기로 맞춰서 받을 수 있어요. <br>파일은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</p>
 
   <div class="card">
@@ -26,7 +26,10 @@
     </ul>
   </div>
 
-  <div class="drop" id="drop">SVG 파일이나 폴더를 여기로 드래그하거나 클릭해서 선택 (최대 50개)<input type="file" id="file" accept=".svg,image/svg+xml" multiple hidden></div>
+  <div class="drop" id="drop">
+    <span>SVG 파일이나 폴더를 여기로 드래그하거나 클릭해서 선택 (최대 50개)</span>
+    <input type="file" id="file" accept=".svg,image/svg+xml" multiple hidden>
+  </div>
   <p class="msg" id="msg" hidden></p>
 
   <div id="result" hidden>
@@ -44,17 +47,23 @@
         </thead>
         <tbody id="rows"></tbody>
       </table>
-      <div class="btn-wrap"><button class="btn btn-download" id="zipAll">모두 받기 (ZIP)</button></div>
+      <div class="btn-wrap">
+        <button class="btn btn-download" id="zipAll">모두 받기 (ZIP)</button>
+      </div>
     </div>
     <div class="card" id="previewCard">
       <p class="pv-name" id="pvName"></p>
       <div class="previews">
         <figure class="pv-box">
-          <div class="pv-icon"><img id="pvBefore" alt="원본"></div>
+          <div class="pv-icon">
+            <img id="pvBefore" alt="원본">
+          </div>
           <figcaption>원본</figcaption>
         </figure>
         <figure class="pv-box">
-          <div class="pv-icon"><img id="pvAfter" alt="결과"></div>
+          <div class="pv-icon">
+            <img id="pvAfter" alt="결과">
+          </div>
           <figcaption>결과</figcaption>
         </figure>
       </div>

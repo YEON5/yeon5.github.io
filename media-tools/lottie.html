@@ -13,7 +13,7 @@
 <body>
 <main>
   <div data-tabs></div>
-  <h1>Lottie JSON 압축</h1>
+  <h1 class="h1-title">Lottie JSON 압축</h1>
   <p class="desc">피그마에서 내보낸 Lottie JSON을 끌어다 놓으면 용량을 줄여서 받을 수 있어요. 파일은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</p>
 
   <div class="card">
@@ -61,8 +61,14 @@
     <div class="card" id="previewCard">
       <p class="pv-title pv-name" id="pvName"></p>
       <div class="previews">
-        <div><div class="pv-title">원본</div><div class="pv" id="pvBefore"></div></div>
-        <div><div class="pv-title">압축 후 (차이가 없는지 확인하세요)</div><div class="pv" id="pvAfter"></div></div>
+        <div>
+          <div class="pv-title">원본</div>
+          <div class="pv" id="pvBefore"></div>
+        </div>
+        <div>
+          <div class="pv-title">압축 후 (차이가 없는지 확인하세요)</div>
+          <div class="pv" id="pvAfter"></div>
+        </div>
       </div>
     </div>
   </div>

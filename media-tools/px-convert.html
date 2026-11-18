@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front UI - px Convert</title>
+<link rel="stylesheet" href="css/common.css">
+<script src="/common/js/nav.js"></script>
+<link rel="stylesheet" href="css/px-convert.css">
+</head>
+<body>
+<main>
+  <div data-tabs></div>
+  <h1 class="h1-title">단위 변환</h1>
+  <p class="desc">px·rem·vw 값을 서로 바꿔요. 값 하나를 바로 계산하거나, CSS를 붙여넣어 한꺼번에 바꿀 수 있어요.</p>
+
+  <div class="card">
+    <h2 class="h2-title">빠른 계산</h2>
+    <div class="opt-row">
+      <div class="form-field">
+        <div class="form-label">
+          <label for="base">기준 폰트 크기</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="base" class="inp" min="1" step="any" value="10">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <label for="qVal">변환할 값</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="qVal" class="inp" step="any" value="24">
+          </div>
+          <div class="form-select">
+            <select id="qUnit" class="select" aria-label="단위">
+              <option value="px" selected>px</option>
+              <option value="rem">rem</option>
+              <option value="vw">vw</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="files calc">
+      <thead>
+        <tr>
+          <th>디자인 폭(width)</th>
+          <th>px</th>
+          <th>rem</th>
+          <th>vw</th>
+        </tr>
+      </thead>
+      <tbody id="qRows"></tbody>
+    </table>
+    <p class="calc-note">값을 누르면 복사돼요.</p>
+    <ul class="opt-note">
+      <li>html에 font-size: 62.5%를 주면 기준 폰트 크기는 10px이에요(브라우저 기본 16px × 62.5%). 따로 주지 않았다면 16px로 바꾸세요.</li>
+      <li>rem은 소수점 1자리, vw는 소수점 3자리까지 계산하고 끝의 0은 지워요.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 class="h2-title">CSS 일괄 변환</h2>
+    <div class="opt-row">
+      <div class="form-field">
+        <div class="form-label">
+          <label for="dir">변환</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="dir" class="select">
+              <option value="px-rem" selected>px → rem</option>
+              <option value="px-vw">px → vw</option>
+              <option value="rem-px">rem → px</option>
+              <option value="vw-px">vw → px</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="baseWrap">
+        <div class="form-label">
+          <label for="baseB">기준 폰트 크기</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="baseB" class="inp" min="1" step="any" value="10">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="widthWrap">
+        <div class="form-label">
+          <label for="width">디자인 폭(width)</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="width" class="select select-auto">
+              <option value="360">360px (Galaxy S8+)</option>
+              <option value="375" selected>375px (iPhone SE)</option>
+              <option value="390">390px (iPhone 12 Pro)</option>
+              <option value="768">768px (iPad Mini)</option>
+              <option value="820">820px (iPad Air)</option>
+              <option value="1024">1024px (iPad Pro)</option>
+              <option value="1920">1920px (PC Full HD)</option>
+              <option value="custom">직접 입력</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="customWrap" hidden>
+        <div class="form-label">
+          <label for="customW">디자인 폭(width)</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="customW" class="inp" min="1" step="1" value="1440">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="skipWrap">
+        <div class="form-label">
+          <label for="skip">작은 값 제외</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="skip" class="select">
+              <option value="0">제외 안 함</option>
+              <option value="1">1px 이하</option>
+              <option value="2">2px 이하</option>
+              <option value="3" selected>3px 이하</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="convert">
+      <div class="form-field">
+        <div class="form-label">
+          <label for="src">변환 전</label>
+        </div>
+        <div class="form-group">
+          <textarea id="src" class="textarea" spellcheck="false" placeholder=".title { font-size: 24px; margin: 0 0 16px; border: 1px solid #ddd; }"></textarea>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <label for="out">변환 후</label>
+          <span class="convert-count" id="count"></span>
+        </div>
+        <div class="form-group">
+          <textarea id="out" class="textarea" spellcheck="false" readonly></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn btn-copy" id="copyOut">변환 결과 복사</button>
+    </div>
+    <ul class="opt-note">
+      <li>@media 같은 조건, 주석, 따옴표·url() 안의 값, 선택자 이름, 0은 바꾸지 않아요.</li>
+      <li>작은 값 제외는 px을 rem·vw로 바꿀 때만 적용돼요. 1~3px 테두리를 rem·vw로 바꾸면 화면에 따라 흐려지거나 두께가 달라질 수 있어요.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 class="h2-title">반응형 변환</h2>
+    <div class="opt-row">
+      <div class="form-field">
+        <div class="form-label">
+          <label for="rLayout">시안 구성</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="rLayout" class="select select-auto">
+              <option value="3" selected>모바일 · 태블릿 · PC</option>
+              <option value="2">모바일 · PC</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <span>붙여넣을 CSS</span>
+        </div>
+        <div class="radio-group">
+          <label for="rTargetMob" class="form-radio">
+            <input type="radio" name="rTarget" id="rTargetMob" class="rdi" value="mob" checked>
+            <span class="rdi-txt">모바일</span>
+          </label>
+          <label for="rTargetTab" class="form-radio" id="rTabRadio">
+            <input type="radio" name="rTarget" id="rTargetTab" class="rdi" value="tab">
+            <span class="rdi-txt">태블릿</span>
+          </label>
+          <label for="rTargetPc" class="form-radio">
+            <input type="radio" name="rTarget" id="rTargetPc" class="rdi" value="pc">
+            <span class="rdi-txt">PC</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="opt-row resp-row">
+      <div class="form-field">
+        <div class="form-label">
+          <label for="rWidth">디자인 폭(width)</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="rWidth" class="select select-auto">
+              <option value="360">360px (Galaxy S8+)</option>
+              <option value="375" selected>375px (iPhone SE)</option>
+              <option value="390">390px (iPhone 12 Pro)</option>
+              <option value="768">768px (iPad Mini)</option>
+              <option value="820">820px (iPad Air)</option>
+              <option value="1024">1024px (iPad Pro)</option>
+              <option value="1920">1920px (PC Full HD)</option>
+              <option value="custom">직접 입력</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="rCustomWrap" hidden>
+        <div class="form-label">
+          <label for="rCustomW">디자인 폭(width)</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="rCustomW" class="inp" min="1" step="1" value="750">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="rTabWrap">
+        <div class="form-label">
+          <label for="rTab">태블릿 시작</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="rTab" class="inp" min="1" step="1" value="768">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <label for="rPc">PC 시작</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="rPc" class="inp" min="1" step="1" value="1024">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field" id="rCapWrap">
+        <div class="form-label">
+          <label for="rCap">크기 고정 시작</label>
+        </div>
+        <div class="form-group">
+          <div class="form-input">
+            <input type="number" id="rCap" class="inp" min="1" step="1" value="480">
+            <div class="on-right">
+              <span class="txt">px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <label for="rSkip">작은 값 제외</label>
+        </div>
+        <div class="form-group">
+          <div class="form-select">
+            <select id="rSkip" class="select">
+              <option value="0">제외 안 함</option>
+              <option value="1">1px 이하</option>
+              <option value="2">2px 이하</option>
+              <option value="3" selected>3px 이하</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="range-bar" id="rBar"></div>
+    <div class="convert">
+      <div class="form-field">
+        <div class="form-label">
+          <label for="rSrc">변환 전</label>
+        </div>
+        <div class="form-group">
+          <textarea id="rSrc" class="textarea" spellcheck="false" placeholder=".title { font-size: 24px; padding: 0 20px; }"></textarea>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-label">
+          <label for="rOut">변환 후</label>
+          <span class="convert-count" id="rCount"></span>
+        </div>
+        <div class="form-group">
+          <textarea id="rOut" class="textarea" spellcheck="false" readonly></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn btn-copy" id="rCopy">변환 결과 복사</button>
+    </div>
+    <ul class="opt-note">
+      <li>시안마다 그 시안의 CSS를 넣어 변환하고, 결과를 이어 붙이면 돼요. 구간을 양쪽 다 닫아서 순서와 상관없이 겹치지 않아요.</li>
+      <li>모바일은 크기 고정 시작 지점부터 커지지 않아요(min() 사용).</li>
+    </ul>
+  </div>
+</main>
+
+<script src="js/px-convert.js"></script>
+</body>
+</html>

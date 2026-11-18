@@ -1,0 +1,80 @@
+.opt-row { display:flex; align-items:center; flex-wrap:wrap; gap:16px 48px; }
+.h2-title { margin:0 0 20px; font-size:18px; font-weight:600; }
+
+/* 선택창·입력칸 (ui-codeview form-field 구조) */
+.form-field { display:inline-flex; align-items:center; flex-wrap:wrap; gap:8px; font-size:16px; }
+.form-field[hidden] { display:none; }
+.form-label label { font-size:inherit; }
+.form-label { white-space:nowrap; } /* 이름이 두 줄로 나뉘지 않게, 칸이 좁으면 선택창이 다음 줄로 */
+.form-group { display:inline-flex; align-items:center; gap:8px; }
+.form-input { display:inline-flex; align-items:center; gap:8px; }
+.form-select .select, .form-input .inp { font:inherit; padding:4px 8px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+.form-select .select { width:110px; }
+.form-select .select-auto { width:auto; } /* 기기 이름까지 보이도록 가장 긴 항목에 맞춤 */
+.form-input .inp { width:96px; }
+
+/* 라디오 (ui-codeview .radio-group / .form-radio 구조, 크기·색은 M3) */
+.radio-group { display:flex; align-items:center; flex-wrap:wrap; gap:8px 24px; }
+.form-radio { display:flex; align-items:center; position:relative; font-size:16px; cursor:pointer; }
+.form-radio[hidden] { display:none; }
+.form-radio .rdi-txt { padding-left:8px; }
+.form-radio input[type=radio] { appearance:none; position:relative; flex:none; width:20px; height:20px; margin:0; border:2px solid #49454e; border-radius:50%; background:#fff; cursor:pointer; }
+.form-radio input[type=radio]::before { /* hover·focus 시 원형 배경 */
+  content:""; position:absolute; left:50%; top:50%; width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
+  background:rgb(102 85 150 / 10%); opacity:0; transition:opacity .15s;
+}
+.form-radio:hover input[type=radio]::before, .form-radio input[type=radio]:focus-visible::before { opacity:1; }
+.form-radio input[type=radio]::after { /* 선택 표시 */
+  content:""; position:absolute; left:50%; top:50%; width:10px; height:10px; margin:-5px 0 0 -5px; border-radius:50%;
+  background:#665596; transform:scale(0); transition:transform .2s cubic-bezier(.4, 0, .23, 1);
+}
+.form-radio input[type=radio]:checked { border-color:#665596; }
+.form-radio input[type=radio]:checked::after { transform:scale(1); }
+
+/* 반응형 변환: 구간 표시 */
+.resp-row { margin-top:20px; }
+.range-bar { display:grid; grid-auto-columns:1fr; grid-auto-flow:column; gap:4px; margin-top:24px; }
+.range-item { padding:10px 12px; border-radius:8px; background:#f7f8f9; color:#a0a0a5; font-size:13px; line-height:18px; }
+.range-item b { display:block; font-weight:600; }
+.range-item.is-on { background:var(--nav-active-bg); color:var(--nav-text-active); }
+.range-item.is-on span { color:var(--nav-text); }
+
+/* 빠른 계산 결과 */
+.calc { margin-top:20px; }
+.calc th, .calc td { white-space:nowrap; }
+.calc th:first-child, .calc td:first-child { padding-left:0; } /* 첫 열을 카드 왼쪽 끝에 맞춤 */
+.calc .device { display:block; margin-top:2px; font-size:12px; color:var(--sub); } /* 기기 이름 */
+.calc td:has(.copy-val) { position:relative; }
+.copy-val { padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer; }
+.copy-val::after { content:""; position:absolute; inset:2px; border-radius:6px; } /* 누르는 영역을 칸 전체로 */
+.copy-val:hover::after { background:var(--nav-hover-layer); }
+.copy-val:focus-visible { outline:0; }
+.copy-val:focus-visible::after { outline:2px solid var(--nav-text-active); }
+.copy-val.is-copied { color:#0a8f4a; font-weight:600; }
+.calc-note { margin:8px 0 0; font-size:12px; color:var(--sub); }
+
+/* CSS 일괄 변환: 변환 전 / 변환 후 */
+.convert { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+.convert .form-field { display:flex; flex-direction:column; align-items:stretch; min-width:0; }
+.convert .form-label { display:flex; justify-content:space-between; font-size:14px; }
+.convert-count { font-size:14px; color:var(--sub); }
+.convert .form-group { display:block; }
+.convert .textarea { display:block; width:100%; height:400px; padding:12px; border:1px solid var(--line); border-radius:8px; resize:vertical; font:13px/1.6 Consolas, Menlo, monospace; }
+.convert .textarea[readonly] { background:#f7f8f9; }
+
+.btn-wrap { display:flex; justify-content:center; margin-top:30px; }
+.btn-copy { padding:6px 16px; border-radius:20px; font-size:13px; font-weight:500; background:var(--nav-active-bg); color:var(--nav-text-active); white-space:nowrap; }
+.btn-copy:hover { box-shadow:inset 0 0 0 99px var(--nav-hover-layer); }
+
+.opt-note { margin:30px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+.opt-note li { position:relative; padding-left:14px; font-size:14px; line-height:20px; color:var(--sub); }
+.opt-note li::before { content:""; position:absolute; left:2px; top:8px; width:4px; height:4px; border-radius:50%; background:currentColor; }
+
+/* 모바일 */
+@media (max-width: 599px) {
+  .opt-row { gap:22px 48px; }
+  .range-bar { grid-auto-flow:row; }
+  .convert { grid-template-columns:1fr; }
+  .convert .textarea { height:200px; }
+  .calc td, .calc th { padding:8px 4px; font-size:13px; }
+}

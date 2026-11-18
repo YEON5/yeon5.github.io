@@ -13,7 +13,8 @@
       items: [
         { label: 'Lottie JSON 압축', href: '/media-tools/lottie.html' },
         { label: '이미지 압축', href: '/media-tools/image.html' },
-        { label: 'SVG 최적화', href: '/media-tools/svg.html' }
+        { label: 'SVG 최적화', href: '/media-tools/svg.html' },
+        { label: '단위 변환', href: '/media-tools/px-convert.html' }
       ]
     },
     { label: 'Code', icon: 'code', href: '/ui-codeview/' }
